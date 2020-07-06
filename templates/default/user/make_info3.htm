@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <title>完善资料_{#$QISHI.site_name#}</title>
+        <script>
+            $(document).ready(function () {
+                function menuDown(menuId) {
+                    $("#" + menuId + " div.text").click(function () {
+                        $(".select_box").find('ul.list').slideUp("fast");
+                        $("#" + menuId).find('ul.list').slideDown('fast');
+                        //生成背景
+                        $("#" + menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $("#" + menuId).find('ul.list').slideUp("fast");
+                            $("#" + menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $("#" + menuId).find('ul.list').on('click', 'li', function () {
+                        var data = $(this).attr("data");
+                        var text = $(this).find('span').html();
+                        $("#" + menuId).find('input[type="hidden"]').val(data);
+                        $("#" + menuId).find('div.text span').html(text);
+                        $("#" + menuId).find('ul.list').slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                    });
+                }
+                menuDown('education');
+                menuDown('experience');
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box make_info3">
+                <div class="top">
+                    <p class="cur"><span>1</span>个人资料</p>
+                    <hr class="cur"/>
+                    <p class="cur"><span>2</span>工作意向</p>
+                    <hr class="cur"/>
+                    <p class="cur"><span>3</span>创建简历</p>
+                </div>
+                <div class="clear"></div>
+                <div class="ok_box">
+                    <img src="{#$QISHI.site_template#}images/2017/ok.png"  height="72" />
+                </div>
+                <div class="text_box">
+                    <p>恭喜您已完成简历创建，差一步，即可获取高薪职位!</p>
+                </div>
+                <div class="button_box">
+                    <a class="online" href="/user/personal/personal_resume.php?act=edit_resume">完善简历</a>
+                    <a class="attachment">上传附件</a>
+                    <script>
+                        $(".attachment").click(function () {
+                            $('div.attachment_box').show();
+                        })
+                    </script>
+                </div>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <div class="attachment_box">
+            <div class="content_box">
+                <div class="top">
+                    <span>上传附件简历</span>
+                    <a class="close"></a>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <span>选择上传文件</span>
+                    <input id="attachment_resume" name="attachment_resume" class="attachment_resume" type="file" />
+                    <div class="clear"></div>
+                    <p>文件大小需小于10M</p>
+                    <p>支持word、pdf、ppt、txt、wps格式文件</p>
+                </div>
+            </div>
+            <div class="bg"></div>
+            <script>
+                $('div.attachment_box a.close').click(function () {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box div.bg').click(function () {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box').on('change', '#attachment_resume', function () {
+                    $.ajaxFileUpload({
+                        url: '/user/personal/personal_resume.php?act=upload_attachment_resume',
+                        secureuri: false,
+                        fileElementId: 'attachment_resume',
+                        dataType: 'string',
+                        success: function (data, status) {
+                            var f = data.substr(0, 1);
+                            if (f == "-") {
+                                switch (data) {
+                                    case "-1":
+                                        alert("上传失败：上传目录不存在!");
+                                        return false;
+                                        break;
+                                    case "-2":
+                                        alert("上传失败：上传目录无法写入!");
+                                        return false;
+                                        break;
+                                    case "-3":
+                                        alert("上传失败：你选择的文件无法上传");
+                                        return false;
+                                        break;
+                                    case "-4":
+                                        alert("上传失败：文件大小超过限制");
+                                        return false;
+                                        break;
+                                    case "-5":
+                                        alert("上传失败：文件类型错误！");
+                                        return false;
+                                        break;
+                                    case "-6":
+                                        alert("上传失败：文件上传出错！");
+                                        return false;
+                                        break;
+                                    case "-7":
+                                        alert("参数错误！");
+                                        return false;
+                                        break;
+                                    case "-9":
+                                        alert("最多只能上传1个附件！");
+                                        return false;
+                                        break;
+                                    case "-10":
+                                        alert("请上传文件！");
+                                        return false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            } else {
+                                window.location.href = '/user/personal/personal_resume.php?act=edit_resume';
+                            }
+                        }
+                    })
+                })
+
+            </script>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>

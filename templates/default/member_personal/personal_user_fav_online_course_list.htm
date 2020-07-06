@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_user_fav_online_course_list.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;收藏的课程</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a href="/user/personal/personal_user.php?act=online_course">购买的课程</a>
+                        <p>收藏的课程</p>
+                    </div>
+
+                    {#if $fav_list#}
+                    <ul class="list">
+                        {#foreach from=$fav_list item=list#}
+                        <li>
+                            <img class="c_img" src="{#$list.course.thumb#}" width="147" height="97" />
+                            <div class="info_box">
+                                <a class="c_title" href="/zhaokao/kaoshi/{#$list.course.id#}.htm">{#$list.course.title#}</a>
+                                <div class="clear"></div>
+                                <span class="c_price">${#$list.course.price#}</span>
+                                <div class="clear"></div>
+                                <span class="c_time"><i></i>{#$list.addtime|date_format:"%Y-%m-%d %H:%M:%S"#}</span>
+                            </div>
+                            <a data-id="{#$list.id#}" class="c_close"  ></a>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    <script>
+                        $('ul.list li').mouseover(function () {
+                            $(this).find('.c_close').show();
+                        }).mouseleave(function () {
+                            $(this).find('.c_close').hide();
+                        })
+                        $('.c_close').click(function () {
+                            if (confirm('您确定删除吗?')) {
+                                var fid = $(this).attr('data-id');
+                                $.get('?act=del_online_course_fav&id=' + fid, function () {
+                                    alert('删除成功！');
+                                    location.reload()
+                                })
+                            }
+                        })
+                    </script>
+                    {#if $page#}
+                    <div class="clear"></div>
+                    <div class="page_box">{#$page#}</div>
+                    {#/if#}
+                    {#else#}
+                    <div class="clear"></div>
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>暂时没有收藏课程，<a href="/zhaokao/">去看看~~</a></p>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="profile">
+                                <a href="/user/personal/personal_user.php?act=userprofile"><i></i><span>个人资料</span></a>
+                            </li>
+                            <li class="pm">
+                                <a href="/user/personal/personal_user.php?act=pm"><i></i><span>我的消息</span></a>
+                            </li>
+                            <!--
+                            <li class="online_course">
+                                <a href="/user/personal/personal_user.php?act=online_course"><i></i><span>招考中心</span></a>
+                            </li>
+                            -->
+                            <li class="password_edit">
+                                <a href="/user/personal/personal_user.php?act=password_edit"><i></i><span>密码安全</span></a>
+                            </li>
+                            <li class="login_log">
+                                <a href="/user/personal/personal_user.php?act=login_log"><i></i><span>登录日志</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item_box">
+                        <a class="my_resume" href="/user/personal/personal_resume.php?act=edit_resume"><i></i><span>我的简历</span></a>
+                    </div>
+                    <!--
+                    <div class="item_box">
+                        <a class="zhaokao_qq" href="#"><i></i><span>招考客服QQ</span></a>
+                    </div>
+                    <div class="ad_box">
+                        <a href="#">
+                            <img src="images/2017/login_bg.jpg" width="280" height="280" />
+                        </a>
+                    </div>
+                    -->
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

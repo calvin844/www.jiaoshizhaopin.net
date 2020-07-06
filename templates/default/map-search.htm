@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />{#qishi_pageinfo set="列表名:page,调用:QS_map"#}
+        <title>{#$page.title#}</title>
+        <meta name="description" content="{#$page.description#}"/>
+        <meta name="keywords" content="{#$page.keywords#}"/>
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/map-search-layer.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+        <script src="{#$QISHI.site_template#}js/jquery.pagination.js" type="text/javascript"></script>
+        <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+        <script language="javascript">
+            $(document).ready(function ()
+            {
+                var id = "{#$smarty.get.id#}";
+                $.getScript("{#$QISHI.website_dir#}plus/ajax_map.php?id=" + id);
+            });
+        </script>
+    </head>
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div class="page_location link_bk">
+            当前位置：<a href="{#$QISHI.index_url#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_jobs"|qishi_url#}">招聘信息</a>&nbsp;>&nbsp;<a href="{#"QS_map,id:1"|qishi_url#}">地图搜索</a>&nbsp;>&nbsp;搜索结果
+        </div> 
+        <div class="jobsearch" style="height:auto;padding-bottom:10px;">
+            <div class="jobnav">
+                <span>搜索方式 : </span>
+                <a href="{#"QS_jobslist"|qishi_url#}">全能搜索</a>
+                <!--<a href="{#"QS_street"|qishi_url#}">按道路搜索</a>-->
+                <a href="{#"QS_map,id:1"|qishi_url#}" class="select">地图搜索</a>
+                <a href="{#"QS_jobtag"|qishi_url#}" >按标签搜索</a>
+            </div>
+
+
+        </div>
+        <div class="mapnav">
+            <div class="left link_bk"> 
+                <!--<div class="fdiv {#if $smarty.get.id=="1" || $smarty.get.id==""#}select{#/if#}" ><a href="{#"QS_map,id:1"|qishi_url#}" >视野内搜索</a></div>
+                 <div class="fdiv {#if $smarty.get.id=="2"#}select{#/if#}"><a href="{#"QS_map,id:2"|qishi_url#}" class="a1">按职位搜索</a></div>
+                 <div class="fdiv {#if $smarty.get.id=="3"#}select{#/if#}"><a href="{#"QS_map,id:3"|qishi_url#}" class="a2">按地区搜索</a></div>
+                 <div class="fdiv {#if $smarty.get.id=="4"#}select{#/if#}"><a href="{#"QS_map,id:4"|qishi_url#}" class="a3">按行业搜索</a></div>
+                 <div class="fdiv {#if $smarty.get.id=="5"#}select{#/if#}"><a href="{#"QS_map,id:5"|qishi_url#}" class="a4">全文搜索</a></div>
+                <div class="fdiv {#if $smarty.get.id=="6"#}select{#/if#}"> <a href="{#"QS_map,id:6"|qishi_url#}" class="a5">最新职位</a> </div>      -->                       
+                <div class="clear"></div>
+            </div>
+            <div class="right link_bk">
+                <a href="javascript:window.print();" class="a6" >打印本页</a>
+                <a href="javascript:" onclick="window.external.addFavorite(parent.location.href, document.title);" class="a6">收藏本页</a> 
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="map">
+
+            <div class="left">
+                <div class="mapcontainer" id="mapcontainer"></div>
+                <div class="maploading"><img src="{#$QISHI.site_template#}images/90.gif" />加载中...</div>
+            </div>
+
+            <div class="right">
+                <div class="infotiploading" id="infotiploading">正在为您查找，请稍后...</div>
+                <div class="infotipshow" id="infotipshow">正在为您查找，请稍后...</div>
+
+
+                <!--{#if $smarty.get.id=="2"#}
+                <script src="{#$QISHI.site_template#}js/jquery.selectlayer.js" type='text/javascript' ></script>
+                <script type="text/javascript"> 
+                $(document).ready(function()
+                {
+                OpenCategory("#category_cn","#category_cn","#jobcategory","{#$QISHI.website_dir#}",12,"");
+                });
+                </script>
+                <div class="typebox">
+                        <div class="searchtit">请选择职位类别</div>			
+                    <div class="searchinput">
+                                <div>
+                                <input name="category_cn" type="text" value="{#$smarty.get.category_cn|default:"请选择职位类别"#}"  readonly="true" id="category_cn" class="selectinput"/>
+                                <input name="jobcategory" id="jobcategory" type="hidden" value="" />
+                                </div>
+                        </div>
+                        <div class="searchbutton"><input type="submit" id="search" name="Submit" value="" class="searcsubmit"/></div>
+                </div>
+                {#elseif $smarty.get.id=="3"#}
+                <script src="{#$QISHI.site_template#}js/jquery.selectlayer.js" type='text/javascript' ></script>
+                <script type="text/javascript"> 
+                $(document).ready(function()
+                {
+                OpenCity("#district_cn","#district_cn","#citycategory","{#$QISHI.website_dir#}",12,"");
+                });
+                </script>
+                <div class="typebox">
+                        <div class="searchtit">请选择地区</div>			
+                    <div class="searchinput">
+                                <div>
+                                <input name="district_cn" type="text" value="{#$smarty.get.district_cn|default:"请选择地区"#}"  readonly="true" id="district_cn" class="selectinput"/>
+                                <input name="citycategory" id="citycategory" type="hidden" value="" />
+                                </div>
+                        </div>
+                        <div class="searchbutton"><input type="submit" id="search" name="Submit" value="" class="searcsubmit"/></div>
+                </div>
+                {#elseif $smarty.get.id=="4"#}
+                <script src="{#$QISHI.site_template#}js/jquery.selectlayer.js" type='text/javascript' ></script>
+                <script type="text/javascript"> 
+                $(document).ready(function()
+                {
+                OpentradeLayer("#trade_cn","#trade_cn","#trade","{#$QISHI.website_dir#}",12,"");
+                });
+                </script>
+                <div class="typebox">
+                        <div class="searchtit">请选择行业</div>			
+                    <div class="searchinput">
+                                <div>
+                <input name="trade_cn" id="trade_cn" type="text" value="请选择行业"  readonly="true" class="selectinput"/>
+                <input name="trade" id="trade" type="hidden" value="" />
+                                </div>
+                        </div>
+                        <div class="searchbutton"><input type="submit" id="search" name="Submit" value="" class="searcsubmit"/></div>
+                </div>
+                {#elseif $smarty.get.id=="5"#}
+                <script type="text/javascript"> 
+                $(document).ready(function()
+                {
+                        $("#key").focus(function()
+                        {
+                                if ($("#key").val()=="请输入关键字...")
+                                {
+                                $("#key").val('');
+                                $("#key").css("color","");
+                                }  
+                        });
+                });
+                </script>
+                <div class="typebox">
+                        <div class="searchtit">请输入关键字</div>			
+                    <div class="searchinput">
+                                <div>
+                <input name="key" type="text" class="keyinput" id="key" style="color: #999999" value="请输入关键字..." maxlength="8"/>
+                                </div>
+                        </div>
+                        <div class="searchbutton"><input type="submit" id="search" name="Submit" value="" class="searcsubmit"/></div>
+                </div>
+                {#/if#}-->
+
+
+                <div class="listbox">
+                    <div class="listloading"><img src="{#$QISHI.site_template#}images/90.gif" /></div>
+                    <div class="list link_lan">
+                        <div class="tit"><strong id="infotit">搜索结果</strong></div>
+                        <ul id="infolist"><li class="noinfo">加载中...</li></ul>
+                        <div id="pagination" class="pagination"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>		
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        {#include file="footer.htm"#}
+    </body>
+</html>

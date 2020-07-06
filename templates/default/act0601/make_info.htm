@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_完善资料_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+    </head>
+    <body id="make_info">
+        <script>
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    ignore: "",
+                    rules: {
+                        fullname: {
+                            required: true
+                        },
+                        education_str: {
+                            required: true
+                        },
+                        district: {
+                            required: true
+                        },
+                        parent_job_type_id: {
+                            required: true
+                        },
+                        experience_str: {
+                            required: true
+                        },
+                        specialty: {
+                            required: true,
+                            minlength: 20,
+                            maxlength: 200
+                        },
+                        certificate: {
+                            required: true
+                        },
+                        telephone: {
+                            required: true,
+                            minlength: 11,
+                            isMobile: true
+                        },
+                        code: {
+                            required: true,
+                            minlength: 4
+                        }
+                    },
+                    messages: {
+                        fullname: {
+                            required: "请填写姓名"
+                        },
+                        education_str: {
+                            required: "请选择学历"
+                        },
+                        district: {
+                            required: "请选择地区"
+                        },
+                        parent_job_type_id: {
+                            required: "请选择执教科目"
+                        },
+                        experience_str: {
+                            required: "请选择工作经验"
+                        },
+                        specialty: {
+                            required: "请填写自我描述",
+                            minlength: "自我描述不能少于20字",
+                            maxlength: "自我描述不能多于200字"
+                        },
+                        certificate: {
+                            required: "请上传教师资格证"
+                        },
+                        telephone: {
+                            required: "请填写手机号码",
+                            minlength: "手机号格式错误",
+                            isMobile: "手机号格式错误"
+                        },
+                        code: {
+                            required: "请填写验证码",
+                            minlength: "验证码格式错误"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.parent());
+                        else
+                            error.appendTo(element.parent());
+                    }
+                });
+                jQuery.validator.addMethod("isMobile", function (value, element) {
+                    var length = value.length;
+                    var mobile = /^(1)\d{10}$/;
+                    return this.optional(element) || (length == 11 && mobile.test(value));
+                }, "请正确填写您的手机号码");
+
+            });
+        </script>
+
+        <div id="header">
+            <div class="top">
+                <div class='main_box'>
+                    <a class="logo" href="/" title="中国教师招聘网"></a>
+                    <ul class="fleft">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/company">学校</a></li>
+                        <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                        <li><a href="/morejobs">简章</a></li>
+                        <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                        <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                        <li><a href="/act0601/index.php">我的得意门生</a></li>
+                    </ul>
+                    <ul class="fright">
+                        <?php if(empty($_SESSION['username'])):?>
+                        <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                        <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                        <?php else:?>
+                        <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="title">
+                        <i></i>
+                        <div class="fleft">
+                            {#if !empty($leader_resume)#}
+                            <p>{#$leader_resume.fullname#}邀请您加入TA的评审团，完善资料马上助力</p>
+                            {#else#}
+                            {#if !empty($uteam) && $item.audit == 2#}
+                            <p>恭喜您，您的作品已通过审核</p>
+                            {#elseif !empty($uteam) && $item.audit == 1#}
+                            <p>恭喜您，上传成功，小编正在加班审核！</p>
+                            {#elseif !empty($uteam) && $item.audit > 2#}
+                            <p>很遗憾，您的作品未能通过审核，立即修改。</p>
+                            {#else#}
+                            <p>恭喜您，上传成功，小编正在加班审核！</p>
+                            {#/if#}
+                            {#if !empty($uteam) && $item.audit == 2#}
+                            <span>您已获得精美U盘，活动结束后统一邮寄</span>
+                            {#else#}
+                            <span>审核通过，即可获得精美U盘，记得留下邮寄奖品的联系方式哦！</span>
+                            {#/if#}
+                            {#/if#}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    {#if empty($leader_resume)#}
+                    <p class="title_tip">您可以邀请10个嘉宾导师为“得意门生”加油助威哦，立即邀请。</p>
+                    {#/if#}
+
+                    <form id="Form1" action="?act=save" method="post">
+                        <input type="hidden" name="team_id" value=" {#$smarty.get.team_id#}"/>
+                        <ul>
+                            <li><label class="i_title">姓名：</label><input class="w300" type="text" name="fullname" value="{#if !empty($resume.fullname)#}{#$resume.fullname#}{#/if#}" /></li>
+                            <li>
+                                <label class="i_title">学历：</label>
+                                <select name="education_str">
+                                    {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                    {#foreach from=$c_education item=list#}
+                                    <option {#if $resume.education == $list.id#}selected{#/if#} value="{#$list.id#}-{#$list.categoryname#}">{#$list.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                            </li>
+                            <li>
+                                <label class="i_title">工作经验：</label>
+                                <select name="experience_str">
+                                    {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                    {#foreach from=$c_experience item=list#}
+                                    <option {#if $resume.experience == $list.id#}selected{#/if#} value="{#$list.id#}#{#$list.categoryname#}">{#$list.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                            </li>
+                            <li>
+                                <label class="i_title">地区：</label>
+                                <select name="district" id="district">
+                                    {#foreach from=$district item=c#}
+                                    <option {#if $resume.district == $c.id#}selected{#/if#} value="{#$c.id#}">{#$c.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                                <select class="select" name="sdistrict" id="sdistrict" >
+                                    <option value='0'>全部</option>
+                                    {#foreach from=$sdistrict item=c#}
+                                    <option {#if $resume.sdistrict == $c.id#}selected{#/if#} value="{#$c.id#}">{#$c.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                                <script>
+                                    $('select#district').change(function () {
+                                        $.get('?act=get_city&pid=' + $('select#district').val(), function (data) {
+                                            var data_arr = data.split("||");
+                                            var str = "<option value='0'>全部</option>";
+                                            for (var i = 0; i < data_arr.length; i++) {
+                                                var item = data_arr[i].split("-");
+                                                str = str + "<option value='" + item[0] + "'>" + item[1] + "</option>";
+                                            }
+                                            $('select#sdistrict').html(str)
+                                        })
+                                    })
+                                </script>
+                            </li>
+                            <li>
+                                <label class="i_title">执教科目：</label>
+                                <select class="select" name="parent_job_type_id" id="parent_jobs" >
+                                    {#foreach from=$parent_jobs item=j#}
+                                    <option {#if $resume_jobs.category == $j.id#}selected{#/if#} value="{#$j.id#}">{#$j.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                                <select class="select" name="job_type_id" id="jobs">
+                                    <option disabled value ="0">全部</option>
+                                    {#foreach from=$jobs item=j#}
+                                    <option {#if $resume_jobs.subclass == $j.id#}selected{#/if#} value="{#$j.id#}">{#$j.categoryname#}</option>
+                                    {#/foreach#}
+                                </select>
+                                <script>
+                                    $('select#parent_jobs').change(function () {
+                                        $.get('?act=get_jobs&pid=' + $('select#parent_jobs').val(), function (data) {
+                                            var data_arr = data.split("||");
+                                            var str = "<option disabled value='0'>全部</option>";
+                                            for (var i = 0; i < data_arr.length; i++) {
+                                                var item = data_arr[i].split("-");
+                                                str = str + "<option value='" + item[0] + "'>" + item[1] + "</option>";
+                                            }
+                                            $('select#jobs').html(str)
+                                        })
+                                    })
+                                </script>
+                            </li>
+                            <li class="content_li">
+                                <label class="i_title">个人简介：</label>
+                                <p id="text_count"><var class="word">200</var>/<var>200</var></p>
+                                <textarea id="news_content" name="specialty">{#if !empty($resume.specialty)#}{#$resume.specialty#}{#/if#}</textarea>
+                                <script>
+                                    $('#news_content').blur(function () {
+                                        var haha = $(this).val();
+                                        haha = haha.replace('<br />', '/n');
+                                        $(this).val(haha);
+                                    })
+                                    $(function () {
+                                        statInputNum($("#news_content"), $("#text_count").find(".word"));
+                                    });
+                                    /*
+                                     * 剩余字数统计
+                                     * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
+                                     */
+                                    function statInputNum(textArea, numItem) {
+                                        var max = numItem.text(),
+                                                curLength;
+                                        textArea[0].setAttribute("maxlength", max);
+                                        curLength = textArea.val().length;
+                                        numItem.text(max - curLength);
+                                        textArea.on('input propertychange', function () {
+                                            var _value = $(this).val().replace(/\n/gi, "");
+                                            numItem.text(max - _value.length);
+                                        });
+                                    }
+                                </script>
+                            </li>
+                            <li style="height: auto;">
+                                <label class="i_title">教师资格证：</label>
+                                <div class="up_photo_box">
+                                    <input style="{#if !empty($resume_certificate.path)#}display: none;{#/if#}" type="file" name="photo" id="photo" class="up_photo" onchange ="uploadFile()" />
+                                    <div class="clear"></div>
+                                    <img style="{#if empty($resume_certificate.path)#}display: none;{#/if#}" src="{#if !empty($resume_certificate.path)#}/data/resume_certificate/{#$resume_certificate.path#}{#/if#}" id="photo_show" width='300' />
+                                    <input type="hidden" name="certificate" id="photo_value" value="{#if !empty($resume_certificate.path)#}{#$resume_certificate.path#}{#/if#}" />
+                                </div>
+                                <script>
+                                    function uploadFile() {
+                                        $.ajaxFileUpload({
+                                            url: '?act=up_certificate',
+                                            secureuri: false,
+                                            fileElementId: 'photo',
+                                            dataType: 'STRING',
+                                            success: function (data, status) {
+                                                var f = data.substr(0, 1);
+                                                if (f == "-") {
+                                                    switch (data) {
+                                                        case "-1":
+                                                            alert("上传图片失败：上传目录不存在!");
+                                                            return false;
+                                                            break;
+                                                        case "-2":
+                                                            alert("上传图片失败：上传目录无法写入!");
+                                                            return false;
+                                                            break;
+                                                        case "-3":
+                                                            alert("上传图片失败：你选择的文件无法上传");
+                                                            return false;
+                                                            break;
+                                                        case "-4":
+                                                            alert("上传图片失败：文件大小超过限制");
+                                                            return false;
+                                                            break;
+                                                        case "-5":
+                                                            alert("上传图片失败：文件类型错误！");
+                                                            return false;
+                                                            break;
+                                                        case "-6":
+                                                            alert("上传图片失败：文件上传出错！");
+                                                            return false;
+                                                            break;
+                                                        case "-7":
+                                                            alert("请刷新页面后再试！");
+                                                            return false;
+                                                            break;
+                                                        case "-8":
+                                                            alert("请上传图片！");
+                                                            return false;
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                } else {
+                                                    $('#photo_show').show();
+                                                    $('#photo_show').attr('src', "/data/resume_certificate/" + data);
+                                                    $('#photo_value').attr('value', data);
+                                                }
+                                            }
+                                        })
+                                    }
+                                </script>
+                            </li>
+                            <li>
+                                <label class="i_title">手机号：</label>
+                                <input class="w300" type="text" value="" name="telephone" id="telephone" />
+                            </li>
+                            <li>
+                                <label class="i_title">验证码：</label>
+                                <input name="code" id="code" class="w100" type="text" value="" />
+                                <input id="send_code" class="send_code" type="button" value="获取验证码" />
+                                <div class="clear"></div>
+                                <script>
+                                    function check_phone() {
+                                        $.get('?act=check_telephone&phone=' + $('#telephone').val(), function (data) {
+                                            if (data != 1) {
+                                                alert("手机号已被使用！");
+                                                $('#telephone').val("");
+                                                $('#telephone').focus();
+                                                return false;
+                                            } else {
+                                                var mobile = /^(1)\d{10}$/;
+                                                if (!mobile.test($('#telephone').val())) {
+                                                    alert("手机号格式错误！");
+                                                    $('#telephone').val("");
+                                                    $('#telephone').focus();
+                                                    return false;
+                                                }
+                                            }
+                                        })
+                                    }
+
+                                    $('#telephone').blur(function () {
+                                        if ($(this).val() != "") {
+                                            check_phone();
+                                        }
+                                    })
+
+                                    $("#send_code").on('click', function () {
+                                        if ($("#telephone").val() != "") {
+                                            var url = "?act=send_code&phone=" + $("#telephone").val();
+                                            $.get(url, function (result) {
+                                                timer($('#send_code'));
+                                            });
+                                        } else {
+                                            alert('请填写手机号');
+                                        }
+                                    })
+                                    var countdown = 60;
+                                    var t;
+                                    function timer(val) {
+                                        t = setInterval(function () {
+                                            settime(val)
+                                        }, 1000)
+                                    }
+                                    function settime(val) {
+                                        if (countdown == 0) {
+                                            clearInterval(t)
+                                            val.removeAttr("disabled");
+                                            val.val("获取验证码");
+                                            countdown = 60;
+                                        } else {
+                                            val.attr("disabled", true);
+                                            val.val("重新获取(" + countdown + ")");
+                                            countdown--;
+                                        }
+                                    }
+                                </script>
+                            </li>
+                            <li><input class="submit" id="info_save" type="submit" value="提交" /></li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="right_box">
+                    {#if !empty($resume.photo_img)#}
+                    <img src="/data/photo/{#$resume.photo_img#}" width="180" height="180" />
+                    {#/if#}
+                    <ul>
+                        <li><a href="/act0601/share.php">我的活动中心</a></li>
+                        {#if empty($item)#}
+                        <li><a href="/act0601/upload.php">我的学生作品</a></li>
+                        {#else#}
+                        <li><a href="/act0601/details.php?id={#$item.id#}">我的学生作品</a></li>
+                        {#/if#}
+                        <li class="hover"><a href="/act0601/user.php?act=make_info">完善个人资料</a></li>
+                        <li><a href="/act0601/ilist.php">更多参赛作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

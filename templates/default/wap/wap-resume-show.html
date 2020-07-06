@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=false;"  />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>{#$show.fullname#}的个人简历 - {#$QISHI.site_name#}</title>
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/resume.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+<script src="js/jquery.common.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//打开顶部菜单
+	$("#topmenu_sub").click( function () { 
+		$("#topmenu").slideToggle("fast");
+	});
+  var id="{#$show.id#}";
+  var tsTimeStamp= new Date().getTime();
+  $.get("{#$QISHI.main_domain#}plus/wap_ajax.php", { "id": id,"time":tsTimeStamp,"act":"resume_contact"},
+      function (data,textStatus)
+       {      
+        $(".telbox").html(data);
+        //下载简历
+        $("#download").click(function(){
+        var url="{#$QISHI.main_domain#}user/user_download_resume.php?id="+id+"&act=download&t="+tsTimeStamp;
+        dialog("下载简历","url:get?"+url,"500px","auto","");
+        }); 
+        //邀请面试
+        $("#invited").click(function(){
+        var url="{#$QISHI.main_domain#}user/user_invited.php?id="+id+"&act=invited&t="+tsTimeStamp;
+        dialog("邀请面试","url:get?"+url,"500px","auto","");
+        }); 
+        //添加都人才库
+        $(".add_resume_pool").click(function(){
+        var url="{#$QISHI.main_domain#}user/user_favorites_resume.php?id="+id+"&act=add&t="+tsTimeStamp;
+        dialog("添加到人才库","url:get?"+url,"500px","auto","");        
+        }); 
+       }
+    );
+});
+</script>
+</head>
+<body>
+<div class="sub_bodybg"></div>
+<div class="sub_head_top">
+	<div class="title">{#$show.fullname#}的个人简历</div>
+	<div class="back" id="pageback"><img src="images/18.jpg" alt="#"   border="0"/></div>  
+	<div class="menu" id="topmenu_sub"><a href="#"><img src="images/2.jpg"  border="0"/></a></div>
+</div>
+
+
+<!--快捷按钮 -->
+{#include file="top-menu.html"#}
+<!--快捷按钮 -->
+
+ 
+
+<div class="resume_show_box">
+  <div class="title"><h2>基本信息</h2></div>
+  <div class="txt">
+  <div class="l">真实姓名：{#$show.fullname#}</div>
+  <div class="l">性别：{#$show.sex_cn#}</div>
+  <div class="l">年龄：{#$show.age#} 岁</div>
+  <div class="l">身高：{#$show.height#}CM</div>
+  <div class="l">婚姻状况：{#$show.marriage_cn#}</div>
+  <div class="l">最高学历：{#$show.education_cn#}</div>
+  <div class="l">工作经验：{#$show.experience_cn#}</div>
+  <div class="l">浏览：{#$show.click#}次</div>
+  <div class="l">简历等级：{#$show.talent#}</div>
+  <div class="clear"></div>
+  </div>
+</div>
+
+<div class="resume_show_box">
+  <div class="title"><h2>求职意向</h2></div>
+  <div class="txt">
+  期望岗位性质：{#$show.nature_cn#}<br />
+  期望工作地：{#$show.district_cn#}<br />
+   期望月薪：{#$show.wage_cn#}<br />
+   期望从事的岗位：{#$show.intention_jobs#}<br />
+   期望从事的行业：{#$show.trade_cn#}<br />
+  </div>
+</div>
+{#if $show.specialty#}
+<div class="resume_show_box">
+  <div class="title"><h2>技能特长</h2></div>
+  <div class="txt">
+  {#$show.specialty#}
+  </div>
+</div>
+{#/if#}
+{#if $show.edication_list#}
+<div class="resume_show_box">
+  <div class="title"><h2>教育经历</h2></div>
+  <div class="txt">
+    {#foreach from=$show.education_list item=list#}
+  {#$list.school#}（{#$list.startyear#}年{#$list.startmonth#}月至{#$list.endyear#}年{#$list.endmonth#}月|{#$list.education_cn#}）<br />
+  {#/foreach#}
+  </div>
+</div>
+{#/if#}
+{#if $show.work_list#}
+<div class="resume_show_box">
+  <div class="title"><h2>工作经历</h2></div>
+  <div class="txt">
+     {#foreach from=$show.work_list item=list#}
+  {#$list.companyname#}（{#$list.startyear#}年{#$list.startmonth#}月至{#$list.endyear#}年{#$list.endmonth#}月|{#$list.jobs#}）<br />
+  {#/foreach#}
+  </div>
+</div>
+{#/if#}
+{#if $show.training_list#}
+<div class="resume_show_box">
+  <div class="title"><h2>培训经历</h2></div>
+  <div class="txt">
+  {#foreach from=$show.training_list item=list#}
+  {#$list.agency#}（{#$list.startyear#}年{#$list.startmonth#}月至{#$list.endyear#}年{#$list.endmonth#}月|{#$list.course#}）<br />
+  {#/foreach#}
+  </div>
+</div>
+{#/if#}
+<div class="resume_show_box telbox"></div>
+{#include file="wap/footer.htm"#}
+</body>
+</html>

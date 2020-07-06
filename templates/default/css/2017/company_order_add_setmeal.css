@@ -1,0 +1,96 @@
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:20px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 30px 0px;}
+#content .left_box div.box_title a{ padding:0px 20px 0px 20px; height:40px; line-height:40px; border-bottom:1px solid #ebebeb; font-size:16px; color:#333; display:inline-block;}
+#content .left_box div.box_title a:nth-child(1){ padding:0px 20px 0px 0px;}
+#content .left_box div.box_title a.cur{ border-bottom:1px solid #f3711a; color:#f3711a; }
+#content .left_box div.box_title a:hover{ border-bottom:1px solid #f3711a; color:#f3711a;}
+
+#content .left_box p.setmeal_info{ font-size:16px; color:#808080; margin:0px 0px 10px 260px;}
+#content .left_box p.setmeal_info span{ font-size:16px; color:#f3711a;}
+#content .left_box p.setmeal_info span.original_price{ font-size:16px; color:#808080; text-decoration: line-through;}
+#content .left_box div.step_box{ float:left; margin:30px 0px 30px 100px;}
+#content .left_box div.step_box div{ float:left;}
+#content .left_box div.step_box div span.num{ display:inline-block; width:24px; height:24px; background:#ccc; font-size:16px; color:#fff; border-radius:50px; text-align:center; line-height:24px; float:left; margin:2px 10px 0px 0px;}
+#content .left_box div.step_box div span.text{ float:left; font-size:20px; color:#808080;}
+#content .left_box div.step_box div i{ display:inline-block; float:left; height:1px; width:110px; margin:15px 20px 0px 20px; background:#ccc;}
+
+#content .left_box div.step_box div.cur span.num{ background:#188eee; color:#fff;}
+#content .left_box div.step_box div.cur span.text{ color:#188eee;}
+#content .left_box div.step_box div.cur i{ background:#188eee;}
+
+#content .left_box div.payment_box { margin:30px 0px 0px 90px;}
+#content .left_box div.payment_box p.payment_title{ font-size:20px; color:#333333;}
+#content .left_box div.payment_box ul.payment_list{ float:left; margin:20px 0px 20px 0px;}
+#content .left_box div.payment_box ul.payment_list li{ float:left; margin:0px 20px 20px 0px;}
+#content .left_box div.payment_box ul.payment_list input{ display:inline-block; width:150px; height:46px;text-indent: -999px; cursor:pointer;}
+#content .left_box div.payment_box ul.payment_list input.alipay{ background:url(../../images/2017/pay_alipay.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.alipay_h{ background:url(../../images/2017/pay_alipay_h.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.wechat{ background:url(../../images/2017/pay_wechat.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.wechat_h{ background:url(../../images/2017/pay_wechat_h.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.remittance{ background:url(../../images/2017/pay_bank.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.remittance_h{ background:url(../../images/2017/pay_bank_h.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.online{ background:url(../../images/2017/pay_online.png) no-repeat;}
+#content .left_box div.payment_box ul.payment_list input.online_h{ background:url(../../images/2017/pay_online_h.png) no-repeat;}
+#content .left_box div.payment_box ul.online_list{ display:none;}
+#content .left_box div.payment_box ul.online_list li{ position:relative; width:211px; height:39px; float:left; margin:0px 20px 20px 0px; text-align:center; border:1px solid #ebebeb; cursor:pointer;}
+#content .left_box div.payment_box ul.online_list li i{ position: absolute; width:213px; height:41px; top:-1px; left:-1px; background:url(../../images/2017/pay_online_select.png); display:none;}
+
+#content .left_box div.payment_box input.submit{ display:inline-block; width:150px; height:46px; line-height:46px; color:#fff; border-radius:5px; font-size:20px; cursor:pointer; background:#f3711a; margin:40px 0px 0px 260px;}
+#content .left_box div.payment_box input.submit:hover{ opacity:0.8; }
+
+
+
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px; float:left;}
+#content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .function_box ul li:hover span{ color:#188eee;}
+#content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px; width:22px; height:23px;}
+
+#content .right_box .function_box ul li.company_profile i{ background:url(../../images/2017/company_profile_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job i{ background:url(../../images/2017/company_jobs_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume i{ background:url(../../images/2017/company_resume_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip i{ background:url(../../images/2017/company_vip_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account i{ background:url(../../images/2017/company_account_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate i{ background:url(../../images/2017/company_authenticate_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_profile:hover i{ background:url(../../images/2017/company_profile_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job:hover i{ background:url(../../images/2017/company_jobs_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume:hover i{ background:url(../../images/2017/company_resume_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip:hover i{ background:url(../../images/2017/company_vip_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account:hover i{ background:url(../../images/2017/company_account_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate:hover i{ background:url(../../images/2017/company_authenticate_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip i{ background:url(../../images/2017/company_vip_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip span{ color:#188eee;}
+
+
+#content .right_box .quick_box{ width:280px; margin:10px 0px 0px 0px; float:left;}
+#content .right_box .quick_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .quick_box ul li{ float:left; width:53px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .quick_box ul li a{ display:block; float:left; width:100%; height:100%; text-align:center;}
+#content .right_box .quick_box ul li span{ color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .quick_box ul li:hover span{ color:#188eee;}
+#content .right_box .quick_box ul li i{ display:inline-block; width:50px; height:50px;}
+
+#content .right_box .quick_box ul li.add_jobs i{ background:url(../../images/2017/add_jobs.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page i{ background:url(../../images/2017/home_page.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume i{ background:url(../../images/2017/search_resume.png) center no-repeat;}
+
+#content .right_box .quick_box ul li.add_jobs:hover i{ background:url(../../images/2017/add_jobs_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page:hover i{ background:url(../../images/2017/home_page_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume:hover i{ background:url(../../images/2017/search_resume_h.png) center no-repeat;}
+
+
+	
+
+

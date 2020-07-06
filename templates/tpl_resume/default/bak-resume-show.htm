@@ -1,0 +1,309 @@
+{#qishi_resume_show set="列表名:show,简历ID:GET[id],简历列:GET[resume_show_list]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$show.fullname#}的个人简历 - {#$QISHI.site_name#}</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.alerts.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+    var id="{#$show.id#}";
+    var tsTimeStamp= new Date().getTime();
+    var job_apply_id="{#$smarty.get.job_apply_id#}";
+    $.get("{#$QISHI.website_dir#}plus/ajax_click.php", { "id": id,"time":tsTimeStamp,"act":"resume_click"},function (data,textStatus){			
+            $(".click").html(data);
+    });
+    $.get("{#$QISHI.website_dir#}plus/ajax_contact.php", { "id": id,"time":tsTimeStamp,"act":"resume_contact"},function (data,textStatus){      
+        $("#resume_contact").html(data);
+        //下载简历
+        $(".download").click(function(){
+        var url="{#$QISHI.website_dir#}user/user_download_resume.php?id="+id+"&act=download&t="+tsTimeStamp+"&job_apply_id="+job_apply_id;
+        dialog("下载简历","url:"+url,"500px","auto","");
+        }); 
+        //邀请面试
+        $("#invited").click(function(){
+        var url="{#$QISHI.website_dir#}user/user_invited.php?id="+id+"&act=invited&t="+tsTimeStamp;
+        dialog("邀请面试","url:"+url,"500px","auto","");
+        }); 
+        //添加到人才库
+        $(".add_resume_pool").click(function(){
+        var url="{#$QISHI.website_dir#}user/user_favorites_resume.php?id="+id+"&act=add&t="+tsTimeStamp;
+        dialog("添加到人才库","url:"+url,"500px","auto","");        
+        }); 
+        
+        var str = "";
+        if( $("#resume_contact ul").length < 1){
+             str += '{#foreach from=$show.certificate_list item=list#}';
+             str += '<li class="label">';
+             str += '<p>{#$list.note#}</p>';
+             str += '</li>';
+             str += '{#/foreach#}';
+        }else{
+             str += '{#foreach from=$show.certificate_list item=list#}';
+             str += '<li class="jl_yx_li marg_b">';
+             str += '<a target="_blank" title="点击查看大图" href="{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}"><img src="{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}" height="200" /></a>';
+             str += ' <p>{#$list.note#}</p>';
+             str += '</li>';
+             str += '{#/foreach#}';
+        }
+               $('ul#certificate_list').html(str);
+    });
+        //举报信息
+      $(".report_button").click(function(){
+        var resume_id = $(this).attr("resume_id");
+        var fullname = $(this).attr("fullname");
+        var resume_addtime = $(this).attr("resume_addtime");
+        dialog("举报信息","url:{#$QISHI.website_dir#}user/user_report_resume.php?act=report&resume_id="+resume_id+"&full_name="+fullname+"&resume_addtime="+resume_addtime,"500px","auto","","");
+      });
+});
+$(function(){
+	$("input[type='button']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+</head>
+<body class="bg">
+<div class="notptn">
+  <div class="sign_lgo"><a href="{#$QISHI.website_dir#}"><img src="{#$QISHI.upfiles_dir#}{#$QISHI.web_logo#}" alt="{#$QISHI.site_name#}" border="0" align="absmiddle" /></a></div>
+</div>
+<div class="jl_peo_con">
+  <div class="jl_peo_l ptn">
+    <div class="jl_peo_top mb17">
+      <div class="jl_peo_photo">
+        <img style="width: 162px; height: 180px;" src="{#$show.photosrc#}">
+      </div>
+      <div class="jl_peo_infor">
+        <ul>
+          <li class="marg_b over">
+            <div class="jl_peo_name">
+                {#$show.fullname#}
+            </div>
+            <div class="jl_peo_star star_02">
+                {#$show.refreshtime|date_format:"%Y-%m-%d"#}
+            </div>
+          </li>
+          <li>
+            <div class="jl_peo_infor_li">
+                <label>年&#12288;&#12288;龄：</label><span>{#$show.age#} 岁</span>
+            </div>
+            <div class="jl_peo_infor_li">
+                <label>性&#12288;&#12288;别：</label><span>{#$show.sex_cn#}</span>
+            </div>
+            {#if $show.height#}
+            <div class="jl_peo_infor_li">
+                <label>身&#12288;&#12288;高：</label><span>{#$show.height#} cm</span>
+            </div>
+            {#/if#}
+            {#if $show.marriage_cn#}
+            <div class="jl_peo_infor_li">
+                <label>婚姻状况：</label><span>{#$show.marriage_cn#}</span>
+            </div>
+            {#/if#}
+            <div class="jl_peo_infor_li">
+                <label> 最高学历：</label><span>{#$show.education_cn#}</span>
+            </div>
+            <div class="jl_peo_infor_li">
+                <label>工作经验：</label><span>{#$show.experience_cn#}</span>
+            </div>
+            {#if $show.householdaddress#}
+            <div title="{#$show.householdaddress#}" class="jl_peo_infor_li">
+                <label>籍&#12288;&#12288;贯：</label><span>{#$show.householdaddress_cn#}</span>
+            </div>
+            {#/if#}
+            <div class="jl_peo_infor_li">
+                <label>现居住地：</label><span>{#$show.residence_cn#}</span>
+            </div>
+            <div class="jl_peo_infor_li">
+                <label>简历等级：</label><span>{#if $show.talent=="2"#}高级{#else#}普通{#/if#}</span>
+            </div>
+            <div class="jl_peo_infor_li">
+                <label>浏览次数：</label><span><span class="click"></span>次</span>
+			</div>
+            <div class="jl_peo_infor_li" style="width:100%;height:35px;margin-top:10px;">
+                {#foreach from=$show.tag item=t_li#}
+                <div class="lp"><p>{#$t_li.1#}</p></div>
+                {#/foreach#}
+            </div>
+            <div class="clear"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="jl_peo_mid">
+      <div class="jl_peo_title">求职意向</div>
+      <div class=" jl_peo_midbox">
+        <ul>
+          <li class="jl_yx_li ">
+              <div class="jl_yx_li_div">
+                  <label>期望月薪：</label><span>{#$show.wage_cn#}</span>
+              </div>
+              <div class="jl_yx_li_div">
+                  <label>工作性质：</label><span>{#$show.nature_cn#}</span>
+              </div>
+			  <div class="clear"></div>
+              <div class="jl_yx_li_div">
+                  <label>期望地区：</label><span>{#$show.district_cn#}</span>
+              </div>
+                          <!--
+              <div class="jl_yx_li_div" style="width:100%">
+                  <label>期望行业：</label><span>{#$show.trade_cn#}</span>
+              </div>
+                          -->
+			  <div class="clear"></div>
+              <div class="jl_yx_li_div" style="width:100%">
+                  <label>期望岗位：</label><span>{#$show.intention_jobs#}</span>
+              </div>
+          </li>
+        </ul>
+      </div>
+       {#if $show.education_list#}
+      <div class="jl_peo_title">教育经历</div>
+      <div class="jl_peo_midbox quxian" style="padding-bottom: 0px;">
+        <ul>
+          {#foreach from=$show.education_list item=list#}
+          <li class="jl_yx_li marg_b">
+              <div class="jl_peo_jobjy_time" style="width:130px">{#$list.startyear#}.{#$list.startmonth#} 至 {#$list.endyear#}.{#$list.endmonth#}</div>
+              <div class="jl_peo_jobjy_time" style="width:220px">
+                  <p class="jl_peo_zw">{#$list.school#}</p>
+              </div>
+              <div class="jl_peo_jobjy_con" style="width:220px">
+                  <p class="jl_peo_com01">{#$list.speciality#}</p>
+              </div>
+              <div class="jl_peo_jobjy_con" style="width:60px">
+                  <p class="jl_peo_com01">{#$list.education_cn#}</p>
+              </div>
+          </li>
+          {#/foreach#}
+        </ul>
+      </div>
+      {#/if#}
+      {#if $show.work_list#}
+      <div class="jl_peo_title">工作经历</div>
+      <div class="jl_peo_midbox quxian gzjl" style="padding-bottom: 0px;">
+        <ul>
+          {#foreach from=$show.work_list item=list#}
+            <li class="jl_yx_li marg_b bottom_line">
+                <div class="jl_peo_jobjy_time" style="width:130px">{#$list.startyear#}.{#$list.startmonth#} 至 {#$list.endyear#}.{#$list.endmonth#}</div>
+                <div class="jl_peo_jobjy_time" style="width:220px">
+                    <p class="jl_peo_zw">{#$list.jobs#}</p>
+                </div>
+                <div class="jl_peo_jobjy_con" style="width:220px;padding-bottom:0px;">
+                    <p class="jl_peo_com01">{#$list.companyname#}</p>
+                    <p></p>
+                </div>
+				<div class="clear"></div>
+                <div class="jl_peo_jobjy_achievements">
+                    <p>{#$list.achievements#}</p>
+                    <p></p>
+                </div>
+            </li>
+            {#/foreach#}
+        </ul>
+      </div>
+       {#/if#}
+	  <script type="text/javascript">
+		$(".gzjl li:last").css("border-bottom","0px");
+	  </script>
+      {#if $show.training_list#}
+      <div class="jl_peo_title">培训经历</div>
+      <div class="jl_peo_midbox quxian pxjl" style="padding-bottom: 0px;">
+        <ul>
+          {#foreach from=$show.training_list item=list#}
+          <li class="jl_yx_li marg_b bottom_line">
+                <div class="jl_peo_jobjy_time" style="width:130px">{#$list.startyear#}.{#$list.startmonth#} 至 {#$list.endyear#}.{#$list.endmonth#}</div>
+                <div class="jl_peo_jobjy_time" style="width:220px">
+                    <p class="jl_peo_zw">{#$list.agency#}</p>
+                </div>
+                <div class="jl_peo_jobjy_con" style="width:220px;padding-bottom:0px;">
+                    <p class="jl_peo_com01">{#$list.course#}</p>
+                    <p></p>
+                </div>
+                <div class="jl_peo_jobjy_achievements">
+                    <p>{#$list.description#}</p>
+                    <p></p>
+                </div>
+            </li>
+          {#/foreach#}
+        </ul>
+      </div>
+      {#/if#}
+      {#if $show.certificate_list#}
+      <div class="jl_peo_title">证书</div>
+      <div class="jl_peo_midbox quxian zs" style="padding-bottom: 0px;">
+        <ul id="certificate_list">
+        </ul>
+      </div>
+      <script>
+           $('div.zs li').each(function(){
+                var w =$(this).find('img').width();
+                if(w > 0){
+                $(this).width(w+2);
+                }
+            })
+      </script>
+      {#/if#}
+	  <script type="text/javascript">
+		$(".pxjl li:last").css("border-bottom","0px");
+	  </script>
+      {#if $show.specialty#}
+      <div class="jl_peo_title" id="zwpj1">自我描述</div>
+      <div class="jl_peo_midbox" id="zwpj2">
+        <ul>
+          <li class="jl_yx_li">
+              <p class="jl_peo_jobcon">
+                  {#$show.specialty|nl2br#}
+              </p>
+          </li>
+        </ul>
+      </div>
+      {#/if#}
+      <div class="jl_peo_title">联系方式</div>
+      <div class="jl_peo_midbox" id="resume_contact">
+        
+      </div>
+    </div>
+  </div>
+{#if $show.resume_show_list #}
+<ul class="resume_show_list_ul">
+      <li class="title">简历列表</li>
+      {#foreach from=$show.resume_show_list item=list key=k#}
+      <li><a {#if $k == $smarty.get.id#}class="cur"{#/if#} href="{#$list.url#}&resume_show_list={#$smarty.get.resume_show_list#}" title="{#$list.name#}">{#$list.name#}</a></li>
+      {#/foreach#}
+</ul>
+{#/if#}
+  <div style="position: fixed; margin-left: 750px; *margin-left: 20px; _margin-top: 76px; _position: absolute; _bottom: auto; _top: expression(eval(document.documentElement.scrollTop));" class="jl_peo_r notptn">
+    <div class="jl_btn_box2">
+      <!--<div class="qrcode" style="margin-bottom:10px;"><img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/wap-resume-show.php?id={#$show.id#}" alt="二维码"/></div>-->
+      <div class="jl_btn_box2_yaoqing yqms" id="invited"><a href="javascript:;">邀请面试</a></div>
+      <div class="jl_btn_box2_oper">
+          <div class="jl_btn_box2_div2 clickword download" id="download"><a href="javascript:;">简历下载</a></div>
+          <div class="jl_btn_box2_div2 infoflag add_resume_pool"><a href="javascript:;">人才库</a></div>
+          <div class="jl_btn_box2_div2"><a href="javascript:window.print();">简历打印</a></div>
+          <div class="jl_btn_box2_div2 dianping"><a href="{#$QISHI.site_domain#}{#$QISHI.site_dir#}resume/resume-doc.php?resume_id={#$show.id#}&uid={#$show.uid#}&apply={#$show.apply#}">转为word</a></div>
+          <div class="jl_btn_box2_div2"><a   class="report_button" resume_id="{#$smarty.get.id#}" fullname="{#$show.fullname#}" resume_addtime="{#$show.addtime#}">投诉简历</a></div>
+          
+      </div>
+    </div>
+  </div>
+</div>
+<div class="resume_foot">
+	联系电话：{#$QISHI.bootom_tel#} 网站备案：{#$QISHI.icp#}{#$QISHI.statistics#}<br />
+	{#$QISHI.bottom_other#}<br />
+	Powered by <a href="http://www.jiaoshizhaopin.net/" target="_blank" style="color:#009900"><em> 教师招聘网</em></a><br />
+	
+</div>
+</body>
+</html>

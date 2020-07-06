@@ -1,0 +1,458 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="set_train/admin_set_train_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+	<h2>提示：</h2>
+	<p>
+不同的运营阶段您可以选择不同的设置。<br />
+
+</p>
+</div>
+
+<div class="toptit">基本设置</div>
+  <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+<tr>
+      <td width="200" align="right">发布课程默认有效期：</td>
+      <td><input name="course_add_days" type="text"  class="input_text_150" id="course_add_days" value="{#$config.course_add_days#}" maxlength="3"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>
+      天<span  style="color:#666666"></span></td>
+    </tr>
+	<tr>
+      <td align="right">课程有效时间最少为：</td>
+      <td><input name="course_add_days_min" type="text"  class="input_text_150" id="course_add_days_min" value="{#$config.course_add_days_min#}" maxlength="3"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>
+      天<span  style="color:#666666"></span></td>
+    </tr>
+	<tr>
+      <td align="right">上传营业执照文件限制：</td>
+      <td><input name="certificate_train_max_size" type="text"  class="input_text_150" id="certificate_train_max_size" value="{#$config.certificate_train_max_size#}" maxlength="10"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>        
+        kb</td>
+    </tr>
+		<tr>
+      <td align="right">培训机构LOGO文件限制：</td>
+      <td><input name="logo_train_max_size" type="text"  class="input_text_150" id="logo_train_max_size" value="{#$config.logo_train_max_size#}" maxlength="10"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>        
+        kb</td>
+    </tr>
+	<tr>
+      <td align="right">培训课程列表数最大为：</td>
+      <td><input name="course_list_max" type="text"  class="input_text_150"   value="{#$config.course_list_max#}" maxlength="10"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>        
+        条
+		<span class="admin_note">0为不限制</span>
+		</td>
+    </tr>
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	  </td>
+	  </tr>
+  </table>
+    </form>
+  <div class="toptit">查看联系方式设置</div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+ 
+	<tr>
+      <td align="right" width="230">允许查看培训课程联系方式：</td>
+      <td>
+	  
+	  <label><input name="showcoursecontact" type="radio"   value="0"  {#if $config.showcoursecontact=="0"#}checked=checked {#/if#}/>游客</label>
+	  &nbsp;&nbsp;&nbsp;&nbsp;
+ <label><input name="showcoursecontact" type="radio"   value="1"  {#if $config.showcoursecontact=="1"#}checked=checked {#/if#}/>已登录会员</label>
+        </td>
+    </tr>
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	  </td>
+	  </tr>
+	  </table>
+	  
+	    </form>
+		  <div class="toptit">联系方式图形化 <span class="admin_note">图形化需要将中文字体文件上传到data/contactimgfont/，字体文件命名为“cn.ttc”</span></div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+ 
+	<tr>
+      <td align="right" width="230">培训机构和讲师联系方式：</td>
+      <td>
+	  
+	  <label><input name="contact_img_train" type="radio"   value="1"  {#if $config.contact_img_train=="1"#}checked=checked {#/if#}/>文字</label>
+	  &nbsp;&nbsp;&nbsp;&nbsp;
+ <label><input name="contact_img_train" type="radio"   value="2"  {#if $config.contact_img_train=="2"#}checked=checked {#/if#}/>图形化</label>
+
+
+        </td>
+    </tr>
+	<tr>
+      <td align="right" width="230">培训课程联系方式：</td>
+      <td>
+	  
+	  <label><input name="contact_img_course" type="radio"   value="1"  {#if $config.contact_img_course=="1"#}checked=checked {#/if#}/>文字</label>
+	  &nbsp;&nbsp;&nbsp;&nbsp;
+ <label><input name="contact_img_course" type="radio"   value="2"  {#if $config.contact_img_course=="2"#}checked=checked {#/if#}/>图形化</label>
+
+
+        </td>
+    </tr>
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	  </td>
+	  </tr>
+	  </table>
+	  
+	    </form>
+<div class="toptit">认证与审核状态设置</div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+	<tr>
+	<tr>
+      <td align="right"  width="230">培训机构认证状态默认：</td>
+      <td><label>
+        <input name="audit_add_train" type="radio" id="audit_add_train" value="0"  {#if $config.audit_add_train=="0"#}checked=checked {#/if#}/>未认证</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_add_train" value="1" id="audit_add_train"  {#if $config.audit_add_train=="1"#}checked=checked{#/if#}/>认证通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_add_train" value="2" id="audit_add_train"  {#if $config.audit_add_train=="2"#}checked=checked{#/if#}/>认证中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_add_train" value="3" id="audit_add_train"  {#if $config.audit_add_train=="3"#}checked=checked{#/if#}/>认证失败</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">修改培训机构资料后认证状态：</td>
+      <td>
+	  <label>
+        <input name="audit_edit_train" type="radio" id="audit_edit_train" value="-1"  {#if $config.audit_edit_train=="-1"#}checked=checked {#/if#}/>保持不变</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_edit_train" type="radio" id="audit_edit_train" value="0"  {#if $config.audit_edit_train=="0"#}checked=checked {#/if#}/>未认证</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_edit_train" value="1" id="audit_edit_train"  {#if $config.audit_edit_train=="1"#}checked=checked{#/if#}/>认证通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_edit_train" value="2" id="audit_edit_train"  {#if $config.audit_edit_train=="2"#}checked=checked{#/if#}/>认证中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_edit_train" value="3" id="audit_edit_train"  {#if $config.audit_edit_train=="3"#}checked=checked{#/if#}/>认证失败</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构发布课程后审核状态：</td>
+      <td><label>
+        <input name="audit_verifytrain_addcourse" type="radio"   value="1"  {#if $config.audit_verifytrain_addcourse=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addcourse" value="2"   {#if $config.audit_verifytrain_addcourse=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addcourse" value="3"   {#if $config.audit_verifytrain_addcourse=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构修改课程后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_verifytrain_editcourse" type="radio"   value="-1"  {#if $config.audit_verifytrain_editcourse=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_verifytrain_editcourse" type="radio"   value="1"  {#if $config.audit_verifytrain_editcourse=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_editcourse" value="2"   {#if $config.audit_verifytrain_editcourse=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_editcourse" value="3"   {#if $config.audit_verifytrain_editcourse=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构发布课程后审核状态为：</td>
+      <td><label>
+        <input name="audit_unexaminedtrain_addcourse" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_addcourse=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addcourse" value="2"   {#if $config.audit_unexaminedtrain_addcourse=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addcourse" value="3"   {#if $config.audit_unexaminedtrain_addcourse=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构修改课程后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_unexaminedtrain_editcourse" type="radio"   value="-1"  {#if $config.audit_unexaminedtrain_editcourse=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_unexaminedtrain_editcourse" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_editcourse=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_editcourse" value="2"   {#if $config.audit_unexaminedtrain_editcourse=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_editcourse" value="3"   {#if $config.audit_unexaminedtrain_editcourse=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构添加讲师审核状态：</td>
+      <td><label>
+        <input name="audit_verifytrain_addtea" type="radio"   value="1"  {#if $config.audit_verifytrain_addtea=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addtea" value="2"   {#if $config.audit_verifytrain_addtea=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addtea" value="3"   {#if $config.audit_verifytrain_addtea=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构修改讲师后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_verifytrain_edittea" type="radio"   value="-1"  {#if $config.audit_verifytrain_edittea=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_verifytrain_edittea" type="radio"   value="1"  {#if $config.audit_verifytrain_edittea=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_edittea" value="2"   {#if $config.audit_verifytrain_edittea=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_edittea" value="3"   {#if $config.audit_verifytrain_edittea=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构添加讲师后审核状态为：</td>
+      <td><label>
+        <input name="audit_unexaminedtrain_addtea" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_addtea=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addtea" value="2"   {#if $config.audit_unexaminedtrain_addtea=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addtea" value="3"   {#if $config.audit_unexaminedtrain_addtea=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构修改讲师后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_unexaminedtrain_edittea" type="radio"   value="-1"  {#if $config.audit_unexaminedtrain_edittea=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_unexaminedtrain_edittea" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_edittea=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_edittea" value="2"   {#if $config.audit_unexaminedtrain_edittea=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_edittea" value="3"   {#if $config.audit_unexaminedtrain_edittea=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">强制会员认证手机：</td>
+      <td><label>
+        <input name="login_train_audit_mobile" type="radio" id="login_train_audit_mobile" value="1"  {#if $config.login_train_audit_mobile=="1"#}checked=checked {#/if#}/>是</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="login_train_audit_mobile" value="0" id="login_train_audit_mobile"  {#if $config.login_train_audit_mobile=="0"#}checked=checked{#/if#}/>否</label>
+
+<span class="admin_note">如要设为强制认证手机需开启短信模块</span>
+</td>
+	</tr>
+	<tr>
+      <td align="right">强制会员认证email：</td>
+      <td><label>
+        <input name="login_train_audit_email" type="radio" id="login_train_audit_email" value="1"  {#if $config.login_train_audit_email=="1"#}checked=checked {#/if#}/>是</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="login_train_audit_email" value="0" id="login_train_audit_email"  {#if $config.login_train_audit_email=="0"#}checked=checked{#/if#}/>否</label></td>
+	</tr>
+	
+	
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	 </td>
+	  </tr>
+		  </table>
+	  
+	    </form>
+		
+<div class="toptit">图片，新闻 审核状态设置</div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+	<tr>
+	<tr>
+      <td align="right"  width="230">已认证培训机构上传图片后审核状态：</td>
+      <td><label>
+        <input name="audit_verifytrain_addimg" type="radio"   value="1"  {#if $config.audit_verifytrain_addimg=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addimg" value="2"   {#if $config.audit_verifytrain_addimg=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addimg" value="3"   {#if $config.audit_verifytrain_addimg=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构上传图片后审核状态：</td>
+      <td><label>
+        <input name="audit_unexaminedtrain_addimg" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_addimg=="1"#}checked=checked {#/if#}/>审核通过</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addimg" value="2"   {#if $config.audit_unexaminedtrain_addimg=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addimg" value="3"   {#if $config.audit_unexaminedtrain_addimg=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构添加新闻后审核状态为：</td>
+      <td>
+	  <label >
+        <input name="audit_verifytrain_addnews" type="radio"   value="1"  {#if $config.audit_verifytrain_addnews=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addnews" value="2"   {#if $config.audit_verifytrain_addnews=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_addnews" value="3"   {#if $config.audit_verifytrain_addnews=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">已认证培训机构修改新闻后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_verifytrain_editnews" type="radio"   value="-1"  {#if $config.audit_verifytrain_editnews=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_verifytrain_editnews" type="radio"   value="1"  {#if $config.audit_verifytrain_editnews=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_editnews" value="2"   {#if $config.audit_verifytrain_editnews=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_verifytrain_editnews" value="3"   {#if $config.audit_verifytrain_editnews=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构添加新闻后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_unexaminedtrain_addnews" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_addnews=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addnews" value="2"   {#if $config.audit_unexaminedtrain_addnews=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_addnews" value="3"   {#if $config.audit_unexaminedtrain_addnews=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+      <td align="right">未认证培训机构修改新闻后审核状态为：</td>
+      <td>
+	  <label>
+        <input name="audit_unexaminedtrain_editnews" type="radio"   value="-1"  {#if $config.audit_unexaminedtrain_editnews=="-1"#}checked=checked {#/if#}/>保持不变
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	  <label>
+        <input name="audit_unexaminedtrain_editnews" type="radio"   value="1"  {#if $config.audit_unexaminedtrain_editnews=="1"#}checked=checked {#/if#}/>审核通过
+		</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_editnews" value="2"   {#if $config.audit_unexaminedtrain_editnews=="2"#}checked=checked{#/if#}/>审核中</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="audit_unexaminedtrain_editnews" value="3"   {#if $config.audit_unexaminedtrain_editnews=="3"#}checked=checked{#/if#}/>审核未通过</label>
+</td>
+    </tr>
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	 </td>
+	  </tr>
+		  </table>
+	    </form>
+	 <div class="toptit">过期信息设置</div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+	<tr>
+      <td align="right" width="230">是否显示过期课程信息：</td>
+      <td><label>
+        <input name="outdated_course" type="radio" id="outdated_course" value="1"  {#if $config.outdated_course=="1"#}checked=checked {#/if#}/>否</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="outdated_course" value="0" id="outdated_course"  {#if $config.outdated_course=="0"#}checked=checked{#/if#}/>是</label>
+
+
+  <span class="admin_note">课程过期是指课程有效期过期或服务有效期过期，修改此项仅对新发布的课程有效</span>
+</td>
+	</tr>
+	
+		<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	  </td>
+	  </tr>
+		  </table>
+	  
+	    </form>
+		
+	 <div class="toptit">其他设置</div>
+    <form action="?act=set_save" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="1" style=" margin-bottom:3px;">
+	<tr>
+      <td align="right" width="230">允许培训机构名称重复：</td>
+      <td><label>
+        <input name="train_repeat" type="radio" id="train_repeat" value="1"  {#if $config.train_repeat=="1"#}checked=checked {#/if#}/>是</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >
+<input type="radio" name="train_repeat" value="0" id="train_repeat"  {#if $config.train_repeat=="0"#}checked=checked{#/if#}/>否</label></td>
+	</tr>
+	
+	<tr>
+	  <td align="right" valign="top">&nbsp;</td>
+	  <td>
+	    <input name="submit" type="submit" class="admin_submit"    value="保存修改"/>
+	  </td>
+	  </tr>
+  </table>
+
+    
+  </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

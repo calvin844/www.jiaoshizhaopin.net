@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <title>完善资料_{#$QISHI.site_name#}</title>
+        <script>
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    // debug: true,
+                    // onsubmit:false,
+                    //onfocusout :true,
+                    ignore: "",
+                    rules: {
+                        experience: {
+                            required: true
+                        },
+                        district: {
+                            required: true
+                        },
+                        parent_job_type_id: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        experience: {
+                            required: "请选择工作经验"
+                        },
+                        district: {
+                            required: "请选择地区"
+                        },
+                        parent_job_type_id: {
+                            required: "请选择期望职位"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parents('.item_box'));
+                    }
+                });
+
+                function menuDown(menuId) {
+                    $("#" + menuId + " div.text").click(function () {
+                        $(".select_box").find('ul.list').slideUp("fast");
+                        $("#" + menuId).find('ul.list').slideDown('fast');
+                        //生成背景
+                        $("#" + menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $("#" + menuId).find('ul.list').slideUp("fast");
+                            $("#" + menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $("#" + menuId).find('ul.list').on('click', 'li', function () {
+                        var data = $(this).attr("data");
+                        var text = $(this).find('span').html();
+                        $("#" + menuId).find('input[type="hidden"]').val(data);
+                        $("#" + menuId).find('div.text span').html(text);
+                        $("#" + menuId).find('ul.list').slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                    });
+                }
+                menuDown('experience');
+                menuDown('district');
+                menuDown('sdistrict');
+                menuDown('wage');
+                menuDown('parent_jobs');
+                menuDown('jobs');
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box make_info2">
+                <form id="Form1" name="Form1" method="post" action="/user/user_make_info2.php?act=save">
+                    <div class="top">
+                        <p class="cur"><span>1</span>个人资料</p>
+                        <hr class="cur"/>
+                        <p class="cur"><span>2</span>工作意向</p>
+                        <hr/>
+                        <p><span>3</span>创建简历</p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>工作经验：</span>
+                            <div id="experience" class="select_box">
+                                <div class="text">
+                                    <span>请选择工作经验</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list">
+                                    {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                    {#foreach from=$c_experience item=list#}
+                                    <li data="{#$list.id#}||{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                    {#/foreach#}
+                                </ul>
+                                <input type="hidden" name="experience" id="experience_value"/>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>工作性质：</span>
+                            <div id="nature" class="select_box">
+                                <div class="text">
+                                    <span>请选择工作性质</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list">
+                                    {#qishi_get_classify  set="类型:QS_jobs_nature,列表名:c_nature"#}
+                                    {#foreach from=$c_nature item=list#}
+                                    <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                    {#/foreach#}
+                                </ul>
+                                <input type="hidden" name="nature" id="nature_value"/>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>工作地区：</span>
+                            <div id="district" class="select_box">
+                                <div class="text">
+                                    <span>请选择省份</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list">
+                                    {#foreach from=$district item=c#}
+                                    {#if $c.id != 879 && $c.id != 406#}
+                                    <li data="{#$c.id#}"><span>{#$c.categoryname#}</span></li>
+                                    {#/if#}
+                                    {#/foreach#}
+                                </ul>
+                                <input type="hidden" name="district" id="district_value"/>
+                            </div>
+                            <div id="sdistrict" class="select_box">
+                                <div class="text">
+                                    <span>请选择城市</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list"></ul>
+                                <input type="hidden" name="sdistrict" id="sdistrict_value" value="0"/>
+                            </div>
+                            <script>
+                                $('#district').click(function () {
+                                    if ($('#district_value').val() > 0) {
+                                        $.get('?act=get_city&pid=' + $('#district_value').val(), function (data) {
+                                            var data_arr = data.split("||");
+                                            var str = "<li data='0'><span>全部</span></li>";
+                                            for (var i = 0; i < data_arr.length; i++) {
+                                                var item = data_arr[i].split("-");
+                                                str = str + "<li data='" + item[0] + "'><span>" + item[1] + "</span></li>";
+                                            }
+                                            $('#sdistrict ul.list').html(str);
+                                            $('#sdistrict input[type="hidden"]').val(0);
+                                            $('#sdistrict div.text span').html('全部');
+                                        })
+                                    }
+                                })
+                            </script>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>期望薪资：</span>
+                            <div id="wage" class="select_box">
+                                <div class="text">
+                                    <span>请选择期望薪资</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list">
+                                    {#qishi_get_classify  set="类型:QS_wage,列表名:c_wage"#}
+                                    {#foreach from=$c_wage item=list#}
+                                    <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                    {#/foreach#}
+                                </ul>
+                                <input type="hidden" name="wage" id="wage_value" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>期望职位：</span>
+                            <div id="parent_jobs" class="select_box">
+                                <div class="text">
+                                    <span>请选择类别</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list">
+                                    {#foreach from=$parent_jobs item=j#}
+                                    <li data="{#$j.id#}"><span>{#$j.categoryname#}</span></li>
+                                    {#/foreach#}
+                                </ul>
+                                <input type="hidden" name="parent_job_type_id" id="parent_job_type_id_value"/>
+                            </div>
+                            <div id="jobs" class="select_box">
+                                <div class="text">
+                                    <span>请选择分类</span>
+                                    <i></i>
+                                </div>
+                                <ul class="list"></ul>
+                                <input type="hidden" name="job_type_id" id="job_type_id_value" value="0"/>
+                            </div>
+                            <script>
+                                $('#parent_jobs').click(function () {
+                                    if ($('#parent_job_type_id_value').val() > 0) {
+                                        $.get('?act=get_jobs&pid=' + $('#parent_job_type_id_value').val(), function (data) {
+                                            var data_arr = data.split("||");
+                                            var str = "<li data='0'><span>全部</span></li>";
+                                            for (var i = 0; i < data_arr.length; i++) {
+                                                var item = data_arr[i].split("-");
+                                                str = str + "<li data='" + item[0] + "'><span>" + item[1] + "</span></li>";
+                                            }
+                                            $('#jobs ul.list').html(str);
+                                            $('#jobs input[type="hidden"]').val(0);
+                                            $('#jobs div.text span').html('全部');
+                                        })
+                                    }
+                                })
+                            </script>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <input type="submit" class="submit" value="下一步" />
+                </form>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>
+
+

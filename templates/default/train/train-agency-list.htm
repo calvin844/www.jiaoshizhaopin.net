@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#if $smarty.get.trade#}{#"QS_trade,"|cat:$smarty.get.trade|qishi_categoryname#} - {#/if#}培训机构列表  - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#if $smarty.get.trade#}{#"QS_trade,"|cat:$smarty.get.trade|qishi_categoryname#}，{#/if#}{#$QISHI.site_name#} - 教育培训">
+<meta name="keywords" content="{#$QISHI.site_name#},机构列表，教育培训">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type='text/javascript' ></script>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+ $(".train_list .list:last").css("border-bottom","1px solid #d5d5d5");
+});
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_train"|qishi_url#}">教育培训</a>&nbsp;>&nbsp;机构列表
+</div>
+<div class="trainsel link_lan">
+<div class="tit">
+<h3>机构列表</h3>
+</div>
+<div class="listbox">
+<!-- -->	
+
+	<div class="bleft" >机构性质：</div>
+	<div class="bright">
+		<ul class="link_bk">
+		{#if $smarty.get.nature<>""#}
+			{#qishi_get_classify set="列表名:c_nature,类型:QS_train_type,id:"|cat:$smarty.get.nature#}
+			{#foreach from=$c_nature item=list#}
+			{#if $smarty.get.nature==$list.id#}
+				<li><a href="{#"QS_train_agency,nature:"|cat:$list.id|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|cat:$smarty.get.sdistrict|qishi_url#}" style="color:#FF6600">{#$list.categoryname#}</a></li>
+			{#/if#}
+			{#/foreach#}
+		{#else#}
+			{#qishi_get_classify set="列表名:c_nature,类型:QS_train_type"#}{#foreach from=$c_nature item=list#}
+			<li><a href="{#"QS_train_agency,nature:"|cat:$list.id|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|cat:$smarty.get.sdistrict|qishi_url#}" >{#$list.categoryname#}</a></li>
+			{#/foreach#}
+		{#/if#}
+		<div class="clear"></div>
+		</ul>
+		
+	</div>
+	<div class="clear"></div>
+	<!-- -->
+	 <div class="bleft" >地区大类：</div>
+	<div class="bright">
+		<ul class="link_bk">
+	{#if $smarty.get.district<>""#}
+		{#qishi_get_classify set="类型:QS_district,id:0,列表名:c_province"#}
+		{#foreach from=$c_province item=list#}
+		{#if $smarty.get.district==$list.id#}
+		<li><a href="{#"QS_train_agency,district:"|cat:$list.id|cat:"-nature:"|cat:$smarty.get.nature|cat:"-sdistrict:"|qishi_url#}" style="color:#FF6600">{#$list.categoryname#}</a></li>
+		{#/if#}
+		{#/foreach#}
+	{#else#}
+		{#qishi_get_classify set="类型:QS_district,id:0,列表名:c_province"#}{#foreach from=$c_province item=list#}
+		<li><a href="{#"QS_train_agency,district:"|cat:$list.id|cat:"-nature:"|cat:$smarty.get.nature|cat:"-sdistrict:"|qishi_url#}" >{#$list.categoryname#}</a></li>
+		{#/foreach#}
+	{#/if#}
+		<div class="clear"></div>
+		</ul>
+	</div>
+{#if $smarty.get.district#}
+	 <div class="bleft" >地区小类：</div>
+	<div class="bright">
+		<ul class="link_bk">	
+	{#if $smarty.get.sdistrict<>""#}
+		{#qishi_get_classify set="类型:QS_district,id:"|cat:$smarty.get.district|cat:",列表名:c_province"#}
+		{#foreach from=$c_province item=list#}
+		{#if $smarty.get.sdistrict==$list.id#}
+		<li><a href="{#"QS_train_agency,sdistrict:"|cat:$list.id|cat:"-nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:$smarty.get.district|qishi_url#}" style="color:#FF6600">{#$list.categoryname#}</a></li>
+		{#/if#}
+		{#/foreach#}
+	{#else#}
+		{#qishi_get_classify set="类型:QS_district,id:"|cat:$smarty.get.district|cat:",列表名:c_province"#}
+		{#foreach from=$c_province item=list#}
+		<li><a href="{#"QS_train_agency,sdistrict:"|cat:$list.id|cat:"-nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:$smarty.get.district|qishi_url#}" >{#$list.categoryname#}</a></li>
+		{#/foreach#}
+	{#/if#}
+		<div class="clear"></div>
+		</ul>
+	</div>
+{#/if#}
+	<div class="clear"></div>
+	<!-- -->
+</div>
+{#if $smarty.get.nature || $smarty.get.district || $smarty.get.sdistrict#}
+  <div class="myselbox"  style="display:block;">
+		  <div class="left">已选条件：</div>
+		  <div class="optcentet">
+		{#if $smarty.get.nature#}
+		  <a href="{#"QS_train_agency,nature:"|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|cat:$smarty.get.sdistrict|qishi_url#}"  title="点击取消"><u>机构性质:</u>{#"QS_train_type,"|cat:$smarty.get.nature|qishi_categoryname#}</a>
+		{#/if#}
+		{#if $smarty.get.district#}
+		  <a href="{#"QS_train_agency,nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:"-sdistrict:"|qishi_url#}"  title="点击取消"><u>地区大类:</u>{#"QS_district,"|cat:$smarty.get.district|qishi_categoryname#}</a>
+		{#/if#}
+		{#if $smarty.get.sdistrict#}
+		  <a href="{#"QS_train_agency,nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|qishi_url#}"  title="点击取消"><u>地区小类:</u>{#"QS_district,"|cat:$smarty.get.sdistrict|qishi_categoryname#}</a>
+		{#/if#}
+		  <div class="clear"></div>
+		  </div>
+		  <div class="right"><div class="clearoptall"><a  href="{#"QS_train_agency"|qishi_url#}" class="clearall">清除所有</a></div></div>
+		  <div class="clear"></div>
+  </div>
+  {#/if#}
+</div>
+<!--机构列表 -->
+<div class="train_list">	
+	<div class="sort">
+		   <a href="{#"QS_train_agency,nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|cat:$smarty.get.sdistrict|cat:"-sort:rtime"|qishi_url#}"  {#if $smarty.get.sort=="rtime" || $smarty.get.sort==""#}class="select"{#/if#}>更新时间</a>
+		    <a href="{#"QS_train_agency,inforow:10-page:1-nature:"|cat:$smarty.get.nature|cat:"-district:"|cat:$smarty.get.district|cat:"-sdistrict:"|cat:$smarty.get.sdistrict|cat:"-sort:hot"|qishi_url#}"  {#if $smarty.get.sort=="hot"#}class="select"{#/if#}>关注度</a>
+	</div>
+{#qishi_train_list  set="分页显示:1,列表名:train,显示数目:GET[inforow],填补字符:...,机构名长度:30,描述长度:70,机构性质:GET[nature],地区大类:GET[district],地区小类:GET[sdistrict],排序:GET[sort]"#}
+{#foreach from=$train item=list#}
+		<div class="list link_lan">
+          <div class="agencyname">
+		  <a href="{#$list.train_url#}" target="_blank">{#$list.trainname_#}</a>
+		{#if $list.recommend=="1"#} <img src="{#$QISHI.site_template#}images/62.gif" border="0" align="absmiddle" title="推荐机构" class="vtip"/>{#/if#}
+		  </div>
+		  <!-- -->
+		  <div class="tli link_bku">机构性质：<a href="{#"QS_train_agency,nature:"|cat:$list.nature|qishi_url#}">{#$list.nature_cn#}</a></div>
+		  <div class="tli" >所在地区：{#$list.district_cn#}</div>
+		  <div class="tli"> 成立时间：{#$list.founddate|date_format:"%Y-%m-%d"#}</div>
+		  <div class="tli"> 刷新时间：{#$list.refreshtime_cn#}</div>
+		  <div class="clear"></div>
+		  <div class="briefly">机构简介：{#$list.briefly#}</div>
+		  <div class="briefly">师资力量：{#$list.teacherpower#}</div>
+		  <div class="briefly">重要成果：{#$list.achievement#}</div>
+  </div>
+{#/foreach#}
+		{#if !$train#}
+		<div class="noinfo">
+		<span>抱歉，没有符合此条件的信息。</span><br />
+您可以：<br />
+重新修改搜索条件后再进行搜索。 <br />
+适当减少一些搜索条件，以便能够获得更多的结果。 <br />
+		</div>
+		{#/if#}
+</div>
+
+		{#if $page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+{#include file="footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,408 @@
+{#qishi_jobs_show set="列表名:show,职位ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+            <title>{#$show.jobs_name#}招聘_{#$show.companyname#}_{#$QISHI.site_name#}</title>
+            <meta name="keywords" content="{#$show.companyname#},{#$show.jobs_name#}招聘,{#$show.district_cn#}{#$show.jobs_name#}招聘"/>
+            <meta name="description" content="{#if !empty($show.contents)#}{#$show.contents|strip_tags|strip|mb_substr:0:150:'GBK'#}{#else#}{#$show.jobs_name#}{#/if#}" />
+            <meta name="author" content="教师招聘网" />
+            <meta name="copyright" content="jiaoshizhaopin.net" />
+            <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+            <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+            <link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+            <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+            <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+            <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var id = "{#$show.id#}";
+                    var company_id = "{#$show.company_id#}";
+                    var tsTimeStamp = new Date().getTime();
+                    $.get("{#$QISHI.website_dir#}plus/ajax_click.php", {"id": id, "time": tsTimeStamp, "act": "jobs_click"},
+                    function (data, textStatus)
+                    {
+                        $(".click").html(data);
+                    }
+                    );
+                    //查看联系方式
+                    $("a.show_contact").click(function () {
+                        $.get("{#$QISHI.website_dir#}user/login.php", {"act": "check_online"}, function (data) {
+                            if (data == "y") {
+                                var str = "联系电话：{#$show.company.telephone#}，联系人：{#$show.company.contact#}（联系我时请说明是在中国教师招聘网上看到的）"
+                            } else if (data == "person_login") {
+                                var str = "点击  <a class='make_resume' title='完善简历' href='/user/personal/personal_resume.php?act=make1'>完善简历</a>  ，马上查看联系方式"
+                            } else {
+                                dialog("查看联系方式", "url:{#$QISHI.website_dir#}user/login.php?act=check_online&type=ajax_login", "500px", "auto", "", "");
+                            }
+                            $("p.contact_box").html(str);
+                        })
+                    });
+                    //申请职位
+                    $(".app_jobs").click(function () {
+                        dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_jobs.php?id=" + id + "&act=app", "500px", "auto", "", "");
+                    });
+                    //浏览过的职位--申请职位
+                    $(".app_view_jobs").click(function () {
+                        dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_jobs.php?id=" + $(this).attr('id') + "&act=app", "500px", "auto", "", "");
+                    });
+                    //单个添加收藏
+                    $(".favorite ").click(function () {
+                        dialog("加入收藏", "url:{#$QISHI.website_dir#}user/user_favorites_job.php?id=" + id + "&act=add", "500px", "auto", "", "");
+                    });
+                    //举报信息
+                    $(".report_button").click(function () {
+                        var jobs_id = $(this).attr("jobs_id");
+                        var jobs_name = $(this).attr("jobs_name");
+                        var jobs_addtime = $(this).attr("jobs_addtime");
+                        dialog("举报信息", "url:{#$QISHI.website_dir#}user/user_report.php?act=report&jobs_id=" + jobs_id + "&jobs_name=" + jobs_name + "&jobs_addtime=" + jobs_addtime, "500px", "auto", "", "");
+                    });
+                    $(".check_full_map").click(function () {
+                        dialog("完整地图", "url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&id=" + company_id, "660px", "auto", "", "");
+                    });
+                    $.get("{#$QISHI.website_dir#}plus/ajax_contact.php", {"id": id, "time": tsTimeStamp, "act": "jobs_contact"},
+                    function (data, textStatus)
+                    {
+                        $("#jobs_contact").html(data);
+                    }
+                    );
+                });
+                $(function () {
+                    $("input[type='button']").hover(function () {
+                        $(this).addClass("hover");
+                    }, function () {
+                        $(this).removeClass("hover");
+                    });
+                    $(".claim").find("span:eq(0)").css("margin-left", 0);
+                    $(".watch_job li").hover(function () {
+                        $(this).find("input").css("display", "block");
+                    }, function () {
+                        $(this).find("input").css("display", "none");
+                    })
+                })
+
+                var left_h = $('div.left_area').height();
+                var right_h = $('div.right_area').height();
+                if (right_h > left_h) {
+                    $('div.left_area').height(right_h);
+                }
+            </script>
+    </head>
+    <body>
+        {#include file="header.htm"#}
+        <div id="main">
+            <h1 class="page_title"><a href="{#if $show.district > 0 #}/{#$job_district.district_py#}{#else#}/morejobs{#/if#}" title="{#if $show.district > 0 #}{#$job_district.district_cn#}{#else#}中国{#/if#}教师招聘">{#if $show.district > 0 #}{#$job_district.district_cn#}{#else#}全国{#/if#}教师招聘</a>{#if $show.sdistrict > 0 #}<div style="float: left;font-size: 24px;font-family: '微软雅黑','宋体',Arial,Helvetica,sans-serif;color: #333;">&nbsp;>&nbsp;</div><a href="/{#$job_district.district_py#}/{#$job_district.sdistrict_py#}" title="{#$job_district.sdistrict_cn#}教师招聘">{#$job_district.sdistrict_cn#}教师招聘</a>{#/if#}</h1>
+            <form class="search_form" method="get" action="/{#$job_district.district_py#}/{#$job_district.sdistrict_py#}">
+                <input class="search_input" type="text" name="keyword" placeholder="请输入搜索关键字" value="">
+                    <input class="search_submit" type="submit" value="搜索">
+                        </form>
+                        <div class="district_box">
+                            <div class="text">
+                                地区
+                            </div>
+                            <div class="content">
+                                {#if empty($job_district) #}
+                                <div class="district"><span title="全国" href="/morejobs">全国</span></div>
+                                {#jiaoshi_districts set="列表名:provinces,类别:省份,屏蔽:article_count,后台排序:desc,不显示:国外|香港|台湾|澳门"#}
+                                {#foreach from=$provinces item=province#}
+                                <div class="district">
+                                    <a title="{#$province.categoryname#}" href="/{#$province.pinyin#}">{#$province.categoryname#}</a>
+                                </div>
+                                {#/foreach#}
+                                {#else#}
+                                <div class="district"><a title="全国" href="/morejobs">全国</a></div>
+                                {#/if#}
+                                {#if !empty($job_district.district_py) #}
+                                {#if empty($job_district.sdistrict_parent)#}
+                                {#jiaoshi_districts set="列表名:provinces,类别:省份,屏蔽:article_count,后台排序:desc,不显示:国外|香港|台湾|澳门"#}
+                                {#foreach from=$provinces item=province#}
+
+                                <div class="district">
+                                    {#if $province.pinyin != $job_district.district_py #}
+                                    <a title="{#$province.categoryname#}" href="/{#$province.pinyin#}">{#$province.categoryname#}</a>
+                                    {#else#}
+                                    <span title="{#$province.categoryname#}">{#$province.categoryname#}</span>
+                                    {#/if#}
+                                </div>
+                                {#/foreach#}
+                                {#else#}
+                                <div class="district"><a title="{#$job_district.district_cn#}" href="/{#$job_district.district_py#}">{#$job_district.district_cn#}</a></div>
+
+                                {#jiaoshi_districts set="列表名:cities,类别:城市,父地区id:$job_district.sdistrict_parent,屏蔽:article_count,后台排序:desc,不显示:国外|香港|台湾|澳门"#}
+                                {#foreach from=$cities item=city#}
+                                <div class="district">
+                                    {#if $city.pinyin != $job_district.sdistrict_py #}
+                                    <a title="{#$city.categoryname#}" href="/{#$job_district.district_py#}/{#$city.pinyin#}">{#$city.categoryname#}</a>
+                                    {#else#}
+                                    <span title="{#$city.categoryname#}">{#$city.categoryname#}</span>
+                                    {#/if#}
+                                </div>
+                                {#/foreach#}
+                                {#/if#}
+                                {#/if#}
+                            </div>
+                        </div>	
+                        </div>
+                        <!-- 当前位置 -->
+                        <!--<div class="page_location link_bk">
+                            当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="/TeachingJobs">招聘信息</a>&nbsp;>&nbsp;职位详情
+                        </div>-->
+                        <!-- 主体内容 -->
+                        <div id="jobs_show_box" class="">
+                            <!-- 左边内容 -->
+                            <div class="left_area">
+                                <div class="detail_top">
+                                    <div class="main_title">
+                                        <div class="code_img">
+                                            <img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/job/detail?job_id={#$show.id#}" width="82" height="82" alt="二维码"/>
+                                        </div>
+                                        <div class="jobs_title_box">
+                                            <p class="jobs_title">
+                                                <span>{#$show.jobs_name#}</span>
+                                            </p>
+                                            <center class="sub_title">
+                                                <span>发布时间：&nbsp;&nbsp;{#$show.addtime|date_format:"%Y-%m-%d %H:%M"#}</span>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览：&nbsp;&nbsp;<em class="times click"></em>&nbsp;&nbsp;次&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <span><em class="times">{#$show.countresume#}</em>&nbsp;&nbsp;人投递简历</span>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                                {#qishi_ad set="调用名称:a001,列表名:list,显示数目:1"#}
+                                {#if !empty($list)#}
+                                <div id="ad_a001">
+                                    {#foreach from=$list item=li#}
+                                    <a title="{#$li.img_explain_#}" target="blank" href="{#$li.img_url#}"><img src="{#$li.img_path#}" width="715" height="90" /></a>
+                                    {#/foreach#}
+                                </div>
+                                {#/if#}
+                                <div class="detail_info">
+                                    <h4 class="titleh4">职位信息</h4>
+                                    <ul>
+                                        <li>
+                                            工资待遇：<span>{#$show.wage_cn#}</span>
+                                        </li>
+                                        <li>
+                                            <div class="w248">招聘人数：{#$show.amount#}人</div>
+                                            <div class="w248">职位类别：{#$show.category_cn#}</div>
+                                            <div>性别要求：{#$show.sex_cn#}</div>
+                                        </li>
+                                        <li>
+                                            <div class="w248">年龄要求：{#if $show.age#}{#$show.age#}岁{#else#}不限{#/if#}</div>
+                                            <div class="w248">学历要求：{#$show.education_cn#}</div>
+                                            <div>工作经验：{#$show.experience_cn#}</div>
+                                        </li>
+                                        <li>
+                                            工作地址： {#$show.contact.address#} ( {#$show.district_ch#}{#if $show.sdistrict_ch#} - {#$show.sdistrict_ch#}{#/if#} ) &nbsp;&nbsp;{#if $show.company.map_x>0#}<div class="check_f_map"><a   class="check_full_map map">[查看地图]</a><div class="clear"></div></div>{#/if#}
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="detail_info noborder">
+                                    <h4 class="titleh4">职位描述</h4>
+                                    <div class="des">
+                                        <p>
+                                            {#$show.contents|nl2br#}
+                                        </p>
+                                    </div>
+                                    <div class="button_box">
+                                        <a title="申请职位"   class="apply_bt app_jobs">申请职位</a>
+                                        <div class="clear"></div>
+                                        {#if $smarty.session.utype != 1#}
+                                        <p class="contact_box"><a title="点击查看联系方式"   class="show_contact">点击查看联系方式</a></p>
+                                        {#/if#}
+                                    </div>
+
+                                    {#qishi_ad set="调用名称:a002,列表名:list,显示数目:1"#}
+                                    {#if !empty($list)#}
+                                    <div id="ad_a002">
+                                        {#foreach from=$list item=li#}
+                                        <a title="{#$li.img_explain_#}" target="blank" href="{#$li.img_url#}"><img src="{#$li.img_path#}" width="715" height="90" /></a>
+                                        {#/foreach#}
+                                    </div>
+                                    {#/if#}
+
+                                </div>
+                                {#qishi_jobs_list set="列表名:jobs,填补字符:...,职位名长度:14,显示数目:5,不显示:$show.id,会员UID:"|cat:$show.uid#}
+                                {#if $total > 1#}
+                                <div class="other_job">
+                                    <h4 class="titleh4">公司其他职位</h4>
+                                    <table>
+                                        <tbody>
+                                            {#foreach from=$jobs item=list#}
+                                            {#if $list.jobs_name != ''#}
+                                            <tr>
+                                                <td width="207" class="frist"><a href="/job/{#$list.id#}.html" target="_blank">{#$list.jobs_name#}</a></td>
+                                                <td width="175">{#$list.wage_cn#}</td>
+                                                <td width="107">{#$list.education_cn#}</td>
+                                                <td width="113" style="overflow:hidden;">{#$list.district_cn#}</td>
+                                                <td width="82">{#$list.refreshtime_cn#}</td>
+                                            </tr>
+                                            {#/if#}
+                                            {#/foreach#}
+                                        </tbody>
+                                    </table>
+                                    {#if $jobs.total > 5#}
+                                    <div class="more">
+                                        <a href="/school/{#$show.company_id#}.html">更多>></a>
+                                    </div>
+                                    {#/if#}
+                                </div>
+                                {#/if#}
+                            </div>
+
+                            <!-- 右边内容 -->
+                            <div class="right_area">
+                                {#qishi_ad set="调用名称:a003,列表名:list,显示数目:1"#}
+                                {#if !empty($list)#}
+                                <div id="ad_a003">
+                                    {#foreach from=$list item=li#}
+                                    <a title="{#$li.img_explain_#}" target="blank" href="{#$li.img_url#}"><img src="{#$li.img_path#}" width="220" height="220" /></a>
+                                    {#/foreach#}
+                                </div>
+                                {#/if#}
+                                <div class="box">
+                                    <p class="box_title">招聘进度</p>
+                                    {#if $show.overdue == 1#}
+                                    <div class="progress_box">
+                                        <p class="progress"></p>
+                                    </div>
+                                    <!--<span class="left">{#$show.starttime#}开始</span>
+                                    <span class="right">{#$show.endtime#}截止</span>-->
+                                    <span class="left">招聘中</span>
+                                    <span class="right">{#$show.endtime#}截止</span>
+                                    {#else#}
+                                    <span class="left">招聘已结束</span>
+                                    <!--<p class="box_overdue">此职位已失效</p>-->
+                                    {#/if#}
+                                    <div class="clear"></div>
+                                    <div class="button_box">
+                                        <a title="申请职位"   class="apply_bt app_jobs">申请职位</a>
+                                        <a title="收藏"   class="favorite favorite1">收藏</a>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <p class="company_name"><a target="_blank" href="/school/{#$show.company_id#}.html">{#$show.companyname#}</a></p>
+                                    <table class="company_info">
+                                        <tbody>
+                                            <tr>
+                                                <td width="40" valign="top">地址：</td>
+                                                <td width="165" valign="top">{#$show.company.address#}</td>
+                                            </tr>
+                                            {#if $show.company.website && $show.company.website != "http://"#}
+                                            <tr>
+                                                <td width="40" valign="top">网站：</td>
+                                                <td width="165" valign="top"><a tager="_blank" href="{#$show.company.website#}">{#$show.company.website#}</a></td>
+                                            </tr>
+                                            {#/if#}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {#qishi_ad set="调用名称:a004,列表名:list,显示数目:5"#}
+                                {#if !empty($list)#}
+                                <div id="ad_a004">
+                                    <div class="pre"></div>
+                                    <div class="next"></div>
+                                    <div class="smalltitle">
+                                        <ul>
+                                            <li class="thistitle"></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <ul class="oUlplay">
+                                        {#foreach from=$list item=li#}
+                                        <li><a title="{#$li.img_explain_#}" target="blank" href="{#$li.img_url#}"><img src="{#$li.img_path#}" width="220" height="300" /></a></li>
+                                        {#/foreach#}
+                                    </ul>
+                                </div>
+                                <script src="{#$user_tpl#}js/ad_a004.js" type='text/javascript' ></script>
+                                {#/if#}
+                                <!--<div class="code_img_r">
+    <img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}comment/job?id={#$show.id#}" width="180" height="180" alt="二维码"/>
+    <p>扫描二维码，立即跟帖</p>
+</div>
+{#if $show.comment_sum > 0#}
+<div class="comment_box">
+    <div class="comment_div">
+        <ul id="comment_ul">
+            {#foreach from=$show.comment_arr item=c#}
+            <li>
+                <img class="left" src="/data/photo/weixin/{#$c.openid#}.jpg" width="45" height="45"/>
+                <div class="left">
+                    <span class="comment_name">{#$c.nickname#}</span><span class="comment_time">{#$c.addtime|date_format:"%Y-%m-%d"#}</span>
+                    <div class="clear"></div>
+                    <p>{#$c.content#}</p>
+                </div>
+            </li>
+            {#/foreach#}
+        </ul>
+        {#if $show.comment_total > 0#}
+        <p class="left">还有&nbsp;<span>{#$show.comment_total#}</span>&nbsp;条跟帖<br/>查看全部请扫一扫上方二维码</p>
+        {#/if#}
+    </div>
+</div>
+{#/if#}-->
+                            </div>
+
+                            <script>
+                ad_a004();
+                        $('div.progress_box p.progress').css('width', {#$show.time_percent#} + "%"
+                        );
+                        /*
+                         var left_h = $('div.left_area').height();
+                         var right_h = $('div.right_area').height();
+                         if (left_h > right_h) {
+                         $('div.left_area').parent().height(left_h);
+                         } else {
+                         var ul_hieght = $('div.left_area').height() - 732;
+                         if(ul_hieght > 110){
+                         $('ul#comment_ul').css('max-height', ul_hieght);
+                         $('ul#comment_ul').css('overflow-y', 'scroll');
+                         $('ul#comment_ul div.left').css('width', '150px');
+                         }
+                         var right_h = $('div.right_area').height();
+                         $('div.left_area').height(right_h);
+                         }
+                         $(window).scroll(function() {
+                         if ($('div.left_area').height() > $("div.right_area").height()) {
+                         if ($(window).scrollTop() > 115) {
+                         $("div.right_area").css("position", "fixed");
+                         $("div.right_area").css("margin-top", "10px");
+                         $("div.right_area").css("margin-right", " -500px");
+                         $("div.right_area").css("top", "0px");
+                         //if ($(document.body).outerHeight(true)-210 - $(window).scrollTop() < $(window).height() + 180) {
+                         if ($(window).scrollTop()+$("div.right_area").height() > $(document.body).outerHeight(true) -210) {
+                         $("div.right_area").removeAttr("style");
+                         $("div.right_area").css("position", "absolute");
+                         $("div.right_area").css("right", "0px");
+                         $("div.right_area").css("bottom", "12px");
+                         //$("div.right").css("top", "-" + ($("div.right").height() + 205 - $(window).height()) + "px");
+                         } else {
+                         $("div.right_area").removeAttr("style");
+                         $("div.right_area").css("position", "fixed");
+                         $("div.right_area").css("margin-top", "10px");
+                         $("div.right_area").css("margin-right", " -500px");
+                         $("div.right_area").css("top", "0px");
+                         //$("div.right").css("top", "0px");
+                         }
+                         } else {
+                         $("div.right_area").removeAttr("style");
+                         }
+                         }
+                         
+                         })
+                         */
+                        $('a.comment_more').click(function () {
+                    window.location.href = "http://" + window.location.hostname + window.location.pathname + "#comment_ul";
+                    location.reload();
+                })
+                            </script>
+                            <div class="clear"></div>
+                        </div>
+                        <!-- 主体内容 结束 -->
+                        {#include file="footer.htm"#}
+                        </body>
+                        </html>

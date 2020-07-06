@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_interview.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;面试邀请函</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <p>面试邀请函</p>
+                    </div>
+                    <div class="nav_box">
+                        <a href="?act={#$act#}&look=0"{#if $smarty.get.look=="0" || $smarty.get.look==""#} class="hover"{#/if#}>所有({#$count.2#})</a><b></b>
+                        <a href="?act={#$act#}&look=1"{#if $smarty.get.look=="1"#} class="hover"{#/if#}>未查看({#$count.0#})</a><b></b>
+                        <a href="?act={#$act#}&look=2"{#if $smarty.get.look=="2"#} class="hover"{#/if#}>已查看({#$count.1#})</a>
+                    </div>
+                    {#if $interview#}
+                    <ul class="list">
+                        {#foreach from=$interview item=list#}
+                        {#if $list.wage_cn#}
+                        <li>
+                            <div class="item_info">
+                                <div class="title">
+                                    <a class="job_name" href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a>
+                                    <p class="time">邀请时间：{#$list.interview_addtime|date_format:"%Y-%m-%d"#}</p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="info">
+                                    <p class="left">{#$list.companyname#}</p>
+                                    <p class="right"><span>面试要求：{#if !empty($list.notes)#}{#$list.notes#}{#else#}无{#/if#}</span><i></i></p>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="note">{#if !empty($list.notes)#}{#$list.notes|nl2br#}{#else#}无{#/if#}</p>
+                            </div>
+                        </li>
+                        {#else#}
+                        <li>
+                            <p class="no_tips">该职位可能已经被删除！</p>
+                        </li>
+                        {#/if#}
+                        {#/foreach#}
+                    </ul>
+                    <script>
+                        $('ul.list li div.info i').click(function () {
+                            if ($(this).hasClass('down')) {
+                                $(this).removeClass('down');
+                                $(this).parents('li').find('p.note').slideUp();
+                            } else {
+                                $(this).addClass('down');
+                                $(this).parents('li').find('p.note').slideDown();
+                            }
+                        })
+                    </script>
+                    <div class="clear"></div>
+                    {#if $page#}
+                    <div class="page_box">{#$page#}</div>
+                    {#/if#}
+                    {#else#}
+                    <div class="clear"></div>
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>您暂时还没有收到邀请函！</p>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="apply">
+                                <a href="/user/personal/personal_apply.php?act=apply_jobs">
+                                    <i></i>
+                                    <label>{#$count_apply#}</label>
+                                    <div class="clear"></div>
+                                    <span>投递箱</span>
+                                </a>
+                            </li>
+                            <li class="fav">
+                                <a href="/user/personal/personal_apply.php?act=favorites">
+                                    <i></i>
+                                    <label>{#$favorites_total#}</label>
+                                    <div class="clear"></div>
+                                    <span>收藏夹</span>
+                                </a>
+                            </li>
+                            <li class="invitation">
+                                <a href="/user/personal/personal_apply.php?act=interview">
+                                    <i></i>
+                                    <label>{#$count_interview#}</label>
+                                    <div class="clear"></div>
+                                    <span>邀请函</span>
+                                </a>
+                            </li>
+                            <li class="rss">
+                                <a href="/subscribe/">
+                                    <i></i>
+                                    <label></label>
+                                    <div class="clear"></div>
+                                    <span>订阅栏</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item_box">
+                        <p class="b_title">
+                            <b></b>
+                            <span>推荐职位</span>
+                        </p>
+                        <ul>
+                            {#jiaoshi_jobs set="开始位置:0,显示数目:7,单位:job"#}
+                            {#if !empty($jobs)#}
+                            {#foreach from=$jobs item=job#}
+                            <li>
+                                <div class="title">
+                                    <p><a class="name" target="_blank" title="{#$job.jobs_name#}" href="/job/{#$job.id#}.html">{#$job.jobs_name#}</a>[<a class="city" target="_blank" href="{#$job.city_pinyin#}">{#$job.district_cn#}</a>]</p>
+                                </div>
+                                <div class="info">
+                                    <span class="left">{#$job.wage_cn#}</span>
+                                    <span class="right">{#$job.addtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                            </li>
+                            {#/foreach#}
+                            {#/if#}
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

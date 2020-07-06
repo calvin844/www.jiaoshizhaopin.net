@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+//简历列表更多操作展开
+$(".morebox").hover(
+  function () {
+    $(this).find(".morelist").slideDown("fast");
+  },
+  function () {
+    $(this).find(".morelist").slideUp("fast");
+  }
+);
+$(".resume_privacy").live("click",function(){
+	var pid = $(this).attr("pid");
+	dialog("隐私设置","url:personal_ajax.php?act=privacy&pid="+pid,"500px","auto","","");
+});
+$(".shield_company").live("click",function(){
+	var pid = $(this).attr("pid");
+	dialog("屏蔽企业","url:personal_ajax.php?act=shield_company&pid="+pid,"500px","auto","","");
+});
+$(".tpl").live("click",function(){
+	var pid = $(this).attr("pid");
+	dialog("更换模板","url:personal_ajax.php?act=tpl&pid="+pid,"610px","auto","","");
+});
+$(".del_resume").live("click",function(){
+	var pid = $(this).attr("pid");
+	dialog("删除简历","url:personal_ajax.php?act=del_resume&pid="+pid,"350px","auto","","");
+});
+$(".refresh_resume").live("click",function(){
+	var pid = $(this).attr("pid");
+	$.get("personal_ajax.php?act=refresh_resume&id="+pid,function(result){
+		if(result=="1"){
+			alert_dialog("success:刷新成功","","","","");
+			location.reload();
+		}else{
+			alert_dialog("fail:"+result,"300px","","","");
+		}
+	});
+});
+});
+</script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 我的简历</div>
+
+<div class="usermain">
+	<div style="display:inline-block;">
+  <div class="leftmenu link_bk">
+  {#include file="member_personal/left.htm"#}	
+  </div>
+<div class="rightmain">
+  
+	<div class="bbox1">
+	
+	  <div class="resumelist">
+				<div class="titleH1">
+				  <div class="h1-title">我的简历</div>
+				</div>
+			{#if $resume_list#}
+			{#foreach from=$resume_list item=list#}	
+			<div class="relist">
+				
+			  <div class="toptitle">
+					<div class="t"><span class="h2-title">{#$list.title#}</span><span class="date">刷新时间：{#$list.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</span></div>
+			  </div>
+				  
+				  <div class="fbox">审核状态：{#if $list.audit=="1"#}<span style="color: #009900">审核通过</span>{#elseif $list.audit=="2"#}<span style="color: #FF6600">审核中</span>{#elseif $list.audit=="2"#}<span style="color: #FF0000">审核未通过</span>{#/if#}<br />简历等级：{#if $list.talent=="2"#}<span style="color:#FF6600">高级</span>{#elseif $list.talent=="3"#}高级待审{#else#}普通{#/if#}</div>
+				  <div class="fbox">完整度：{#$list.complete_percent#}%<span style="color:#FF0000">({#if $list.level=="1"#}差{#elseif $list.level=="2"#}良{#else#}优{#/if#})</span><br /> 公开状态：<span style="cursor:pointer;" class="resume_privacy" pid="{#$list.id#}" id="view_display_{#$list.id#}">{#if $list.display=="1"#}公开{#elseif $list.display=="2"#}保密{#/if#}</span></div>
+				  <div class="fbox">面试/申请：<a href="personal_apply.php?act=interview">{#$list.countinterview#}</a>/<a href="personal_apply.php?act=apply_jobs">{#$list.countapply#}</a><br />下载/浏览：<a href="personal_apply.php?act=attention_me">{#$list.countdown#}</a>/<a href="personal_apply.php?act=attention_me">{#$list.click#}</a></div>
+			  <div class="fbox last">					 	
+				 	<div class="buts"><input type="button" class="refresh_resume but100_30lan" value="刷新简历" pid="{#$list.id#}"/></div>			 	   
+				   		<div class="buts"><input type="button"  class="but100_30hui" value="修改简历" onclick="javascript:location.href='?act=edit_resume&pid={#$list.id#}' "/></div>
+						<div class="clear"></div>
+					<div class="buts"><input type="button"  class="but100_30hui" value="预览简历" onclick="javascript:window.open('{#$list.resume_url#}')"/></div>
+						<div class="buts">
+								<div class="morebox" id="morebox">
+									<div class="more">更多操作</div>						
+										<div class="morelist link_bk">
+												{#if $list.talent=="1"#}<a href="?act=talent_save&pid={#$list.id#}">升级简历</a><br />{#/if#}
+												<!--<a class="tpl" pid="{#$list.id#}"  >更换模板</a>								  <br />-->
+												{#if $list.entrust=="0"#}
+                                                                                                <a href="?act=set_entrust&pid={#$list.id#}">委托投递</a>		<br />
+                                                                                                {#else#}
+                                                                                                <a href="?act=del_entrust&pid={#$list.id#}">取消委托</a>		<br />
+                                                                                                {#/if#}
+												<a class="resume_privacy" pid="{#$list.id#}"  >隐私设置</a><br />
+												<a class="shield_company" pid="{#$list.id#}"  >屏蔽企业</a><br />
+										<a class="del_resume" pid="{#$list.id#}"  >删除简历</a>
+										</div>
+								</div>
+					</div>
+						<div class="clear"></div>
+			  </div>
+				  <div class="clear"></div>
+			  
+			</div>
+			{#/foreach#}
+			{#if $page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			{#else#}
+			<div class="emptytip">对不起！没有找到您要的信息！</div>
+			{#/if#}
+			 <div class="addbut">
+                             
+			{#if $resume_list == ""#}	
+			 <input type="button" name="submitsave" id="submitsave" value="新增简历" onclick="javascript:location.href='personal_resume.php?act=make1'"  class="but100lan"/>
+                         {#/if#}
+			 </div>
+			 
+	         <div class="bottomtip">
+		 	   <div class="tp h2-title">小贴士</div>
+			   刷新简历：刷新简历完全免费，刷新后时间会变成最新，企业在搜索简历的时候会优先显示，提供应聘机会。<br />
+<!--企业屏蔽：如果您的简历不想被某个公司看到，可以在更多操作中屏蔽该公司。<br />-->
+委托简历：设置委托后，在三天内我们会主动向适合您职位的公司投递您的简历，提高面试效果。
+			 </div> 
+	  </div>	  
+	</div>
+  </div>
+
+  </div>
+	</div>
+<div class="clear"></div>
+
+
+ {#include file="user/footer.htm"#}
+</body>
+</html>

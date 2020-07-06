@@ -1,0 +1,63 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="subsite/admin_subsite_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+<h2>提示：</h2>
+<p>
+新增分站后，需要将分站域名解析至主站，同时主网站需绑定此的分站域名；
+</p>
+</div> 
+<form action="?act=subsite_del" method="post"  name="form1" id="form1">
+{#$inputtoken#}
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="list" class="link_lan">
+    <tr>
+      <td width="180" class="admin_list_tit admin_list_first"><label id="chkAll"><input type="checkbox" name="chkAll"  id="chk" title="全选/反选" />分站名称</label></td>
+      <td  class="admin_list_tit">域名</td>
+      <td width="100"  class="admin_list_tit">状态</td>
+      <td width="150"  class="admin_list_tit">地区</td>
+      <td width="150"  class="admin_list_tit">模版</td>
+      <td width="150" align="center"  class="admin_list_tit">操作</td>
+    </tr>
+	 {#foreach from=$list item=li#}
+	   <tr>
+      <td  class="admin_list admin_list_first"><input type="checkbox" name="id[]" value="{#$li.s_id#}"/> {#$li.s_sitename#} 
+	  <span style="color: #999999">(id:{#$li.s_id#})</span>
+	  </td>
+      <td   class="admin_list"><a href="http://{#$li.s_domain#}" target="_blank">{#$li.s_domain#}</a></td>
+      <td   class="admin_list">{#if $li.s_effective=="1"#}可用{#else#}<span style="color:#CCCCCC">禁用</span>{#/if#} </td>
+      <td   class="admin_list">
+	   {#$li.s_districtname#}
+	  </td>
+      <td   class="admin_list">
+	  {#if $li.s_tpl==""#}默认{#else#}{#$li.s_tpl#}{#/if#}
+	  </td>
+      <td align="center"   class="admin_list">
+	  <a href="?act=edit&id={#$li.s_id#}" >修改</a>
+		&nbsp;&nbsp;
+		<a href="?act=subsite_del&id={#$li.s_id#}&{#$urltoken#}" onclick="return confirm('删除后无法恢复，您确定要删除吗？')">删除</a>	  </td>
+    </tr>
+	  {#/foreach#}
+  </table>
+	{#if !$list#}
+<div class="admin_list_no_info">没有任何信息！</div>
+{#/if#}
+<table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+      <tr>
+        <td>
+<input type="button" class="admin_submit" id="ButAudit" value="添加分站"  onclick="window.location='?act=add'"/>
+<input name=" " type="submit" class="admin_submit" id="ButAudit"   value="删除"/>
+		</td>
+        <td width="305" align="right"> 
+		
+	    </td>
+      </tr>
+  </table>
+</form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,163 @@
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet"/>
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript" ></script>
+
+{#qishi_ad set="调用名称:home_701,显示数目:1"#}
+{#if !empty($list)#}
+<div id="home_701">
+    {#foreach from=$list item=ad#}
+    <a target="_blank" href="/ad_count/index.php?ad_name=home_701&img={#$ad.img_path#}&url={#$ad.img_url#}"><img src="{#$ad.img_path#}" width="100%"/></a>
+    {#/foreach#}
+    <a class="close"  ></a>
+</div>
+<script>
+    $('#home_701 a.close').click(function() {
+        $('#home_701').hide();
+    })
+</script>
+{#/if#}
+<div class="clear"></div>
+
+{#if $smarty.session.utype == 1 && (strstr($smarty.server.PHP_SELF,'/user/company/') || $smarty.server.PHP_SELF=='/resume/resume-list.php')#}
+<div id="header_company">
+    <div class="main_box">
+        <div class="left">
+            <a class="logo" href="/"></a>
+            <b class="line"></b>
+            <a href="{#if !empty($channel.url)#}{#$channel.url#}{#else#}{#$smarty.server.PHP_SELF#}{#/if#}" class="channel_name">
+                {#if !empty($channel.name)#}
+                {#$channel.name#}
+                {#else#}
+                {#if $smarty.server.PHP_SELF == '/user/company/company_index.php'#}企业中心{#/if#}
+                {#if $smarty.server.PHP_SELF == '/resume/resume-list.php'#}人才{#/if#}
+                {#if $smarty.server.PHP_SELF == '/user/company/company_service.php'#}VIP服务{#/if#}
+                {#/if#}
+            </a>
+            <ul>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/user/company/company_index.php'#}hover{#/if#}" title='企业中心' href="/user/company/company_index.php">首页</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/resume/resume-list.php'#}hover{#/if#}" title='人才' href="/resume/resume-list.php">人才</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/user/company/company_service.php'#}hover{#/if#}" title='VIP服务' href="/user/company/company_service.php?act=setmeal_list">VIP服务</a></li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="user_box">
+                <i class="user_icon"></i>
+                <a class="username" href="/user/company/company_index.php">{#$smarty.session.username#}</a>
+                <i class="down_icon"></i>
+                <ul class="user_menu">
+                    <li><a href="/user/company/company_jobs.php?act=addjobs">发布职位</a></li>
+                    <li><a href="/user/company/company_recruitment.php?act=apply_jobs">简历管理</a></li>
+                    <li><a href="/user/company/company_info.php?act=company_profile">企业资料</a></li>
+                    <li><a href="/user/company/company_service.php?act=setmeal_list">VIP服务</a></li>
+                    <li><a href="/user/login.php?act=logout">退出</a></li>
+                </ul>
+            </div>
+            <script>
+                $('#header_company div.user_box').mouseover(function() {
+                    $(this).find('.user_menu').show();
+                }).mouseleave(function() {
+                    $(this).find('.user_menu').hide();
+                })
+            </script>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{#else#}
+<div id="{#if $smarty.session.username#}header_login{#else#}header{#/if#}">
+    <div class="main_box">
+        <div class="left">
+            <a class="logo" href="/"></a>
+            <b class="line"></b>
+            <div class="district_box">
+                <span class="district_name district_select">全国</span>
+                <i class="to_down district_select"></i>
+                <div class="district_list">
+                    <div class="top">
+                        <p class="district hover">省份</p>
+                    </div>
+                    <div id="show_district" class="list">
+                        <a data-name="district" title="全国中小学教师招聘" href="/morejobs">全国</a>
+                        {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                        <!-- 以下为循环数组category内容  -->
+                        {#foreach from=$city item=c#}
+                        <a data-name="district" data-val="{#$c.id#}" href="/{#$c.pinyin#}" title="{#$c.categoryname#}中小学教师招聘">{#$c.categoryname#}</a>
+                        {#/foreach#}
+                    </div>
+                </div>
+                <script>
+                    $('#header_login .district_box .district_select').click(function() {
+                        $('.district_box .district_list').show();
+                        $('.district_box #show_district').show();
+                    })
+                    $('#header .district_box .district_select').click(function() {
+                        $('.district_box .district_list').show();
+                        $('.district_box #show_district').show();
+                    })
+                    $('#header_login div.left').mouseleave(function() {
+                        $('.district_box .district_list').hide();
+                    })
+                    $('#header div.left').mouseleave(function() {
+                        $('.district_box .district_list').hide();
+                    })
+                </script>
+            </div>
+            <ul>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/index.php'#}hover{#/if#}" title='教师招聘网' href="/">首页</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/company/index.php'#}hover{#/if#}" title='学校' href="/company">学校</a></li>
+                <li><a class="{#if $smarty.get.type == 'youer'#}hover{#/if#}" title="幼儿教师招聘网" href="/youer">幼儿</a></li>
+                <li><a class="{#if $smarty.get.type == 'zhongxiaoxue'#}hover{#/if#}" title="中小学教师招聘网" href="/zhongxiaoxue">中小学</a></li>
+                <li><a class="{#if $smarty.get.type == 'peixunjigou'#}hover{#/if#}" title="培训机构教师招聘网" href="/peixunjigou">培训机构</a></li>
+                <!--
+                <li><a class="{#if $smarty.server.PHP_SELF == '/chengkao'#}hover{#/if#}" title='成人高考考试网' href="/chengkao">成考</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/kaobian'#}hover{#/if#}" title='教师编制考试网' href="/kaobian">考编</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/daxuesheng'#}hover{#/if#}" title='大学生兼职网' href="/daxuesheng">大学生</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/jobs/jobs-list.php'#}hover{#/if#}" title='职位' href="/jobs/jobs-list.php?listpage=jobs_list">职位</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/zhaokao/index.php'#}hover{#/if#}" title='招考' href="/zhaokao">招考</a></li>
+                -->
+            </ul>
+        </div>
+        <div class="right">
+            {#if empty($smarty.session.username)#}
+            <a class="resume" href="/user/personal/personal_resume.php?act=resume_list">我的简历</a>
+            <b class="line"></b>
+            <a class="resume" href="/user/company/company_jobs.php?act=addjobs">发布职位</a>
+            <b class="line"></b>
+            <a class="job" href="/charge.htm">招聘套餐</a>
+            <a class="login" href="/user/login.php">登录</a>
+            <a class="reg" href="/user/user_reg.php">注册</a>
+            {#else#}
+            <div class="user_box">
+                <i class="user_icon"></i>
+                <span>{#$smarty.session.username#}</span>
+                <i class="down_icon"></i>
+                {#if  $smarty.session.utype == 1#}
+                <ul class="user_menu">
+                    <li><a href="/user/company/company_jobs.php?act=addjobs">发布职位</a></li>
+                    <li><a href="/user/company/company_recruitment.php?act=apply_jobs">管理简历</a></li>
+                    <li><a href="/user/company/company_info.php?act=company_profile">企业资料</a></li>
+                    <li><a href="/user/company/company_service.php?act=setmeal_list">VIP服务</a></li>
+                    <li><a href="/user/login.php?act=logout">退出</a></li>
+                </ul>
+                {#else#}
+                <ul class="user_menu">
+                    <li><a href="/user/personal/personal_resume.php?act=edit_resume">我的简历</a></li>
+                    <li><a href="/user/personal/personal_apply.php?act=apply_jobs">职位投递</a></li>
+                    <li><a href="/user/personal/personal_user.php?act=userprofile">个人资料</a></li>
+                    <li><a href="/user/login.php?act=logout">退出</a></li>
+                </ul>
+                {#/if#}
+            </div>
+            <script>
+                $('#header_login div.user_box').mouseover(function() {
+                    $(this).find('.user_menu').show();
+                }).mouseleave(function() {
+                    $(this).find('.user_menu').hide();
+                })
+            </script>
+            {#/if#}
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{#/if#}

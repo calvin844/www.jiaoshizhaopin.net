@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_活动首页_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+    </head>
+    <body id="index">
+        <div id="header">
+            <div class="top">
+                <a class="logo" href="/" title="中国教师招聘网"></a>
+                <ul class="fleft">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/company">学校</a></li>
+                    <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                    <li><a href="/morejobs">简章</a></li>
+                    <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                    <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                    <li><a class="hover" href="/act0601/index.php">我的得意门生</a></li>
+                </ul>
+                <ul class="fright">
+                    <?php if(empty($_SESSION['username'])):?>
+                    <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                    <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                    <?php else:?>
+                    <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+            <div class="banner">
+                <a class="join" href="/act0601/upload.php">立即参加</a>
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_index_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div id="content">
+            <div class="c1">
+                <div class="main_box">
+                    <i class="left_icon"></i>
+                    <p class="c1_title">分享学生优秀作品，交流儿童教学经验</p>
+                    <div class="clear"></div>
+                    <div class="i1"></div>
+                    <div class="i2"></div>
+                    <div class="i3"></div>
+                    <div class="i4"></div>
+                </div>
+            </div>
+            <div class="c2">
+                <div class="main_box">
+                    <p class="c2_title">用爱浇开智慧的花朵，引导学生迈出第一步</p>
+                    {#if $total_show == 1#}
+                    <div class="top_box">
+                        <div class="item_num_box">
+                            <p>当前参赛作品：<span>{#$all_total#}</span>个</p>
+                            <a href="/act0601/ilist.php">点击查看</a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    {#/if#}
+                    <div class="top_box_tmp">
+                        <div class="item_num_box">
+                            <p>&nbsp;</p>
+                            <a>&nbsp;</a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="type_box">
+                        <div class="top_ul">
+                            <ul>
+                                <li><a href="/act0601/ilist.php?type=1" class="t1">美术<br/>{#if $total_show == 1#}<span>{#$t_total.1#}个</span>{#/if#}</a></li>
+                                <li><a href="/act0601/ilist.php?type=2" class="t2">音乐<br/>{#if $total_show == 1#}<span>{#$t_total.2#}个</span>{#/if#}</a></li>
+                                <li><a href="/act0601/ilist.php?type=3" class="t3">舞蹈<br/>{#if $total_show == 1#}<span>{#$t_total.3#}个</span>{#/if#}</a></li>
+                            </ul>
+                        </div>
+                        <div class="bottom_ul">
+                            <ul>
+                                <li><a href="/act0601/ilist.php?type=4" class="t4">创意<br/>{#if $total_show == 1#}<span>{#$t_total.4#}个</span>{#/if#}</a></li>
+                                <li><a href="/act0601/ilist.php?type=5" class="t5">书法<br/>{#if $total_show == 1#}<span>{#$t_total.5#}个</span>{#/if#}</a></li>
+                                <li><a href="/act0601/ilist.php?type=6" class="t6">作文<br/>{#if $total_show == 1#}<span>{#$t_total.6#}个</span>{#/if#}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="bottom_box">
+                        <p class="tip">上传作品审核通过即送精美U盘！</p>
+                        <div class="clear"></div>
+                        <div class="usb_box">
+                            <img src="{#$QISHI.site_template#}images/act0601/act0601_index_c2_usb.png" width="329" height="316" />
+                        </div>
+                        <div class="join_box">
+                            <a href="/act0601/upload.php">立即上传学生作品</a>
+                        </div>
+                        <div class="rule_box">
+                            <p class="title">作品审核要求</p>
+                            <p>1、作品必须为学生原创，老师可以从旁辅导</p>
+                            <p>2、作品格式为：图片、文字、视频</p>
+                            <p>3、作品中不得包含侵权元素</p>
+                            <p>4、所提交作品不得涉及政治、暴力及违法言论</p>
+                            <p>5、所有参赛作品，教师招聘网有权用于非商业宣传</p>
+                            <p>6、因作品所产生的纠纷，由提交者承担</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c3">
+                <div class="main_box">
+                    <p class="c3_title">邀请嘉宾导师，为得意门生助阵</p>
+                    <div class="code_img">
+                        <img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/act0601/share_index{#if !empty($uteam)#}?team_id={#$uteam.id#}{#/if#}" width="240" height="240" />
+                        <?php if(empty($_SESSION['username'])):?>
+                        <p>您还未登录，只能获取普通邀请卡</p>
+                        <p><a href="/user/login.php?act_url=/act0601/index.php">立即登录</a></p>
+                        <?php endif;?>
+                    </div>
+                    <div class="guest_box">
+                        <p class="title">嘉宾导师怎么玩？</p>
+                        <p class="tip">每一位参赛教师，完善资料后即可邀请嘉宾导师，一起为得意门生加油助威。</p>
+                        <p>1、最多可邀请10名嘉宾导师；</p>
+                        <p>2、嘉宾导师必须为老师身份；</p>
+                        <p>3、被邀请的嘉宾导师作为专家，参与最终作品评审；</p>
+                        <p>4、嘉宾导师也可以提交作品，参加活动，并且组建评审团。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="c4">
+                <div class="main_box">
+                    <div class="top_box">
+                        <p class="title">奖项设置</p>
+                        <p>作品征集完成后，由参赛导师、嘉宾导师组成评审团，</p>
+                        <p>对参赛作品进行综合评分，依据评分，选取前50名给予奖励。</p>
+                        <p>老师（伯乐奖）：水晶荣誉奖杯</p>
+                        <p>学生（进步奖）：儿童电话手表</p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="bottom_box">
+                        <p class="title">活动说明</p>
+                        <p>《我的得意门生》为中国教师招聘网独办的公益宣传活动，呼吁大家关注儿童兴趣教育及教学交流；</p>
+                        <p>1、为了创造公正的活动环境，采用由参赛教师组成评审团的“自评”模式；</p>
+                        <p>2、学生在教师指导下创作，若因参赛老师所提交的作品引起版权、经济纠纷，参赛老师自行承担；</p>
+                        <p>3、发放给学生的奖品统一邮寄给老师，并代为转交，其他人无权索取奖品；</p>
+                        <p>4、本活动为教师招聘网独家办理，未授权任何单位或个人从事活动相关事项，以本活动相关名义行使欺诈活动，将追究法律责任；</p>
+                        <p>5、本活动最终解释权归教师招聘网所有；</p>
+                    </div>
+                </div>
+            </div>
+            <div class="c5">
+                <div class="main_box">
+                    <div class="fleft">
+                        <div class="host">
+                            <p class="title">活动唯一主办方</p>
+                            <img src="{#$QISHI.site_template#}images/act0601/act0601_index_c5_logo.png" width="246" height="68"/>
+                        </div>
+                        <div class="contant">
+                            <p>客服电话：020-37277119</p>
+                            <p>客服QQ：6210210</p>
+                        </div>
+                    </div>
+                    <div class="fright">
+                        <div class="code1">
+                            <img src="{#$QISHI.site_template#}images/act0601/act0601_index_c5_code1.jpg" width="179" height="178" />
+                            <p>微信客服</p>
+                        </div>
+                        <div class="code2">
+                            <img src="{#$QISHI.site_template#}images/act0601/act0601_index_c5_code2.jpg" width="179" height="178" />
+                            <p>教师微信评审团</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

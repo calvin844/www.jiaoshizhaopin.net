@@ -1,0 +1,243 @@
+{#qishi_resume_show set="列表名:show,简历ID:GET[id],简历列:GET[resume_show_list]"#}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$user_tpl#}css/resume.css" type="text/css" rel="stylesheet"/>
+        <title>{#$show.fullname#}的个人简历 - {#$QISHI.site_name#}</title>
+
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var id = "{#$show.id#}";
+                var tsTimeStamp = new Date().getTime();
+                var job_apply_id = "{#$smarty.get.job_apply_id#}";
+                $.get("{#$QISHI.website_dir#}plus/ajax_click.php", {"id": id, "time": tsTimeStamp, "act": "resume_click"}, function(data, textStatus) {
+                    $(".click").html(data);
+                });
+                $.get("{#$QISHI.website_dir#}plus/ajax_contact.php", {"id": id, "time": tsTimeStamp, "act": "resume_contact"}, function(data, textStatus) {
+                    $("#resume_contact").html(data);
+                });
+                //下载简历
+                $("a#download").click(function() {
+                    //$('#content').on('click', "a.download", function () {
+                    var url = "{#$QISHI.website_dir#}user/user_download_resume.php?id=" + id + "&act=download&t=" + tsTimeStamp + "&job_apply_id=" + job_apply_id;
+                    dialog("下载简历", "url:" + url, "500px", "auto", "");
+                });
+                //邀请面试
+                $("a#invited").click(function() {
+                    var url = "{#$QISHI.website_dir#}user/user_invited.php?id=" + id + "&act=invited&t=" + tsTimeStamp;
+                    dialog("邀请面试", "url:" + url, "500px", "auto", "");
+                });
+                //添加到人才库
+                $("a#add_resume_pool").click(function() {
+                    var url = "{#$QISHI.website_dir#}user/user_favorites_resume.php?id=" + id + "&act=add&t=" + tsTimeStamp;
+                    dialog("添加到人才库", "url:" + url, "500px", "auto", "");
+                });
+                /**
+                 var str = "";
+                 if ($("#resume_contact ul").length < 1) {
+                 str += '{#foreach from=$show.certificate_list item=list#}';
+                 str += '<li>';
+                 str += '<a target="_blank" title="点击查看大图" href="{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}"><img src="{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}" height="120" /></a>';
+                 str += ' <p>{#$list.note#}</p>';
+                 str += '</li>';
+                 str += '{#/foreach#}';
+                 }
+                 $('ul#certificate_list').html(str);
+                 **/
+                //举报信息
+                $(".report_button").click(function() {
+                    var resume_id = $(this).attr("resume_id");
+                    var fullname = $(this).attr("fullname");
+                    var resume_addtime = $(this).attr("resume_addtime");
+                    dialog("举报信息", "url:{#$QISHI.website_dir#}user/user_report_resume.php?act=report&resume_id=" + resume_id + "&full_name=" + fullname + "&resume_addtime=" + resume_addtime, "500px", "auto", "", "");
+                });
+            });
+        </script>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <p class="resume_title">{#$show.fullname#}的简历</p>
+                    <div class="base_box">
+                        <div class="left">
+                            <img src="{#$show.photosrc#}" width="122" height="155" />
+                        </div>
+                        <div class="right">
+                            <ul>
+                                <li><label>姓名：</label><span>{#$show.fullname#}</span></li>
+                                <li><label>年龄：</label><span>{#if $show.age>0#}{#$show.age#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>性别：</label><span>{#if !empty($show.sex_cn)#}{#$show.sex_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>婚姻状况：</label><span>{#if !empty($show.marriage_cn)#}{#$show.marriage_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>工作经验：</label><span>{#if !empty($show.experience_cn)#}{#$show.experience_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>最高学历：</label><span>{#if !empty($show.education_cn)#}{#$show.education_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>居住地：</label><span>{#if !empty($show.residence_cn)#}{#$show.residence_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li class="label">
+                                    <label>标签：</label>
+                                    {#if !empty($show.tag)#}
+                                    {#foreach from=$show.tag item=t_li#}
+                                    <span>{#$t_li.1#}</span>
+                                    {#/foreach#}
+                                    {#else#}
+                                    <span>无</span>
+                                    {#/if#}
+                                </li>
+                                <li class="profile">
+                                    <label>个人简介：</label>
+                                    <span>{#if !empty($show.specialty)#}{#$show.specialty|nl2br#}{#else#}未填写{#/if#}</span>
+                                </li>
+                            </ul>
+                            <div id="resume_contact" class="contact"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="intention_box">
+                        <div class="box_title">
+                            <p>求职意向</p>
+                        </div>
+                        <ul>
+                            <li><p>工作性质：{#if !empty($show.nature_cn)#}{#$show.nature_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li><p>期望地区：{#if !empty($show.district_cn)#}{#$show.district_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li><p>期望月薪：{#if !empty($show.wage_cn)#}{#$show.wage_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li>
+                                <p>期望岗位：
+                                    {#if !empty($show.intention_jobs)#}
+                                    {#foreach from=$show.intention_jobs item=i#}
+                                    <span>{#$i#}</span>
+                                    {#/foreach#}
+                                    {#else#}
+                                    未填写
+                                    {#/if#}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    {#if !empty($show.education_list)#}
+                    <div class="education_box">
+                        <div class="box_title">
+                            <p>教育经历</p>
+                        </div>
+                        <ul>
+                            {#foreach from=$show.education_list item=list#}
+                            <li>
+                                <span>{#$list.startyear#}-{#$list.startmonth#}至{#$list.endyear#}-{#$list.endmonth#}</span>
+                                <span>{#$list.school#}</span>
+                                <span>{#$list.speciality#}</span>
+                                <span>{#$list.education_cn#}</span>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    {#if !empty($show.work_list)#}
+                    <div class="jobs_box">
+                        <div class="box_title">
+                            <p>工作经历</p>
+                        </div>
+                        <ul>
+                            {#foreach from=$show.work_list item=list#}
+                            <li>
+                                <p class="time">{#$list.startyear#}/{#$list.startmonth#}--{#$list.endyear#}/{#$list.endmonth#}</p>
+                                <p class="company">{#$list.companyname#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$list.jobs#}</p>
+                                <p class="des">岗位职责：{#$list.achievements#}</p>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    {#if !empty($show.training_list)#}
+                    <div class="training_box">
+                        <div class="box_title">
+                            <p>培训经历</p>
+                        </div>
+                        <ul>
+                            {#foreach from=$show.training_list item=list#}
+                            <li>
+                                <p class="time">{#$list.startyear#}/{#$list.startmonth#}--{#$list.endyear#}/{#$list.endmonth#}</p>
+                                <p class="school">{#$list.agency#}</p>
+                                <p class="course"><span>培训课程：</span>{#$list.course#}</p>
+                                <p class="des"><span>培训内容：</span>{#$list.description#}</p>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    {#if !empty($show.certificate_list)#}
+                    <div class="certificate_box">
+                        <div class="box_title">
+                            <p>资历证书</p>
+                        </div>
+                        <ul id="certificate_list">
+                            {#foreach from=$show.certificate_list item=list#}
+                            <li>
+                                <a target="_blank" title="点击查看大图" href="{#if $smarty.session.utype != 1#}{#$QISHI.website_dir#}data/resume_certificate/no_certificate.jpg{#else#}{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}{#/if#}"><img src="{#if $smarty.session.utype != 1#}{#$QISHI.website_dir#}data/resume_certificate/no_certificate.jpg{#else#}{#$QISHI.website_dir#}data/resume_certificate/{#$list.path#}{#/if#}" height="120" /></a>
+                                <p>{#$list.note#}</p>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    {#if !empty($show.attachment_resume)#}
+                    <div class="clear"></div>
+                    <div class="attachment_box">
+                        <div class="box_title">
+                            <p>附件简历</p>
+                        </div>
+                        <div class="box_content">
+                            <a>下载附件</a>
+                            <p>更多简历详情可下载附件简历</p>
+                        </div>
+                    </div>
+                    <script>
+                        $('.attachment_box a').click(function() {
+                            var uid = "{#$show.uid#}";
+                            $.get("/plus/ajax_down.php", {"uid": uid, "act": "attachment_resume_down"}, function(data, textStatus) {
+                                if (data == "1") {
+                                    window.location.href = '/user/company/company_recruitment.php?act=download_attachment_resume&resume_uid={#$show.uid#}';
+                                } else {
+                                    alert(data)
+                                }
+                            });
+                        })
+                    </script>
+                    {#/if#}
+                    {#if $show.talent == 2#}
+                    <i class="senior_logo"></i>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="invited_box">
+                        <a id="invited"  >邀请面试</a>
+                    </div>
+                    <div class="bt_box">
+                        <a id="download" class="download"  ><i></i><span>下载简历</span></a>
+                        <a id="add_resume_pool" class="add_resume_pool"  ><i></i><span>加入人才库</span></a>
+                        {#if $show.show == 1#}
+                        <a class="print" href="javascript:window.print();"><i></i><span>打印简历</span></a>
+                        <a class="dianping" href="{#$QISHI.site_domain#}{#$QISHI.site_dir#}resume/resume-doc.php?resume_id={#$show.id#}&uid={#$show.uid#}&apply={#$show.apply#}"><i></i><span>导出word</span></a>
+                        <!--<div class="jl_btn_box2_div2"><a   class="report_button" resume_id="{#$smarty.get.id#}" fullname="{#$show.fullname#}" resume_addtime="{#$show.addtime#}">投诉简历</a></div>-->
+                        {#/if#}
+                    </div>
+                    <div id="page_502">
+                        <img src="{#$QISHI.site_template#}/images/2017/reward_service_img.png" width="280" height="280" />
+                    </div>
+                    {#qishi_ad set="调用名称:page_502,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="page_502">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=page_502&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

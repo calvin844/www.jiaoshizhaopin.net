@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <title>完善资料_{#$QISHI.site_name#}</title>
+        <script>
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    // debug: true,
+                    // onsubmit:false,
+                    //onfocusout :true,
+                    ignore: "",
+                    rules: {
+                        contact: {
+                            required: true
+                        },
+                        license: {
+                            required: true
+                        },
+                        certificate_value: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        contact: {
+                            required: "请输入联系人"
+                        },
+                        license: {
+                            required: "请输入注册号"
+                        },
+                        certificate_value: {
+                            required: "请上传营业证照"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parents('.item_box'));
+                    }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box company_make_info2">
+                <form id="Form1" name="Form1" method="post" action="/user/company_make_info2.php?act=save">
+                    <div class="top">
+                        <p class="cur"><span>1</span>企业资料</p>
+                        <hr class="cur"/>
+                        <p class="cur"><span>2</span>企业认证</p>
+                        <hr/>
+                        <p><span>3</span>发布职位</p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>联系人：</span>
+                            <input type="text" class="text" name="contact" id="contact" value="" />
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div class="input_box">
+                            <span>注册号/社会统一信用代码：</span>
+                            <input type="text" class="text" name="license" id="license" value="" />
+                        </div>
+                    </div>
+                    <div class="item_box file">
+                        <div class="input_box">
+                            <span>上传营业执照：</span>
+                            <div class="file_bg">
+                                <p>浏览</p>
+                                <input name="certificate" id="certificate" type="file" onchange ="uploadFile()" />
+                                <input type="hidden" name="certificate_value" id="certificate_value" value="" />
+                            </div>
+                            <span class="remind">图片大小不超过2MB，图片格式jpg/gif/bmp/png</span>
+                            <div class="clear"></div>
+                        </div>
+                        <img src="" id="certificate_show" height="102" />
+                        <script>
+                            function uploadFile() {
+                                $.ajaxFileUpload({
+                                    url: '?act=up_certificate',
+                                    secureuri: false,
+                                    fileElementId: 'certificate',
+                                    dataType: 'STRING',
+                                    success: function (data, status) {
+                                        var f = data.substr(0, 1);
+                                        if (f == "-") {
+                                            switch (data) {
+                                                case "-1":
+                                                    alert("上传图片失败：上传目录不存在!");
+                                                    return false;
+                                                    break;
+                                                case "-2":
+                                                    alert("上传图片失败：上传目录无法写入!");
+                                                    return false;
+                                                    break;
+                                                case "-3":
+                                                    alert("上传图片失败：你选择的文件无法上传");
+                                                    return false;
+                                                    break;
+                                                case "-4":
+                                                    alert("上传图片失败：文件大小超过限制");
+                                                    return false;
+                                                    break;
+                                                case "-5":
+                                                    alert("上传图片失败：文件类型错误！");
+                                                    return false;
+                                                    break;
+                                                case "-6":
+                                                    alert("上传图片失败：文件上传出错！");
+                                                    return false;
+                                                    break;
+                                                case "-7":
+                                                    alert("请刷新页面后再试！");
+                                                    return false;
+                                                    break;
+                                                case "-8":
+                                                    alert("请上传图片！");
+                                                    return false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        } else {
+                                            $('#certificate_show').show();
+                                            $('#certificate_show').attr('src', "/data/certificate/" + data);
+                                            $('#certificate_value').attr('value', data);
+                                            $('div.file .input_box').hide();
+                                        }
+                                    }
+                                })
+                            }
+                        </script>
+                    </div>
+                    <div class="clear"></div>
+                    <input type="submit" class="submit" value="下一步" />
+                </form>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>
+
+

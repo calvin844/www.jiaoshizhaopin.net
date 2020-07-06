@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_favorites.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;收藏夹</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <p>收藏夹</p>
+                    </div>
+                    <div class="nav_box">
+                        <a href="?act={#$act#}&settr=" {#if $smarty.get.settr==""#}class="hover"{#/if#}>所有的</a><b></b>
+                        <a href="?act={#$act#}&settr=3" {#if $smarty.get.settr=="3"#}class="hover"{#/if#}>最近三天</a><b></b>
+                        <a href="?act={#$act#}&settr=7" {#if $smarty.get.settr=="7"#}class="hover"{#/if#}>最近一周</a>
+                    </div>
+                    {#if $favorites#}
+                    <form action="?act=del_favorites" name="form1" id="form1" method="post">
+                        <ul class="list">
+                            {#foreach from=$favorites item=list#}
+                            {#if $list.type == 'job'#}
+                            {#if $list.end == 0#}
+                            <li>
+                                <input class="left" name="y_id[]" id="y_id" type="checkbox" job_type="{#$list.type#}" value="{#$list.did#}" />
+                                <div class="item_info">
+                                    <div class="title">
+                                        <a class="job_name" href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a>
+                                        <a data-id="y_id-{#$list.did#}" class="del"  ></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="info">
+                                        <p class="left">{#$list.companyname#} / {#$list.district_cn#} / <span>{#$list.wage_cn#}</span>/</p>
+                                        <p class="right">收藏时间：{#$list.addtime|date_format:"%Y-%m-%d"#}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            {#else#}
+                            <li>
+                                <input class="left" name="y_id[]" id="y_id" type="checkbox" job_type="{#$list.type#}" value="{#$list.did#}" />
+                                <p class="no_tips">您收藏的职位（{#$list.jobs_name#}）可能已经被删除！</p>
+                            </li>
+                            {#/if#}
+                            {#else#}
+                            {#if $list.end == 0#}
+                            <li>
+                                <input class="left" name="article_id[]" id="article_id" type="checkbox" job_type="{#$list.type#}" value="{#$list.id#}" />
+                                <div class="item_info">
+                                    <div class="title">
+                                        <a class="job_name" href="{#$list.article_url#}" target="_blank">{#$list.jobs_name#}</a>
+                                        <a data-id="article_id-{#$list.id#}" class="del"  ></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="info">
+                                        <p class="left">{#$list.title#} / {#$list.district_cn#} / <span>{#$list.wage_cn#}</span>/</p>
+                                        <p class="right">收藏时间：{#$list.addtime|date_format:"%Y-%m-%d"#}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            {#else#}
+                            <li>
+                                <input class="left" name="article_id[]" id="y_id" type="checkbox" value="{#$list.did#}" />
+                                <p class="no_tips">您收藏的职位（{#$list.title#}）可能已经被删除！</p>
+                            </li>
+                            {#/if#}
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="do_box">
+                            <input type="checkbox" class="check_all_input"/>
+                            <span class="check_all_span">全选</span>
+                            <span id="check_total" class="check_all_span"></span>
+                            <input type="submit" name="delete" id="submitsave" value="取消收藏" onClick="return confirm('您确定删除吗?')" class="but100lan"/>
+                        </div>
+                        <script>
+                            function check_total() {
+                                var total = 0;
+                                $('ul.list li input.left').each(function () {
+                                    if ($(this).is(':checked')) {
+                                        total = total + 1;
+                                    }
+                                })
+                                var str = "已选择" + total + "个收藏的职位";
+                                $('span#check_total').html(str)
+                            }
+                            check_total()
+                            $('ul.list li a.del').click(function () {
+                                if (confirm('您确定删除吗?')) {
+                                    var id_arr = $(this).attr('data-id').split('-');
+                                    $.get('?act=del_favorites&ajax=1&' + id_arr[0] + '=' + id_arr[1], function (result) {
+                                        if (result == 1) {
+                                            alert('删除成功！');
+                                            location.reload()
+                                        } else {
+                                            alert('删除失败！')
+                                        }
+                                    })
+                                }
+                            })
+                            $('ul.list li input.left').click(function () {
+                                if ($(this).hasClass('checked')) {
+                                    $(this).removeClass('checked');
+                                    $(this).removeAttr('checked');
+                                } else {
+                                    $(this).addClass('checked');
+                                    $(this).attr('checked');
+                                }
+                                check_total();
+                            })
+                            $('.check_all_input').click(function () {
+                                if ($('.check_all_input').hasClass('checked')) {
+                                    $('.check_all_input').removeClass('checked');
+                                    $('ul.list li input.left').removeClass('checked');
+                                    $('ul.list li input.left').removeAttr('checked');
+                                } else {
+                                    $('.check_all_input').addClass('checked');
+                                    $('ul.list li input.left').addClass('checked');
+                                    $('ul.list li input.left').attr('checked', 'checked');
+                                }
+                                check_total();
+                            })
+                        </script>
+                    </form>
+                    {#if $page#}
+                    <div class="page_box">{#$page#}</div>
+                    {#/if#}
+                    {#else#}
+                    <div class="clear"></div>
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>您暂时还没有收藏职位！</p>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="apply">
+                                <a href="/user/personal/personal_apply.php?act=apply_jobs">
+                                    <i></i>
+                                    <label>{#$count_apply#}</label>
+                                    <div class="clear"></div>
+                                    <span>投递箱</span>
+                                </a>
+                            </li>
+                            <li class="fav">
+                                <a href="/user/personal/personal_apply.php?act=favorites">
+                                    <i></i>
+                                    <label>{#$favorites_total#}</label>
+                                    <div class="clear"></div>
+                                    <span>收藏夹</span>
+                                </a>
+                            </li>
+                            <li class="invitation">
+                                <a href="/user/personal/personal_apply.php?act=interview">
+                                    <i></i>
+                                    <label>{#$count_interview#}</label>
+                                    <div class="clear"></div>
+                                    <span>邀请函</span>
+                                </a>
+                            </li>
+                            <li class="rss">
+                                <a href="/subscribe/">
+                                    <i></i>
+                                    <label></label>
+                                    <div class="clear"></div>
+                                    <span>订阅栏</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item_box">
+                        <p class="b_title">
+                            <b></b>
+                            <span>推荐职位</span>
+                        </p>
+                        <ul>
+                            {#jiaoshi_jobs set="开始位置:0,显示数目:7,单位:job"#}
+                            {#if !empty($jobs)#}
+                            {#foreach from=$jobs item=job#}
+                            <li>
+                                <div class="title">
+                                    <p><a class="name" target="_blank" title="{#$job.jobs_name#}" href="/job/{#$job.id#}.html">{#$job.jobs_name#}</a>[<a class="city" target="_blank" href="{#$job.city_pinyin#}">{#$job.district_cn#}</a>]</p>
+                                </div>
+                                <div class="info">
+                                    <span class="left">{#$job.wage_cn#}</span>
+                                    <span class="right">{#$job.addtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                            </li>
+                            {#/foreach#}
+                            {#/if#}
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

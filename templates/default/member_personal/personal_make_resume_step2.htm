@@ -1,0 +1,1036 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.Jcrop.min.js" type='text/javascript' language="javascript"></script>
+        <link href="{#$QISHI.site_template#}css/jquery.Jcrop.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+                $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                    $("#education_list_box").html(result);
+                });
+                $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                    $("#work_list_box").html(result);
+                });
+                $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                    $("#training_list_box").html(result);
+                });
+        //当没有教育经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_education").live("click", function() {
+                    $("#education_empty_box").hide();
+                    $(":input", "#education_add_form").not(':button,:submit').val("");
+                    $("#education_menu").html("请选择");
+                    $("#edu_start_year_div").html("年份");
+                    $("#edu_start_month_menu").html("9月");
+                    $("#edu_start_month").val("9月");
+                    $("#edu_end_year_div").html("年份");
+                    $("#edu_end_month_menu").html("7月");
+                    $("#edu_end_month").val("7月");
+                    $("#education_add_form").slideDown("slow");
+                    $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}		
+                });
+        //当有教育经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_education").click(function() {
+                    $(":input", "#education_add_form").not(':button,:submit').val("");
+                    $("#education_menu").html("请选择");
+                    $("#edu_start_year_div").html("年份");
+                    $("#edu_start_month_menu").html("9月");
+                    $("#edu_start_month").val("9月");
+                    $("#edu_end_year_div").html("年份");
+                    $("#edu_end_month_menu").html("7月");
+                    $("#edu_end_month").val("7月");
+                    $("#education_add_form").slideUp("fast");
+                    $("#education_add_form").slideDown("slow");
+                    $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}	
+                });
+        //取消添加教育经历表单
+                $("#close_education_form").click(function() {
+                    $("#education_add_form").slideUp("slow");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}
+                });
+
+        //当没有工作经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_work").live("click", function() {
+                    $("#work_empty_box").hide();
+                    $(":input", "#work_add_form").not(':button,:submit').val("");
+                    $("#work_start_year_div").html("年份");
+                    $("#work_start_month_menu").html("月份");
+                    $("#work_end_year_div").html("年份");
+                    $("#work_end_month_menu").html("月份");
+                    $("#work_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}	
+                });
+        //当有工作经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_work").click(function() {
+                    $(":input", "#work_add_form").not(':button,:submit').val("");
+                    $("#work_start_year_div").html("年份");
+                    $("#work_start_month_menu").html("月份");
+                    $("#work_end_year_div").html("年份");
+                    $("#work_end_month_menu").html("月份");
+                    $("#work_add_form").slideUp("fast");
+                    $("#work_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}
+                });
+        //取消添加工作经历表单
+                $("#close_work_form").click(function() {
+                    $("#work_add_form").slideUp("slow");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}
+                });
+
+        //当没有培训经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_training").live("click", function() {
+                    $("#training_empty_box").hide();
+                    $(":input", "#training_add_form").not(':button,:submit').val("");
+                    $("#training_start_year_div").html("年份");
+                    $("#training_start_month_menu").html("月份");
+                    $("#training_end_year_div").html("年份");
+                    $("#training_end_month_menu").html("月份");
+                    $("#training_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}		
+                });
+        //当有培训经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_training").click(function() {
+                    $(":input", "#training_add_form").not(':button,:submit').val("");
+                    $("#training_start_year_div").html("年份");
+                    $("#training_start_month_menu").html("月份");
+                    $("#training_end_year_div").html("年份");
+                    $("#training_end_month_menu").html("月份");
+                    $("#training_add_form").slideUp("fast");
+                    $("#training_add_form").slideDown("slow");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}
+                });
+        //取消添加培训经历表单
+                $("#close_training_form").click(function() {
+                    $("#training_add_form").slideUp("slow");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}
+                });
+                menuDown("#education_menu", "#education", "#education_cn", "#menu1", "218px");
+                function menuDown(menuId, input, input_cn, menuList, width) {
+                    $(menuId).click(function() {
+                        $(menuList).css("width", width);
+                        $(menuList).slideDown('fast');
+                        //生成背景
+                        $(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function() {
+                            $(".menu_bg_layer").remove();
+                            $(menuList).slideUp("fast");
+                            $(menuId).parent("div").css("position", "");
+                        });
+                    });
+
+                    $(menuList + " li").click(function() {
+                        var id = $(this).attr("id");
+                        var title = $(this).attr("title");
+                        $(input).val(id);
+                        $(input_cn).val(title);
+                        $(menuId).html(title);
+                        $(menuList).slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                    });
+                }
+                showyearbox("#edu_start_year_div", "#edu_start_year");
+                showyearbox("#edu_end_year_div", "#edu_end_year");
+                menuDown("#edu_start_month_menu", "", "#edu_start_month", "#menu2", "68px");
+                menuDown("#edu_end_month_menu", "", "#edu_end_month", "#menu3", "68px");
+
+                showyearbox("#work_start_year_div", "#work_start_year");
+                showyearbox("#work_end_year_div", "#work_end_year");
+                menuDown("#work_start_month_menu", "", "#work_start_month", "#menu4", "68px");
+                menuDown("#work_end_month_menu", "", "#work_end_month", "#menu5", "68px");
+
+                showyearbox("#training_start_year_div", "#training_start_year");
+                showyearbox("#training_end_year_div", "#training_end_year");
+                menuDown("#training_start_month_menu", "", "#training_start_month", "#menu6", "68px");
+                menuDown("#training_end_month_menu", "", "#training_end_month", "#menu7", "68px");
+                function showyearbox(divname, inputname)
+                {
+                    $(divname).click(function() {
+                        var inputdiv = $(this);
+                        $(inputdiv).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0"});
+                        $(inputdiv).parent("div").css("position", "relative");
+
+                        var myDate = new Date();
+                        var y = myDate.getFullYear();
+                        var ymin = y - 35;
+                        y = y + 4;
+                        htm = "<div class=\"showyearbox yearlist\">";
+                        htm += "<ul>";
+                        for (i = y; i >= ymin; i--)
+                        {
+                            htm += "<li title=\"" + i + "年\">" + i + "年</li>";
+                        }
+                        htm += "<div class=\"clear\"></div>";
+                        htm += "</ul>";
+                        htm += "</div>";
+                        $(inputdiv).blur();
+                        if ($(inputdiv).parent("div").find(".showyearbox").html())
+                        {
+                            $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                        }
+                        else
+                        {
+                            $(inputdiv).parent("div").append(htm);
+                            $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                        }
+                        //
+                        $(inputdiv).parent("div").children(".yearlist").find("li").unbind("click").click(function()
+                        {
+                            $(inputname).val($(this).attr("title"));
+                            $(inputdiv).html($(this).attr("title"));
+                            $(inputdiv).parent("div").children(".yearlist").hide();
+                            $(".menu_bg_layer").remove();
+                        });
+                        //
+                        $(".showyearbox>ul>li").hover(
+                                function()
+                                {
+                                    $(this).css("background-color", "#DAECF5");
+                                    $(this).css("color", "#ff0000");
+                                },
+                                function()
+                                {
+                                    $(this).css("background-color", "");
+                                    $(this).css("color", "");
+                                }
+                        );
+                        //
+                        $(".menu_bg_layer").click(function() {
+                            $(".menu_bg_layer").hide();
+                            $(inputdiv).parent("div").css("position", "");
+                            $(inputdiv).parent("div").find(".showyearbox").hide();
+
+                        });
+                    });
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+        {#include file="user/header.htm"#}
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 创建简历</div>
+        <!-- 进度条 -->
+        <div class="photoTrad" id="photoTrad">正在上传，请稍后！</div>
+        <!-- 进度条 End-->
+        <div class="usermain">
+            <div class="leftmenu link_bk">
+                {#include file="member_personal/left.htm"#}		
+            </div>
+            <div class="rightmain">
+
+                <div class="bbox1">	
+                    <div class="addresume2">
+
+                        <div class="titleH1">
+                            <div class="h1-title">创建简历</div>
+                        </div>
+
+
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">教育经历</div>
+                            <div class="add" id="add_education" 
+                                 {#if $resume_education#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_education" value="添加"  class="but55lan_add"/></div><!--当教育经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>
+
+
+
+                        <div id="education_list_box"></div>
+
+                        <!--未添加教育经历显示添加按钮 -->
+                        <!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="education_add_form">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">学校名称：</td>
+                                    <td><input name="school" id="school" type="text" class="input_text_200"      value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">专业名称：</td>
+                                    <td><input name="speciality" id="speciality" type="text" class="input_text_200"      value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">学历：</td>
+                                    <td>
+                                        <div style="position:relateve;">
+                                            <div id="education_menu" class="input_text_200_bg">请选择</div>	
+                                            <div class="menu" id="menu1">
+                                                <ul>
+                                                    {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                                    {#foreach from=$c_education item=list#}
+                                                    <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                    {#/foreach#}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <input name="education" type="hidden" id="education" value="" />
+                                        <input name="education_cn" type="hidden" id="education_cn" value="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right" >就读时间：</td>
+                                    <td >
+
+                                        <table border="0" cellpadding="0" cellspacing="0" >
+                                            <tr>
+                                                <td width="90" style="padding:0px">
+                                                    <div>
+                                                        <div class="input_text_60_bg date_input" id="edu_start_year_div">年份</div>
+                                                        <input name="edu_start_year" id="edu_start_year" type="hidden" value="" />
+                                                    </div>
+                                                </td>
+                                                <td width="80" style="padding:0px">
+                                                    <div style="position:relateve;">
+                                                        <div id="edu_start_month_menu" class="input_text_50_bg">月份</div>
+                                                        <div class="menu" id="menu2">
+                                                            <ul>
+                                                                <li title="1月">1月</li>
+                                                                <li title="2月">2月</li>
+                                                                <li title="3月">3月</li>
+                                                                <li title="4月">4月</li>
+                                                                <li title="5月">5月</li>
+                                                                <li title="6月">6月</li>
+                                                                <li title="7月">7月</li>
+                                                                <li title="8月">8月</li>
+                                                                <li title="9月">9月</li>
+                                                                <li title="10月">10月</li>
+                                                                <li title="11月">11月</li>
+                                                                <li title="12月">12月</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <input name="edu_start_month" type="hidden" id="edu_start_month" value="" />
+                                                </td>
+                                                <td width="20" style="padding:0px">至</td>
+                                                <td width="90" style="padding:0px">
+                                                    <div>
+                                                        <div class="input_text_60_bg date_input" id="edu_end_year_div">年份</div>
+                                                        <input name="edu_end_year" id="edu_end_year" type="hidden" value="" />
+                                                    </div>
+                                                </td>
+                                                <td style="padding:0px">
+                                                    <div style="position:relateve;">
+                                                        <div id="edu_end_month_menu" class="input_text_50_bg">月份</div>
+                                                        <div class="menu" id="menu3">
+                                                            <ul>
+                                                                <li title="1月">1月</li>
+                                                                <li title="2月">2月</li>
+                                                                <li title="3月">3月</li>
+                                                                <li title="4月">4月</li>
+                                                                <li title="5月">5月</li>
+                                                                <li title="6月">6月</li>
+                                                                <li title="7月">7月</li>
+                                                                <li title="8月">8月</li>
+                                                                <li title="9月">9月</li>
+                                                                <li title="10月">10月</li>
+                                                                <li title="11月">11月</li>
+                                                                <li title="12月">12月</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <input name="edu_end_month" type="hidden" id="edu_end_month" value="" />
+                                                </td>
+                                            </tr>
+                                        </table>						
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="edu_id" id="edu_id">
+                                        <td><input type="submit" name="save_education" id="save_education" value="保存"  class="but100lan"/><input type="button" name="" id="close_education_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_education").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#edu_id").val();
+                                    var school = $("#school").val();
+                                    var speciality = $("#speciality").val();
+                                    var education = $("#education").val();
+                                    var education_cn = $("#education_cn").val();
+                                    var edu_start_year = $("#edu_start_year").val();
+                                    var edu_start_month = $("#edu_start_month").val();
+                                    var edu_end_year = $("#edu_end_year").val();
+                                    var edu_end_month = $("#edu_end_month").val();
+                                    $.post("?act=save_education", {id: id, pid: pid, school: school, speciality: speciality, education: education, education_cn: education_cn, edu_start_year: edu_start_year, edu_start_month: edu_start_month, edu_end_year: edu_end_year, edu_end_month: edu_end_month}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功！", "", "", "", "");
+                                            $("#education_add_form").slideUp("slow");
+                                            $("#add_education").show();
+                                        } else {
+                                            alert_dialog("fail:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                                            $("#education_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_education").live("click", function() {
+                                    $("#training_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    $("#education_add_form").slideUp("fast");
+                                    {#if !$resume_work#}
+                                    $("#work_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_training#}
+                                    $("#training_empty_box").show();
+                                    {#/if#}
+                                            $("#education_add_form").slideDown("slow");
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#education_add_form").slideDown("slow");
+                                        $("#edu_id").val(data["id"]);
+                                        $("#school").val(data["school"]);
+                                        $("#speciality").val(data["speciality"]);
+                                        $("#education").val(data["education"]);
+                                        $("#education_cn").val(data["education_cn"]);
+                                        $("#education_menu").html(data["education_cn"]);
+                                        $("#edu_start_year").val(data["startyear"]);
+                                        $("#edu_start_year_div").html(data["startyear"] + "年");
+                                        $("#edu_start_month").val(data["startmonth"]);
+                                        $("#edu_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#edu_end_year").val(data["endyear"]);
+                                        $("#edu_end_year_div").html(data["endyear"] + "年");
+                                        $("#edu_end_month").val(data["endmonth"]);
+                                        $("#edu_end_month_menu").html(data["endmonth"] + "月");
+                                    });
+                                });
+                                $(".del_education").live("click", function() {
+                                    $("#education_add_form").hide();
+                                    var url = $(this).attr("url");
+                                    $.get(url, function(result) {
+                                        alert_dialog("success:" + result, "", "", "", "");
+                                        $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                                            $("#education_list_box").html(result);
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
+                        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">工作经历</div>
+                            <div class="add" id="add_work" {#if $resume_work#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_work" value="添加"  class="but55lan_add"/></div><!--当工作经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>
+
+                        <div id="work_list_box"></div>
+                        <!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="work_add_form"  style="border:0px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">公司名称：</td>
+                                    <td><input name="companyname" id="companyname" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">职位名称：</td>
+                                    <td><input name="jobs" id="jobs" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <td width="125" align="right" >任职时间：</td>
+                                <td >
+
+                                    <table border="0" cellpadding="0" cellspacing="0" >
+                                        <tr>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="work_start_year_div">年份</div>
+                                                    <input name="work_start_year" id="work_start_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td width="80" style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="work_start_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu4">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="work_start_month" type="hidden" id="work_start_month" value="" />
+                                            </td>
+                                            <td width="20" style="padding:0px">至</td>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="work_end_year_div">年份</div>
+                                                    <input name="work_end_year" id="work_end_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="work_end_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu5">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="work_end_month" type="hidden" id="work_end_month" value="" />
+                                            </td>
+                                        </tr>
+                                    </table>						
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">工作职责：</td>
+                                    <td>
+                                        <textarea name="achievements" id="achievements" cols="" rows="" class="input_textarea_500"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="work_id" id="work_id">
+                                        <td><input type="submit" name="save_work" id="save_work" value="保存"  class="but100lan"/><input type="button" name="" id="close_work_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_work").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#work_id").val();
+                                    var companyname = $("#companyname").val();
+                                    var jobs = $("#jobs").val();
+                                    var work_start_year = $("#work_start_year").val();
+                                    var work_start_month = $("#work_start_month").val();
+                                    var work_end_year = $("#work_end_year").val();
+                                    var work_end_month = $("#work_end_month").val();
+                                    var achievements = $("#achievements").val();
+                                    $.post("?act=save_work", {id: id, pid: pid, companyname: companyname, jobs: jobs, work_start_year: work_start_year, work_start_month: work_start_month, work_end_year: work_end_year, work_end_month: work_end_month, achievements: achievements}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功！", "", "", "", "");
+                                            $("#work_add_form").slideUp("slow");
+                                            $("#add_work").show();
+                                        } else {
+                                            alert_dialog("success:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                                            $("#work_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_work").live("click", function() {
+                                    $("#training_add_form").slideUp("fast");
+                                    $("#education_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    {#if !$resume_education#}
+                                    $("#education_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_training#}
+                                    $("#training_empty_box").show();
+                                    {#/if#}
+                                            $("#work_add_form").slideDown("slow");
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#work_add_form").slideDown("slow");
+                                        $("#work_id").val(data["id"]);
+                                        $("#companyname").val(data["companyname"]);
+                                        $("#jobs").val(data["jobs"]);
+                                        $("#work_start_year").val(data["startyear"]);
+                                        $("#work_start_year_div").html(data["startyear"] + "年");
+                                        $("#work_start_month").val(data["startmonth"]);
+                                        $("#work_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#work_end_year").val(data["endyear"]);
+                                        $("#work_end_year_div").html(data["endyear"] + "年");
+                                        $("#work_end_month").val(data["endmonth"]);
+                                        $("#work_end_month_menu").html(data["endmonth"] + "月");
+                                        $("#achievements").val(data["achievements"]);
+                                    });
+                                });
+                                $(".del_work").live("click", function() {
+                                    $("#work_add_form").hide();
+                                    var url = $(this).attr("url");
+                                    $.get(url, function(result) {
+                                        alert_dialog("success:" + result, "", "", "", "");
+                                        $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                                            $("#work_list_box").html(result);
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
+
+
+
+
+
+                        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">培训经历</div>
+                            <div class="add" id="add_training" 
+                                 {#if $resume_training#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_training" value="添加"  class="but55lan_add"/></div>
+                            <!--当培训经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>		
+                        <div id="training_list_box"></div>
+
+                        <!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="training_add_form"  style="border:0px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">培训机构：</td>
+                                    <td><input name="agency" id="agency" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">培训课程：</td>
+                                    <td><input name="course" id="course" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <td width="125" align="right" >培训时间：</td>
+                                <td >
+
+                                    <table border="0" cellpadding="0" cellspacing="0" >
+                                        <tr>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="training_start_year_div">年份</div>
+                                                    <input name="training_start_year" id="training_start_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td width="80" style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="training_start_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu6">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="training_start_month" type="hidden" id="training_start_month" value="" />
+                                            </td>
+                                            <td width="20" style="padding:0px">至</td>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="training_end_year_div">年份</div>
+                                                    <input name="training_end_year" id="training_end_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="training_end_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu7">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="training_end_month" type="hidden" id="training_end_month" value="" />
+                                            </td>
+                                        </tr>
+                                    </table>						
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">培训内容：</td>
+                                    <td>
+                                        <textarea name="description" id="description" cols="" rows="" class="input_textarea_500"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="training_id" id="training_id">
+                                        <td><input type="submit" name="save_training" id="save_training" value="保存"  class="but100lan"/><input type="button" name="" id="close_training_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_training").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#training_id").val();
+                                    var agency = $("#agency").val();
+                                    var course = $("#course").val();
+                                    var training_start_year = $("#training_start_year").val();
+                                    var training_start_month = $("#training_start_month").val();
+                                    var training_end_year = $("#training_end_year").val();
+                                    var training_end_month = $("#training_end_month").val();
+                                    var description = $("#description").val();
+                                    $.post("?act=save_training", {id: id, pid: pid, agency: agency, course: course, training_start_year: training_start_year, training_start_month: training_start_month, training_end_year: training_end_year, training_end_month: training_end_month, description: description}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功！", "", "", "", "");
+                                            $("#training_add_form").slideUp("slow");
+                                            $("#add_training").show();
+                                        } else {
+                                            alert_dialog("fail:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                                            $("#training_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_training").live("click", function() {
+                                    $("#education_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    $("#training_add_form").slideUp("fast");
+                                    {#if !$resume_education#}
+                                    $("#education_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_work#}
+                                    $("#work_empty_box").show();
+                                    {#/if#}
+                                            $("#training_add_form").slideDown("slow");
+
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#training_add_form").slideDown("slow");
+                                        $("#training_id").val(data["id"]);
+                                        $("#agency").val(data["agency"]);
+                                        $("#course").val(data["course"]);
+                                        $("#training_start_year").val(data["startyear"]);
+                                        $("#training_start_year_div").html(data["startyear"] + "年");
+                                        $("#training_start_month").val(data["startmonth"]);
+                                        $("#training_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#training_end_year").val(data["endyear"]);
+                                        $("#training_end_year_div").html(data["endyear"] + "年");
+                                        $("#training_end_month").val(data["endmonth"]);
+                                        $("#training_end_month_menu").html(data["endmonth"] + "月");
+                                        $("#description").val(data["description"]);
+                                    });
+                                });
+                                $(".del_training").live("click", function() {
+                                    $("#training_add_form").hide();
+                                    var url = $(this).attr("url");
+                                    $.get(url, function(result) {
+                                        alert_dialog("success:" + result, "", "", "", "");
+                                        $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                                            $("#training_list_box").html(result);
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
+                        <div class="titleH2 h2-title">选填信息</div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                            <form action="?act=tag_save" method="post">
+                                <tr>
+                                    <td width="125" align="right" valign="top" style="padding-top:20px;">特长标签：</td>
+                                    <td>
+                                        <div id="tag_checkbox">
+                                            <div class="showchecktag"></div>
+                                            <div class="input_checkbox_add" id="tagAdd"><span>添加</span></div>
+                                            <div class="clear"></div>
+                                            <input type="hidden" value="{#$resume_basic.tag#}" id="tag" name="tag">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="125" align="right" valign="top">自我描述：</td>
+                                    <td>
+                                        <textarea name="specialty" cols="" rows="" class="input_textarea_500">{#$resume_basic.specialty#}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <td>
+                                        <input type="hidden" name="pid" value="{#$pid#}">
+                                            <input type="submit" name="" id="" value="保存"  class="but100lan"/>
+                                    </td>
+                                </tr>
+                            </form>
+                            <form action="?act=make2_photo_save" method="post">
+                                <tr>
+                                    <td width="125" align="right" valign="top">简历照片：</td>
+                                    <td>
+
+                                        <div class="lim"><input name="photo" type="file" id="photo"  class="input_text_200"  style=" width:260px;"/></div>
+                                        <div class="rim">
+                                            <input type="hidden" id="img" name="img" />
+                                            <input type="hidden" id="x" name="x" />
+                                            <input type="hidden" id="y" name="y" />
+                                            <input type="hidden" id="w" name="w" />
+                                            <input type="hidden" id="h" name="h" />
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="photobox">
+                                            <div class="l">
+                                                <div class="bg" id="imgbg">
+                                                </div>
+                                            </div>
+                                            <div class="r">
+                                                <div class="tit">效果预览</div>
+                                                <p>您上传的图片会自动生成以下尺寸，请注意上传后是否清晰。</p>
+                                                <div class="rimg">
+                                                    {#if $resume_basic.photo_img ==""#}
+                                                    <img id="preview" src="{#$QISHI.site_template#}images/no_photo.gif" />
+                                                    {#else#}
+                                                    <img id="preview" src="{#$QISHI.resume_photo_dir_thumb#}{#$resume_basic.photo_img#}" />
+                                                    {#/if#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <script type="text/javascript">
+                                    $("#photo").bind('change', function() {
+                                        photoCut();
+                                    }).live('change', function() {
+                                        photoCut();
+                                    });
+                                    function photoCut() {
+                                        $("#photoTrad").before("<div class=\"menu_bg_layer\"></div>");
+                                        $(".menu_bg_layer").height($(document).height());
+                                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "99", "background-color": "#73848C"});
+                                        $(".menu_bg_layer").css("opacity", 0.3);
+                                        $('#photoTrad').css({
+                                            position: 'absolute',
+                                            left: ($(window).width() - $('#photoTrad').outerWidth()) / 2,
+                                            top: $("#photo").offset().top
+                                        });
+                                        $("#photoTrad").show();
+                                        $.ajaxFileUpload({
+                                            url: '?act=make2_photo_ready&pid={#$pid#}',
+                                            secureuri: false,
+                                            fileElementId: 'photo',
+                                            dataType: 'string',
+                                            success: function(data, status) {
+                                                switch (data) {
+                                                    case "-1":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：上传目录不存在!");
+                                                        return false;
+                                                        break;
+                                                    case "-2":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：上传目录无法写入!");
+                                                        return false;
+                                                        break;
+                                                    case "-3":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：你选择的文件无法上传");
+                                                        return false;
+                                                        break;
+                                                    case "-4":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件大小超过限制");
+                                                        return false;
+                                                        break;
+                                                    case "-5":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件类型错误！");
+                                                        return false;
+                                                        break;
+                                                    case "-6":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件上传出错！");
+                                                        return false;
+                                                        break;
+                                                    default:
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        break;
+                                                }
+                                                var src = '{#$QISHI.main_domain#}data/photo/rlogo/' + data;
+                                                $("#imgbg").html('<img style="" src="' + src + '" id="target" border="0" />');
+                                                $("#preview").attr('src', src);
+                                                $(function() {
+                                                    var jcrop_api, boundx, boundy;
+                                                    $('#target').Jcrop({
+                                                        onChange: updatePreview,
+                                                        onSelect: updatePreview,
+                                                        onSelect: updateCoords,
+                                                                aspectRatio: 1
+                                                    }, function() {
+                                                        // Use the API to get the real image size  
+                                                        var bounds = this.getBounds();
+                                                        boundx = bounds[0];
+                                                        boundy = bounds[1];
+                                                        // Store the API in the jcrop_api variable  
+                                                        jcrop_api = this;
+                                                    });
+                                                    function updateCoords(c)
+                                                    {
+                                                        $('#x').val(c.x);
+                                                        $('#y').val(c.y);
+                                                        $('#w').val(c.w);
+                                                        $('#h').val(c.h);
+                                                    }
+                                                    ;
+                                                    function updatePreview(c) {
+                                                        if (parseInt(c.w) > 0) {
+                                                            $('#preview').css({
+                                                                width: Math.round(120 / c.w * boundx) + 'px',
+                                                                height: Math.round(150 / c.h * boundy) + 'px',
+                                                                marginLeft: '-' + Math.round(120 / c.w * c.x) + 'px',
+                                                                marginTop: '-' + Math.round(150 / c.h * c.y) + 'px'
+                                                            });
+                                                        }
+                                                    }
+                                                    ;
+                                                });
+                                            }
+                                        })
+                                    }
+                                </script>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <td>
+                                        <input type="submit" name="" id="up" value="确定"  class="but100lan"/>
+                                        <input name="pid" type="hidden" id="pid" value="{#$pid#}" />
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- 特长标签选择框 -->
+        <div id="tagBox" class="alert-window" style="display:none;width: 810px; height: 300px; left: 50%; top: 796px; margin-left: -405px; position: absolute; z-index: 100001;">
+            <div style="width: 810px;" class="resume-tc">
+                <div class="resume-tc-head">
+                    <h3><i class="icon-loc"></i> 请选特长标签（最多选择5个）</h3>
+                    <a class="close wd_close cm_closeMsg" href="javascript:;"></a> 
+                </div>
+                <div class="sx-yx">
+                    <span class="clr-grn fnt-b">已选：</span>
+                    <span id="box_checkedTag"></span>
+                </div>
+                <div id="showTag" style="width:810px; height: 200px; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative;">
+
+                </div>
+                <div class="sx-action">
+                    <button id="btn_tagsave" class="grn" type="button">确定</button> 
+                    <button id="btn_tagcancel" class="gray" type="button">取消</button>
+                </div>
+            </div>
+        </div>
+        <!-- 特长标签选择框 end-->
+        <script src="{#$QISHI.main_domain#}data/cache_classify.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.user.selectlayer.js" type='text/javascript' language="javascript"></script>
+        <script type="text/javascript">
+                                                     // 特长标签
+                                                     showTagBox("#tagAdd", "#tagBox", "#showTag", "#box_checkedTag", "#btn_tagsave", "#tag", "#tag_checkbox", QS_resumetag);
+        </script>
+        {#include file="user/footer.htm"#}
+
+    </body>
+</html>

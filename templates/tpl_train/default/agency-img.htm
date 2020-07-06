@@ -1,0 +1,143 @@
+{#qishi_train_show set="列表名:train,机构ID:GET[id]"#}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$train.trainname#} - 机构图片 - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$train.description#}}">
+<meta name="keywords" content="{#$train.trainname#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.fancybox-1.3.4.pack.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.imgherf").fancybox({
+		'titlePosition': 'over',
+		'overlayColor': '#000',
+		'transitionIn': 'elastic',
+		//'animations'	: 'elastic',
+		'overlayOpacity': 0.5
+	});
+	$(".imglist").hover(
+		function()
+		{
+			$(this).css("border-color","#FF9900");
+			$(this).css("background-color","#FFF4E6");
+			},
+			function()
+			{
+			$(this).css("border-color","#EBEBEB");
+			$(this).css("background-color","#F7F7F7");
+			}
+		);
+		
+		
+	$("#newbuddy").click(function(){
+	dialog("加为好友","url:get?{#$QISHI.site_dir#}user/user_buddy.php?tuid={#$train.uid#}","350px","auto","");
+	});
+	$("#addpms").click(function(){
+	var url="{#$QISHI.site_dir#}user/user_pms.php?tuid={#$train.uid#}";
+	dialog("发送短消息","url:get?"+url,"400px","auto","");
+	});
+});
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+当前位置：<a href="{#$QISHI.site_dir#}">首页</a>&nbsp;>>&nbsp;<a href="{#"QS_course"|qishi_url#}">课程信息</a>&nbsp;>>&nbsp;{#$train.trainname#}
+</div>
+<div class="train-show-topnav">
+  <div class="topcomname">
+  <h1>{#$train.trainname#}</h1>
+  {#if $train.audit=="1"#}
+  <div class="train_license1" title="营业执照已验证"></div>
+			{#else#}
+	<div class="train_license2" title="营业执照未验证"></div>
+	{#/if#}
+	<div class="clear"></div>
+  </div>
+  <div class="snav">
+		<a href="{#"QS_train_agencyshow,id:"|cat:$train.id|qishi_url#}" >机构介绍</a>
+		<a href="{#"QS_train_agency_curriculum,id:"|cat:$train.id|qishi_url#}" >机构课程</a>
+		<a href="{#"QS_train_agency_lecturer,id:"|cat:$train.id|qishi_url#}">机构讲师</a>
+		<a href="{#"QS_train_agency_img,id:"|cat:$train.id|qishi_url#}" class="selected">图片</a>
+		<a href="{#"QS_train_agency_news,id:"|cat:$train.id|qishi_url#}"  >机构动态</a>
+		<div class="clear"></div>
+  </div>
+</div>
+
+
+
+
+<div class="train-show">
+  <div class="left">
+    <div class="show train-img">
+{#qishi_train_img_list set="列表名:img,分页显示:1,显示数目:8,机构ID:GET[id]"#}
+{#foreach from=$img item=li#}
+<div class="imgbox">
+<div class="imglist">
+<a class="imgherf" title="{#$li.title#}" href="{#$QISHI.site_dir#}data/train_img/original/{#$li.img#}"><img src="{#$QISHI.site_dir#}data/train_img/thumb/{#$li.img#}" border="0" title="{#$li.title#}"/></a>
+</div>
+</div>
+{#foreachelse#}
+此机构没有发布机构图片！
+{#/foreach#}
+<div class="clear"></div>
+	  {#if $page && $img#}
+	  <table width="" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+		<div class="page link_bk">
+		{#$page#}
+		</div>
+		</td>
+  </tr>
+</table>
+{#/if#}
+
+</div>
+</div>
+  <div class="right">
+		  <div class="txtbox">
+				  <div class="tit">机构档案</div>
+				  <div class="qrcode"><img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#"QS_train_agencyshow,id:"|cat:$train.id|qishi_url#}" alt="{#$train.trainname#} - 二维码" /></div>	  
+		    <div class="txt">
+					  <ul class="link_bku">
+						<li>机构名称：{#$train.trainname#}</li>
+						<li>机构性质：{#$train.nature_cn#}</li>
+						<li>成立时间：{#$train.founddate|date_format:"%Y-%m-%d"#}</li>
+						
+						<li>所在地区：<a href="{#"QS_train_curriculum,district:"|cat:$train.district|cat:"-sdistrict:"|cat:$train.sdistrict|qishi_url#}" target="_blank">{#$train.district_cn#}</a></li>
+					  </ul>
+				  </div>
+				<div class="pm link_bk">
+					    <div class="pleft"><a href="javascript:void(0)" id="addpms">发短消息</a></div>
+						<div class="pright"><a href="javascript:void(0)" id="newbuddy">加为好友</a></div>
+						<div class="clear"></div>
+				</div>
+	</div>
+			 <div class="txtbox">
+				  <div class="tit">精品课程推荐</div>	  
+					{#qishi_curriculum_list set="列表名:course,显示数目:5,推荐:1,填补字符:...,课程名长度:14,排序:rtime>desc"#}
+					{#foreach from=$course item=list#}
+					<div class="txt1 link_lan">
+					<strong><a href="{#$list.course_url#}" target="_blank">{#$list.course_name#}</a></strong><br />
+					<a href="{#$list.train_url#}" target="_blank">{#$list.trainname#}</a><br />
+					主讲人：<a href="{#$list.teacher_url#}" target="_blank">{#$list.teacher_cn#}</a><br />上课班制：<a href="{#"QS_train_curriculum,classtype:"|cat:$list.classtype|qishi_url#}" target="_blank">{#$list.classtype_cn#}</a><br />总学时：{#$list.classhour#}学时<br />可获证书：{#$list.train_certificate#}<br />开课时间：{#$list.starttime|date_format:"%Y-%m-%d"#}
+					</div>
+					{#/foreach#}
+			</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="footer.htm"#}
+</body>
+</html>

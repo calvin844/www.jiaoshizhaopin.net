@@ -1,0 +1,417 @@
+{#qishi_jobs_show set="列表名:show,职位ID:GET[id]"#}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/2017/jobs-show.css" type="text/css" rel="stylesheet"/> 
+        <title>{#$show.jobs_name#}教师招聘信息_{#$show.companyname#}_{#$QISHI.site_name#}</title>
+        <meta name="keywords" content="{#$show.jobs_name#},{#$show.companyname#},{#$show.companyname#}招聘,{#$show.companyname#}{#$show.jobs_name#}招聘"/>
+        <meta name="description" content="{#if !empty($show.contents)#}{#$show.contents|strip_tags|strip|mb_substr:0:100:'GBK'#}{#else#}{#$show.jobs_name#}{#/if#}" />
+        <meta name="author" content="教师招聘网" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+        <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var id = "{#$show.id#}";
+                var company_id = "{#$show.company_id#}";
+                var tsTimeStamp = new Date().getTime();
+                $.get("{#$QISHI.website_dir#}plus/ajax_click.php", {"id": id, "time": tsTimeStamp, "act": "jobs_click"},
+                function(data, textStatus) {
+                    $(".click").html(data);
+                });
+                //查看联系方式
+                $("a.show_contact").click(function() {
+                    $.get("{#$QISHI.website_dir#}user/login.php", {"act": "check_online"}, function(data) {
+                        if (data == "y") {
+                            var str = "<p>联系人：{#$show.company.contact#}（联系我时请说明是在中国教师招聘网上看到的）</p><p>联系电话：{#$show.company.telephone#}</p>"
+                        } else if (data == "person_login") {
+                            var str = "<p>点击  <a class='make_resume' title='完善简历' href='/user/personal/personal_resume.php?act=make1'>完善简历</a>  ，马上查看联系方式</p>"
+                        } else {
+                            dialog("查看联系方式", "url:{#$QISHI.website_dir#}user/login.php?act=check_online&type=ajax_login", "500px", "auto", "", "");
+                        }
+                        $("div.contact_box .contact").html(str);
+                    })
+                });
+                //申请职位
+                $(".app_jobs").click(function() {
+                    var utype = "{#$smarty.session.utype#}";
+                    if (utype != 2) {
+                        dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_jobs.php?id=" + id + "&act=app", "500px", "auto", "", "");
+                    } else {
+                        if ($(this).attr('data-empty') == 1) {
+                            $('.empty_resume_box').show();
+                        } else {
+                            var resumeid = "{#$resume_basic.id#}";
+                            var default_resume = $("input[name='default_resume']:checked").val();
+                            $.post("/user/user_apply_jobs.php", {"resumeid": resumeid, "jobsid": id, "default_resume": default_resume, "act": "app_save"},
+                            function(data, textStatus) {
+                                if (data == "ok") {
+                                    alert("投递成功！");
+                                } else if (data == "end") {
+                                    alert("此职位已过期");
+                                } else if (data == "repeat") {
+                                    alert("您投递过此职位，不能重复投递");
+                                } else {
+                                    alert("投递失败！失败原因：" + data);
+                                }
+                            })
+                        }
+                    }
+                });
+                //单个添加收藏
+                $(".favorite").click(function() {
+                    dialog("加入收藏", "url:{#$QISHI.website_dir#}user/user_favorites_job.php?id=" + id + "&act=add", "500px", "auto", "", "");
+                });
+                //举报信息
+                $(".report_button").click(function() {
+                    var jobs_id = $(this).attr("jobs_id");
+                    var jobs_name = $(this).attr("jobs_name");
+                    var jobs_addtime = $(this).attr("jobs_addtime");
+                    dialog("举报信息", "url:{#$QISHI.website_dir#}user/user_report.php?act=report&jobs_id=" + jobs_id + "&jobs_name=" + jobs_name + "&jobs_addtime=" + jobs_addtime, "500px", "auto", "", "");
+                });
+                $(".check_full_map").click(function() {
+                    dialog("完整地图", "url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&id=" + company_id, "660px", "auto", "", "");
+                });
+                $.get("{#$QISHI.website_dir#}plus/ajax_contact.php", {"id": id, "time": tsTimeStamp, "act": "jobs_contact"},
+                function(data, textStatus) {
+                    $("#jobs_contact").html(data);
+                });
+            });</script>
+        <div id="content">
+            <div class="top_box">
+                <div class="main_box">
+                    <div class="left">
+                        <h1 title="{#$show.companyname#}招聘" class="company_name"><a href="/school/{#$show.company_id#}.html">{#$show.companyname#}</a></h1>
+                        <h2 title="{#$show.companyname#}{#$show.jobs_name#}招聘">{#$show.jobs_name#}</h2>
+                        <p class="info"><span>{#$show.wage_cn#}</span>&nbsp;/&nbsp;{#$show.category_cn#}&nbsp;/&nbsp;{#$show.district_ch#}{#if $show.sdistrict_ch#} - {#$show.sdistrict_ch#}{#/if#}&nbsp;/&nbsp;经验{#$show.experience_cn#}&nbsp;/&nbsp;{#$show.education_cn#}学历&nbsp;/&nbsp;{#$show.amount#}人&nbsp;/&nbsp;性别{#$show.sex_cn#}</p>
+                        {#if $show.tag != ''#}
+                        <ul class="label">
+                            {#foreach from=$show.tag item=list#}
+                            <li><p>{#$list#}</p></li>
+                            {#/foreach#}
+                        </ul>
+                        {#/if#}
+                        <ul class="other">
+                            <li class="time"><i></i><span>{#$show.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</span></li>
+                            <li class="view"><i></i><span><b class="click"></b>次</span></li>
+                            <!--<li class="apply"><i></i><span><b>{#$show.countresume#}</b>人</span></li>-->
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <a rel="nofollow" title="收藏职位" class="fav_job favorite">收藏</a>
+                        <a rel="nofollow" title="申请职位" class="apply_job app_jobs" data-empty="{#if $resume_basic.audit!=1 && empty($resume_basic.attachment_resume_name) && $smarty.session.utype == 2#}1{#else#}0{#/if#}">申请职位</a>
+                        <div class="clear"></div>
+                        {#if $resume_basic.audit==1 && !empty($resume_basic.attachment_resume_name)#}
+                        <div class="default_box online">
+                            <input type="radio" name="default_resume" class="default_radio" value="0" {#if $resume_basic.default_resume==0#}checked="checked"{#/if#} />
+                                   <i></i>
+                            <span>在线简历</span>
+                        </div>
+                        <div class="default_box attachment">
+                            <input type="radio" name="default_resume" class="default_radio" value="1" {#if $resume_basic.default_resume==1#}checked="checked"{#/if#}/>
+                                   <i></i>
+                            <span title="{#$resume_basic.attachment_resume_name#}">{#$resume_basic.attachment_resume_name#}</span>
+                        </div>
+                        {#elseif $resume_basic.audit!=1 && !empty($resume_basic.attachment_resume_name)#}
+                        <div class="default_box online">
+                            <a class="online_resume" href="/user/personal/personal_resume.php?act=edit_resume"><i></i><span>完善在线简历</span></a>
+                        </div>
+                        <div class="default_box attachment">
+                            <input type="radio" name="default_resume" class="default_radio" value="1" checked="checked" />
+                            <i></i>
+                            <span>附件简历</span>
+                        </div>
+                        {#elseif $resume_basic.audit==1 && empty($resume_basic.attachment_resume_name)#}
+                        <div class="default_box online">
+                            <input type="radio" name="default_resume" class="default_radio" value="0" checked="checked" />
+                            <i></i>
+                            <span>在线简历</span>
+                        </div>
+                        <div class="default_box attachment">
+                            <a class="attachment_resume"><i></i><span>上传附件简历</span></a>
+                        </div>
+                        {#elseif $resume_basic.audit!=1 && empty($resume_basic.attachment_resume_name) && $smarty.session.utype == 2#}
+                        <div class="default_box online">
+                            <a class="online_resume" href="/user/personal/personal_resume.php?act=edit_resume"><i></i><span>完善在线简历</span></a>
+                        </div>
+                        <div class="default_box attachment">
+                            <a class="attachment_resume"><i></i><span>上传附件简历</span></a>
+                        </div>
+                        {#/if#}
+                    </div>
+                </div>
+            </div>
+            <div class="fixed_box">
+                <div class="main_box">
+                    <div class="left">
+                        <p>{#$show.jobs_name#}</p>
+                    </div>
+                    <div class="right">
+                        <a rel="nofollow" title="收藏职位" class="fav_job favorite">收藏</a>
+                        <a rel="nofollow" title="申请职位" class="apply_job app_jobs">申请职位</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="main_box">
+                <div class="bottom_box">
+                    <div class="left">
+                        <div class="des_box">
+                            <h3 title="{#$show.companyname#}{#$show.jobs_name#}招聘信息" class="item_title">职位描述</h3>
+                            <div class="item_content">
+                                {#$show.contents|nl2br#}
+                            </div>
+                        </div>
+                        <div class="address_box">
+                            <h3 title="{#$show.companyname#}{#$show.contact.address#}" class="item_title">工作地址</h3>
+                            <div class="item_content">
+                                <span>{#$show.contact.address#} ( {#$show.district_ch#}{#if $show.sdistrict_ch#} - {#$show.sdistrict_ch#}{#/if#} )</span>
+                                {#if $show.company.map_x>0#}
+                                <a rel="nofollow" class="check_full_map map">查看地图</a>
+                                <div class="check_f_map">
+                                </div>
+                                {#/if#}
+                            </div>
+                        </div>
+                        <div class="progress_box">
+                            <h3 title="{#$show.companyname#}招聘进度" class="item_title">招聘进度</h3>
+                            <div class="item_content">
+                                {#if $show.overdue == 1#}
+                                <p>{#$show.endtime#}截止</p>
+                                <div class="bg">
+                                    <p class="line"></p>
+                                </div>
+                                <script>
+                                    $('div.progress_box p.line').css('width', "{#$show.time_percent#}%");</script>
+                                {#else#}
+                                <p>招聘结束</p>
+                                <div class="bg">
+                                    <p class="line"></p>
+                                </div>
+                                {#/if#}
+                            </div>
+                        </div>
+                        {#qishi_jobs_list  set="显示数目:3,列表名:jobs,地区大类:$show.district,地区小类:$show.sdistrict,填补字符:...,职位名长度:13"#}
+                        {#if !empty($jobs)#}
+                        <div class="clear"></div>
+                        <div class="bottom_jobs_box">
+                            <h2 class="title">相关职位推荐</h2>
+                            <ul>
+                                {#foreach from=$jobs item=list#}
+                                {#if $list.jobs_name != ''#}
+                                <li>
+                                    <div class="top">
+                                        <a class="name" href="/job/{#$list.id#}.html" title="{#$list.district_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                        <span class="wage">{#$list.wage_cn#}</span>
+                                        <div class="clear"></div>
+                                        <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="company">{#$list.companyname#}</span>
+                                        <span class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                    </div>
+                                </li>
+                                {#/if#}
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        {#/if#}
+
+                        <div class="clear"></div>
+                        {#if $show.uid > 0#}
+                        {#qishi_jobs_list set="列表名:jobs,填补字符:...,职位名长度:14,不显示:$show.id,会员UID:"|cat:$show.uid#}
+                        {#if $total > 1#}
+                        <div class="jobs_box">
+                            <h3 title="{#$show.companyname#}招聘职位" class="item_title"><a href="/school/{#$show.company_id#}.html">公司其他职位</a></h3>
+                            <div class="item_content">
+                                <ul>
+                                    {#foreach from=$jobs item=list#}
+                                    {#if $list.jobs_name != ''#}
+                                    <li>
+                                        <h2 title="{#$show.companyname#}{#$list.jobs_name#}招聘"><a href="/job/{#$list.id#}.html" target="_blank">{#$list.jobs_name#}</a></h2>
+                                        <i></i><span>{#$list.wage_cn#}</span>
+                                        <i></i><span>地区：{#$list.district_cn#}</span>
+                                        <i></i><span>学历要求：{#$list.education_cn#}</span>
+                                        <i></i><span>{#$list.refreshtime_cn#}</span>
+                                    </li>
+                                    {#/if#}
+                                    {#/foreach#}
+                                </ul>
+                            </div>
+                        </div>
+                        {#/if#}
+                        {#/if#}
+                        <div class="clear"></div>
+                    </div>
+                    <div class="right">
+                        <div class="item_box">
+                            <a title="{#$show.companyname#}招聘信息" target="_blank" href="/school/{#$show.company_id#}.html"><img alt="{#$show.companyname#}LOGO" src="{#$show.company.logo#}" width="240" /></a>
+                            <a title="{#$show.companyname#}招聘" class="company_name" target="_blank" href="/school/{#$show.company_id#}.html">{#$show.companyname#}</a>
+                            {#if $show.company.address != ""#}
+                            <div class="address">
+                                <div class="icon">
+                                    <i></i>
+                                </div>
+                                <div class="text">
+                                    <span>{#$show.company.address#}</span>
+                                </div>
+                            </div>
+                            {#/if#}
+                            {#if $show.company.website && $show.company.website != "http://"#}
+                            <div class="site">
+                                <i></i>
+                                <a href="{#$show.company.website#}" target="_blank">{#$show.company.website#}</a>
+                            </div>
+                            {#/if#}
+                        </div>
+                    </div>
+
+                    {#qishi_ad set="调用名称:page_403,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="page_403">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=page_403&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+
+        <div class="empty_resume_box">
+            <div class="content_box">
+                <div class="top">
+                    <span>申请职位</span>
+                    <a class="close"></a>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <b>您还没有可以投的简历呢</b>
+                    <p>请上传附件简历或者填写在线简历后再投递吧~</p>
+                    <a class="attachment_resume">选择上传文件</a>
+                    <a class="online_resume" href="/user/personal/personal_resume.php?act=edit_resume">完善在线简历</a>
+                </div>
+            </div>
+            <div class="bg"></div>
+            <script>
+                $('div.empty_resume_box a.close').click(function() {
+                    $('div.empty_resume_box').hide();
+                })
+                $('div.empty_resume_box div.bg').click(function() {
+                    $('div.empty_resume_box').hide();
+                })
+            </script>
+        </div>
+        <div class="attachment_box">
+            <div class="content_box">
+                <div class="top">
+                    <span>上传附件简历</span>
+                    <a class="close"></a>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <span>选择上传文件</span>
+                    <input id="attachment_resume" name="attachment_resume" class="attachment_resume" type="file" />
+                    <div class="clear"></div>
+                    <p>文件大小需小于10M</p>
+                    <p>支持word、pdf、ppt、txt、wps格式文件</p>
+                </div>
+            </div>
+            <div class="bg"></div>
+            <script>
+                $('a.attachment_resume').click(function() {
+                    $('div.attachment_box').show();
+                    $('div.empty_resume_box').hide();
+                })
+                $('div.attachment_box a.close').click(function() {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box div.bg').click(function() {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box').on('change', '#attachment_resume', function() {
+                    $.ajaxFileUpload({
+                        url: '/user/personal/personal_resume.php?act=upload_attachment_resume',
+                        secureuri: false,
+                        fileElementId: 'attachment_resume',
+                        dataType: 'string',
+                        success: function(data, status) {
+                            var f = data.substr(0, 1);
+                            if (f == "-") {
+                                switch (data) {
+                                    case "-1":
+                                        alert("上传失败：上传目录不存在!");
+                                        return false;
+                                        break;
+                                    case "-2":
+                                        alert("上传失败：上传目录无法写入!");
+                                        return false;
+                                        break;
+                                    case "-3":
+                                        alert("上传失败：你选择的文件无法上传");
+                                        return false;
+                                        break;
+                                    case "-4":
+                                        alert("上传失败：文件大小超过限制");
+                                        return false;
+                                        break;
+                                    case "-5":
+                                        alert("上传失败：文件类型错误！");
+                                        return false;
+                                        break;
+                                    case "-6":
+                                        alert("上传失败：文件上传出错！");
+                                        return false;
+                                        break;
+                                    case "-7":
+                                        alert("参数错误！");
+                                        return false;
+                                        break;
+                                    case "-9":
+                                        alert("最多只能上传1个附件！");
+                                        return false;
+                                        break;
+                                    case "-10":
+                                        alert("请上传文件！");
+                                        return false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                })
+
+            </script>
+        </div>
+
+        <script>
+            $(window).scroll(function() {
+                //获取当前滚动条的高度
+                var h = $(document).scrollTop();
+                if (h > 0 && h < 250) {
+                    $(".fixed_box").hide();
+                } else if (h >= 250) {
+                    $(".fixed_box").show();
+                } else if (h == 250) {
+                    $(".fixed_box").hide();
+                }
+            })
+        </script>
+        {#include file="/2017/footer_page.htm"#}
+    </body>
+</html>

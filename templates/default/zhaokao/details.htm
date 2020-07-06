@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/zhaokao/zhaokao_details.css" rel="stylesheet" type="text/css" />
+        <title>教师招聘网-招考-{#$course.title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="top_info_box">
+                <div class="main_box">
+                    <div class="top_info">
+                        <img class="left" src="{#$course.thumb#}" width="460" height="283" />
+                        <div class="course_info">
+                            <h2 class="title">{#$course.title#}</h2>
+                            <p class="school"><i></i>{#$course.school.name#}</p>
+                            <div class="price">
+                                <label>价格</label>
+                                <b>￥{#$course.price#}</b>
+                                <u>￥{#$course.old_price#}</u>
+                            </div>
+                            <p class="people"><i></i>{#$course.people_num#}</p>
+                            <p class="time">上课时间&nbsp;{#$course.start_time|date_format:"%Y.%m.%d"#} 至 {#$course.end_time|date_format:"%Y.%m.%d"#}</p>
+                            <div class="bt">
+                                <form action="/zhaokao/kaoshi/order.php?act=add_order" method="post">
+                                    <input type="hidden" name="course_id" value="{#$course.id#}" />
+                                    <input type="hidden" name="price" value="{#$course.price#}" />
+                                    <input class="buy" type="submit" value="立即购买" />
+                                </form>
+                                <a target="_blank" class="service" href="http://wpa.qq.com/msgrd?v=3&uin=3571928718&site=qq&menu=yes">在线咨询</a>
+                            </div>
+                        </div>
+                        <div class="share">
+                            <a class="share" href="#share_box"><i></i><span>分享</span></a>
+                            <a id="fav" class="fav" href="javascript:void();"><i></i><span>收藏</span></a>
+                            <script>
+                                $('a#fav').click(function () {
+                                    $.get("?act=add_fav", function (data) {
+                                        if (data == 1) {
+                                            alert("收藏成功！");
+                                        } else if (data == 2) {
+                                            alert("收藏失败！");
+                                        } else if (data == 3) {
+                                            window.location.href = "/user/login.php?act_url=" + window.location.href;
+                                        } else if (data == 4) {
+                                            alert("您已收藏此课程！");
+                                        }
+                                    })
+                                })
+                            </script>
+                        </div>
+                        {#if $course.start_time > $smarty.now#}
+                        <img class="state" src="{#$QISHI.site_template#}images/zhaokao/details_top_info_state2.png" width="93" height="108" />
+                        {#elseif $course.people_num == $course.people_limit#}
+                        <img class="state" src="{#$QISHI.site_template#}images/zhaokao/details_top_info_state3.png" width="93" height="108" />
+                        {#else#}
+                        <img class="state" src="{#$QISHI.site_template#}images/zhaokao/details_top_info_state1.png" width="93" height="108" />
+                        {#/if#}
+                    </div>
+                </div>
+            </div>
+            <div class="main_box">
+                <p class="nav">
+                    <a href="/">教师招聘网</a>
+                    &nbsp;>&nbsp;
+                    <a href="/zhaokao">教师招考</a>
+                    &nbsp;>&nbsp;
+                    <a href="/zhaokao/kaoshi/{#$course.type.en#}">{#$course.type.name#}</a>
+                    &nbsp;>&nbsp;
+                    <a>{#$course.title#}</a>
+                </p>
+                <div class="info_box">
+                    <div class="left">
+                        <ul class="nav_item">
+                            <li><a id="item_des" class="hover"  >课程介绍</a></li>
+                            <li><a id="item_index"  >课程大纲</a></li>
+                        </ul>
+                        <div id="item_des_box" class="item_content">
+                            {#$course.des#}
+                        </div>
+                        <div id="item_index_box" class="item_content" style="display: none;">
+                            <ul>
+                                {#foreach from=$course.index item=i#}
+                                {#if $i.parent_id == 0#}
+                                <li class="parent"><p>{#$i.name#}</p></li>
+                                {#foreach from=$i.son item=s#}
+                                <li class="son"><p>{#$s.name#}</p></li>
+                                {#/foreach#}
+                                {#/if#}
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <script>
+                            $('.nav_item a').click(function () {
+                                $('.nav_item a').removeClass('hover');
+                                $(this).addClass('hover');
+                                var n = $(this).attr('id');
+                                $('.info_box div.item_content').hide();
+                                $('div#' + n + '_box').show();
+                            })
+                        </script>
+                        <div class="clear"></div>
+                        <div id="share_box" class="share_box">
+                            <div class="bshare-custom icon-medium-plus">
+                                <div class="bsPromo bsPromo2"></div>
+                                <a title="分享到" href="http://www.bShare.cn/" id="bshare-shareto" class="bshare-more">分享到</a>
+                                <a title="分享到微信" class="bshare-weixin"  ></a>
+                                <a title="分享到豆瓣" class="bshare-douban"  ></a>
+                                <a title="分享到朋友网" class="bshare-qqxiaoyou"  ></a>
+                                <a title="分享到QQ空间" class="bshare-qzone"></a>
+                                <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                <a title="分享到人人网" class="bshare-renren"></a>
+                                <a title="分享到腾讯微博" class="bshare-qqmb"></a>
+                                <a title="分享到网易微博" class="bshare-neteasemb"></a>
+                                <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+                            </div>
+                            <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+                            <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                        </div>
+                    </div>
+                    <div class="right">
+                        {#if !empty($course.school)#}
+                        <div class="school_box">
+                            <div class="school_logo">
+                                <img src="{#$course.school.logo#}" width="128" />
+                            </div>
+                            <p class="school_name">{#$course.school.name#}</p>
+                            <p class="school_info">{#$course.school.des#}</p>
+                        </div>
+                        {#/if#}
+                        {#if !empty($course.teacher)#}
+                        <div class="teacher_box">
+                            <p class="title"><b></b><span>讲师</span></p>
+                            <ul>
+                                <li>
+                                    <img src="{#$course.teacher.photo#}" width="50" height="50"/> 
+                                    <br/>
+                                    <span>{#$course.teacher.name#}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        {#/if#}
+                        {#if !empty($course.qq)||!empty($course.wechat_img)#}
+                        <div class="service_box">
+                            <p class="title"><b></b><span>交流中心</span></p>
+                            {#if !empty($course.qq)#}
+                            <p class="qq">QQ群：{#$course.qq#}</p>
+                            {#/if#}
+                            {#if !empty($course.wechat_img)#}
+                            <div class="wechat">
+                                <img src="{#$course.wechat_img#}" width="122" height="122" />
+                                <p>官方微信公众号</p>
+                            </div>
+                            {#/if#}
+                        </div>
+                        {#/if#}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--
+            <div class="side_box">
+                <div class="back_top"><a href="#"><i></i></a></div>
+                <ul>
+                    <li class="wechat"><a href="#"><i></i><br/>微信</a></li>
+                    <li class="weibo"><a href="#"><i></i><br/>微博</a></li>
+                    <li class="service"><a href="#"><i></i><br/>咨询</a></li>
+                    <li class="package"><a href="#"><i></i><br/>套餐</a></li>
+                </ul>
+                <div class="hide"><a href="#"><i></i></a></div>
+            </div>
+            -->
+        </div>
+        <div class="clear"></div>
+        {#include file="/2017/footer_page.htm"#}
+    </body>
+</html>
+
+

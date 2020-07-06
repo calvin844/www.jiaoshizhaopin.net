@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_hunter.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_dir#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.hunter.selectlayer.js" type='text/javascript' language="javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function ()
+            {
+                allaround('{#$QISHI.site_dir#}');
+                // 显示工作地区
+                $("#jobsCity").hover(function () {
+                    $("#divCityCate").show();
+                    $("#divCityCate li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divCityCate").hide();
+                });
+                // 显示擅长职能
+                $("#jobsCityJob").hover(function () {
+                    $("#divCityCateJob").show();
+                    $("#divCityCateJob li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divCityCateJob").hide();
+                });
+                // 显示行业
+                $("#jobsTrad").hover(function () {
+                    $("#divTradCate").show();
+                }, function () {
+                    $("#divTradCate").hide();
+                });
+                menuDown("#rank_menu", "#rank", "#rank_cn", "#menu1", "218px");
+                function menuDown(menuId, input, input_cn, menuList, width) {
+                    $(menuId).click(function () {
+                        $(menuList).css("width", width);
+                        $(menuList).slideDown('fast');
+                        //生成背景
+                        $(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $(menuList).slideUp("fast");
+                            $(menuId).parent("div").css("position", "");
+                        });
+                    });
+
+                    $(menuList + " li").click(function () {
+                        var id = $(this).attr("id");
+                        var title = $(this).attr("title");
+                        $(input).val(id);
+                        $(input_cn).val(title);
+                        $(menuId).html(title);
+                        $(menuList).slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                    });
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+        {#include file="user/header.htm"#}
+
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 基本信息</div>
+
+        <div class="usermain">
+            <div class="leftmenu hunter link_bk">
+                {#include file="member_hunter/left.htm"#}	
+            </div>
+            <div class="rightmain">
+                <div class="bbox1">	
+                    <div class="addjob link_bk">
+                        <div class="topnav">
+                            <div class="titleH1" style="margin-top:0;padding-left:30px;">
+                                <div class="h1-title">基本信息</div>
+                            </div>
+                            <div class="navs">
+                                <a href="?act=hunter_profile" class="se">基本信息</a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <form id="Form1" name="Form1" method="post" action="?act=hunter_profile_save" style="margin-top:25px;" >
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                                <tr>
+                                    <td width="125" align="right"><span class="nec">真实姓名</span>：</td>
+                                    <td width="230"><input name="huntername" type="text" class="input_text_200" id="huntername" maxlength="80"   value="{#$hunter_profile.huntername#}"/></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"><span class="nec">所在公司</span>：</td>
+                                    <td width="230"><input name="companyname" type="text" class="input_text_200" id="companyname" maxlength="80"   value="{#$hunter_profile.companyname#}"/></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"><span class="nec">公司座机</span>：</td>
+                                    <td width="230"><input name="code" type="text" class="input_text_100" id="code" maxlength="80"   value="{#$hunter_profile.code#}"/> - <input name="companytelephone" type="text" class="input_text_200" id="companytelephone" maxlength="80"   value="{#$hunter_profile.companytelephone#}"/></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr class="jobmain">
+                                    <td width="125" align="right"><span class="nec">所在地区</span>：</td>
+                                    <td width="230" id="jobsCity" style="position:relative;float:left;">
+                                        <div class="input_text_200_bg" id="cityText">{#$hunter_profile.district_cn|default:"请选择"#}</div>
+                                        <div style="display:none;left:1px;top:46px;" id="divCityCate" class="divJobCate">
+                                            <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                        </div>
+                                        <input name="district" id="district" type="hidden" value="{#$hunter_profile.district#}" />	
+                                        <input name="sdistrict" id="sdistrict" type="hidden" value="{#$hunter_profile.sdistrict#}" />	
+                                        <input name="district_cn" id="district_cn" type="hidden" value="{#$hunter_profile.district_cn#}" />	
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"><span class="nec">从业时间</span>：</td>
+                                    <td width="230"><input name="worktime_start" type="text" class="input_text_200" id="worktime_start" maxlength="80"   value="{#$hunter_profile.worktime_start#}"/> 年开始</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"><span class="nec">目前头衔</span>：</td>
+                                    <td width="230">
+                                        <div style="position:relateve;">
+                                            <div id="rank_menu" class="input_text_200_bg">{#$hunter_profile.rank_cn|default:"请选择"#}</div>	
+                                            <div class="menu" id="menu1">
+                                                <ul>
+                                                    {#qishi_get_classify set="列表名:c_rank,类型:QS_hunter_rank"#}
+                                                    {#foreach from=$c_rank item=list#}
+                                                    <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                    {#/foreach#}
+                                                </ul>
+                                            </div>
+                                        </div>				
+                                        <input name="rank" type="hidden" id="rank" value="{#$hunter_profile.rank#}" />
+                                        <input name="rank_cn" type="hidden" id="rank_cn" value="{#$hunter_profile.rank_cn#}" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr class="jobmain">
+                                    <td align="right"><span class="nec">擅长行业</span>：</td>
+                                    <td id="jobsTrad" style="position:relative;float:left;">
+                                        <div class="input_text_200_bg" id="tradText">请选择</div>
+                                        <div id="divTradCate" class="infoList divIndCate" style="display:none;left:1px;top:46px;">
+                                            <div class="acquired">
+                                                <div class="l">已选</div>
+                                                <div class="c" id="tradAcq"></div>
+                                                <div class="r">
+                                                    <div class="empty" id="tradEmpty"></div>
+                                                    <div class="sure" id="tradSure">确定</div>
+                                                    <div class="container" id="tradropcontent">
+                                                        <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                        <s><e></e></s>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="indcatelist" id="tradList"></ul>
+                                        </div>
+                                    </td>
+                                    <input type="hidden" id="trade" name="goodtrade" value="{#$hunter_profile.goodtrade#}">
+                                        <input type="hidden" id="trade_cn" name="goodtrade_cn" value="{#$hunter_profile.goodtrade_cn#}">
+                                            <td>&nbsp;</td>
+                                            </tr>
+                                            <tr class="jobmain">
+                                                <td align="right"><span class="nec">擅长职能</span>：</td>
+                                                <td id="jobsCityJob" style="position:relative;float:left;">
+                                                    <div class="input_text_200_bg" id="cityTextJob">{#$hunter_profile.goodcategory_cn#}</div>
+                                                    <div style="display:none;left:1px;top:46px;" id="divCityCateJob" class="divJobCate">
+                                                        <table class="jobcatebox citycatebox">
+                                                            <div class="acquired">
+                                                                <div class="l">已选</div>
+                                                                <div class="c" id="cityAcq"></div>
+                                                                <div class="r">
+                                                                    <div class="empty" id="cityEmpty"></div>
+                                                                    <div class="sure" id="citySure">确定</div>
+                                                                    <div class="container" id="citydropcontent">
+                                                                        <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                                        <s><e></e></s>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                                <input type="hidden" id="intention_jobs_id" name="goodcategory" value="{#$hunter_profile.goodcategory#}">
+                                                    <input type="hidden" id="intention_jobs" name="goodcategory_cn" value="{#$hunter_profile.goodcategory_cn#}">
+
+                                                        <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" align="right" valign="top"><span class="nec">顾问介绍</span>：</td>
+                                                            <td width="500"><textarea name="contents" id="contents" cols="30" rows="10" class="input_textarea_500">{#$hunter_profile.contents#}</textarea></td>
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" height="30" align="right">合作过的客户：</td>
+                                                            <td  ><input name="cooperate_company" type="text" class="input_text_200" id="cooperate_company" maxlength="30" style="width:500px;" value="{#$hunter_profile.cooperate_company#}" /> </td>
+                                                            <td>多个用 | 隔开</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" align="right"><span class="nec">联系电话</span>：</td>
+                                                            <td width="230"><input name="telephone" type="text" class="input_text_200" id="telephone" maxlength="80"   value="{#$hunter_profile.telephone#}"/>  <label><input name="telephone_show" type="checkbox" value="1" {#if $hunter_profile.telephone_show<>"0"#}checked="checked"{#/if#}/> 联系电话在猎头详细页中显示</label></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" align="right"><span class="nec">联系邮箱</span>：</td>
+                                                            <td width="230"><input name="email" type="text" class="input_text_200" id="email" maxlength="80"   value="{#$hunter_profile.email#}"/>  <label><input name="email_show" type="checkbox" value="1" {#if $hunter_profile.email_show<>"0"#}checked="checked"{#/if#}/> 联系邮箱在猎头详细页中显示</label></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" align="right"><span class="nec">通讯地址</span>：</td>
+                                                            <td width="500"><input name="address" type="text" class="input_text_500" id="address" maxlength="80"   value="{#$hunter_profile.address#}"/></td>
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="125" align="right"></td>
+                                                            <td><label><input name="address_show" type="checkbox" value="1" {#if $hunter_profile.address_show<>"0"#}checked="checked"{#/if#}/> 通讯地址在猎头详细页中显示</label></td>
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                        </table>
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                                                            <tr>
+                                                                <td align="right" width="125">&nbsp;</td>
+                                                                <td width="130"><input type="submit" value="保存" class="but100lan" /></td>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </table>
+                                                        </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                        </div>
+                                                        {#include file="user/footer.htm"#}
+                                                        </body>
+                                                        </html>

@@ -1,0 +1,248 @@
+<?php 
+global $db;
+$page = !empty($_GET['page']) && $_GET['page']>0?intval($_GET['page']):1;
+$offset = ($page-1)*10;
+$page_str = " ";
+//查询城市列表
+$city_list_str = " ";
+$city_list_first = " ";
+$city_list_parent = " ";
+$news_list_str = " ";
+$city_py =  !empty($_GET['city_py'])?$_GET['city_py']:'beijing';
+$sql = "select d_id from ".table('category_district_pinyin')." WHERE  pinyin='".$city_py."' LIMIT 1";
+$py=$db->getone($sql);
+$_GET['city'] = !empty($py['d_id'])?$py['d_id']:0;
+$sql = "select parentid,categoryname from ".table('category_district')." WHERE  id=".intval($_GET['city'])." LIMIT 1";
+$city=$db->getone($sql);
+if(!$city){
+echo "<script>history.back();</script>";
+}
+$sql = "select pinyin from ".table('category_district_pinyin')." WHERE  d_id='".$city['parentid']."' LIMIT 1";
+$a_py=$db->getone($sql);
+if($city['parentid']>0){
+$sql = "select id,categoryname from ".table('category_district')." WHERE  id=".intval($city['parentid'])." OR parentid = ".intval($city['parentid']);
+$citys=$db->getall($sql);
+foreach($citys as $k){
+$sql = "select pinyin from ".table('category_district_pinyin')." WHERE  d_id='".$k['id']."' LIMIT 1";
+$c_py=$db->getone($sql);
+if($k['id'] != $city['parentid']){
+$city_list_str .='<li>';
+$cur = ($k['id'] == $_GET['city'])?' class="cur" ':'';
+$city_list_str .='<a '.$cur.' title="'.$k['categoryname'].'" href="/'.$a_py['pinyin'].'/'.$c_py['pinyin'].'">'.$k['categoryname'].'</a>';
+$city_list_str .='</li>';
+}else{
+$city_list_parent .='<li>';
+$city_list_parent .='<a  title="'.$k['categoryname'].'" href="/'.$c_py['pinyin'].'">全'.$k['categoryname'].'</a>';
+$city_list_parent .='</li>';
+$p_city['id'] = $k['id'];
+$p_city['cname'] = $k['categoryname'];
+}
+}
+}else{
+$sql = "select id,categoryname from ".table('category_district')." WHERE  parentid = ".intval($_GET['city']);
+$citys=$db->getall($sql);
+foreach($citys as $k){
+$sql = "select pinyin from ".table('category_district_pinyin')." WHERE  d_id='".$k['id']."' LIMIT 1";
+$c_py=$db->getone($sql);
+if($k['id'] != $city['parentid']){
+if($city_list_first == " "){
+$city_list_first .='<li>';
+$city_list_first .='<a class="cur" title="'.$city['categoryname'].'" href="/'.$c_py['pinyin'].'">全'.$city['categoryname'].'</a>';
+$city_list_first .='</li>';
+}
+$city_list_str .='<li>';
+$city_list_str .='<a title="'.$k['categoryname'].'" href="/'.$city_py.'/'.$c_py['pinyin'].'">'.$k['categoryname'].'</a>';
+$city_list_str .='</li>';
+}
+}
+}
+$city_list_str = $city_list_parent.$city_list_first.$city_list_str;
+
+$sql = "select id,title,content,seo_description,addtime from ".table('article')." WHERE is_display=1 AND seo_description LIKE '%".$city['categoryname']."%' order by addtime desc  LIMIT 10 OFFSET ".$offset;
+//echo $sql;
+$news_arr=$db->getall($sql);
+$num = 1;
+foreach($news_arr as $n){
+if($num == 3){
+$news_list_str .= '<li>';
+$news_list_str .= '<div class="baidu_ad"></div>';
+$news_list_str .= '</li>';
+}
+$arr = explode(" ",$n['seo_description']);
+$n_city = explode("-",$arr[1]);
+$sql = "select id,parentid from ".table('category_district')." WHERE  categoryname = '".$n_city[1]."' LIMIT 1";
+$t_city=$db->getone($sql);
+
+
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$t_city['id']."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$n_city_py['c_pinyin'] = $city_py_arr['pinyin'];
+if($t_city['parentid'] != 0){
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$t_city['parentid']."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$n_city_py['p_pinyin'] = $city_py_arr['pinyin'];
+$p_py_str = "/".$n_city_py['p_pinyin'];
+}else{
+$p_py_str = "";
+}
+
+$news_list_str .= '<li>';
+$news_list_str .= '<p class="left">·&nbsp;&nbsp;<a title="'.$n_city[1].'教师招聘" href="'.$p_py_str.'/'.$n_city_py['c_pinyin'].'">'.$n_city[1].'</a>&nbsp;&nbsp;<a target="_blank" title="'.$n['title'].'" href="/morejobs/jobshow_'.$n['id'].'.html">'.$n['title'].'</a></p>';
+$news_list_str .= '<span class="right">'.date("Y/m/d",$n['addtime']).'</span>';
+$news_list_str .= '<p class="news_info">'.strip_tags($n['content']).'</p>';
+$news_list_str .= '</li>';
+$num++;
+}
+
+
+//查询同城职位
+$sql = "select id,uid,jobs_name,companyname,company_id from ".table('jobs')." where sdistrict = '".intval($_GET['city'])."' OR district = '".intval($_GET['city'])."'";
+//echo $sql;exit;
+$jobs_arr=$db->getall($sql);
+//print_r($jobs_arr);exit;
+foreach($jobs_arr as $j){
+if(empty($jobs_list[$j['company_id']]['jobs_str'])){
+$jobs_list[$j['company_id']]['jobs_str'] = " ";
+}
+$sql = "select talent_pool from ".table('members_setmeal')." WHERE talent_pool >3000 AND uid =".$j['uid']." LIMIT 1";
+$tp=$db->getone($sql);
+$jobs_list[$j['company_id']]['talent_pool'] = $tp['talent_pool'];
+$jobs_list[$j['company_id']]['company_id'] = $j['company_id'];
+$jobs_list[$j['company_id']]['uid'] = $j['uid'];
+$jobs_list[$j['company_id']]['companyname'] = $j['companyname'];
+$jobs_list[$j['company_id']]['jobs_str'] .= "<a title='".$j['jobs_name']."' href='/job/".$j['id'].".html'>".$j['jobs_name']."</a>,";
+}
+foreach ($jobs_list as $key=>$value){
+$talent_pool[$key] = $value['talent_pool'];
+}
+array_multisort($talent_pool, SORT_DESC, $jobs_list);
+$jobs_str = "";
+foreach($jobs_list as $k => $v){
+$vip_str = "";
+if($v['talent_pool'] > 9000){
+$vip_str = 'class="vip"';
+}
+$jobs_str .= '<li '.$vip_str.'>';
+$jobs_str .= '<i></i>';
+$jobs_str .= '<span><a title="'.$v['companyname'].'" href="/school/'.$v['company_id'].'.html">'.$v['companyname'].'</a></span>';
+$jobs_str .= '<p>'.trim($v['jobs_str'],",").'</p>';
+$jobs_str .= '</li>';
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title><?php echo $city['categoryname']."教师招聘-".date("Y")."最新".$city['categoryname']."教师招聘信息";?></title>
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/city-list_c.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="top">
+                <div class="main_box">
+                    <ul class="left">
+                        <li>
+                            <a target="_blank" title="网站首页" href="{#$QISHI.site_dir#}">网站首页</a>
+                        </li>
+                        <li>
+                            <a target="_blank" title="找工作" href="/jobs-list">找工作</a>
+                        </li>
+                        <li>
+                            <a target="_blank" title="中国教师人才库" href="/resume">中国教师人才库</a>
+                        </li>
+                        <li>
+                            <a target="_blank" title="幼儿教师招聘" href="/jobs-list/k/1">幼儿教师招聘</a>
+                        </li>
+                        <li>
+                            <a target="_blank" title="中小学教师招聘" href="/jobs-list/k/2">中小学教师招聘</a>
+                        </li>
+                        <li>
+                            <a target="_blank" class="cur" title="事业单位招聘" href="/jobs-list/news">事业单位招聘</a>
+                        </li>
+                        <li>
+                            <a target="_blank" title="企业招聘服务" href="/user/company/company_jobs.php?act=addjobs">企业招聘服务</a>
+                        </li>
+                    </ul>
+                    <div class="right">
+                        <a target="_blank" class="push" title="我要发布招聘信息" href="/user/company/company_jobs.php?act=addjobs"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="main_box">
+                    <a title="中国教师招聘网" class="logo" href="{#$QISHI.site_dir#}"></a>
+                    <div class="city_box">
+                        <?php if($p_city['id']>0):?>
+                        <a title= "<?php echo $p_city['cname'];?>教师招聘" href="/<?php echo $a_py['pinyin'];?>"><?php echo $p_city['cname'];?>教师招聘</a>
+                        <span>></span>
+                        <?php endif;?>
+                        <a title= "<?php echo $city['categoryname'];?>教师招聘" href="/<?php echo $a_py['pinyin'].'/'.$city_py;?>"><?php echo $city['categoryname'];?>教师招聘</a>
+                    </div>
+                    <div class="help_box">
+                        <a title="返回首页" href="/index.php">返回首页</a>
+                        <i></i>
+                        <a title="帮助" href="/help">帮助</a>
+                        <i></i>
+                        <p>在线&nbsp;<font id="online">1234</font>&nbsp;人</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="main_box">
+                    <ul>
+                        <?php echo $city_list_str;?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="content">
+            <div class="main_box">
+                <div class="left">
+                    <p class="title_lb"><?php echo $city['categoryname'];?>招聘简章</p>
+                    <ul class="news_top">
+                        <?php echo $news_list_str;?>
+                    </ul>
+                    <div class="pages_box">
+                        加载中...
+                    </div>
+                </div>
+                <div class="right"><div class="job_list">
+                        <p class="title_lb"><?php echo $city['categoryname'];?>学校直聘平台</p>
+                        <ul>
+                            <?php echo $jobs_str;?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="footer">
+            <div class="main_box">
+                <p>Copyright 2007-2013 &copy; <a title="中国教师招聘网" href="/index.php">中国教师招聘网</a>. <a title="站长统计" target="_blank" href="http://www.cnzz.com/stat/website.php?web_id=511743">站长统计</a></p>
+            </div>
+        </div>
+        <input type="hidden" id="cw" value="<?php echo $_GET['city']  ;?>"/>
+        <input type="hidden" id="url" value="<?php echo ($p_city['id']>0)?'/'.$a_py['pinyin'].'/'.$city_py:'/'.$city_py ;?>"/>
+        <input type="hidden" id="page" value="<?php echo $page ;?>"/>
+    </body>
+    <script>
+        var online = Math.round(Math.random() * 1000000);
+        $("#online").html(online);
+
+        $.post("{#$QISHI.site_dir#}" + "plus/ajax_page.php", {table: "article", cw: $('#cw').val(), num: 10, url: $('#url').val(), page: $('#page').val()},
+        function (data) {
+            //var page_str = UrlDecode(data.str);
+            //page_str = UrlEncode(page_str);
+            $('.pages_box').html(data.str + data.select);
+        }, "json");
+
+        $('select').live('change', function () {
+            var url = ($(this).children('option:selected').val());
+            window.location.href = url;
+        })
+    </script>
+</html>

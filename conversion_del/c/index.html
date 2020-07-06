@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/index.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+<script type="text/javascript">
+	// 检查更新离线缓存清单
+	if(window.applicationCache){
+		window.applicationCache.addEventListener('updateready', function(e) {  
+			if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+				applicationCache.swapCache()
+				window.location.reload(); 
+			} else {  
+				// Manifest没有改动，nothing to do 
+			}  
+		}, false);
+		
+		// 错误处理
+		window.applicationCache.addEventListener('error', function(e) {  
+			// nothing to do 
+			return false;
+		}, false);  
+	}
+	
+	if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+		var version = parseFloat(RegExp.$1);
+		if(version>2.3){
+			var phoneScale = parseInt(window.screen.width)/640;
+			document.write('<meta name="viewport" content="width=640, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+		}else{
+			document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+		}
+	}else{
+		document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+	}
+	//微信去掉下方刷新栏
+	if(navigator.userAgent.indexOf('MicroMessenger') >= 0){
+		document.addEventListener('WeixinJSBridgeReady', function() {
+			//WeixinJSBridge.call('hideToolbar');
+		});
+	}
+	
+	$(document).ready(function(){
+	  $("#jquery_jplayer_1").jPlayer({
+		ready: function () {
+		  $(this).jPlayer("setMedia", {
+			 m4a: "http://bjpcnc-v.yunpan.cn/Download.outputAudio/101443128/e1a169d7ef85a76bce0f72dea11a4c655f953c91/43_43.161232b81bfde9e482410dbdb57a4c6a/1.0.1/web/14074037029604/0/7daf0fd29a752390fd810666e1feb6a2/Days.m4a"
+		  }).jPlayer("repeat");
+		},
+	   swfPath: "js",
+	   supplied: "m4a"
+	  });
+	});
+	 
+</script>
+</head>
+
+<body>
+<div class="box">
+    <div id="jquery_jplayer_1"></div>
+    <div id="jp_container_1">
+     <a href="#" class="jp-play"><img src="images/play.png" width="50" height="50" /></a>
+     <a href="#" class="jp-pause"><img src="images/pause.png" width="50" height="50" /></a>
+    </div>
+    <ul id="t_ul" class="big_box">
+        <li id="t_li" class="li1 on"><img src="images/1.jpg" /></li>
+        <li id="t_li" class="li2">
+            <ul id="i_ul1" class="small_box">
+                <li class="s_li1"><img src="images/11.jpg" /></li>
+                <li class="s_li2"><img src="images/12.jpg" /></li>
+                <li class="s_li3"><img src="images/13.jpg" /></li>
+            </ul>
+        </li>
+        <li id="t_li" class="li3"><img src="images/3.jpg" /></li>
+        <li id="t_li" class="li4"><img src="images/4.jpg" /></li>
+        <li id="t_li" class="li5"><img src="images/5.jpg" /></li>
+        <li id="t_li" class="li6"><img src="images/6.jpg" /></li>
+        <li id="t_li" class="li7"><img src="images/7.jpg" /></li>
+        <li id="t_li" class="li8"><img src="images/8.jpg" /></li>
+        <li id="t_li" class="li9">
+            <ul id="i_ul2" class="small_box">
+                <li class="s_li1"><img src="images/11.jpg" /></li>
+                <li class="s_li2"><img src="images/12.jpg" /></li>
+                <li class="s_li3"><img src="images/13.jpg" /></li>
+            </ul>
+        </li>
+        <li id="t_li" class="li10"><img src="images/10.jpg" /></li>
+    </ul>
+    <!--<textarea id="show_p" style="width:500px; height:200px; font-size:20px; font-weight:bold; color:#F00; z-index:99; position:absolute; top:100px; left:100px;"></textarea>-->
+    <div class="up_ico"></div>
+    <div class="left_ico"></div>
+    <div class="right_ico"></div>
+</div>
+<script>
+	//获取屏幕高度
+	var w_height = $(window).height();
+	//获取屏幕宽度
+	var w_width = $(window).width();
+	//初始化全局变量
+	var startX = 0;
+	var startY = 0;
+	var moveX = 0;
+	var moveY = 0;
+	var i_flag = 0;
+	var t_flag = 0;
+	var li_num = 1;
+	var play = 0;
+	var lr = 0;
+	//定义元素自适应
+	$('.big_box').css('height',w_height);
+	$('.big_box').css('width',w_width);
+	$('.big_box > li').css('height',w_height);
+	$('.big_box > li').css('width',w_width);
+	$('.big_box > li').each(function(){
+		$(this).css('width',w_width);
+		$(this).find('img').css('height',w_height);
+	})
+	$('.up_ico').css('left',(w_width/2)-25+"px");
+	$('.left_ico').css('top',(w_height/2)-20+"px");
+	$('.right_ico').css('top',(w_height/2)-20+"px");
+	
+	var set_up = setInterval(function(){
+		$('.up_ico').css('bottom',"30px");
+		$('.up_ico').css('opacity',"0");
+		$('.up_ico').animate({bottom:"80px",opacity:1},1000);
+	},1200);
+	
+	var set_side = setInterval(function(){
+		$('.left_ico').css('left',"100px");
+		$('.left_ico').css('opacity',"0");
+		$('.left_ico').animate({left:"20px",opacity:0.8},1000);
+		$('.right_ico').css('right',"100px");
+		$('.right_ico').css('opacity',"0");
+		$('.right_ico').animate({right:"20px",opacity:0.8},1000);
+	},1200);
+	
+	s_init('body');
+	if($('.li'+window.li_num).find('.small_box').length<1){
+		$('.left_ico').hide();
+		$('.right_ico').hide();
+	}
+	
+	//定义小图集监听对象事件方法
+	function s_bind(id){
+		var s_canvas = document.getElementById(id)
+		s_canvas.addEventListener("touchstart", i_strat, false);
+		s_canvas.addEventListener("touchmove", i_move, false);
+		s_canvas.addEventListener("touchend", i_end, false);
+		s_canvas.addEventListener("touchcancel", i_end, false);
+	}
+	
+	//定义小图集触屏开始事件方法
+	function i_strat(event){
+		//定义单点触屏变量
+		var touch = event.touches[0];
+		//定义触屏开始坐标
+		window.startX=touch.pageX;
+		window.startY=touch.pageY;
+	}
+	
+	//定义小图集触屏移动事件方法
+	function i_move(event){
+		event.preventDefault();	
+		var touch = event.touches[0];
+		//定义触屏移动坐标
+		window.moveX = touch.pageX;
+		window.moveY = touch.pageY;
+	}
+	
+	//定义小图集触屏结束和取消事件方法
+	function i_end(event){
+		if(window.lr == 1){
+			var tmp_X = window.moveX - window.startX;
+			var tmp_Y = window.moveY - window.startY;
+			//储存图片最大数值
+			var s_num = $('.li'+window.li_num).find('li').length;
+			//这里是为了手指一定是横向滑动的
+			if(Math.abs(tmp_X)>Math.abs(tmp_Y)){
+				//判断左右滑动
+				if(tmp_X<0){
+					$('.li'+window.li_num).find('li.s_li'+s_num).animate({left:"-"+$('.li'+window.li_num).find('li.s_li'+s_num).find('img').width()+"px"},500);
+				}else{
+					$('.li'+window.li_num).find('li.s_li'+s_num).animate({right:"-"+$('.li'+window.li_num).find('li.s_li'+s_num).find('img').width()+"px"},500);
+				}
+				
+				$('.li'+window.li_num).find('li.s_li'+s_num).find('img').animate({opacity:"0"},500,function(){
+					//效果结束后重新排列图片
+					for(var i=1;i<=s_num;i++){
+						var t = i+1;
+						var n = i+1;
+						if(i == (s_num-1)){
+							t = 0;	
+						}else if(i == s_num){
+							t = 1;
+							n = 1;
+						}
+						$('.li'+window.li_num).find('li.s_li'+i).find('img').css('transform','rotate('+(t)+'deg)');
+						$('.li'+window.li_num).find('li.s_li'+i).css('z-index',n);
+						$('.li'+window.li_num).find('li.s_li'+i).addClass('t_s_li'+n);
+						$('.li'+window.li_num).find('li.s_li'+i).removeClass('s_li'+i);
+					}
+					$('.li'+window.li_num).find('li').each(function(){
+						if($(this).parent().attr('class') == 'small_box'){
+							var tc_name = $(this).attr('class');
+							$(this).removeClass(tc_name);
+							$(this).addClass(tc_name.substr(2));
+						}
+					})
+					//重置当前图片
+					$(this).css('opacity','1');
+					$(this).parent().css('left','0px');
+					$(this).parent().css('right','0px');
+				});
+			}
+		}
+	}
+	
+	//定义触屏元素
+	var canvas = document.getElementById("t_ul")
+	
+	//绑定监听触屏事件：开始，移动，结束，取消
+	canvas.addEventListener("touchstart", t_strat, false);
+	canvas.addEventListener("touchmove", t_move, false);
+	canvas.addEventListener("touchend", t_end, false);
+	canvas.addEventListener("touchcancel", t_end, false);
+	
+	//定义触屏开始事件方法
+	function t_strat(event){
+		if(window.play == 0){
+	 		$("#jquery_jplayer_1").jPlayer("play");
+			window.play = 1;
+		}
+		//定义单点触屏变量
+		var touch = event.touches[0];
+		//定义触屏开始坐标
+		window.startX=touch.pageX;
+		window.startY=touch.pageY;
+		//定义图片比例
+		window.i_flag = $(this).find('.li'+window.li_num).find('img').width()/$(this).find('.li'+window.li_num).find('img').height();
+	}
+	
+	//定义触屏移动事件方法
+	function t_move(event){
+		//去除默认事件
+		event.preventDefault();	
+		//定义单点触屏变量
+		var touch = event.touches[0];
+		//定义移动比例
+		var aa = touch.pageY/window.startY;
+		var h =$(this).height();
+		var tmp_height = h*aa;
+		//定义临时移动高度
+		window.moveX = touch.pageX;
+		window.moveY = touch.pageY;
+		var tmp_X = window.moveX - window.startX;
+		var tmp_Y = window.moveY - window.startY;
+		//这里是为了手指一定是竖向滑动的
+		if(Math.abs(tmp_Y)>Math.abs(tmp_X)){
+			//移动比例过小时初始化
+			if(aa <= 0.1){
+				aa = 0.1;	
+			};
+			//临时移动高度过大时初始化
+			if(tmp_height>window.w_height){
+				tmp_height = window.w_height;
+			}
+			//判断向上移动或向下移动
+			if(touch.pageY < window.startY){
+				//向上移动，当前图片是否最后
+				if(window.li_num < $('.big_box > li').length){
+					if(window.li_num == 0){
+						window.li_num = 1
+					}
+					/*强制初始化前一张图片和后一张图片 begin*/
+					$('.li'+(window.li_num-1)).height(0);
+					$('.li'+(window.li_num-1)).find('img').height(0);
+					if($('.li'+(window.li_num+1)).find('.small_box').length > 0){
+						$('.li'+(window.li_num+1)).attr('style',' ');
+						$('.li'+(window.li_num+1)).css('height',window.w_height);
+						$('.li'+(window.li_num+1)).css('width',window.w_width);
+					}
+					/*强制初始化前一张图片和后一张图片 end*/
+					/*移动时动态改变当前图片和后一张图片 begin*/
+					$('.li'+window.li_num).css('height',tmp_height);
+					$('.li'+window.li_num).find('*').css('height',tmp_height);
+					$('.li'+window.li_num).find('*').css('width',tmp_height*window.i_flag);
+					$('.li'+window.li_num).css('position','relative');
+					$('.li'+window.li_num).css('top',0);
+					$('.li'+window.li_num).css('z-index',4);
+					$('.li'+(window.li_num+1)).css('height',window.w_height-h*aa);
+					$('.li'+(window.li_num+1)).css('width',window.w_width);
+					$('.li'+(window.li_num+1)).css('position','inherit');
+					/*移动时动态改变当前图片和后一张图片 end*/
+				}
+				//公告世界，这是向上移动
+				window.t_flag = 1;
+			}else{
+				//向下移动，当前图片是否最前
+				if(window.li_num > 1){
+					//定义临时上方偏移
+					var tmp_top = -(window.w_height-touch.pageY)+100;
+					//临时上方偏移超出限制时初始化
+					if(tmp_top>0){
+						tmp_top = 0
+					}
+					/*移动时动态改变当前图片和前一张图片 begin*/
+					if($('.li'+(window.li_num-1)).find('.small_box').length < 1){
+						$('.li'+(window.li_num-1)).find('img').attr('style',' ');
+						$('.li'+(window.li_num-1)).find('img').css('height',window.w_height);
+					}
+					$('.li'+(window.li_num-1)).attr('style',' ');
+					$('.li'+(window.li_num-1)).css('height',window.w_height);
+					$('.li'+(window.li_num-1)).css('width',window.w_width);
+					$('.li'+(window.li_num-1)).css('position','relative');
+					$('.li'+(window.li_num-1)).css('top',tmp_top);
+					$('.li'+(window.li_num-1)).css('z-index',2);
+					$('.li'+window.li_num).attr('style',' ');
+					$('.li'+window.li_num).css('height',window.w_height-touch.pageY);
+					$('.li'+window.li_num).css('width',window.w_width);
+					$('.li'+window.li_num).css('position','absolute');
+					$('.li'+window.li_num).css('top',touch.pageY);
+					$('.li'+window.li_num).css('z-index',1);
+					$('.li'+window.li_num).find('*').height(window.w_height-touch.pageY);
+					$('.li'+window.li_num).find('*').width((window.w_height-touch.pageY)*window.i_flag);
+					/*移动时动态改变当前图片和前一张图片 end*/
+				}
+				//公告世界，这是向下移动
+				window.t_flag = 2;
+			}
+		}
+	}
+	
+	//定义触屏结束和取消事件方法
+	function t_end(){
+		var tmp_X = window.moveX - window.startX;
+		var tmp_Y = window.moveY - window.startY;
+		//这里是为了手指一定是竖向滑动的
+		if(Math.abs(tmp_Y)>Math.abs(tmp_X)){
+			//看看这世界是向上还是向下的
+			if(window.t_flag == 1){	
+				//结束时向上		
+				if(window.li_num < $('.big_box > li').length+1){
+					if(window.li_num == $('.big_box > li').length){
+						window.li_num = $('.big_box > li').length-1;	
+						$('.li'+(window.li_num+1)).animate({top:"0px"},200);
+					}
+					$('.li'+window.li_num).find('*').animate({height:"0px",width:"0px"},200);
+					$('.li'+window.li_num).animate({height:"0px",width:"0px"},200);
+					if($('.li'+(window.li_num+1)).find('.small_box').length < 1){
+						$('.li'+(window.li_num+1)).attr('style',' ');
+						$('.li'+(window.li_num+1)).find('img').attr('style',' ');
+						$('.li'+(window.li_num+1)).css('height',window.w_height);
+						$('.li'+(window.li_num+1)).css('width',window.w_width);
+						$('.li'+(window.li_num+1)).find('img').animate({height:window.w_height+"px",width:w_height*window.i_flag+"px"},200);
+					}
+					$('.li'+(window.li_num+1)).animate({height:window.w_height+"px",width:window.w_width+"px"},200);
+					window.li_num++;
+					if(window.li_num == $('.big_box > li').length){
+						$('.up_ico').hide();
+					}
+				}
+			}else{	
+				//结束时向下
+				if(window.li_num == $('.big_box > li').length){
+					$('.up_ico').show();
+				}	
+				if(window.li_num > 1){
+					$('.li'+(window.li_num-1)).animate({top:"0px"},200);
+					$('.li'+window.li_num).find('img').animate({height:"0px",width:"0px"},200,function(){
+						$(this).css({height:window.w_height+"px",width:w_height*window.i_flag+"px"});
+					});
+					$('.li'+window.li_num).animate({top:window.w_height+"px"},200);
+					window.li_num = window.li_num - 1;
+				}
+			}
+			if($('.li'+(window.li_num)).find('.small_box').length>0){
+				s_init('.li'+(window.li_num));
+				window.lr = 0;
+				$('.left_ico').show();
+				$('.right_ico').show();
+				show_pic();
+			}else{
+				$('.left_ico').hide();
+				$('.right_ico').hide();
+			}
+		}
+	}
+	
+	//左右图片滑动初始化方法
+	function s_init(p){
+		if(p == ""){
+			p = "body";	
+		}
+		$(p).find('.small_box').attr('style',' ');
+		$(p).find('.small_box').css('height',window.w_height-60);
+		$(p).find('.small_box').css('width',window.w_width-60);
+		$(p).find('.small_box li').attr('style',' ');
+		$(p).find('.small_box li').css('margin-top',"30px");
+		$(p).find('.small_box li').css('left',"0px");
+		$(p).find('.small_box li').css('right',"0px");
+		$(p).find('.small_box li img').attr('style',' ');
+		$(p).find('.small_box li img').css('height',window.w_height-80);
+		$(p).find('.small_box li img').css('border','1px solid #FFC');
+		$(p).find('.small_box li img').css('box-shadow','0 0 5px rgba(255,255,255,.6)');
+		$(p).find('.small_box li img').css('opacity','0');
+		for(var i=1;i<=$(p).find('.small_box li').length;i++){
+			var t = i;
+			if(i == $(p).find('.small_box li').length){
+				t = 0;	
+			}
+			$(p).find('.s_li'+i).find('img').css('transform','rotate('+t+'deg)');
+			$(p).find('.s_li'+i).css('z-index',i);
+		}
+	}
+	
+	//图片叠加淡入效果
+	function show_pic(){
+		$('.li'+window.li_num).find('.small_box img').hide();
+		var total = $('.li'+window.li_num).find('.small_box li').length;
+		var b = 1;
+		$('.li'+window.li_num).find('.small_box img').css({
+			"opacity" : "0"
+		});
+		$('.li'+window.li_num).find('.small_box li').css({
+			"right" : "-"+window.w_width+"px",
+			"top" : window.w_height/2+"px"
+		});
+		$('.li'+window.li_num).find('.small_box').find('img').show();
+		var interval = setInterval(function(){
+			$('.li'+window.li_num).find('.small_box > li.s_li'+b).animate({right:"1px",top:"0px"},800);
+			$('.li'+window.li_num).find('.small_box > li.s_li'+b).find('img').animate({opacity:"1"},800);
+			b++;
+			if (b > total) { 
+				clearInterval(interval);
+				if($('.li'+window.li_num).find('.small_box').length>0){
+					var s_id = $('.li'+window.li_num).find('.small_box').attr('id');
+					s_bind(s_id);
+				}
+				window.lr = 1;
+			};	
+		},900);
+		$('.left_ico').show();
+		$('.right_ico').show();
+	}
+</script>
+</body>
+</html>

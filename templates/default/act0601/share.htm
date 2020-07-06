@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_邀请评委_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+    </head>
+    <body id="share">
+        <div id="header">
+            <div class="top">
+                <div class='main_box'>
+                    <a class="logo" href="/" title="中国教师招聘网"></a>
+                    <ul class="fleft">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/company">学校</a></li>
+                        <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                        <li><a href="/morejobs">简章</a></li>
+                        <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                        <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                        <li><a href="/act0601/index.php">我的得意门生</a></li>
+                    </ul>
+                    <ul class="fright">
+                        <?php if(empty($_SESSION['username'])):?>
+                        <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                        <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                        <?php else:?>
+                        <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="my_box">
+                        {#if $uid>0#}
+                        <p class="top_title">{#$user_resume.fullname#}老师，感谢您关注儿童成长教育交流活动“我的得意门生”。</p>
+                        {#/if#}
+                        {#if !empty($user_team)#}
+                        <div class="box_title">
+                            <i></i>
+                            <p>我的嘉宾导师</p>
+                        </div>
+                        <div class="box_info">
+                            <img class="fleft" src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/act0601/share_index?team_id={#$user_team.0.id#}" width="146" height="146" />
+                            <div class="fleft">
+                                {#if $player_num==0#}
+                                <p class="tip1">您还没有助阵嘉宾导师，在评选中会处于劣势哦</p>
+                                {#/if#}
+                                {#if $player_num>0 && $player_num<10#}
+                                <p class="tip1">您目前有{#$player_num#}名嘉宾导师，战斗力好像不够哦</p>
+                                {#/if#}
+                                {#if $player_num==10#}
+                                <p class="tip1">您已集齐10名嘉宾导师，为了荣誉，战斗吧！</p>
+                                {#/if#}
+                                <p class="title">邀请嘉宾导师的方法:</p>
+                                <p>1、微信扫描左侧二维码，邀请教师朋友成为嘉宾导师；</p>
+                                <p>2、点击<a id="copy_url" href="javascript:void();">复制链接</a>，发送给教师朋友。</p>
+                                <input style="opacity: 0" type="text" id="currentpath" value="{#$copy_url#}"/>
+                                <script>
+                                    $('a#copy_url').click(function () {
+                                        var e = document.getElementById("currentpath"); //对象是content
+                                        e.select(); //选择对象
+                                        document.execCommand("Copy"); //执行浏览器复制命令
+                                        alert("已成功复制邀请链接，发送给朋友吧。");
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                        <div class="box_list">
+                            <p class="title">嘉宾导师坐席</p><p class="num">（<span>{#$player_num#}</span>/10）</p>
+                            <ul>
+                                {#foreach from=$player_resume item=p#}
+                                <li class="show">
+                                    <img src="/data/photo/{#$p.photo_img#}" width="53" height="53" />
+                                    <p>{#$p.fullname#}</p>
+                                </li>
+                                {#/foreach#}
+                                {#if $player_num<10#}
+                                <li id="empty_player">
+                                    <img src="{#$QISHI.site_template#}images/act0601/act0601_share_empty_player.jpg" width="53" height="53" />
+                                    <p>邀请嘉宾</p>
+                                </li>
+                                <script>
+                                    $('li#empty_player').click(function () {
+                                        var e = document.getElementById("currentpath"); //对象是content
+                                        e.select(); //选择对象
+                                        document.execCommand("Copy"); //执行浏览器复制命令
+                                        alert("已成功复制邀请链接，发送给朋友吧。");
+                                    })
+                                </script>
+                                {#/if#}
+                            </ul>
+                        </div>
+                        {#/if#}
+                    </div>
+                    {#if !empty($user_resume)#}
+                    <div class="des_box">
+                        <div class="box_title">
+                            <i></i>
+                            <p>我的师资介绍</p>
+                        </div>
+                        <div class="box_info">
+                            <p>导师资料完整度：</p><span>{#$user_resume.complete_percent#}%</span>
+                            {#if $user_resume.complete_percent == 0#}
+                            <p>（你的资料还不完整哦？<a href="/act0601/user.php?act=make_info">立即完善资料</a>。）</p>
+                            {#/if#}
+                            {#if $user_resume.complete_percent < 100#}
+                            <p>（这个老师有点懒？<a href="/act0601/user.php?act=make_info">立即完善资料</a>。）</p>
+                            {#/if#}
+                            {#if $user_resume.complete_percent == 100#}
+                            <p>（哇哦！太棒了，您已经具备优秀导师的资质了？）</p>
+                            {#/if#}
+                            <div class="clear"></div>
+                            <br/>
+                            <p>导师资料越丰富，学生作品评审越有利哦。</p>
+                        </div>
+                    </div>
+                    {#/if#}
+                    <div class="item_box">
+                        <div class="box_title">
+                            <i></i>
+                            <p>我的学生作品</p>
+                        </div>
+                        <div class="box_info">
+                            {#if empty($item)#}
+                            <p class="no_item">您还没有分享得意门生的作品哦，提交作品即可获得精美U盘，<a href="/act0601/upload.php">立即参加！</a></p>
+                            {#else#}
+                            <p><span class="student">学生：{#$item.student_name#}</span><span class="item">作品：<a href="/act0601/details.php?id={#$item.id#}" target="_blank">{#$item.title#}</a></span><span class="audit">状态：{#if $item.audit == 1#}<b>审核中</b>{#/if#}{#if $item.audit == 2#}<b class="pass">审核通过</b>{#/if#}{#if $item.audit > 2#}<b class="pass">审核不通过</b>{#/if#}</span>{#if $item.audit > 2#}<a class="do" href="/act0601/edit.php">修改</a>{#/if#}</p>
+                            {#/if#}
+                        </div>
+                    </div>
+                    <div class="comment_box">
+                        <div class="box_title">
+                            <i></i>
+                            <p>我点评的作品</p>
+                        </div>
+                        <div class="box_info">
+                            {#if empty($user_team)#}
+                            <p class="no_comment">您当前还没有加入嘉宾导师团，没有需要点评的作品。</p>
+                            {#/if#}
+                            {#if !empty($user_comment)#}
+                            {#foreach from=$user_comment item=uc#}
+                            <p>
+                                <span class="teacher">导师：{#$uc.item.fullname#}</span>
+                                <span class="student">学生：{#$uc.item.student_name#}</span>
+                                <span class="item">作品：<a href="/act0601/details.php?id={#$uc.item.id#}" target="_blank">{#$uc.item.title#}</a></span>
+                                <span>状态：
+                                    {#if $uc.audit == 1#}<b>审核中</b>{#/if#}
+                                    {#if $uc.audit == 2#}<b class="pass">审核通过</b>{#/if#}
+                                    {#if $uc.audit > 2#}<b>审核不通过</b>{#/if#}
+                                </span>
+                            </p>
+                            {#/foreach#}
+                            {#/if#}
+                        </div>
+                    </div>
+                </div>
+                <div class="right_box">
+                    {#if !empty($resume.photo_img)#}
+                        <img src="/data/photo/{#$user_resume.photo_img#}" width="180" height="180" />
+                    {#/if#}
+                    <ul>
+                        <li class="hover"><a href="/act0601/share.php">我的活动中心</a></li>
+                        {#if empty($item)#}
+                        <li><a href="/act0601/upload.php">我的学生作品</a></li>
+                        {#else#}
+                        <li><a href="/act0601/details.php?id={#$item.id#}">我的学生作品</a></li>
+                        {#/if#}
+                        <li><a href="/act0601/user.php?act=make_info">完善个人资料</a></li>
+                        <li><a href="/act0601/ilist.php">更多参赛作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

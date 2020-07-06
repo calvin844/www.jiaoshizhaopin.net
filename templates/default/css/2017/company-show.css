@@ -1,0 +1,63 @@
+#content { background:#fafafa; padding:0px 0px 40px 0px;}
+#content .top_box{ float:left; width:100%; padding:55px 0px 25px 0px; background:#eff6fd;}
+#content .top_box h2{ font-size:36px; color:#333; line-height:45px; margin:0px 0px 30px 0px;}
+#content .top_box .code_img{ float:right; margin:0px 0px 0px 0px}
+#content .top_box ul{ float:left; width:1000px;}
+#content .top_box li{ float:left; margin:0px 20px 8px 0px; width:750px;}
+#content .top_box li b{ font-size:16px; color:#333;}
+#content .top_box li span{ font-size:14px; color:#808080;}
+#content .top_box li:nth-child(1){ width:210px;}
+#content .top_box li:nth-child(3){ width:210px;}
+#content .top_box li:nth-child(5){ width:210px;}
+
+
+#content .bottom_box { margin:40px 0px 0px 0px;}
+#content .bottom_box div.left{ width:840px; padding:35px 20px 0px 20px; background:#fff;}
+#content .bottom_box div.left h3.item_title{ font-size:20px; color:#333333; width:100%; margin:0px 0px 30px 0px;}
+#content .bottom_box div.left h3.item_title a{ font-size:20px; color:#333333; }
+#content .bottom_box div.left div.item_content{ width:100%; margin:0px 0px 50px 0px;}
+#content .bottom_box div.left .nav_box{ position: relative; left:50%; bottom:25px; margin: 0 0 0 -540px;}
+#content .bottom_box div.left .nav_box i.nav_left{ float:left; display:inline-block; width:6px; height:118px; background:url(../../images/2017/company_show_nav.png) no-repeat;}
+#content .bottom_box div.left .nav_box ul{ position:relative; top:-8px; left:-2px;}
+#content .bottom_box div.left .nav_box ul li{ position: absolute; width:100px;}
+#content .bottom_box div.left .nav_box ul li:nth-child(2){ top:38px;}
+#content .bottom_box div.left .nav_box ul li:nth-child(3){ top:76px;}
+#content .bottom_box div.left .nav_box ul li:nth-child(4){ top:112px;}
+#content .bottom_box div.left .nav_box ul li i{ float:left; display:inline-block; width:10px; height:10px; margin:6px 0px 0px 0px;}
+#content .bottom_box div.left .nav_box ul li a{ float:left; font-size:14px; color:#808080; display:inline-block; width:85px; text-align:center; height:20px;}
+#content .bottom_box div.left .nav_box ul li.cur i{ background:url(../../images/2017/company_show_nav_cur.png);}
+#content .bottom_box div.left .nav_box ul li.cur a{ color:#188eee;}
+#content .bottom_box div.left .nav_box ul li:hover i{ background:url(../../images/2017/company_show_nav_cur.png);}
+#content .bottom_box div.left .nav_box ul li:hover a{ color:#188eee;}
+#content .bottom_box div.left div.empty_box { width:100%; text-align:center; padding:0px 0px 30px 0px;}
+#content .bottom_box div.left div.empty_box p{ width:100%; text-align:center; font-size:18px; color:#808080;}
+#content .bottom_box div.left div.des_box div.item_content{ font-size:14px; color:#808080; line-height:25px;}
+#content .bottom_box div.left div.img_box .com_img { width: 840px; height: 288px; overflow: hidden; margin: 0px auto; }
+#content .bottom_box div.left div.img_box #focus { width: 840px; height: 288px; clear: both; overflow: hidden; position: relative; float: left; }
+#content .bottom_box div.left div.img_box #focus ul { width: 840px; height: 288px; float: left; position: absolute; clear: both; padding: 0px; margin: 0px; }
+#content .bottom_box div.left div.img_box #focus ul li { float: left; width: 840px; height: 288px; overflow: hidden; position: relative; padding: 0px; margin: 0px; text-align: center; }
+#content .bottom_box div.left div.img_box #focus .preNext { width: 440px; height: 288px; position: absolute; top: 0px; cursor: pointer; opacity: 0.3;}
+#content .bottom_box div.left div.img_box #focus .pre { left: 0; background: url(../../images/2017/sprite.png) no-repeat left center; }
+#content .bottom_box div.left div.img_box #focus .next { right: 0; background: url(../../images/2017/sprite1.png) no-repeat right center; }
+#content .bottom_box div.left div.jobs_box div.item_content ul li{ width:100%; height:20px; margin:0px 0px 10px 0px;}
+#content .bottom_box div.left div.jobs_box div.item_content ul li a{ display:inline-block; height:20px; line-height:20px; font-size:14px; color:#188eee; width:170px; overflow:hidden; float:left;}
+#content .bottom_box div.left div.jobs_box div.item_content ul li a:hover{ text-decoration:underline;}
+#content .bottom_box div.left div.jobs_box div.item_content ul li i{ float:left; display: inline-block; width:2px; height:20px; background:#f2f2f2; margin:0px 15px 0px 15px;}
+#content .bottom_box div.left div.jobs_box div.item_content ul li span{ float:left; display: inline-block; width:135px; height:20px; line-height:20px; font-size:14px; color:#808080; text-align:center;}
+#content .bottom_box div.right{ width:240px; padding:35px 20px 35px 20px; background:#fff;}
+#content .bottom_box div.left div.jobs_box div.item_content ul li span.wage{ color:#f3711a;}
+#content .bottom_box div.left div.us_box div.item_content p{ width:100%; text-align:center; line-height:35px;}
+#content .bottom_box div.left div.us_box div.item_content p a{ font-size:14px; color:#333;}
+#content .bottom_box div.left div.us_box div.item_content p a:hover{ color:#188eee;}
+#content .bottom_box div.left div.us_box div.item_content div#map{ width: 840px; height: 280px; border: 1px solid #ccc;}
+#content .bottom_box div.right div.item_box{ width:100%; float:left; margin:0px 0px 20px 0px;}
+#content .bottom_box div.right div.item_box a.company_name{ text-align:center; font-size:16px; color:#333333; line-height:20px; margin:10px 0px 20px 0px; display:inline-block; width:100%;}
+#content .bottom_box div.right div.item_box a.company_name:hover{ color:#188eee;}
+#content .bottom_box div.right div.item_box div.address{ float:left; width:100%; margin:0px 0px 10px 0px;}
+#content .bottom_box div.right div.item_box div.address div.icon{ float:left; width:20px;}
+#content .bottom_box div.right div.item_box div.address i{ float:left; display:inline-block; width:17px; height:16px; background: url(../../images/2017/home.png) no-repeat; margin:2px 0px 0px 0px;}
+#content .bottom_box div.right div.item_box div.address span{ float:right; width:215px; font-size:14px; color:#808080; line-height:20px;}
+#content .bottom_box div.right div.item_box div.site{ float:left; width:100%;}
+#content .bottom_box div.right div.item_box div.site div.icon{ float:left; width:20px;}
+#content .bottom_box div.right div.item_box div.site i{ float:left; display:inline-block; width:17px; height:17px; background: url(../../images/2017/site.png) no-repeat; margin:2px 0px 0px 0px;}
+#content .bottom_box div.right div.item_box div.site span{ float:left; max-width:210px; font-size:14px; color:#808080; margin:0px 0px 0px 10px;}

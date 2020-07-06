@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function ()
+            {
+        //个人资料已申请职位鼠标感应
+                $(".mli .imgbox").hover(
+                        function () {
+                            $(this).addClass("h");
+                        },
+                        function () {
+                            $(this).removeClass("h");
+                        }
+                );
+                $(".imgbox").click(function () {
+                    window.location.href = "personal_apply.php?act=" + $(this).attr("mark");
+                });
+                $.get("?act=ajax_get_interest_jobs&pid=" + $(".myresume").first().attr("pid"), function (result) {
+                    $("#interest_jobs_list").html(result);
+                });
+                select_resume(".titspan", "150px");
+                function select_resume(menuId, width) {
+                    $(menuId).click(function () {
+                        var menuList = $(this).next(".menu");
+                        $(menuList).css("width", width);
+                        $(menuList).slideDown('fast');
+                        //生成背景
+                        $(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $(menuList).slideUp("fast");
+                            $(menuId).parent("div").css("position", "");
+                        });
+                    });
+
+                    $(".menu li").click(function () {
+                        var id = $(this).attr("id");
+                        var title = $(this).attr("title");
+                        $(menuId).html(title);
+                        $(".menu").slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                        $(".myresume").css("display", "none");
+                        $("#resume_box_" + $(this).attr("id")).css("display", "block");
+                        $.get("?act=ajax_get_interest_jobs&pid=" + id, function (result) {
+                            $("#interest_jobs_list").html(result);
+                        });
+                    });
+                }
+                $(".resume_privacy").click(function () {
+                    var pid = $(this).attr("pid");
+                    dialog("隐私设置", "url:personal_ajax.php?act=privacy&pid=" + pid, "500px", "auto", "", "");
+                });
+                $(".tpl").click(function () {
+                    var pid = $(this).attr("pid");
+                    dialog("更换模板", "url:personal_ajax.php?act=tpl&pid=" + pid, "610px", "auto", "", "");
+                });
+                $(".del_resume").click(function () {
+                    var pid = $(this).attr("pid");
+                    dialog("删除简历", "url:personal_ajax.php?act=del_resume&pid=" + pid, "350px", "auto", "", "");
+                });
+                $(".refresh_resume").click(function () {
+                    var pid = $(this).attr("pid");
+                    $.get("personal_ajax.php?act=refresh_resume&id=" + pid, function (result) {
+                        if (result == "1") {
+                            alert_dialog("success:刷新成功", "", "", "", "");
+                            location.reload();
+                        } else {
+                            alert_dialog("fail:" + result, "300px", "", "", "");
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        {#include file="user/header.htm"#}
+        <div style="display: none"><script src="http://s4.cnzz.com/stat.php?id=511743&web_id=511743" language="JavaScript"></script></div>
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a></div>
+        <div class="usermain">
+            <div class="leftmenu link_bk">
+                {#include file="member_personal/left.htm"#}
+            </div>
+            <div class="rightmain">
+                <div class="bbox1">	
+                    {#qishi_ad set="调用名称:home_602,显示数目:1"#}
+                    {#foreach from=$list item=ad#}
+                    <a href="/ad_count/index.php?ad_name=home_602&img={#$ad.img_path#}&url={#$ad.img_url#}" target="_blank"><img src="{#$ad.img_path#}"/></a>
+                    {#/foreach#}
+                    <div class="pindex-info">
+                        <div style="padding:10px;"><script>CNZZ_SLOT_RENDER("370084");</script></div>
+                        <div class="leftbox">
+                            <div class="">
+                                {#if $user.avatars==""#}
+                                <img name="" src="{#$QISHI.site_template#}images/06.jpg" width="100" height="100" alt="" />
+                                {#else#}
+                                <img name="" src="{#$QISHI.main_domain#}data/avatar/100/{#$user.avatars#}?rand={#$rand#}" width="100" height="100" alt="" />
+                                {#/if#}
+                            </div>
+                            <a href="personal_user.php?act=avatars"  class="edit">修改头像</a>
+                        </div>
+                        <div class="cbox">
+                            <div class="name  h1-title">{#$user.username#}<span>(uid:{#$user.uid#})</span></div>
+                            <div class="txt">
+                                {#if $sms.open=="1"#}
+                                {#if $user.mobile_audit=="1"#}
+                                <span class="m">手机认证：</span>&nbsp;&nbsp;<span style="color:#009900">已认证</span>&nbsp;&nbsp;&nbsp;{#else#}<span class="m n">手机认证：</span>&nbsp;&nbsp;<a href="personal_user.php?act=authenticate"><span style="color:#FF0000">未认证</span></a>&nbsp;&nbsp;&nbsp;
+                                {#/if#}{#$user.mobile#}<br />
+                                {#/if#}
+                                {#if $user.email_audit=="1"#}
+                                <span class="e">邮箱认证：</span>&nbsp;&nbsp;<span style="color:#009900">已认证</span>&nbsp;&nbsp;&nbsp;{#else#}<span class="e n">邮箱认证：</span>&nbsp;&nbsp;<a href="personal_user.php?act=authenticate"><span style="color:#FF0000">未认证</span></a>&nbsp;&nbsp;&nbsp;{#/if#}{#$user.email#}<br />
+                                系统消息： 未查看 {#if $msg_total1>0#}<span><a style="color:#FF0000" href="personal_user.php?act=pm&msgtype=1">({#$msg_total1#})</a></span>{#else#}<a href="personal_user.php?act=pm&msgtype=1">(0)</a>{#/if#}&nbsp;&nbsp;已查看 {#if $msg_total2>0#}<span><a style="color:#FF0000" href="personal_user.php?act=pm&msgtype=1">({#$msg_total2#})</a></span>{#else#}<a href="personal_user.php?act=pm&msgtype=1">(0)</a>{#/if#}<br />
+                                <a href="personal_user.php?act=userprofile"  class="edit">编辑个人资料</a>
+                            </div>
+                        </div>
+                        <div class="rbox">
+                            <div class="mli">
+                                <div class="imgbox" mark="apply_jobs">
+                                    <div class="count">{#$count_apply#}</div>
+                                    <div class="txt">已申请职位</div>
+                                </div>
+                            </div>
+                            <div class="mli">
+                                <div class="imgbox" mark="attention_me">
+                                    <div class="count">{#$count_attention_me#}</div>
+                                    <div class="txt">谁在关注我</div>
+                                </div>
+                            </div>
+                            <div class="mli">
+                                <div class="imgbox" mark="interview">
+                                    <div class="count">{#$count_interview#}</div>
+                                    <div class="txt">面试邀请</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    {#if $my_resume#}
+                    {#section name=list loop=$my_resume#}
+                    <div class="myresume" pid="{#$my_resume[list].id#}" id="resume_box_{#$my_resume[list].id#}" {#if $smarty.section.list.index>0#}style="display:none"{#/if#}>
+                        <div class="lbox">
+                            <div style="position:relateve;">
+                                <span class="titspan h1-title" style="cursor:pointer;">{#$my_resume[list].title#}</span>
+                                <div class="menu" id="menu{#$my_resume[list].id#}">
+                                    <ul>
+                                        {#foreach from=$my_resume item=li#}
+                                        <li id="{#$li.id#}" title="{#$li.title#}">{#$li.title#}</li>
+                                        {#/foreach#}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="txt">
+                                真实姓名：{#$my_resume[list].fullname#}<br />
+                                更新时间：{#$my_resume[list].refreshtime|date_format:"%Y-%m-%d %H:%M"#}<br />
+                                审核状态：{#if $my_resume[list].audit=="1"#}<span style="color:#009900">审核通过</span>{#elseif $my_resume[list].audit=="2"#}<span style="color:#FF0000">审核中</span>{#else#}<span style="color:#FF0000">审核未通过</span>{#/if#}<br />
+                                浏览：{#$my_resume[list].click#}次
+                            </div>
+                        </div>
+                        <div class="cbox">
+                            <div class="imgbox1-{#$my_resume[list].complete_percent#}"></div><!--imgbox1-40 是40%   imgbox1-55是55%-->	
+                            <div class="imgboxtit">简历完整度：{#$my_resume[list].complete_percent#}%</div>
+                        </div>
+                        <div class="cbox">
+                            <div class="imgbox2-{#$my_resume[list].level#}"></div><!--imgbox2-1 是差   imgbox2-2 良  imgbox2-3 优-->		
+                            <div class="imgboxtit">简历质量</div>
+                        </div>
+                        <div class="rbox">
+                            <div class="but"><a class="refresh_resume" pid="{#$my_resume[list].id#}"  >刷新简历</a><a href="personal_resume.php?act=edit_resume&pid={#$my_resume[list].id#}">修改简历</a><a target="_blank" href="{#"QS_jobslist,jobcategory:$my_resume[list].interestjobs"|qishi_url#}" class="o">匹配职位</a></div>
+                            <div class="bottomlink link_lan"><a target="_blank" href="{#$my_resume[list].resume_url#}">预览简历</a><a class="resume_privacy" pid="{#$my_resume[list].id#}"  >隐私设置</a><!--<a class="tpl" pid="{#$my_resume[list].id#}"  >简历模板</a>--><a   class="del_resume" pid="{#$my_resume[list].id#}">删除简历</a></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    {#/section#}
+                    {#else#}
+                    <div class="emptytip">您还没有创建简历，快去创建简历吧！</div>
+                    {#/if#}
+
+                    <div class="myrec link_lan">
+                        <div class="tit h1-title">为您推荐的职位</div>
+                        <div class="more"><a href="{#"QS_jobslist"|qishi_url#}"  target="_blank">更多职位</a></div>
+                        <div class="clear"></div>	 
+
+
+                        <div class="listtit">
+                            <div class="listt1"><strong>职位名称</strong></div>
+                            <div class="listt2"><strong>公司名称</strong></div>
+                            <div class="listt3"><strong>工作地点</strong></div>
+                            <div class="listt4"><strong>待遇</strong></div>
+                            <div class="listt5"><strong>更新日期</strong></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div id="interest_jobs_list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

@@ -1,0 +1,51 @@
+#content .search_box{ margin:40px 0px 15px 190px; float:left;}
+#content .search_box input.key{ display:inline-block; float:left; height:42px; line-height:42px; width:680px; padding:0 10px 0 10px; border-top:1px solid #188eee; border-left:1px solid #188eee; border-bottom:1px solid #188eee; background:#fff; font-size:14px; color:#b2b2b2;}
+#content .search_box input.submit{ display:inline-block; float:left; height:44px; width:100px; background:url(../../images/zhaokao/list_content_submit.jpg) no-repeat; cursor:pointer;}
+#content p.nav{ margin:0px 0px 30px 0px;}
+#content p.nav a{ color:#808080; font-size:14px;}
+#content p.nav a:hover{ text-decoration:underline;}
+#content div.list_box{ float:left; width:100%; padding:20px 0px 50px 0px; background:#fff; overflow:hidden;}
+#content div.list_box div.b_title{ border-bottom:1px solid #ebebeb; height:42px;}
+#content div.list_box div.b_title p{ float:left; }
+#content div.list_box div.b_title p a{  font-size:30px; color:#333;}
+#content div.list_box div.b_title p a:hover{ color:#f3711a;}
+#content div.list_box div.b_title p a.hover{ color:#f3711a;}
+#content div.list_box div.b_title ul{ float:left; margin:0px 0px 0px 30px;}
+#content div.list_box div.b_title ul li{ float:left; margin:0px 0px 0px 30px; height:40px; }
+#content div.list_box div.b_title ul li a{ height:40px; line-height:40px; font-size:20px; color:#333; border-bottom:2px solid #fff; display:inline-block;}
+#content div.list_box div.b_title ul li a:hover{ color:#f3711a; border-bottom:2px solid #f3711a;}
+#content div.list_box div.b_title ul li a.hover{ color:#f3711a; border-bottom:2px solid #f3711a;}
+#content div.list_box div.b_title div.right{ margin:15px 0px 0px 0px;}
+#content div.list_box div.b_title div.right a{ color:#808080; margin:0px 15px 0px 15px;}
+#content div.list_box div.b_title div.right a:hover{ color:#f3711a;}
+#content div.list_box div.b_title div.right a.hover{ color:#f3711a;}
+#content div.list_box div.b_title div.right i.price{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_price_icon.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right i.price_down{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_price_icon_down.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right i.price_up{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_price_icon_up.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right i.people{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_people_icon.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right i.people_down{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_people_icon_down_h.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right i.people_up{ display:inline-block; width:8px; height:11px; background:url(../../images/zhaokao/list_content_people_icon_h.png) no-repeat; margin:0px 0px 0px 5px;}
+#content div.list_box div.b_title div.right a:hover i.price{ background:url(../../images/zhaokao/list_content_price_icon_h.png) no-repeat;}
+#content div.list_box div.b_title div.right a:hover i.people{ background:url(../../images/zhaokao/list_content_people_icon_h.png) no-repeat;}
+#content div.list_box ul.course_list{ width:1220px;}
+#content div.list_box ul.course_list li{ width:224px; height:233px; float:left; margin:20px 15px 0px 2px; background:#fff;}
+#content div.list_box ul.course_list li:hover{ box-shadow: 2px 2px 5px #888888;}
+#content div.list_box ul.course_list li div.info{ padding:10px;}
+#content div.list_box ul.course_list li div.info a.title{ font-size:16px; color:#333; display:inline-block; width:100%; height:25px; line-height:25px; margin:0px 0px 10px 0px;    overflow: hidden;}
+#content div.list_box ul.course_list li div.info a.title:hover{ color:#00aaee;}
+#content div.list_box ul.course_list li div.info p.school_name{ color:#ccc; line-height:15px; margin:0px 0px 10px 0px;}
+#content div.list_box ul.course_list li div.info p.school_name i{ display:inline-block; width:12px; height:12px; background:url(../../images/zhaokao/index_content_course_list_icon.png) no-repeat; margin:0px 5px 0px 0px;}
+#content div.list_box ul.course_list li div.info div.bottom{ }
+#content div.list_box ul.course_list li div.info div.bottom span.price{ float:left; color:#fea003; font-size:16px;}
+#content div.list_box ul.course_list li div.info div.bottom span.free{ float:left; color:#238a2a; font-size:16px;}
+#content div.list_box ul.course_list li div.info div.bottom span.people{ float:right; color:#ccc; margin:5px 0px 0px 0px;}
+#content div.list_box ul.course_list li div.info div.bottom span.people i{ display:inline-block; width:12px; height:12px; background:url(../../images/zhaokao/index_content_course_list_people.png) no-repeat; margin:0px 5px 0px 0px;}
+#content div.list_box div.page_box{ width:100%; margin:30px 0px 50px 0px; text-align:center;}
+#content div.list_box div.page_box a{ line-height:28px; padding:0px 10px 0px 10px; color:#b2b2b2; font-size:16px; margin:0px 10px 0px 0px; border:1px solid #b2b2b2; display: inline-block;}
+#content div.list_box div.page_box a.dot{ border:none;}
+#content div.list_box div.page_box a:hover{ background:#188eee; color:#fff; border:1px solid #188eee;}
+#content div.list_box div.page_box a.dot:hover{ background: none; color:#b2b2b2; border:none;}
+#content div.list_box div.page_box a.hover{ background:#188eee; color:#fff; border:1px solid #188eee;}
+
+#content div.ad_box{ width:100%;}
+

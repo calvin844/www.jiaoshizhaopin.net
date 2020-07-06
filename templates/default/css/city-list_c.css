@@ -1,0 +1,33 @@
+.content div.right div.job_list li.vip i,.content div.right div.job_list li.vip b{ background:url(../images/common.png) no-repeat;}
+
+.content .title_lb{ font-size:14px;}
+.content div.left{ width:600px; border-right:1px solid #ccc; margin:20px 9px 10px 0px;}
+.content div.left ul{ padding:0px 10px 0px 0px;}
+.content div.left ul li{ border-bottom:1px solid #eee; padding:12px 0px 12px 0px; width:590px; height:100px; overflow:hidden;}
+.content div.left ul li p.left{ font-weight:bolder; font-size:16px; width:525px; height:20px; overflow:hidden;}
+.content div.left ul li p.left a{ font-size:16px; color:#333333;}
+.content div.left ul li p.left a:hover{ color:#ff0000;}
+.content div.left ul li span.right{ color:#999; height:20px; line-height:20px;}
+.content div.left ul li p.news_info{color: #666666; height: 80px; line-height: 25px; width:590px; overflow: hidden; padding:5px 0px 0px 0px;}
+.content div.baidu_ad{border: 1px solid #eeeeee; color: #666666; height: 86px;  margin:10px 0px 10px 0px; overflow: hidden; padding: 10px; width:568px;}
+.content div.left div.pages_box { padding:25px 0px 15px 0px; float:left; width:600px;}
+.content div.left div.pages_box a{ color:#333; padding:2px 2px 2px 2px; border:1px solid #9aafe5; font-family:Verdana, Geneva, sans-serif; float:left; margin:0px 3px 0px 0px;}
+.content div.left div.pages_box a:hover{ color:#ff0000; border:1px solid #2e6ab1;}
+.content div.left div.pages_box a.cur{ color:#fff; background:#2e6ab1; border:1px solid #2e6ab1;}
+.content div.left div.pages_box a.last{ color:#999; border:1px solid #ddd;}
+.content div.left div.pages_box select{ border:1px solid #ddd; padding:2px 5px 2px 2px;}
+
+.content div.right{ width:350px; margin:20px 0px 20px 0px; overflow:hidden;}
+.content div.right div.job_list{ float:left;}
+.content div.right div.job_list ul{ margin:10px 0px 0px 0px;}
+.content div.right div.job_list li{ padding:10px 5px 5px 5px; border-bottom:1px solid #ccc; width:165px; overflow:hidden; float:left;}
+.content div.right div.job_list li i{ display:inline-block; width:2px; height:2px; background:#000; float:left; margin:6px 5px 0px 5px; }
+.content div.right div.job_list li span a{ display: inline-block; max-width:150px; height:14px; line-height:14px; overflow:hidden; color:#333;}
+.content div.right div.job_list li span a:hover{ color:#ff0000;}
+.content div.right div.job_list li p{ display:none;}
+.content div.right div.job_list li.vip{ border:1px solid #ccc; height:45px; background:#fffbf4; width:338px; margin:0px 0px 15px 0px; position:relative;}
+.content div.right div.job_list li.vip i{ width:16px; height:15px; background-position:0 -24px; margin:1px 5px 0px 5px;}
+.content div.right div.job_list li.vip b{ width:23px; height:10px; background-position:0 -40px; position:absolute; top:5px; right:5px;}
+.content div.right div.job_list li.vip span a{ max-width:310px; height:18px; line-height:18px; font-size:16px;}
+.content div.right div.job_list li.vip p{ display: block; height:14px; line-height:14px; width:330px; overflow:hidden; margin:5px 0px 0px 10px; color:#255ba5;}
+.content div.right div.job_list li.vip p a{color:#255ba5;}

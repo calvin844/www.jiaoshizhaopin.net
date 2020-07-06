@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>手机频道 - {#$QISHI.site_name#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/mobile.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".mobile_nav a").click(function(){
+		var page = $(this).attr("id");
+		$(".banner").css("display","none");
+		$(".function_list").css("display","none");
+		$(".banner."+page).css("display","block");
+		$(".function_list."+page).css("display","block");
+		$(".mobile_nav li").removeClass("active");
+		$(this).parent("li").addClass("active");
+	});
+});
+</script>
+</head>
+<body class="phone_body">
+	<div class="phone_box">
+		<div class="container">
+			<div class="logo_box"><a href="{#$QISHI.main_domain#}"><img src="{#$QISHI.upfiles_dir#}{#$QISHI.web_logo#}" /></a></div>
+			<div class="app_main">
+				<div class="mobile_nav">
+					<ul>
+						<li class="android active"><a id="android"  >安卓版</a></li>
+						<li class="touch"><a id="touch"  >触屏版</a></li>
+						<li class="weixin"><a id="weixin"  >微信版</a></li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+				<div class="banner android">
+					<div class="banner_img"><img src="{#$QISHI.site_template#}images/mobile/61.gif" alt="" /></div>
+					<div class="banner_txt">
+						<h2>{#$QISHI.site_name#}客户端</h2>
+						<h3>下载{#$QISHI.site_name#}APP，机会紧握手中！</h3>
+					</div>
+					<div class="download_box">
+						<div class="reweima">
+							<div class="reweima_opcity"></div>
+							<img src="{#$QISHI.main_domain#}plus/url_qrcode.php?url={#$QISHI.main_domain#}android/apk/KnightCMS.apk" alt="二维码" width="107" height="107"/>
+						</div>
+						<div class="but_box">
+							<a href="{#$QISHI.main_domain#}android/apk/KnightCMS.apk" class="download_but"></a>
+							<p>适用于android2.1以上平台</p>
+						</div>
+					</div>
+				</div>
+				<div class="banner touch" style="display:none">
+					<div class="banner_img"><img src="{#$QISHI.site_template#}images/mobile/58.png" alt="" /></div>
+					<div class="banner_txt">
+						<h2>{#$QISHI.site_name#}触屏版</h2>
+						<h3>打开手机浏览器，访问网址：</h3>
+						<div class="web_add">{#$QISHI.wap_domain#}</div>
+						<div class="reweima_box">
+							<p>或手机扫描二维码：</p>
+							<div class="reweima_item">
+								<div class="reweima_opcity"></div>
+								<div class="reweima"><img src="{#$QISHI.main_domain#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}" width="80" height="80"/></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<p class="down">无需下载，无需安装，兼容目前所有的主流手机浏览器</p>
+					</div>
+				</div>
+				<div class="banner weixin" style="display:none">
+					<div class="banner_img"><img src="{#$QISHI.site_template#}images/mobile/63.png" alt="" /></div>
+					<div class="banner_txt">
+						<h2>{#$QISHI.site_name#}官方微信</h2>
+						<div class="banner_step">
+							<ul>
+								<li>使用步骤：</li>
+								<li>1.打开并登录微信；</li>
+								<li>2.用“扫一扫”扫描下方二维码；</li>
+								<li>3.点“关注”我们的服务号</li>
+							</ul>
+						</div>
+						<div class="reweima_box">
+							<div class="reweima_opcity"></div>
+							<div class="reweima"><img src="{#$QISHI.upfiles_dir#}{#$QISHI.weixin_img#}" width="107" height="107" /></div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="function_list android">
+					<div class="l s_job">
+						<h4>搜职位</h4>
+						<p>支持多种职位搜索条件，便捷的求职平台，为求职者提供最大的职位选择空间。</p>
+					</div>
+					<div class="t_person">
+						<h4>淘人才</h4>
+						<p>掌上快捷搜索人才简历库，智能匹配合适的人才简历，是企业hr的招聘好帮手。</p>
+					</div>
+					<div class="l s_map">
+						<h4>地图搜索</h4>
+						<p>实时定位，使求职者直观地在地图上看到该公司所在位置，便于求职者就近就职。</p>
+					</div>
+					<div class="shake">
+						<h4>摇一摇</h4>
+						<p>增加个性化功能体验，手机一摇，轻松摇出附近的职位信息，方便快捷。</p>
+					</div>
+					<div class="l f_job">
+						<h4>发职位</h4>
+						<p>实现掌上智能注册会员发布相关职位，即使不在电脑旁，也能随时随地实现人才招聘。</p>
+					</div>
+					<div class="c_resume">
+						<h4>创简历</h4>
+						<p>个人会员发布简历，让企业找到你的简历，畅快体验手机找工作的高效快捷。</p>
+					</div>
+					<div class="l workplace">
+						<h4>职场指南</h4>
+						<p>及时送达新鲜实用的职场资讯，帮助你从职场菜鸟成功蜕变为职场精英。</p>
+					</div>
+					<p class="clear"></p>
+				</div>
+				<div class="function_list touch" style="display:none">
+					<div class="l s_job">
+						<h4>搜职位</h4>
+						<p>支持多种条件精确搜索，简便的申请和收藏职位操作，帮助您不错过任何一份好工作。</p>
+					</div>
+					<div class="t_person">
+						<h4>淘人才</h4>
+						<p>支持多条件查找人才类型，整合最新人才库资源，满足企业随时随地找人才的需求。</p>
+					</div>
+					<div class="l s_map">
+						<h4>周边职位</h4>
+						<p>快捷获取相关职位信息，便捷的操作平台，助您在求职之路一路畅通。</p>
+					</div>
+					<div class="workplace">
+						<h4>职场指南</h4>
+						<p>最前沿的职场动态、最强大的职场攻略，让身在职场的你笑傲江湖。</p>
+					</div>
+					<p class="clear"></p>
+				</div>
+				<div class="function_list weixin" style="display:none">
+					<div class="l s_job">
+						<h4>搜职位</h4>
+						<p>手写输入或语音输入想要的职位，系统自动匹配出相应的职位信息，方便快捷。</p>
+					</div>
+					<div class="t_person">
+						<h4>淘人才</h4>
+						<p>点击简历下拉菜单，查看相关人才信息，轻松实现指尖上的人才对接。</p>
+					</div>
+					<div class="l custcom_menu">
+						<h4>自定义菜单</h4>
+						<p>自定义菜单，为用户提供实时有效的招聘/求职信息，让招聘紧跟时代步伐。</p>
+					</div>
+					<div class="workplace">
+						<h4>职场指南</h4>
+						<p>分享职场最前沿资讯动态，揭秘职场规则，是求职者必备的职场宝典。</p>
+					</div>
+					<p class="clear"></p>
+				</div>
+				<div class="copyright">
+					<p><span>{#$QISHI.site_name#}</span>   <span>Powered by <em>74cms v{#$QISHI.version#}</em></span>  <span>版权所有 ｜ 仿冒必究</span><span>{#$QISHI.icp#}</span></p>
+					<p><span>联系地址：{#$QISHI.address#} </span><span>联系电话：{#$QISHI.bootom_tel#}</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

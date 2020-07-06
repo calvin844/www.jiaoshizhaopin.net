@@ -1,0 +1,214 @@
+{#qishi_hunter_jobs_show set="列表名:show,职位ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$show.jobs_name#} - {#$show.companyname#} - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$show.companyname#}招聘{#$show.jobs_name#}">
+<meta name="keywords" content="{#$show.jobs_name#}，{#$show.companyname#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/hunter.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+		var id="{#$show.id#}";
+		var tsTimeStamp= new Date().getTime();
+		$.get("{#$QISHI.website_dir#}plus/ajax_click.php", { "id": id,"time":tsTimeStamp,"act":"hunterjobs_click"},
+			function (data,textStatus)
+			 {			
+				$(".click").html(data);
+			 }
+		);
+		$.get("{#$QISHI.site_dir#}plus/ajax_contact.php", { "id": id,"time":tsTimeStamp,"act":"hunterjobs_contact"},
+			function (data,textStatus)
+			 {			
+				$(".jobs_contact").html(data);
+			 }
+		);
+});
+$(function(){
+	$("input[type='button']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+	<!-- 当前位置 -->
+	<div class="page_location link_bk">
+		当前位置：<a href="{#$QISHI.index_url#}">首页</a>&nbsp;>>&nbsp;<a href="{#"QS_jobs"|qishi_url#}">招聘信息</a>&nbsp;>&nbsp;{#$show.companyname#}&nbsp;>&nbsp;{#$show.jobs_name#}
+	</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="left_area">
+			<div class="detail_top">
+				<h3>{#$show.jobs_name#}</h3>
+				<div class="company">
+					<a href="#">{#$show.companyname#}</a>
+					<p>年薪&nbsp;<em>{#$show.wage_cn#}</em></p>
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<span class="data">发布时间：{#$show.addtime|date_format:"%Y-%m-%d"#}</span>
+					<span class="watch">浏览：<em class="times">{#$show.click#}</em>次</span>
+				</div>
+				<div class="welfare">
+					<ul>
+						{#foreach from=$show.structure item=slist#}
+						<li>
+							<p>{#$slist.value#}</p>
+						</li>
+						{#/foreach#}
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="detail_info">
+				<h4 class="titleh4">职位信息</h4>
+				<ul>
+					<li>
+						<div class="w248">公司性质：{#$show.nature_cn#}</div>
+						<div class="w248">所属行业：{#$show.trade_cn#}</div>
+						<div>公司规模：{#$show.scale_cn#}</div>
+					</li>
+					<li>
+						<div class="w248">所属部门：{#$show.department#}</div>
+						<div class="w248">汇报对象：{#$show.reporter#}</div>
+						<div style="width:180px; height:25px;overflow:hidden;">工作地区：{#$show.district_cn#}</div>
+					</li>
+					<li><div class="clear"></div></li>
+					<li>
+						<div>职位类别：{#$show.category_cn#}</div>
+						<div class="w248"></div>
+					</li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+			<div class="detail_info">
+				<h4 class="titleh4">岗位要求</h4>
+				<ul>
+					<li>
+						<div class="w248">年龄要求：{#$show.age_cn#}</div>
+						<div class="w248">学历要求：{#$show.education_cn|default:"不限"#}</div>
+						<div>性别要求：{#$show.sex_cn#}</div>
+					</li>
+					<li>
+						<div class="w248">工作经验：{#$show.experience_cn#}</div>
+						<div class="w248">语言要求：{#$show.languagecn#}</div>
+					</li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+			<div class="detail_info">
+				<h4 class="titleh4">职位描述</h4>
+				<div class="des">
+					<p>【岗位职责】</p>
+					<ol>
+						<li>{#$show.contents|nl2br#}</li>
+					</ol>
+					<p>【任职资格】</p>
+					<ol>
+						<li>{#$show.jobs_qualified|nl2br#}</li>
+					</ol>
+				</div>
+			</div>
+			<div class="apply">
+				<div class="share">
+					<p class="report"></p>
+					<!-- Baidu Button BEGIN -->
+				    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+				        <a class="bds_qzone"></a>
+				        <a class="bds_tsina"></a>
+				        <a class="bds_tqq"></a>
+				        <a class="bds_renren"></a>
+				        <span class="bds_more">更多</span>
+				    </div>
+				<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=659075" ></script>
+				<script type="text/javascript" id="bdshell_js"></script>
+				<script type="text/javascript">
+					document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+				</script>
+				<div class="clear"></div>	
+				<!-- Baidu Button END -->
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="other_job">
+				<h4 class="titleh4">该猎头其他职位</h4>
+				<table>
+					<tbody>
+						{#qishi_hunter_jobs_list set="分页显示:0,列表名:jobslist,显示数目:5,填补字符:...,职位名长度:8,企业名长度:19,会员UID:$show.uid,排序:rtime"#}
+						{#foreach  from=$jobslist item=list#}
+						<tr>
+							<td width="250" class="frist"><a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></td>
+							<td width="252">年薪<span>{#$list.wage_cn#}</span></td>
+							<td width="136">{#$list.district_cn#}</td>
+							<td width="94">{#$list.refreshtime_cn#}</td>
+						</tr>
+						{#/foreach#}
+						
+					</tbody>
+				</table>
+			<div class="more"><a href="#">更多>></a></div>
+			</div>
+
+			
+		</div>
+		<!-- 右边内容 -->
+		<div class="right_area">
+			<div class="right_box">
+				<div class="title_box">
+					<h5>职位发布者信息</h5>
+				</div>
+				{#qishi_hunter_show set="列表名:hunter,擅长行业长度:17,擅长职能长度:17,会员UID:"|cat:$show.uid#}
+				<div class="list">
+					<div class="hhunt_info">
+						<div class="avatar"><a href="#"><img src="{#$QISHI.site_template#}images/hunter/26.gif" alt="" /></a></div>
+						<div class="hhunt_txt">
+							<p>{#$hunter.huntername#}</p>
+							<p>从业年限：{#$hunter.years#} 年</p>
+							<p>{#$hunter.district_cn#}</p>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<a href="{#"QS_hunter_show,id:"|cat:$hunter.id|qishi_url#}" class="enter">点击进入猎头个人主页</a>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="title_box">
+					<h5>联系方式</h5>
+				</div>
+				<div class="list jobs_contact">
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="title_box">
+					<h5>推荐职位</h5>
+				</div>
+				<div class="list">
+					<ul style="margin-top:10px;">
+						{#qishi_hunter_jobs_list set="分页显示:0,列表名:jobslist,显示数目:5,填补字符:...,职位名长度:8,企业名长度:19,推荐:1,排序:rtime"#}
+						{#foreach  from=$jobslist item=list#}	
+						<li>
+							<div class="w163"><a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></div>
+							<div class="fl"><span>{#$list.wage_cn#}</span></div>
+							<div class="clear"></div>
+						</li>
+						{#/foreach#}
+						<div class="clear"></div>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+	{#include file="footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,262 @@
+{#include file="sys/admin_header.htm"#}
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$("#ButDel").QSdialog({
+	DialogContent:"#GetDelInfo",
+	DialogContentType:"id",
+	DialogAddObj:"#DelSel",	
+	DialogWidth:"500",
+	DialogAddType:"html"	
+	});
+	
+	$("#ButDown").QSdialog({
+	DialogContent:"#GetDownInfo",
+	DialogContentType:"id",
+	DialogAddObj:"#DownSel",	
+	DialogWidth:"500",
+	DialogAddType:"html"	
+	});
+	
+	//纵向列表排序
+	$(".listod .txt").each(function(i){
+	var li=$(this).children(".select");
+	var htm="<a href=\""+li.attr("href")+"\" class=\""+li.attr("class")+"\">"+li.text()+"</a>";
+	li.detach();
+	$(this).prepend(htm);
+	});
+			
+		
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="gifts/admin_gifts_nav.htm"#}
+  <div class="clear"></div>
+</div>
+
+
+
+<div class="seltpye_y">
+
+	<div class="tit link_lan">
+	<strong>礼品卡列表</strong><span>(共找到{#$total#}条)</span>
+	<a href="?act=list">[恢复默认]</a>
+	<div class="pli link_bk"><u>每页显示：</u>
+	<a href="{#"perpage:10"|qishi_parse_url#}" {#if $smarty.get.perpage=="10"#}class="select"{#/if#}>10</a>
+	<a href="{#"perpage:20"|qishi_parse_url#}" {#if $smarty.get.perpage=="20"#}class="select"{#/if#}>20</a>
+	<a href="{#"perpage:30"|qishi_parse_url#}" {#if $smarty.get.perpage=="30"#}class="select"{#/if#}>30</a>
+	<a href="{#"perpage:60"|qishi_parse_url#}" {#if $smarty.get.perpage=="60"#}class="select"{#/if#}>60</a>
+	<div class="clear"></div>
+	</div>
+	</div>	
+    <div class="list">
+	  <div class="t">使用状态</div>	  
+	  <div class="txt link_lan">
+	 	<a href="{#"usettime:"|qishi_parse_url#}" {#if $smarty.get.usettime==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"usettime:0"|qishi_parse_url#}" {#if $smarty.get.usettime=="0"#}class="select"{#/if#}>未使用</a>
+		<a href="{#"usettime:1"|qishi_parse_url#}" {#if $smarty.get.usettime=="1"#}class="select"{#/if#}>已使用</a>		
+	  </div>
+    </div>
+	<div class="list">
+	  <div class="t">可用状态</div>	  
+	  <div class="txt link_lan">
+	 	<a href="{#"t_effective:"|qishi_parse_url#}" {#if $smarty.get.t_effective==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"t_effective:1"|qishi_parse_url#}" {#if $smarty.get.t_effective=="1"#}class="select"{#/if#}>可用</a>
+		<a href="{#"t_effective:0"|qishi_parse_url#}" {#if $smarty.get.t_effective=="0"#}class="select"{#/if#}>不可用</a>
+	  </div>
+    </div>
+	
+	<div class="list">
+	  <div class="t">添加时间</div>	  
+	  <div class="txt link_lan">
+		<a href="{#"settr:"|qishi_parse_url#}" {#if $smarty.get.settr==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"settr:3"|qishi_parse_url#}" {#if $smarty.get.settr=="3"#}class="select"{#/if#}>三天内</a>
+		<a href="{#"settr:7"|qishi_parse_url#}" {#if $smarty.get.settr=="7"#}class="select"{#/if#}>一周内</a>
+		<a href="{#"settr:30"|qishi_parse_url#}" {#if $smarty.get.settr=="30"#}class="select"{#/if#}>一月内</a>
+	  </div>
+    </div>
+	
+	<div class="list listod" style=" width:260px;">
+	  <div class="t">礼品卡分类</div>	  
+	  <div class="txt link_lan">
+	  <a href="{#"t_id:"|qishi_parse_url#}" {#if $smarty.get.t_id==""#}class="select"{#/if#}>不限</a>
+ {#foreach from=$category item=cli#}
+ <a href="{#"t_id:"|cat:$cli.t_id|qishi_parse_url#}" {#if $smarty.get.t_id==$cli.t_id#}class="select"{#/if#}>{#$cli.t_name#}</a>
+	{#/foreach#}
+	  </div>
+    </div>
+	
+	
+	<div class="clear"></div>
+</div>
+
+
+ 
+  <form id="form1" name="form1" method="post" action="?act=gifts_act">
+  {#$inputtoken#}
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="link_lan">
+    <tr>
+      <td  class="admin_list_tit admin_list_first">
+      <label id="chkAll"><input type="checkbox" name="chkAll"  id="chk" title="全选/反选" />
+      卡号</label>
+	  </td>
+      <td  class="admin_list_tit" align="center"> 密码 </td>
+	  <td  class="admin_list_tit" align="center" > 积分 </td>
+      <td  class="admin_list_tit" align="center">所属分类</td>
+      <td    class="admin_list_tit" align="center"  width="10%">使用时间</td>
+	   <td  align="center"  class="admin_list_tit"  width="10%">可用状态</td>
+	   <td    class="admin_list_tit"  width="10%" align="center" >添加时间</td>
+	    <td  class="admin_list_tit"  align="center" >有效日期</td>
+
+    </tr>
+	{#foreach from=$list item=list#}
+	<tr>
+      <td  class="admin_list admin_list_first">
+      
+	  <input name="id[]" type="checkbox" id="id" value="{#$list.id#}"  />
+{#$list.account#}
+		 
+	  
+	  </td>
+      <td  class="admin_list" align="center">
+	  {#$list.password#}</td>
+	  <td   class="admin_list" align="center" >
+	  {#$list.t_amount#}
+
+	  </td>
+      <td   class="admin_list" align="center">
+	  {#$list.t_name#}
+
+	  </td>
+      <td  align="center"   class="admin_list">
+	  {#if $list.usettime=="0"#}
+	  未使用
+	  {#else#}
+	  <span  style="color:#FF3300">{#$list.usettime|date_format:"%Y-%m-%d %H:%M"#}</span>
+	  {#/if#}
+	  </td>
+	  <td class="admin_list" align="center" >
+	  {#if $list.t_effective=="1"#}
+	  可用
+	  {#else#}
+	  <span style="color:#999999">不可用</span>
+	  {#/if#}
+	  </td>
+	  <td   class="admin_list" align="center" >
+	  {#$list.addtime|date_format:"%Y-%m-%d"#}
+	  </td>
+	   <td    class="admin_list" align="center">
+	    {#if $list.t_starttime=="0" && $list.t_endtime=="0"#} 
+		不限制
+		{#else#}
+			 {#if $list.t_starttime=="0"#} 
+			不限制
+			{#else#}
+			{#$list.t_starttime|date_format:"%Y-%m-%d"#}
+			{#/if#}
+			--
+			{#if $list.t_endtime=="0"#} 
+			不限制
+			{#else#}
+			{#$list.t_endtime|date_format:"%Y-%m-%d"#}
+			{#/if#}
+		{#/if#}
+	  
+	  
+	  </td>
+    </tr>
+	 {#/foreach#}
+  </table>
+  <span id="DelSel"></span>
+   <span id="DownSel"></span>
+   </form>
+   {#if !$list#}
+<div class="admin_list_no_info">没有任何信息！</div>
+{#/if#}
+<table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+      <tr>
+        <td>
+<input type="button" class="admin_submit" id="ButAudit" value="生成礼品卡"  onclick="window.location='?act=generate'"/>
+  <input type="submit" name="ButDown" id="ButDown" value="下载到本地" class="admin_submit" />
+<input type="button" class="admin_submit" id="ButDel" value="删除"/>
+		</td>
+        <td width="305" align="right">
+		<form id="formseh" name="formseh" method="get" action="?">	
+			<div class="seh">
+			    <div class="keybox"><input name="key" type="text"   value="{#$smarty.get.key#}" /></div>
+			    <div class="selbox">
+					<input name="key_type_cn"  id="key_type_cn" type="text" value="{#$smarty.get.key_type_cn|default:"卡号"#}" readonly="true"/>
+						<div>
+								<input name="key_type" id="key_type" type="hidden" value="{#$smarty.get.key_type|default:"1"#}" />
+												 
+						</div>				
+				</div>
+				<div class="sbtbox">
+				<input name="act" type="hidden" value="list" />
+				<input type="submit" name="" class="sbt" id="sbt" value="搜索"/>
+				</div>
+				<div class="clear"></div>
+		  </div>
+		  </form>
+		
+	    </td>
+      </tr>
+  </table>
+<div class="page link_bk">{#$page#}</div>
+
+
+
+	<div id="GetDelInfo" style="display: none" >
+	  <table width="100%" border="0" align="center" cellpadding="6" cellspacing="0" >
+		<tr>
+		  <td style="padding-left:30px;"><strong  style="color:#0066CC; font-size:14px;">仅删除已选信息？</strong></td>
+		  <td style="padding-left:30px; border-left:1px #CCCCCC solid"><strong  style="color:#0066CC; font-size:14px;">按分类删除？</strong></td>
+		</tr>
+		<tr>
+		  <td  style="padding-left:30px;"><input type="submit" name="deleteid" value="确定删除" class="admin_submit" onclick="return confirm('删除后将不可恢复，确定删除？')"/></td>
+		  <td  style="padding-left:30px; border-left:1px #CCCCCC solid">
+		  <select name="d_tid" style=" font-size:12px;">
+			<option value="0" selected="selected">请选择礼品卡分类</option>
+			{#foreach from=$category item=cli#}
+  <option value="{#$cli.t_id#}">{#$cli.t_name#}</option>
+	{#/foreach#}		     
+	          </select>		  </td>
+		</tr>
+		  <tr>
+		  <td  style="padding-left:30px;">&nbsp;</td>
+		  <td  style="padding-left:30px; border-left:1px #CCCCCC solid"><input type="submit" name="deletetid" value="确定删除" class="admin_submit"  onclick="return confirm('删除后将不可恢复，确定删除？')"/></td>
+	    </tr>
+	  </table>
+  </div>
+		
+		
+	
+	<div id="GetDownInfo" style="display: none" >
+	  <table width="100%" border="0" align="center" cellpadding="6" cellspacing="0" >
+		<tr>
+		  <td style="padding-left:30px;"><strong  style="color:#0066CC; font-size:14px;">仅下载已选信息？</strong></td>
+		  <td style="padding-left:30px; border-left:1px #CCCCCC solid"><strong  style="color:#0066CC; font-size:14px;">按分类下载？</strong></td>
+		</tr>
+		<tr>
+		  <td  style="padding-left:30px;"><input type="submit" name="downid" value="下载" class="admin_submit DialogClose"  /></td>
+		  <td  style="padding-left:30px; border-left:1px #CCCCCC solid">
+		  <select name="t_id" style=" font-size:12px;">
+			<option value="0" selected="selected">请选择礼品卡分类</option>
+			{#foreach from=$category item=cli#}
+  <option value="{#$cli.t_id#}">{#$cli.t_name#}</option>
+	{#/foreach#}		     
+	          </select>		  </td>
+		</tr>
+		  <tr>
+		  <td  style="padding-left:30px;">&nbsp;</td>
+		  <td  style="padding-left:30px; border-left:1px #CCCCCC solid"><input type="submit" name="downtid" value="下载" class="admin_submit DialogClose"  /></td>
+	    </tr>
+	  </table>
+  </div>	
+		
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

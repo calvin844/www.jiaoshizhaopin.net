@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 职位收藏夹</div>
+
+<div class="usermain">
+	<div style="display:inline-block">
+  <div class="leftmenu link_bk">
+  {#include file="member_personal/left.htm"#}	
+  </div>
+	<div class="rightmain">
+		<div class="bbox1">
+		  <div class="favorites link_bk">
+	 	    <div class="topnav">
+			 	<div class="titleH1">
+				  <div class="h1-title">收藏夹</div>
+				</div>
+				<div class="navs">
+				    <a href="?act={#$act#}&settr=" {#if $smarty.get.settr==""#}class="se"{#/if#}>所有的</a>
+				    <a href="?act={#$act#}&settr=3" {#if $smarty.get.settr=="3"#}class="se"{#/if#}>最新三天</a>
+				    <a href="?act={#$act#}&settr=7" {#if $smarty.get.settr=="7"#}class="se"{#/if#}>最近一周</a>
+				    <div class="clear"></div>
+				</div>	
+		  	</div> 
+		  	<form action="?act=del_favorites" name="form1" id="form1" method="post">
+		  		<div class="toptitle">
+				    <div class="t1"><label><input name="" type="checkbox" value="" id="chk" />&nbsp;&nbsp;职位名称</label></div>
+					<div class="t2">公司名称</div>
+					<div class="t3">工作地区</div>
+					<div class="t4">月薪</div>
+					<div class="t5">收藏时间</div>
+					<div class="clear"></div>
+				</div>
+		 	 	{#if $favorites#}
+				{#foreach from=$favorites item=list#}
+                                    {#if $list.type == 'job'#}
+                                        {#if $list.end == 1#}
+                                        <div class="ilist userliststyle">
+                                            <div class="t1"><input name="y_id[]" id="y_id" type="checkbox" job_type="{#$list.type#}" value="{#$list.did#}" />&nbsp;&nbsp;<a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></div>
+                                                <div class="t2"><a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a></div>
+                                                <div class="t3">{#$list.district_cn#}</div>
+                                                <div class="t4">{#$list.wage_cn#}</div>
+                                                <div class="t5">{#$list.addtime|date_format:"%Y-%m-%d"#}</div>
+                                                <div class="clear"></div>
+                                        </div>
+                                        {#else#}
+                                        <div class="ilist userliststyle">
+                                            <div class="t1" style="width:400px;"><input name="y_id[]" id="y_id" type="checkbox" value="{#$list.did#}" />&nbsp;&nbsp;您收藏的职位({#$list.jobs_name#})可能已经被删除。</div>	
+                                                <div class="clear"></div>
+                                        </div>
+                                        {#/if#}
+                                    {#else#}
+                                        {#if $list.end == 1#}
+                                        <div class="ilist userliststyle">
+                                            <div class="t1"><input name="article_id[]" id="article_id" type="checkbox" job_type="{#$list.type#}" value="{#$list.id#}" />&nbsp;&nbsp;<a href="{#$list.article_url#}" target="_blank" style="line-height:18px;">{#$list.jobs_name#}</a></div>
+                                                <div class="t2"><a href="{#$list.article_url#}" target="_blank">{#$list.title#}</a></div>
+                                                <div class="t3">{#$list.district_cn#}</div>
+                                                <div class="t4"><a href="{#$list.article_url#}" target="_blank">{#$list.wage_cn#}</a></div>
+                                                <div class="t5">{#$list.addtime|date_format:"%Y-%m-%d"#}</div>
+                                                <div class="clear"></div>
+                                        </div>
+                                        {#else#}
+                                        <div class="ilist userliststyle">
+                                            <div class="t1" style="width:400px;"><input name="article_id[]" id="y_id" type="checkbox" value="{#$list.did#}" />&nbsp;&nbsp;您收藏的职位({#$list.title#})可能已经被删除。</div>	
+                                                <div class="clear"></div>
+                                        </div>
+                                        {#/if#}
+                                    {#/if#}
+				{#/foreach#}
+				<div class="but">
+				   <input type="submit" name="delete" id="submitsave" value="删除所选" onClick="return confirm('您确定删除吗?')" class="but100lan"/>
+				</div>
+				{#if $page#}
+				<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+		          <tr>
+		            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+		          </tr>
+		      </table>
+		      {#/if#}
+				{#else#}
+				<div class="emptytip">对不起！没有找到您要的信息！</div>
+				{#/if#}
+			</form>
+			
+		  </div>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="clear"></div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,48 @@
+.content div.right div.job_list li.vip i{ background:url(../images/common.png) no-repeat;}
+
+.content div.left{ width:700px; border-right:1px solid #ccc; margin:20px 9px 10px 0px;}
+.content div.left .nav_box{ height:20px;}
+.content div.left .nav_box span{ color: #999999; line-height: 20px;}
+.content div.left .nav_box a{ color:#333333; text-decoration:underline; margin:0px 5px 0px 5px;}
+.content div.left .nav_box a:hover{ color:#cc0000;}
+.content div.left p.news_title{ color: #ff0000; font-family: 'Î¢ÈíÑÅºÚ'; font-size: 24px; font-weight: bold; line-height: 40px; width:700px; border-bottom:1px solid #ccc;}
+.content div.left div.news_info{ height:30px;}
+.content div.left div.news_info p.left { line-height:30px; height:30px; color:#999;}
+.content div.left div.news_info p.left b{ margin:0px 0px 0px 10px;}
+.content div.left div.news_info p.right { line-height:30px; height:30px; color:#999; margin:0px 10px 0px 0px;}
+.content div.left div.news_info p.right a{ color:#333;}
+.content div.left div.news_info p.right a:hover{ color:#ff0000;}
+.content div.left div.news_list{ margin:10px 0px 30px 0px;}
+.content div.left div.news_list ul{ width:694px;}
+.content div.left div.news_list ul li{ float:left; border-bottom:1px solid #ccc; padding:10px 5px 5px 5px; width:335px;}
+.content div.left div.news_list ul li i{ float:left; display:inline-block; width:2px; height:2px; background:#000; float:left; margin:7px 5px 0px 0px;}
+.content div.left div.news_list ul li a{ display:inline-block; max-width:260px; height:14px; overflow:hidden; color:#333;}
+.content div.left div.news_list ul li a:hover{ color:#cc0000;}
+.content div.left div.news_list ul li span.date{ float:right; color:#ccc;}
+.content div.left div.news_content{ float:left; padding:20px 10px 10px 10px;}
+.content div.left div.news_content *{ font-size:14px; line-height:25px;}
+.content div.left div.news_content a{ color:#000;}
+.content div.left div.news_content a:hover{ color:#ff0000;}
+.content div.left div.report_box { padding:25px 0px 15px 0px; border-top:1px dotted #ccc; float:left; width:700px;}
+.content div.left div.report_box a{ color:#3a85c7;}
+
+.content div.right{ width:250px; margin:20px 0px 20px 0px;}
+.content div.right div.ad_box{ width:250px; overflow:hidden;}
+.content div.right div.login_box{ margin:15px 0px 15px 0px; float:left;}
+.content div.right div.login_box p.left{ height:35px; line-height:35px; width:200px;}
+.content div.right div.login_box p.left input{ width:100px; height:20px; line-height:20px; border:1px solid #ccc;}
+.content div.right div.login_box input.submit{ width:44px; height:44px; margin:10px 0px 0px 0px;}
+.content div.right div.login_box p.login_err{ color:#ff0000;}
+.content div.right div.login_box a.user_bt{ color: #09F; text-decoration:underline;}
+.content div.right div.job_list{ float:left;}
+.content div.right div.job_list ul{ border-top:1px solid #ccc; margin:10px 0px 0px 0px;}
+.content div.right div.job_list li{ padding:15px 5px 10px 5px; border-bottom:1px solid #ccc; width:250px; overflow:hidden;}
+.content div.right div.job_list li i{ display:inline-block; width:2px; height:2px; background:#000; float:left; margin:6px 5px 0px 5px; }
+.content div.right div.job_list li span a{ display: inline-block; max-width:230px; height:14px; line-height:14px; overflow:hidden;}
+.content div.right div.job_list li span a:hover{ color:#ff0000;}
+.content div.right div.job_list li p{ display:none;}
+.content div.right div.job_list li.vip{ padding:15px 5px 10px 5px; border-bottom:1px solid #ccc; border-left:1px solid #ccc;  border-right:1px solid #ccc;width:250px; overflow:hidden; height:45px; background:#fffbf4;}
+.content div.right div.job_list li.vip i{ width:16px; height:15px; background-position:0 -24px; margin:1px 5px 0px 5px;}
+.content div.right div.job_list li.vip span a{ max-width:220px; height:18px; line-height:18px; font-size:16px;}
+.content div.right div.job_list li.vip p{ display: block; height:14px; line-height:14px; width:240px; overflow:hidden; margin:10px 0px 0px 10px; color:#255ba5;}
+.content div.right div.job_list li.vip p a{color:#255ba5;}

@@ -1,0 +1,44 @@
+<script type="text/javascript" src="{#$QISHI.site_template#}js/jquery.vtip-min.js"></script>
+     <table width="130" border="0" align="center" cellpadding="0" cellspacing="5"  class="link_bk" style="margin-bottom:10px;margin-top:25px;" >
+              <tr>
+                <td height="28" align="center" background="{#$QISHI.site_template#}images/46.gif" class="user_right_box"><a href="train_teacher.php?act=teachers" style="color:#006600">显示讲师所有信息</a></td>
+              </tr>
+</table>
+  <table width="142" border="0" cellspacing="0" cellpadding="0"  class="link_bk">
+			  {#if $act=="add_teachers"#}
+            <tr>
+              <td height="32" align="center"  class="resume_right_on">
+			  <img src="{#$QISHI.site_template#}images/50.png" align="absmiddle" />&nbsp;&nbsp;基本信息
+			  </td>
+            </tr>
+			{#else#}
+			<tr>
+              <td height="32" align="center">
+			  {#if $teachers#}
+			  <img src="{#$QISHI.site_template#}images/49.png" align="absmiddle" />
+			  {#else#}		  
+			  <img src="{#$QISHI.site_template#}images/48.png" align="absmiddle" />
+			  {#/if#}
+			  &nbsp;&nbsp;<a href="?act=add_teachers&pid={#$pid#}">基本信息</a>
+			  </td>
+            </tr>
+			{#/if#}
+			{#if $act=="make2" || $act=="photo_cutting"#}
+            <tr>
+              <td height="32" align="center"  class="resume_right_on">
+			  <img src="{#$QISHI.site_template#}images/50.png" align="absmiddle" />&nbsp;&nbsp;形象照片
+			  </td>
+            </tr>
+			{#else#}
+			<tr>
+              <td height="32" align="center">
+			    {#if $teachers.photo=="0"#}
+			  <img src="{#$QISHI.site_template#}images/48.png" align="absmiddle" />
+			  {#else#}			  
+			  <img src="{#$QISHI.site_template#}images/49.png" align="absmiddle" />
+			  {#/if#}
+			  &nbsp;&nbsp;<a href="?act=make2&pid={#$pid#}">形象照片</a>
+			  </td>
+            </tr>
+			{#/if#}         
+</table>

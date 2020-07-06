@@ -1,0 +1,539 @@
+{#include file="sys/admin_header.htm"#}
+<script src="js/jquery.user.selectlayer.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_dir#}data/cache_classify.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	showmenu("#nature_cn","#menu8","#nature","#Form1","#nature");
+	showmenu("#trade_cn","#menu9","#trade","#Form1","#trade");	
+	showmenu("#scale_cn","#menu10","#scale","#Form1","#scale");
+
+	showmenulayer("#category_cn","#menu1","#category","#subclass",QS_hunter_jobs);
+	showmenulayer("#district_cn","#menu3","#district","#sdistrict",QS_city);
+	showmenu("#education_cn","#menu4","#education","#Form1","#education");
+	showmenu("#experience_cn","#menu5","#experience","#Form1","#experience");	
+	showmenu("#wage_cn","#menu6","#wage","#Form1","#wage");
+	showmenu("#age_cn","#menu7","#age","#Form1","#age");
+	getcheckboxval("#wage_structure_cn","#menu_wage_structure","#wage_structure_cn","#wage_structure","{#$jobs.wage_structure#}");
+	getcheckboxval("#socialbenefits_cn","#menu_socialbenefits","#socialbenefits_cn","#socialbenefits","{#$jobs.socialbenefits#}");
+	getcheckboxval("#livebenefits_cn","#menu_livebenefits","#livebenefits_cn","#livebenefits","{#$jobs.livebenefits#}");
+	getcheckboxval("#annualleave_cn","#menu_annualleave","#annualleave_cn","#annualleave","{#$jobs.annualleave#}");
+	getcheckboxval("#language_cn","#menu_language","#language_cn","#language","{#$jobs.language#}");
+	
+//从已有数据恢复行业选择
+	OpentradeLayer("#showtrade","#hopetrade","#hopetrade_cn","#trade_txt","#sel_trade",80);
+	var get_trade="{#$jobs.hopetrade#}";
+	if (get_trade!="")
+	{
+		get_trade=get_trade.split(",");
+		for( var i=0;i<get_trade.length;++i)
+		{
+			$("#sel_trade :checkbox").each(function(index)
+				{
+					if ($(this).val()==get_trade[i]) $(this).attr("checked",true)
+			
+				});
+		}
+		$("#sel_trade  :checkbox").parent().css("color","");
+		$("#sel_trade  :checkbox[checked]").parent().css("color","#009900");
+	}
+	
+	
+	//性别中文字段复制
+	$("input[name='sex']").click(function(){
+	$("#sex_cn").val($(this).attr("title"));
+	});
+	//是否统招
+	$("input[name='tongzhao']").click(function(){
+	$("#tongzhao_cn").val($(this).attr("title"));
+	});
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  <div class="clear"></div>
+</div>
+<div class="toptit">修改职位- <span style="color:#0066CC">{#$jobs.jobs_name#}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所属会员：{#$jobs.user.username#}</div>
+<form id="Form1" name="Form1" method="post" action="?act=editjobs_save"  onsubmit="return chk_form();">
+<input type="hidden" name="utype" value="{#$jobs.utype#}">
+<input type="hidden" name="companyname1" value="{#$jobs.companyname#}">
+{#$inputtoken#}
+<div class="toptit">第一步:公司基本描述</span> </div>
+  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+		{#if $jobs.utype=="1"#}
+          <tr>
+          <td width="150" height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span>招聘方公司的显示名称：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><a href="{#$jobs.company_url#}" target="_blank">{#$jobs.companyname#}</a></td>
+        </tr>
+        <tr>
+          <td  height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"  ><span style="color:#FF3300; font-weight:bold">*</span>招聘方公司备注名称：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><a href="{#$jobs.company_url#}" target="_blank">{#$jobs.companyname_note#}</a> </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span>企业性质：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">		  
+			{#$jobs.nature_cn#} 
+		  </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold;">*</span>所属行业：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+			{#$jobs.trade_cn#} 
+		   </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span>公司规模：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+			{#$jobs.scale_cn#} 
+ 		   </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top" style=" border-bottom:1px #CCCCCC dashed" >
+		  <span style="color:#FF3300; font-weight:bold">*</span> 公司介绍：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" > {#$jobs.company_desc#} </td>
+        </tr>
+		{#else#}
+        <tr>
+          <td width="150" height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span>招聘方公司的显示名称：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="companyname" type="text" class="input_text_200" id="companyname" maxlength="30"  style="width:350px;" value="{#$jobs.companyname#}" /></td>
+        </tr>
+        <tr>
+          <td  height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span>招聘方公司备注名称：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="companyname_note" type="text" class="input_text_200" id="companyname_note" maxlength="30"  style="width:350px;" value="{#$jobs.companyname_note#}" /></td>
+        </tr>
+        <tr>
+          <td height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span>企业性质：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">		  
+		   <div>
+		<input type="text" value="{#$jobs.nature_cn|default:"请选择企业性质"#} "  readonly="readonly" name="nature_cn" id="nature_cn" class="input_text_200 input_text_selsect"/>
+		<input name="nature" id="nature" type="hidden" value="{#$jobs.nature#} " />
+		<div id="menu8" class="menu">
+			<ul>
+			{#qishi_get_classify set="列表名:c_nature,类型:QS_company_type"#}{#foreach from=$c_nature item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>
+		  </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold;">*</span>所属行业：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		  <div>
+		<input type="text" value="{#$jobs.trade_cn|default:"请选择所属行业"#} "  readonly="readonly" name="trade_cn" id="trade_cn" class="input_text_200 input_text_selsect"/>
+		<input name="trade" id="trade" type="hidden" value=" {#$jobs.trade#}" />
+		<div id="menu9" class="dmenu shadow">
+			<ul>
+			{#qishi_get_classify set="类型:QS_trade,列表名:c_trade"#}{#foreach from=$c_trade item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>
+		   </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span>公司规模：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <div>
+		<input type="text" value="{#$jobs.scale_cn|default:"请选择公司规模"#} "  readonly="readonly" name="scale_cn" id="scale_cn" class="input_text_200 input_text_selsect"/>
+		<input name="scale" id="scale" type="hidden" value="{#$jobs.scale#} " />
+		<div id="menu10" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_scale,列表名:c_scale"#}{#foreach from=$c_scale item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>
+		   </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"  style=" border-bottom:1px #CCCCCC dashed">
+		  <span style="color:#FF3300; font-weight:bold">*</span> 公司介绍：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <textarea name="company_desc" class="input_text_200_textarea" id="company_desc" style="width:450px; height:150px; margin-bottom:6px;" > {#$jobs.company_desc#}</textarea>
+        </tr>
+	{#/if#}	  
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">刷新时间：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed" class="link_lan">
+          {#$jobs.refreshtime|date_format:"%Y-%m-%d"#}
+			 </td>
+        </tr>
+		</table>
+	<div class="toptit">第二步:职位基本描述</span> </div>
+  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+         <tr>
+          <td  height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 职位名称：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><input name="jobs_name" type="text" class="input_text_200" id="jobs_name" maxlength="30" style=" width:350px;" value="{#$jobs.jobs_name#}"/></td>
+        </tr>
+        <tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span>  招聘状态：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <label><input name="display"  type="radio" value="1" {#if $jobs.display eq "1"#}checked="checked"{#/if#} />招聘中</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 <label><input name="display"  type="radio" value="2" {#if $jobs.display eq "2"#}checked="checked"{#/if#} />暂停招聘</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 审核状态：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		   <label><input name="audit"  type="radio" value="1" {#if $jobs.audit eq "1"#}checked="checked"{#/if#} />审核通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    <label><input name="audit"  type="radio" value="2" {#if $jobs.audit eq "2"#}checked="checked"{#/if#} />审核中</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 
+		   <label><input name="audit"  type="radio" value="3" {#if $jobs.audit eq "3"#}checked="checked"{#/if#} />审核未通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"  ><span style="color:#FF3300; font-weight:bold">*</span> 职位类别：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		<div>
+		<input type="text" value="{#$jobs.category_cn|default:"请选择职位分类"#}"  readonly="readonly" name="category_cn" id="category_cn" class="input_text_200 input_text_selsect"/>
+		<input name="category" id="category" type="hidden" value="{#$jobs.category#}" />
+		<input name="subclass" id="subclass" type="hidden" value="{#$jobs.subclass#}" />
+		<div id="menu1" class="dmenu shadow" >
+			<ul>
+			{#qishi_get_classify set="列表名:c_jobs,类型:QS_hunter_jobs"#}{#foreach from=$c_jobs item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		<div id="menu1_s" class="dmenu shadow" style="display:none"></div>
+		  </div>
+		  
+		  </td>
+        </tr>
+        <tr>
+          <td width="100" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 所属部门：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><input name="department" type="text" class="input_text_200" id="department" maxlength="30"   value="{#$jobs.department#}"/></td>
+        </tr>
+        <tr>
+          <td width="100" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 汇报对象：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><input name="reporter" type="text" class="input_text_200" id="reporter" maxlength="30" value="{#$jobs.reporter#}" /></td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 工作地区：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		   <div>
+		<input type="text" value="{#$jobs.district_cn|default:"请选择工作地区"#}"  readonly="readonly" name="district_cn" id="district_cn" class="input_text_200 input_text_selsect"/>
+		<input name="district" id="district" type="hidden" value="{#$jobs.district#}" />
+		<input name="sdistrict" id="sdistrict" type="hidden" value="{#$jobs.sdistrict#}" />
+		<div id="menu3" class="dmenu shadow">
+			<ul>
+			{#qishi_get_classify set="类型:QS_district,id:0,列表名:c_province"#}{#foreach from=$c_province item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		<div id="menu3_s" class="dmenu shadow" style="display:none"></div>
+		  </div></td>
+        </tr>
+        <tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">有效时间：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">{#$jobs.deadline_days#}。<span style="color: #999999">(发布日期：{#$jobs.addtime|date_format:"%Y-%m-%d %H:%M"#}～截止日期：{#$jobs.deadline|date_format:"%Y-%m-%d %H:%M"#})</span><input name="olddeadline" type="hidden" value="{#$jobs.deadline#}" /></td>
+        </tr>
+		 <tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">增加有效时间：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><input name="days" type="text"  class="input_text_200" id="days"  value="0" maxlength="3" style="width:50px;"/> 天&nbsp;&nbsp;(0表示不延长)
+		  <span style="color: #0099FF" id="days_info"></span>
+		  </td>
+        </tr>
+		 <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" >
+		  <span style="color:#FF3300; font-weight:bold">*</span> 职位年薪：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		  <div>
+		<input type="text" value="{#$jobs.wage_cn|default:"请选择年薪范围"#}"  readonly="readonly" name="wage_cn" id="wage_cn" class="input_text_200 input_text_selsect"/>
+		<input name="wage" id="wage" type="hidden" value="{#$jobs.wage#}" />
+		<div id="menu6" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_hunter_wage,列表名:c_wage"#}{#foreach from=$c_wage item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>
+		  </td>
+        </tr>
+		
+        <tr>
+          <td width="100" height="30" align="right"style=" border-bottom:1px #CCCCCC dashed"  ><span style="color:#FF3300; font-weight:bold">*</span> 薪资构成：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed">
+		<div style="height:30px;line-height:30px">
+			<input type="hidden" value="薪资构成"  readonly="readonly" name="wage_structure_cn" id="wage_structure_cn" />
+			<input name="wage_structure" id="wage_structure" type="hidden" value="" />
+			<div id="menu_wage_structure" class="meun_x">
+				{#qishi_get_classify set="类型:QS_hunter_wage_structure,列表名:wage_structure"#}
+				{#foreach from=$wage_structure item=list#}
+				<label><input type="checkbox" name="wage_structure_se" value="{#$list.id#},{#$list.categoryname#}" id="{#$list.id#}" title="{#$list.categoryname#}" />{#$list.categoryname#}</label>
+				{#/foreach#}			
+			 </div>
+		 </div>
+		  </td>
+        </tr>
+		
+		
+		 <tr>
+          <td width="100" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" > 社保福利：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed">
+		<div>
+			<input type="hidden" value=""  readonly="readonly" name="socialbenefits_cn" id="socialbenefits_cn" />
+			<input name="socialbenefits" id="socialbenefits" type="hidden" value="" />
+			<div id="menu_socialbenefits" class="meun_x">
+				{#qishi_get_classify set="类型:QS_hunter_socialbenefits,列表名:socialbenefits"#}
+				{#foreach from=$socialbenefits item=list#}
+				<label><input type="checkbox" name="socialbenefits_se" value="{#$list.id#},{#$list.categoryname#}" id="{#$list.id#}" title="{#$list.categoryname#}" />{#$list.categoryname#}</label>
+				{#/foreach#}			
+			 </div>
+		 </div>
+		  </td>
+        </tr>
+
+		 <tr>
+          <td width="100" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" > 居住福利：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed">
+		<div>
+			<input type="hidden" value=""  readonly="readonly" name="livebenefits_cn" id="livebenefits_cn" />
+			<input name="livebenefits" id="livebenefits" type="hidden" value="" />
+			<div id="menu_livebenefits" class="meun_x">
+				{#qishi_get_classify set="类型:QS_hunter_livebenefits,列表名:livebenefits"#}
+				{#foreach from=$livebenefits item=list#}
+				<label><input type="checkbox" name="livebenefits_se" value="{#$list.id#},{#$list.categoryname#}" id="{#$list.id#}" title="{#$list.categoryname#}" />{#$list.categoryname#}</label>
+				{#/foreach#}			
+			 </div>
+		 </div>
+		  </td>
+        </tr>
+		
+		 <tr>
+          <td width="100" height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed"> 年假福利：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed">
+		<div>
+			<input type="hidden" value=""  readonly="readonly" name="annualleave_cn" id="annualleave_cn" />
+			<input name="annualleave" id="annualleave" type="hidden" value="" />
+			<div id="menu_annualleave" class="meun_x">
+				{#qishi_get_classify set="类型:QS_hunter_annualleave,列表名:annualleave"#}
+				{#foreach from=$annualleave item=list#}
+				<label><input type="checkbox" name="annualleave_se" value="{#$list.id#},{#$list.categoryname#}" id="{#$list.id#}" title="{#$list.categoryname#}" />{#$list.categoryname#}</label>
+				{#/foreach#}			
+			 </div>
+		 </div>
+		  </td>
+        </tr>
+		
+        <tr>
+          <td align="right" valign="top" style=" border-bottom:1px #CCCCCC dashed" >
+		  <span style="color:#FF3300; font-weight:bold">*</span> 职位描述：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <div><textarea name="contents" class="input_text_200_textarea" id="contents" style="width:450px; height:150px;" >{#$jobs.contents#}</textarea><br />
+			</div>
+        </tr>
+		</table>
+	<div class="toptit"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本素质要求  </div>
+  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+ 		 <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" >
+		  <span style="color:#FF3300; font-weight:bold">*</span> 年龄要求：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <div>
+		<input type="text" value="{#$jobs.age_cn|default:"请选择年龄要求"#}"  readonly="readonly" name="age_cn" id="age_cn" class="input_text_200 input_text_selsect"/>
+		<input name="age" id="age" type="hidden" value="{#$jobs.age#}" />
+		<div id="menu7" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_hunter_age,列表名:c_age"#}{#foreach from=$c_age item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 性别要求：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		   <label><input name="sex"  type="radio" value="3" {#if $jobs.sex=="3"#}checked="checked"{#/if#} title="不限"/>不限</label>&nbsp;&nbsp;&nbsp;
+		   <label><input name="sex"  type="radio" value="1" {#if $jobs.sex=="1"#}checked="checked"{#/if#} title="男"/>男</label>&nbsp;&nbsp;&nbsp;
+		   <label><input name="sex"  type="radio" value="2" {#if $jobs.sex=="2"#}checked="checked"{#/if#} title="女"/>女</label>&nbsp;&nbsp;&nbsp;
+		   <input name="sex_cn"  id="sex_cn" type="hidden" value="{#$jobs.sex_cn#}" />
+		   </td>
+        </tr>
+		
+		<tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span> 工作经验：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >		  
+		  <div>
+		<input type="text" value="{#$jobs.experience_cn|default:"不限制"#}"  readonly="readonly" name="experience_cn" id="experience_cn" class="input_text_200 input_text_selsect"/>
+		<input name="experience" id="experience" type="hidden" value="{#$jobs.experience#}" />
+		<div id="menu5" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_experience"#}{#foreach from=$list item=ex#}
+			<li id="{#$ex.id#}" title="{#$ex.categoryname#}">{#$ex.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>		   
+		  </td>
+		</tr>
+	    <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" ><span style="color:#FF3300; font-weight:bold">*</span>  学历要求：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		   <div>
+		<input type="text" value="{#$jobs.education_cn|default:"不限制"#}"  readonly="readonly" name="education_cn" id="education_cn" class="input_text_200 input_text_selsect"/>
+		<input name="education" id="education" type="hidden" value="{#$jobs.experience#}" />
+		<div id="menu4" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_education,列表名:c_education"#}{#foreach from=$c_education item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>		
+		    </td>
+          </tr>
+		
+		<tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" >是否统招：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		   <label><input name="tongzhao"  type="radio" value="2" {#if $jobs.tongzhao=="2"#}checked="checked"{#/if#} title="不限"/>不限</label>&nbsp;&nbsp;&nbsp;
+		   <label><input name="tongzhao"  type="radio" value="1" {#if $jobs.tongzhao=="1"#}checked="checked"{#/if#} title="是"/>是</label>&nbsp;&nbsp;&nbsp;
+		   <input name="tongzhao_cn" type="hidden"  id="tongzhao_cn" value="{#$jobs.tongzhao_cn#}" />
+		   </td>
+        </tr>
+		 <tr>
+          <td width="100" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" >语言要求：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed">
+		<div>
+			<input type="hidden" value=""  readonly="readonly" name="language_cn" id="language_cn" />
+			<input name="language" id="language" type="hidden" value="" />
+			<div id="menu_language" class="meun_x">
+				{#qishi_get_classify set="类型:QS_language,列表名:language"#}
+				{#foreach from=$language item=list#}
+				<label><input type="checkbox" name="language_se" value="{#$list.id#},{#$list.categoryname#}" id="{#$list.id#}" title="{#$list.categoryname#}" />{#$list.categoryname#}</label>
+				{#/foreach#}			
+			 </div>
+		 </div>
+		  </td>
+        </tr>
+         <tr>
+          <td valign="top" align="right" style=" border-bottom:1px #CCCCCC dashed">
+		  <span style="color:#FF3300; font-weight:bold">*</span> 任职资格：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		  <div><textarea name="jobs_qualified" class="input_text_200_textarea" id="jobs_qualified" style="width:450px; height:150px;" >{#$jobs.jobs_qualified#}</textarea><br />
+		</div>
+        </tr>
+	</table>	
+	<div class="toptit"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期望人选来源  </div>
+  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+ 			<tr>
+              <td height="30" align="right" valign="top" width="120" style=" border-bottom:1px #CCCCCC dashed"><strong  style="color:#FF0000">*</strong>期望人选来源行业：</td>
+              <td style=" border-bottom:1px #CCCCCC dashed">	
+			   <input type="button" name="Submit23" value="选择 / 修改" class="admin_submit"  id="showtrade"/>
+			   <div id="trade_txt" style="color: #006699; line-height:30px;">{#$jobs.hopetrade_cn|default:"请选择期望来源行业"#}</div>
+			   <input name="hopetrade_cn" id="hopetrade_cn" type="hidden" value="{#$jobs.hopetrade_cn#}" />
+			   <input name="hopetrade" id="hopetrade" type="hidden" value="{#$jobs.hopetrade#}" />
+			   
+			   
+							   <div  style="display:none" id="sel_trade">
+							<div class="OpenFloatBoxBg" ></div>
+							<div class="OpenFloatBox">
+									<div class="title"><h4>请选择行业</h4><div class="DialogClose" title="关闭"></div></div>
+									<div class="tip">可多选，最多选择5项</div>
+									<div class="content link_lan">					
+												<div class="txt">							
+														{#qishi_get_classify set="列表名:c_trade,类型:QS_trade"#}{#foreach from=$c_trade item=list#}
+														<div class="item" id="{#$list.id#}">
+																<label title="{#$list.categoryname#}" class="titem" >
+																<input  type="checkbox" value="{#$list.id#}"  title="{#$list.categoryname#}" class="b" />{#$list.categoryname#}
+																</label>
+														</div>
+														{#/foreach#}
+														<div class="clear"></div>
+												</div>						
+												<div class="txt">
+												<div align="center"><input type="button"  class="but80 Set" value="确定" /></div>
+												</div>			
+									</div>
+							</div>
+					  </div>
+			  </td>
+         </tr>
+
+        <tr>
+          <td align="right" valign="top" style=" border-bottom:1px #CCCCCC dashed"> 补充说明：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <div><textarea name="extra_message" class="input_text_200_textarea" id="extra_message" style="width:450px; height:150px;" >{#$jobs.extra_message#}</textarea><br />
+		</div>
+        </tr>
+	</table>
+<div class="toptit">联系方式</div>
+		  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+		<tr>
+          <td  width="100" height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联 系 人：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="contact" type="text" class="input_text_200" id="contact" value="{#$jobs.contact#}" maxlength="15" />
+           <label><input name="contact_show"  type="checkbox" value="1" {#if $jobs.contact_show=="1"#}checked="checked"{#/if#} />联系人在职位详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold"> </span>联系人QQ号码：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="qq" type="text" class="input_text_200" id="qq" maxlength="50" value="{#$jobs.qq#}" />
+		  <label><input name="qq_show"  type="checkbox" value="1" {#if $jobs.qq_show=="1"#}checked="checked"{#/if#}/>联系qq在职位详细页中显示</label>
+           </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联系电话：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="telephone" type="text" class="input_text_200" id="telephone" maxlength="35" value="{#$jobs.telephone#}" />
+           <label><input name="telephone_show"  type="checkbox" value="1" {#if $jobs.telephone_show=="1"#}checked="checked"{#/if#} />联系电话在职位详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联系地址：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="address" type="text" class="input_text_200" id="address" maxlength="50"  value="{#$jobs.address#}"/>
+           <label><input name="address_show"  type="checkbox" value="1" {#if $jobs.address_show=="1"#}checked="checked"{#/if#} />联系地址在职位详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联系邮箱：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><label>
+          <input name="email" type="text" class="input_text_200" id="email" maxlength="80"  value="{#$jobs.email#}"/>
+          </label>
+           <label><input name="email_show"  type="checkbox" value="1" {#if $jobs.email_show=="1"#}checked="checked"{#/if#} />联系邮箱在职位详细页中显示
+		  </td>
+        </tr>
+		
+		{#if $QISHI.subsite=="1"#}
+	<tr>
+    <td align="right">添加到：</td>
+    <td>
+       <label ><input name="subsite_id" type="radio" value="0" {#if $jobs.subsite_id=="0"#}checked="checked"{#/if#}/>全站</label>
+		&nbsp;&nbsp;&nbsp;
+		{#foreach from=$subsite item=li#}
+		<label ><input name="subsite_id" type="radio" value="{#$li.s_id#}" {#if $jobs.subsite_id==$li.s_id#}checked="checked"{#/if#}/>{#$li.s_districtname#}</label>
+		&nbsp;&nbsp;&nbsp;
+		{#/foreach#}
+	  
+	  </td>
+    </tr>
+	 {#/if#}
+		
+		<tr>
+            <td height="30" align="right" bgcolor="#FFFFFF" >&nbsp;</td>
+            <td height="120" bgcolor="#FFFFFF"><span style="font-size:14px;">
+              <input type="hidden" name="id"  value="{#$jobs.id#}" />
+			  <input type="hidden" name="company_id"  value="{#$jobs.company_id#}" />			  
+			  <input type="hidden" name="url"  value="{#$url#}" />
+              <input name="submit3" type="submit" class="admin_submit"    value="保存修改"/> 
+              <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="window.location.href='{#$url#}'"/>
+            </span></td>
+          </tr>
+  </table>
+  </form>
+ </div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

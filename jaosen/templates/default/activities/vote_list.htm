@@ -1,0 +1,72 @@
+{#include file="sys/admin_header.htm"#}
+
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        <div class="clear"></div>
+    </div>
+    <form method="get" action="">
+        <div class="seltpye_x">
+            <div class="left">参赛编号</div>	
+            <div class="right">
+                <input type="text" name="id" value="" />
+                <input class="search_submit" type="submit" value="搜索"/>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+
+    <form id="form1" name="form1" method="post" action="?act=set_audit">
+        {#$inputtoken#}
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+            <tr>
+                <td  class="admin_list_tit admin_list_first">
+                    <label id="chkAll">ID</label>
+                </td>
+                <td  width="50%" class="admin_list_tit">作品编号</td> 
+                <td  width="50%" class="admin_list_tit">投票IP</td> 
+                <td  width="10%" align="center" class="admin_list_tit">投票次数</td>  
+            </tr>
+            {#if !empty($data_list)#}
+            {#foreach from=$data_list item=list#}
+            <tr >
+                <td class="admin_list admin_list_first" >
+                    <a href="/activities/details.php?id={#$list.id#}" target="_blank">{#$list.id#}</a>
+                </td>
+                <td class="admin_list" >
+                    {#$list.pid#}
+                </td>
+                <td class="admin_list" >
+                    {#$list.ip#}
+                </td>
+                <td class="admin_list" >
+                    {#$list.ip_vote#}
+                </td>
+            </tr>
+            {#/foreach#}
+            {#/if#}
+        </table>
+    </form>
+    <div class="page link_bk">
+        {#if $page_arr.cur_page > 1#}
+        <a class="per" href="?id={#$id#}&p={#$page_arr.per_page#}">上一页</a>
+        {#/if#}
+        {#if $page_arr.cur_page > 3#}
+        <i>......</i>
+        {#/if#}
+        {#foreach from=$page_arr.page_arr item=pa#}
+        <a class="page {#if $page_arr.cur_page == $pa#}hover{#/if#}" href="?id={#$id#}&p={#$pa#}">{#$pa#}</a>
+        {#/foreach#}
+        {#if $page_arr.cur_page < ($page_arr.total-2)#}
+        <i>......</i>
+        {#/if#}
+        {#if $page_arr.cur_page < $page_arr.total#}
+        <a class="next" href="?id={#$id#}&p={#$page_arr.next_page#}">下一页</a>
+        {#/if#}
+    </div>
+</div>
+
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

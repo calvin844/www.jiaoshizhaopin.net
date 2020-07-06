@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type='text/javascript' ></script>
+</head>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+
+当前位置：<a href="{#$QISHI.site_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#$userindexurl#}">会员中心</a>&nbsp;>&nbsp;职位评论 
+</div>
+<table width="985" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:8px;" >
+  <tr>
+    <td width="173" valign="top" class="link_bk">
+	{#include file="member_company/left.htm"#}
+	</td>
+    <td valign="top"> 
+	{#qishi_jobs_show set="列表名:show,职位ID:GET[jobsid],描述长度:68,填补字符:..."#}
+	<div class="user_right_box">
+		<div class="user_right_top_tit_bg">		
+		  <h1>{#$show.jobs_name#} - 职位评论</h1>
+		</div>
+		
+<form id="form1" name="form1" method="post" action="?act=comment_del">
+   <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0"  class="link_lan"  style=" margin-top:15px;">
+              <tr>
+                <td width="120" height="26" class="us_list_title">
+				<label id="chkAll"><input type="checkbox" name="chkAll"  id="chk" title="全选/反选" />
+				发表者				</label></td>
+                <td width="120" class="us_list_title" >发表时间</td>
+                <td class="us_list_title">内容</td>
+            </tr>
+				 {#foreach from=$list item=list#}
+              <tr>
+                <td height="32" class="us_list" >
+				<input name="id[]" type="checkbox" id="id"  value="{#$list.id#}"/>
+				{#$list.username#}</td>
+                <td class="us_list">
+				{#$list.addtime|date_format:"%Y-%m-%d %H:%M"#}</td>
+                <td class="us_list vtip"  title='<strong>{#$list.username#}</strong>说：<br />{#$list.content#}'>
+				{#$list.content_#}
+				</td>
+              </tr>
+	 
+				{#/foreach#}
+          </table>
+{#if !$list#}
+			<div class="us_list_no_content">没有您要找的信息</div>
+			{#/if#}
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="8">
+              <tr>
+                <td>
+				<input name="jobs_id" type="hidden" value="{#$smarty.get.jobsid#}" />
+				{#if $list#}
+				<input type="submit" name="delete" value="删除所选"   class="user_submit"  onClick="return confirm('您确定删除吗?')"/>
+				{#/if#}
+                </td>
+              </tr>
+            </table>
+			
+            <table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+              <tr>
+                <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+              </tr>
+            </table> 
+        </form>
+			 </div>
+    </td>
+  </tr>
+</table>
+{#include file="footer.htm"#}
+</body>
+</html>

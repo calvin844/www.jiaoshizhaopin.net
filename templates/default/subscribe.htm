@@ -1,0 +1,367 @@
+{#qishi_pageinfo set="列表名:page,调用:QS_subscribe"#}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/subscribe.css" type="text/css" rel="stylesheet"/>
+        <title>职位订阅_{#$QISHI.site_name#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script>
+            $(document).ready(function () {
+                function imgcaptcha(inputID, imgdiv) {
+                    $(inputID).focus(function () {
+                        //设置验证码DIV
+                        $(imgdiv).show();
+                        if ($(imgdiv).html() == '')
+                        {
+                            $(imgdiv).append("<img src=\"{#$QISHI.site_dir#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function ()
+                        {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                            $(inputID).val("");
+                        });
+                        $(document).unbind().click(function (event)
+                        {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha")
+                            {
+                                $(imgdiv).hide();
+                                $(inputID).parent("div").css("position", "");
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+                function menuDown(menuId) {
+                    $("#content").off('click', "#" + menuId + " div.text");
+                    $("#content").on('click', "#" + menuId + " div.text", function () {
+                        $(".select_box").find('ul.list').slideUp("fast");
+                        $("#" + menuId).find('ul.list').slideDown('fast');
+                        //生成背景
+                        $("#" + menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $("#" + menuId).find('ul.list').slideUp("fast");
+                            $("#" + menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $("#content").off('click', "#" + menuId + " ul.list li");
+                    $("#content").on('click', '#' + menuId + ' ul.list li', function () {
+                        var data = $(this).attr("data");
+                        var text = $(this).find('span').html();
+                        var sdistrict = $('#' + menuId).attr('data-sdistrict');
+                        var job = $('#' + menuId).attr('data-job');
+                        $("#" + menuId).find('input[type="hidden"]').val(data);
+                        $("#" + menuId).find('div.text span').html(text);
+                        $("#" + menuId).find('ul.list').slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                        if (sdistrict == 1) {
+                            var data_arr = data.split('-');
+                            $.get("/plus/ajax_common.php?act=get_city&id=" + data_arr[0], function (result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.sdistrict ul.list').html(html)
+                                $("#" + menuId).parent().find('.sdistrict .text span').html('全部')
+                                $("#" + menuId).parent().find('.sdistrict input').attr('value', '0-全部')
+                            });
+                        }
+                        if (job == 1) {
+                            var data_arr = data.split('-');
+                            $.get("/plus/ajax_common.php?act=get_job_type&id=" + data_arr[0], function (result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.job_type ul.list').html(html)
+                                $("#" + menuId).parent().find('.job_type .text span').html('请选择分类')
+                                $("#" + menuId).parent().find('.job_type input').attr('value', '')
+                            });
+                        }
+                    });
+                }
+                $('div.select_box').each(function () {
+                    var did = $(this).attr('id');
+                    menuDown(did);
+                })
+            })
+        </script>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="box_title">
+                        <p>订阅栏</p>
+                    </div>
+                    <form id="subscribe_form">
+                        <div class="item_box">
+                            <label class="item_name">邮箱：</label>
+                            <div class="input_box">
+                                <input type="text" class="text" name="email" value="{#if !empty($user.email)#}{#$user.email#}{#/if#}" />
+                            </div>
+                        </div>
+                        <div class="item_box intention_job">
+                            <label class="item_name">期望岗位：</label>
+                            <div class="input_box">
+                                <div class="select_box half" data-job="1" id="job_ptype">
+                                    <div class="text">
+                                        <span>请选择分类</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$category item=list#}
+                                        {#if $list.parentid == 0 #}
+                                        <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                        {#/if#}
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="job_ptype" id="job_ptype_value" value="" />
+                                </div>
+                                <div class="select_box half job_type" id="job_type">
+                                    <div class="text">
+                                        <span>请选择子类</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list"></ul>
+                                    <input type="hidden" name="job_type" id="job_type_value" value="" />
+                                </div>
+                            </div>
+                            <a id="add_job"  >添加</a>
+                            <div class="clear"></div>
+                            <ul class="select_list"></ul>
+                            <input name="intention_jobs" id="intention_jobs" type="hidden" value="" />
+                            <input name="type_id" id="intention_jobs_id"  type="hidden" value="" />
+                            <div class="clear"></div>
+                            <script>
+                                var job_str = $('#intention_jobs_id').val();
+                                var job_id_str = "";
+                                var job_cn_str = "";
+                                var job_list_str = "";
+                                if (job_str != "") {
+                                    if (job_str.indexOf(',') > 0) {
+                                        var arr = job_str.split(',');
+                                    } else {
+                                        var arr = new Array(job_str);
+                                    }
+                                    for (var i = 0; i < arr.length; i++) {
+                                        var item = arr[i].split('||');
+                                        job_id_str += item[0] + ",";
+                                        job_cn_str += item[1] + ",";
+                                        job_list_str += '<li id="j' + item[0] + '"><span>' + item[1] + '</span><a  ></a></li>';
+                                    }
+                                    job_id_str = job_id_str.slice(0, -1);
+                                    job_cn_str = job_cn_str.slice(0, -1);
+                                    $('.intention_job ul.select_list').html(job_list_str);
+                                    $('#intention_jobs').val(job_cn_str);
+                                    $('#intention_jobs_id').val(job_id_str);
+                                }
+                                $('.intention_job ul.select_list li a').click(function () {
+                                    $(this).parent().remove();
+                                    reset_intention_jobs();
+                                })
+                                $('.intention_job a#add_job').click(function () {
+                                    var parent = $('#job_ptype_value').val();
+                                    var son = $('#job_type_value').val();
+                                    if (son == "") {
+                                        alert("请选择职位分类！");
+                                        return false;
+                                    }
+                                    var parent_arr = parent.split('-');
+                                    var son_arr = son.split('-');
+                                    var job_id = "0." + parent_arr[0] + "." + son_arr[0];
+                                    var job_cn = parent_arr[1] + "-" + son_arr[1];
+                                    var li_length = 0;
+                                    var li_total = 0;
+                                    $('.intention_job ul.select_list li').each(function () {
+                                        li_total = li_total + 1;
+                                        if ($(this).attr('id') == "j" + job_id) {
+                                            li_length = 1;
+                                        }
+                                    })
+                                    if (li_total == 5) {
+                                        alert('最多只能选择5个期望职位！');
+                                        return false;
+                                    }
+                                    if (li_length < 1) {
+                                        $('.intention_job ul.select_list').append('<li id="j' + job_id + '"><span>' + job_cn + '</span><a></a></li>')
+                                    } else {
+                                        alert('该职位已存在！')
+                                    }
+                                    reset_intention_jobs();
+                                })
+                                function reset_intention_jobs() {
+                                    var job_id_str = "";
+                                    var job_cn_str = "";
+                                    if ($('.intention_job ul.select_list li').length > 0) {
+                                        $('.intention_job ul.select_list li').each(function () {
+                                            job_id_str += $(this).attr('id').slice(1) + ",";
+                                            job_cn_str += $(this).find('span').html() + ",";
+                                        })
+                                        job_id_str = job_id_str.slice(0, -1);
+                                        job_cn_str = job_cn_str.slice(0, -1);
+                                    }
+                                    $('#intention_jobs').val(job_cn_str);
+                                    $('#intention_jobs_id').val(job_id_str);
+                                }
+                            </script>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">地区：</label>
+                            <div class="input_box">
+                                <div class="select_box half" data-sdistrict="1" id="district">
+                                    <div class="text">
+                                        <span>请选择地区</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <li data="{#$c.id#}-{#$c.categoryname#}"><span>{#$c.categoryname#}</span></li>
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="district" id="residence_district_value" value="" />
+                                </div>
+                                <div class="select_box half sdistrict" id="sdistrict">
+                                    <div class="text">
+                                        <span>请选择地区</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list"></ul>
+                                    <input type="hidden" name="sdistrict" id="sdistrict_value" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">发送周期：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="days">
+                                    <div class="text">
+                                        <span>3天</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        <li data="3"><span>3天</span></li>
+                                        <li data="7"><span>7天</span></li>
+                                        <li data="15"><span>15天</span></li>
+                                    </ul>
+                                    <input type="hidden" name="days" id="nature_value" value="3" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box img_code">
+                            <label class="item_name">验证码：</label>
+                            <div class="input_box">
+                                <input type="text" placeholder="点击获取验证码"  name="postcaptcha" id="postcaptcha" class="text" value="" />
+                            </div>
+                            <div id="imgdiv"></div>
+                        </div>
+                        <input type="submit" class="submit" value="立即订阅" />
+                    </form>
+                    <script>
+                        $('#subscribe_form').submit(function () {
+                            var email = $("input[name=email]").val();
+                            var type_id = $("input[name=type_id]").val();
+                            var district = $("input[name=district]").val();
+                            var sdistrict = $("input[name=sdistrict]").val();
+                            var days = $("input[name=days]").val();
+                            var postcaptcha = $("input[name=postcaptcha]").val();
+                            $.post("/subscribe/submit.php", {email: email, type_id: type_id, district: district, sdistrict: sdistrict, days: days, postcaptcha: postcaptcha}, function (result) {
+                                alert(result);
+                                if (result == "恭喜您订阅成功！") {
+                                    window.location.href = "/user/personal/personal_resume.php?act=edit_resume";
+                                }
+                            });
+                            return false;
+                        })
+                    </script>
+                </div>
+                <div class="right_box">
+                    {#if !empty($user)#}
+                    <div class="function_box">
+                        <ul>
+                            <li class="apply">
+                                <a href="/user/personal/personal_apply.php?act=apply_jobs">
+                                    <i></i>
+                                    <label>{#$count_apply#}</label>
+                                    <div class="clear"></div>
+                                    <span>投递箱</span>
+                                </a>
+                            </li>
+                            <li class="fav">
+                                <a href="/user/personal/personal_apply.php?act=favorites">
+                                    <i></i>
+                                    <label>{#$favorites_total#}</label>
+                                    <div class="clear"></div>
+                                    <span>收藏夹</span>
+                                </a>
+                            </li>
+                            <li class="invitation">
+                                <a href="/user/personal/personal_apply.php?act=interview">
+                                    <i></i>
+                                    <label>{#$count_interview#}</label>
+                                    <div class="clear"></div>
+                                    <span>邀请函</span>
+                                </a>
+                            </li>
+                            <li class="rss">
+                                <a href="/subscribe/">
+                                    <i></i>
+                                    <label></label>
+                                    <div class="clear"></div>
+                                    <span>订阅栏</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {#/if#}
+
+                    <div class="item_box">
+                        <p>订阅说明</p>
+                        <span>1、系统自动依据您的订阅条件，及时为您推送最新职位信息，不错过每一个工作机会。</span>
+                        <span>2、帮助你节省浏览和筛选时间，快速找到适合的职位信息。</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <div id="footer_list">
+            <div class="main_box">
+                <a href="#">关于我们</a>
+                <a href="#">服务协议</a>
+                <a href="#">网站声明</a>
+                <a href="#">联系我们</a>
+                <a href="#">商务合作</a>
+                <a href="#">招聘套餐</a>
+                <a href="#">良师直聘</a>
+                <a href="#">帮助中心</a>
+                <div class="clear"></div>
+                <p>Copyright&nbsp;2007-2017&nbsp;&copy;&nbsp;教师招聘网&nbsp;粤ICP备10085786号&nbsp;粤B2-20090053&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">XML地图</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">网站地图</a></p>
+            </div>
+        </div>
+    </body>
+</html>

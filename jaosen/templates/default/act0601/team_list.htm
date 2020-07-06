@@ -1,0 +1,134 @@
+{#include file="sys/admin_header.htm"#}
+
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        <div class="clear"></div>
+    </div>
+    <form method="get" action="">
+        <div class="seltpye_x">
+            <div class="left">类型</div>	
+            <div class="right">
+                <a href="/jaosen/admin_act0601.php">作品</a>&nbsp;&nbsp;
+                <a style="color: #00aaee" href="/jaosen/admin_act0601_team.php">团员</a>&nbsp;&nbsp;
+                <a href="/jaosen/admin_act0601_comment.php">点评</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="seltpye_x">
+            <div class="left">认证状态</div>	
+            <div class="right">
+                <select style="margin: 5px 0px 0px 0px;" name="audit">
+                    <option {#if $audit == 0#}selected{#/if#} value="0">全部</option>
+                    <option {#if $audit == 1#}selected{#/if#} value="1">未认证</option>
+                    <option {#if $audit == 2#}selected{#/if#} value="2">审核通过</option>
+                    <option {#if $audit == 3#}selected{#/if#} value="3">审核不通过</option>
+                </select>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="seltpye_x">
+            <div class="left" style="width: 100px;">
+                <select style="margin: 5px 0px 0px 0px;" class="search_key" name="key">
+                    <option {#if $key == 1#}selected{#/if#} value="1">编号</option>
+                    <option {#if $key == 2#}selected{#/if#} value="2">用户姓名</option>
+                    <option {#if $key == 3#}selected{#/if#} value="3">团长姓名</option>
+                    <option {#if $key == 4#}selected{#/if#} value="4">认证状态</option>
+                </select>
+            </div>	
+            <div class="right">
+                <input class="search_value" type="text" name="value" value="{#$value#}" />
+                <input class="search_submit" type="submit" value="搜索"/>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+
+    <form id="form1" name="form1" method="post" action="?act=set_audit">
+        {#$inputtoken#}
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+            <tr>
+                <td  class="admin_list_tit admin_list_first">
+                    <label id="chkAll"><input type="checkbox" name=" " title="全选/反选" id="chk"/>编号</label>
+                </td>
+                <td  width="20%" class="admin_list_tit">用户姓名</td> 
+                <td  width="45%" align="center" class="admin_list_tit">团长作品</td> 
+                <td  width="10%" align="center" class="admin_list_tit">团长姓名</td>  
+                <td width="10%" align="center" class="admin_list_tit">用户手机</td>
+                <td width="5%" align="center" class="admin_list_tit">认证状态</td>
+                <td width="5%" align="center" class="admin_list_tit">操作</td>
+            </tr>
+            {#foreach from=$data_list item=list#}
+            <tr >
+                <td class="admin_list admin_list_first" >
+                    <input name="id[]" type="checkbox" id="y_id" value="{#$list.id#}" />
+                    {#$list.id#}
+                </td>
+
+                <td  class="admin_list">
+                    <a href="/jaosen/admin_personal.php?act=management&id={#$list.resume.uid#}" target="_blank">{#$list.resume.fullname#}</a>
+                </td>
+
+                <td  align="center" class="admin_list">
+                    <a href="/act0601/details.php?id={#$list.item.id#}&admin=1" target="_blank">{#$list.item.title#}</a>
+                    
+                </td>
+
+                <td align="center" class="admin_list">
+                    <a href="/jaosen/admin_personal.php?act=management&id={#$list.leader_resume.uid#}" target="_blank">{#$list.leader_resume.fullname#}</a>
+                </td>
+
+                <td align="center" class="admin_list">
+                    {#$list.resume.telephone#}
+                </td>
+
+                <td align="center" class="admin_list">
+                    {#if $list.audit == "1"#}未认证{#/if#}
+                    {#if $list.audit == "2"#}<span style="color: #009900">认证通过</span>{#/if#}
+                    {#if $list.audit == "3"#}认证未通过{#/if#}
+                </td>
+                <td width="15%" align="center" class="admin_list">
+                    <a href="/jaosen/admin_act0601_team.php?act=del_team&id={#$list.id#}"  target="_blank"  class="userinfo">删除</a>
+                </td>
+            </tr>
+            {#/foreach#}
+        </table>
+        <table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+            <tr>
+                <td>
+                    <label>状态</label>
+                    <select name="audit">
+                        <option value="1">未审核</option>
+                        <option value="2">审核通过</option>
+                        <option value="3">审核不通过</option>
+                    </select>
+                    <input type="submit" value="提交"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="page link_bk">
+        {#if $page_arr.cur_page > 1#}
+        <a class="per" href="?key={#$key#}&value={#$value#}&p={#$page_arr.per_page#}">上一页</a>
+        {#/if#}
+        {#if $page_arr.cur_page > 3#}
+        <i>......</i>
+        {#/if#}
+        {#foreach from=$page_arr.page_arr item=pa#}
+        <a class="page {#if $page_arr.cur_page == $pa#}hover{#/if#}" href="?key={#$key#}&value={#$value#}&p={#$pa#}">{#$pa#}</a>
+        {#/foreach#}
+        {#if $page_arr.cur_page < ($page_arr.total-2)#}
+        <i>......</i>
+        {#/if#}
+        {#if $page_arr.cur_page < $page_arr.total#}
+        <a class="next" href="?key={#$key#}&value={#$value#}&p={#$page_arr.next_page#}">下一页</a>
+        {#/if#}
+    </div>
+</div>
+
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

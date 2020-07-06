@@ -1,0 +1,105 @@
+{#qishi_jobfair_show set="列表名:show,招聘会ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$show.title#} - 参会企业 - 招聘会 - {#$QISHI.site_name#}</title>
+        <meta name="description" content="{#$show.description#}">
+            <meta name="keywords" content="{#$show.keywords#}">
+                <meta name="author" content="骑士CMS" />
+                <meta name="copyright" content="74cms.com" />
+                <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+                <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+                <link href="{#$QISHI.site_template#}css/jobfair.css" rel="stylesheet" type="text/css" />
+                <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+                <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+                <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $(".booth").click(function () {
+                            $.get("{#$QISHI.website_dir#}plus/ajax_booth_jobfair.php?act=booth&id={#$show.id#}", function (result) {
+                                dialog("温馨提示", "text:" + result, "400px", "", "", "");
+                            });
+                        });
+                    });
+                    $(function () {
+                        $("input[type='button']").hover(function () {
+                            $(this).addClass("hover");
+                        }, function () {
+                            $(this).removeClass("hover");
+                        })
+                    })
+                </script>
+                </head>
+                <body>
+                    {#include file="header.htm"#}
+                    <!-- 当前位置 -->
+                    <div class="page_location link_bk">
+                        当前位置：<a href="{#$QISHI.website_dir#}">首页</a>><a href="{#"QS_jobfairlist"|qishi_url#}">招聘会</a>>详情
+                    </div>
+                    <!-- 主体内容 -->
+                    <div class="container link_bk">
+                        <div class="rec_info">
+                            <div class="info_bbox">
+                                <div class="streamer"></div>
+                                <div class="calendar">
+                                    <div class="cal1">{#$show.holddates|date_format:"%Y"#}年</div>
+                                    <div class="cal2">{#$show.holddates_week#}</div>
+                                    <div class="cal3">{#$show.holddates|date_format:"%d"#}</div>
+                                    <div class="cal4">{#$show.holddates|date_format:"%m"#}月</div>
+                                </div>
+                                <div class="info_txt ex">
+                                    <h3>{#$show.title#}</h3>
+                                    <ul>
+                                        <li><span>行业主题：</span>{#$show.industry#}</li>
+                                        <li><span>联 系 人：</span>{#$show.contact#}</li>
+                                        <li><span>举办时间：</span>{#$show.holddates|date_format:"%Y年%m月%d日"#}</li>
+                                        <li><span>咨询电话：</span>{#$show.phone#}</li>
+                                        <li><span>举办地址：</span>{#$show.address#}</li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="info_but">
+                                    <input type="button"  {#if $show.predetermined_ok=="1" && $show.predetermined_web=="1"#}class="but125_35lan booth" value="在线预订"{#else#} class="but125_35hui" value="已停止在线预定"{#/if#}/>
+                                           <input type="button" value="参会企业" class="but125_35lan" onclick="javascript:location.href = '{#$show.exhibitorsurl#}'"/>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <!-- 参会企业-->
+
+                        <div class="present">
+                            <div class="pre_tit">
+                                <h4>参会企业</h4>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <table class="acceding">
+                            <tbody>
+                                <tr align="left">
+                                    <th width="287">企业名称</th>
+                                    <th width="198">公司性质</th>
+                                    <th width="466">招聘职位</th>
+                                </tr>
+                                {#qishi_jobfair_exhibitors_list set="列表名:list,显示数目:20,招聘会ID:GET[id],分页显示:1"#}
+                                {#foreach from=$list item=list#}
+                                <tr>
+                                    <td width="287">
+                                        {#if $list.url#}
+                                        <a href="{#$list.url#}" target="_blank">{#$list.companyname#}</a>
+                                        {#else#}
+                                        {#$list.companyname#}
+                                        {#/if#}
+                                    </td>
+                                    <td width="198">{#$list.nature_cn#}</td>
+                                    <td width="466">{#$list.jobslist#}</td>
+                                </tr>
+                                {#/foreach#} 
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    {#include file="footer.htm"#}
+
+                </body>
+                </html>

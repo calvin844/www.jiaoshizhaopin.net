@@ -1,0 +1,351 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+ <script type="text/javascript" src="js/jquery.iColorPicker.js"></script>
+ <script src="js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_dir#}data/cache_classify.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.jobfair.js" type='text/javascript' language="javascript"></script>
+<script src="http://api.map.baidu.com/api?v=1.1" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//日期
+	$(function() { 
+	$(".date_input").date_input(); 
+	});
+	
+	
+	//指定密码类型
+	var status=$("#status :radio[checked]").val();
+	status=="1"?$(".status1").show():$(".status1").hide();
+	$("#status :radio").click(function(){
+	var status=$("#status  :radio[checked]").val();
+	status=="1"?$(".status1").show():$(".status1").hide();
+	});	  
+	OpentradeLayer("#showtrade","#trade","#trade_cn","#trade_txt","#sel_trade",80);
+	var get_trade="{#$info.trade#}";
+	if (get_trade!="")
+	{
+		get_trade=get_trade.split(",");
+		for( var i=0;i<get_trade.length;++i)
+		{
+			$("#sel_trade :checkbox").each(function(index)
+				{
+					if ($(this).val()==get_trade[i]) $(this).attr("checked",true)
+			
+				});
+		}
+		$("#sel_trade  :checkbox").parent().css("color","");
+		$("#sel_trade  :checkbox[checked]").parent().css("color","#009900");
+	}
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="jobfair/admin_jobfair_nav.htm"#}
+  <div class="clear"></div>
+</div>
+  <form action="?act=editsave" method="post"   name="FormData" id="FormData" enctype="multipart/form-data" >
+<div class="toptit">基本信息</div>
+
+  {#$inputtoken#}
+    <table width="100%" border="0" cellpadding="3" cellspacing="3"  class="admin_table">
+      <tr>
+        <td width="130" align="right"  >标题：</td>
+        <td align="left" ><input name="title" type="text"  class="input_text_400" value="{#$info.title#}" />
+		 <span class="admin_note">如：2012年5月1日(星期六)医药行业主题招聘会</span>
+		</td>
+      </tr>
+		 <tr>
+        <td   align="right"  >行业主题：</td>
+        <td align="left" ><input name="industry" type="text"  class="input_text_400" value="{#$info.industry#}"/>
+		 <span class="admin_note">如：医药行业,多个行业可用逗号隔开</span>
+		</td>
+		<tr>
+		</tr>
+		<tr>
+        <td   align="right"  >展位数量：</td>
+        <td align="left" ><input name="number" type="text"  class="input_text_400" value="{#$info.number#}"/>
+		 <span class="admin_note">如：一层200个，二层150个</span>
+		</td>
+		</tr>
+		 <tr>
+        <td   align="right"  >举办日期：</td>
+        <td align="left" >
+		<input name="holddates" type="text"  class="input_text_200 date_input"  value="{#$info.holddates#}"/>
+
+		</td>
+      </tr>
+		 <tr>
+        <td   align="right"  >举办地址：</td>
+        <td align="left" >
+		<input name="address" type="text"  class="input_text_400" value="{#$info.address#}"/> 
+
+		</td>
+      </tr>
+	  <tr>
+        <td  align="right"  >乘车路线：</td>
+        <td align="left" >
+		<input name="bus" type="text"  class="input_text_400" value="{#$info.bus#}"/>
+
+		</td>
+      </tr>
+	  <tr>
+        <td   align="right"  >联系人：</td>
+        <td align="left" >
+		<input name="contact" type="text"  class="input_text_400" value="{#$info.contact#}"/>
+
+		</td>
+      </tr>
+	  <tr>
+        <td  align="right"  >联系电话：</td>
+        <td align="left" >
+		<input name="phone" type="text"  class="input_text_400" value="{#$info.phone#}"/>
+
+		</td>
+      </tr>
+		 <tr>
+          <td align="right"   >显示状态：</td>
+          <td >
+	        <label>
+	        <input name="display" type="radio" value="1" {#if $info.display=="1"#}checked="checked"{#/if#} />
+	        正常</label>
+        
+       <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="display" value="2" {#if $info.display=="2"#}checked="checked"{#/if#} />
+	        暂停</label>
+		   </td>
+        </tr>
+		<tr>
+        <td align="right" >排序：</td>
+        <td > 
+          <input name="order" type="text"  class="input_text_200" maxlength="3" value="{#$info.order#}"/>
+		  
+		  <span class="admin_note">数字越大，排序越靠前</span>
+         </td>
+      </tr>
+      <tr>
+        <td  align="right"  >服务套餐：</td>
+        <td align="left" >
+        	<textarea name="service_setmeal" style="width:400px; height:100px; font-size:12px; line-height:180%">{#$info.service_setmeal#}</textarea>
+		</td>
+      </tr>
+      <tr>
+        <td  align="right"  >展位价格：</td>
+        <td align="left" >
+        	<textarea name="price" style="width:400px; height:100px; font-size:12px; line-height:180%">{#$info.price#}</textarea>
+		</td>
+      </tr>
+      <tr>
+        <td  align="right"  >参会行业：</td>
+        <td>	
+			   <input type="button" name="Submit23" value="选择 / 修改" class="admin_submit"  id="showtrade"/>
+			   <div id="trade_txt" style="color: #006699; line-height:30px;">{#$info.trade_cn|default:"请选择参会行业"#}</div>
+			   <input name="trade_cn" id="trade_cn" type="hidden" value="{#$info.trade_cn#}" />
+			   <input name="trade" id="trade" type="hidden" value="{#$info.trade#}" />
+			   <div  style="display:none" id="sel_trade">
+					<div class="OpenFloatBoxBg" ></div>
+					<div class="OpenFloatBox">
+							<div class="title"><h4>请选择行业</h4><div class="DialogClose" title="关闭"></div></div>
+							<div class="tip">可多选</div>
+							<div class="content link_lan">					
+								<div class="txt">							
+									{#qishi_get_classify set="列表名:c_trade,类型:QS_trade"#}{#foreach from=$c_trade item=list#}
+									<div class="item" id="{#$list.id#}">
+											<label title="{#$list.categoryname#}" class="titem" >
+											<input  type="checkbox" value="{#$list.id#}"  title="{#$list.categoryname#}" class="b" />{#$list.categoryname#}
+											</label>
+									</div>
+									{#/foreach#}
+									<div class="clear"></div>
+								</div>						
+								<div class="txt">
+								<div align="center"><input type="button"  class="but80 Set" value="确定" /></div>
+								</div>			
+							</div>
+					</div>
+			  </div>
+			  </td>
+      </tr>
+      <tr>
+        <td  align="right"  >地图标注：</td>
+        <td align="left" >
+        	<input name="x" type="hidden" id="x" value="{#$info.x#}"><input name="y" type="hidden" id="y" value="{#$info.y#}"><input name="zoom" type="hidden" id="zoom" value="{#$info.zoom#}">
+        	<div style="width:700px;height:395px;border:3px solid  #CCCCCC; cursor:" id="container"></div>
+        	<script type="text/javascript">
+			var map = new BMap.Map("container");  
+			//假如有设置的，显示参数
+			{#if $info && $info.map_x && $info.map_y#}
+			var point = new BMap.Point({#$info.map_x#}, {#$info.map_y#});
+			map.centerAndZoom(point, {#$info.map_zoom#}); 
+			var qs_marker = new BMap.Marker(point);        // 创建标注   
+			map.addOverlay(qs_marker);  
+			map.setCenter(point);
+			document.getElementById("x").value={#$info.map_x#}; 
+			document.getElementById("y").value= {#$info.map_y#}; 
+			document.getElementById("zoom").value=  {#$info.map_zoom#}; 
+			{#else#}
+			var point = new BMap.Point({#$QISHI.map_center_x#},{#$QISHI.map_center_y#});
+			map.centerAndZoom(point, {#$QISHI.map_zoom#}); 
+			map.setCenter(point);
+			{#/if#}
+			map.addControl(new BMap.NavigationControl());//添加鱼骨
+			map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用。
+			var myPushpin = new BMap.PushpinTool(map,{
+			cursor : "crosshair"  
+			});   // PushpinTool创建标注工具实例
+			myPushpin.addEventListener("markend", function(e){//添加题地图监控
+			// 打开信息窗口 
+			document.getElementById("x").value=e.marker.getPoint().lng; 
+			document.getElementById("y").value= e.marker.getPoint().lat; 
+			document.getElementById("zoom").value= map.getZoom(); 
+			//alert(map.getZoom());//地图缩放级别
+			//map.zoomIn();地图放大一个级别
+			//alert("您标注的位置：" + e.marker.getPoint().lng + ", " + e.marker.getPoint().lat);
+			//打开提示层
+			});
+			//myPushpin.setIcon(icon:Icon);
+			// 定义一个控件类，即function   
+			function ZoomControl(){   
+			  // 设置默认停靠位置和偏移量   
+			  this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;   
+			  this.defaultOffset = new BMap.Size(10, 10);   
+			} 
+			// 通过JavaScript的prototype属性继承于BMap.Control   
+			ZoomControl.prototype = new BMap.Control();
+			  
+			// 自定义控件必须实现自己的initialize方法，并且将控件的DOM元素返回   
+			// 在本方法中创建个div元素作为控件的容器，并将其添加到地图容器中   
+			ZoomControl.prototype.initialize = function(map){   
+			  // 创建一个DOM元素   
+			  var div = document.createElement("div");   
+			  // 添加文字说明   
+			  div.appendChild(document.createTextNode("标记我的位置"));   
+			  // 设置样式  
+			  div.style.cursor = "pointer";   
+			  div.style.padding = "6px"; 
+			  div.style.color = "#FFFFFF"; 
+			  div.style.border = "1px solid #003300";   
+			  div.style.backgroundColor = "#009900";   
+			  div.onclick = function(e){ 
+			  map.clearOverlays();//清楚地图上所有覆盖物
+			  myPushpin.open();//打开标注工具
+			  }   
+			  // 添加DOM元素到地图中   
+			  map.getContainer().appendChild(div);   
+			  // 将DOM元素返回   
+			  return div;   
+			}
+			  
+			// 创建控件   
+			var myZoomCtrl = new ZoomControl(); 
+			// 添加到地图当中   
+			map.addControl(myZoomCtrl);
+			</script>
+		</td>
+      </tr>
+			  {#if $QISHI.subsite=="1"#}
+	  <tr>
+        <td align="right" >显示在：</td>
+        <td colspan="4" >
+		 <label ><input name="subsite_id" type="radio" value="0"  {#if $info.subsite_id=="0"#}checked="checked"{#/if#} />主站</label>
+		&nbsp;&nbsp;&nbsp;
+		{#foreach from=$subsite item=li#}
+		<label ><input name="subsite_id" type="radio" value="{#$li.s_id#}"  {#if $info.subsite_id==$li.s_id#}checked="checked"{#/if#}/>{#$li.s_districtname#}</label>
+		&nbsp;&nbsp;&nbsp;
+		{#/foreach#}
+		
+	 </td>
+      </tr>
+	   {#/if#}
+	   
+	   
+	   <tr>
+        <td align="right" valign="top" >招聘会简介：</td>
+        <td > 
+           
+		     <textarea name="introduction" style="width:700px; height:360px; font-size:12px; line-height:180%"  id="description">{#$info.introduction#}</textarea>
+	   <script>
+      var editor;
+      KindEditor.ready(function(K) {
+        editor = K.create('textarea[name="introduction"]', {
+          allowFileManager : true
+        });
+      });
+    </script>	
+		   
+         </td>
+      </tr>
+	   
+    </table>
+		
+		
+		
+		<div class="toptit">展位预定</div>
+		 <table width="100%" border="0" cellpadding="3" cellspacing="3"  class="admin_table">
+		 <tr  id="status">
+          <td width="130" align="right"   >预定状态：</td>
+          <td >
+	        <label>
+	        <input name="predetermined_status" type="radio" value="1" {#if $info.predetermined_status=="1"#}checked="checked"{#/if#}/>
+	        允许预定</label>
+        
+       <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="predetermined_status" value="2" {#if $info.predetermined_status=="2"#}checked="checked"{#/if#}/>
+	        停止预定</label>
+			</td>
+        </tr>
+		 <tr class="status1">
+          <td width="130" align="right"   >预定方式：</td>
+          <td >
+		  
+	        <label>
+	        <input name="predetermined_web" type="checkbox" value="1"  {#if $info.predetermined_web=="1"#}checked="checked"{#/if#}/>
+	        在线预定</label>
+        
+       <label>&nbsp;&nbsp;&nbsp;
+	        <input type="checkbox" name="predetermined_tel" value="1"  {#if $info.predetermined_tel=="1"#}checked="checked"{#/if#}/>
+	        电话预定</label>		   
+			
+			
+			
+			<span class="admin_note">在线预定可在企业会员中心通过消耗积分预定展位</span>
+			</td>
+        </tr>
+		 
+		 <tr class="status1">
+          <td align="right"    >在线预定消耗积分：</td>
+          <td >
+	        <input name="predetermined_point" type="text"  class="input_text_200"   value="{#$info.predetermined_point#}"/> 积分&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="admin_note">此设置仅在在线预定方式下有效</span>	
+			</td>
+        </tr>
+		  
+		<tr>
+		<tr>
+          <td align="right"   >预定开始时间：</td>
+          <td >
+	       <input name="predetermined_start" type="text" class="input_text_200 date_input" id="predetermined_start" maxlength="10"  value="{#$info.predetermined_start#}" />    <span class="admin_note">设置预定开始时间，格式 yyyy-mm-dd，留空为不限制开始时间</span>		   </td>
+        </tr>
+		<tr>
+          <td align="right"   >预定结束时间：</td>
+          <td >
+	       <input name="predetermined_end" type="text" class="input_text_200 date_input" id="predetermined_end" maxlength="10" value="{#$info.predetermined_end#}"  />    <span class="admin_note">设置预定结束时间，格式 yyyy-mm-dd，留空为不限制结束时间</span>		   </td>
+        </tr>
+		<tr>
+		  <td align="right"   >&nbsp;</td>
+		  <td height="50" >
+		  <input name="id" type="hidden" value="{#$info.id#}" />
+		  <input type="submit" name="Submit3" value="提交" class="admin_submit"   />
+<input name="submit222" type="button" class="admin_submit"    value="返回" onclick="Javascript:window.history.go(-1)"/>
+		  </td>
+		  </tr>
+    </table>
+  </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,52 @@
+{#include file="sys/admin_header.htm"#}
+
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="set_com/admin_set_com_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+	<h2>提示：</h2>
+	<p>
+套餐活动只能用于积分套餐
+</p>
+</div>
+<div class="toptit">新增套餐活动</div>
+ 
+	  <form id="form1" name="form1" method="post" action="?act=set_points_setmeal_activity_add_save">
+	 {#$inputtoken#}
+    <table border="0" cellspacing="3" cellpadding="3">
+      <tr>
+        <td width="200" align="right">活动名称：</td>
+        <td width="391"><input name="activity_name" type="text" class="input_text_200" id="activity_name"/></td>
+      </tr>
+	  <input name="setmeal_id" type="text" style="display:none;" value="{#$setmeal.id#}"/>
+      <tr>
+        <td align="right">价格：</td>
+        <td><input name="expense" type="text" class="input_text_200" id="expense" value="0" maxlength="10"/></td>
+      </tr>
+	  <tr>
+        <td width="200" align="right">说明：</td>
+        <td width="391"><input name="description" type="text" class="input_text_200" id="description"/></td>
+      </tr>
+	  <tr>
+        <td align="right">排序：</td>
+        <td><input name="activity_order" type="text" class="input_text_200" id="activity_order" value="0" maxlength="10"/> 
+			<span class="admin_note">序号越大越靠前</span>
+	    </td>
+      </tr>
+      <tr>
+        <td align="center">&nbsp;</td>
+        <td height="50" align="left"><input type="submit" name="Submit3" value="提交" class="admin_submit"   />
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="Javascript:window.history.go(-1)"/>
+		</td>
+      </tr>
+    </table>
+  
+    </form>
+    </div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

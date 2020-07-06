@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/getpass.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <title>重置密码_{#$QISHI.site_name#}</title>
+        <script type="text/javascript">
+            //验证
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    rules: {
+                        password: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 18,
+                            alnum: true
+                        },
+                        password_c: {
+                            required: true,
+                            equalTo: "#password"
+                        }
+                    },
+                    messages: {
+                        password: {
+                            required: jQuery.format("请填写密码"),
+                            minlength: jQuery.format("填写不能小于6个字符"),
+                            maxlength: jQuery.format("填写不能大于18个字符")
+                        },
+                        password_c: {
+                            required: jQuery.format("请填写密码"),
+                            equalTo: jQuery.format("两次输入的密码不同")
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parent().parent());
+                    }
+                });
+                jQuery.validator.addMethod("alnum", function (value, element) {
+                    return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+                }, "只能包括英文字母和数字");
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box getpass_mobile2">
+                <div class="left">
+                    <p class="box_title">重置密码</p>
+                    <form id="Form1" name="Form1" method="post" action="?act=get_pass_save">
+                        <div class="item_box password">
+                            <div class="input_box">
+                                <input type="password" class="text"  name="password" id="password" placeholder="请输入6-18位数字、字母组成的新密码" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box password2">
+                            <div class="input_box">
+                                <input type="password" class="text" name="password_c" id="password_c" placeholder="请再次输入密码" value="" />
+                            </div>
+                        </div>
+                        <input name="token" type="hidden" id="token" value="{#$token#}" />
+                        <input type="submit" class="submit" value="确定" />
+                    </form>
+                </div>
+                <div class="right">
+                    <a title="通过邮箱找回" href="/user/user_getpass.php">通过邮箱找回&nbsp;></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p class="login_tip">已有账号，请<a title="马上登录" href="/user/login.php">登录</a></p>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>
+

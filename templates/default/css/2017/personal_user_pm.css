@@ -1,0 +1,73 @@
+
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:30px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 10px 0px;}
+#content .left_box div.box_title p{ padding:0px 10px 0px 0px; height:40px; line-height:40px; border-bottom:1px solid #f3711a; font-size:16px; color:#333; display:inline-block;}
+#content .left_box div.box_title span{ padding:0px 10px 0px 0px; height:40px; line-height:40px; font-size:12px; color:#ccc; display:inline-block;}
+#content .left_box div.nav_box{ float:left; padding:15px 0px 15px 0px; background:#f5f5f5; width:100%;}
+#content .left_box div.nav_box a{ float:left; font-size:14px; color:#808080; margin:0px 20px 0px 20px; line-height:20px;}
+#content .left_box div.nav_box a:hover{ color:#f3711a;}
+#content .left_box div.nav_box a.hover{ color:#f3711a;}
+#content .left_box div.nav_box b{ float:left; display:inline-block; width:1px; height:15px; background:#ccc; margin:3px 0px 0px 0px;}
+#content .left_box ul.list li{ float:left; width:100%; border-bottom:1px dotted #dcdcdc; padding:30px 0px 30px 0px;}
+#content .left_box ul.list li div.item_info div.title{ float:left; width:100%;}
+#content .left_box ul.list li div.item_info div.title span{ float:left; font-size:14px; color:#808080;}
+#content .left_box ul.list li div.item_info div.title span i{ display:inline-block; width:5px; height:5px; border-radius:50px; background:red; margin:0px 0px 2px 5px;}
+#content .left_box ul.list li div.item_info div.title a.del{ float:right; display:inline-block; width:11px; height:12px; background: url(../../images/2017/del_icon.png); background-size:11px 12px;}
+#content .left_box ul.list li div.item_info div.title a.del:hover{ background: url(../../images/2017/del_icon_h.png); background-size:11px 12px;}
+#content .left_box ul.list li div.item_info div.info p.left{ font-size:14px; color:#808080; width:760px;}
+#content .left_box ul.list li div.item_info div.info p.left a{ font-size:14px; color:#188eee;}
+#content .left_box ul.list li div.item_info div.info p.left a:hover{ text-decoration:underline;}
+#content .left_box ul.list li div.item_info div.info p.right{ color:#808080; margin:2px 0px 0px 0px;}
+#content .left_box div.page_box { text-align:center; margin:50px 0px 0px 0px;}
+#content .left_box div.page_box li{ display:inline-block;}
+#content .left_box div.page_box a{ display:inline-block; height:30px; line-height:30px; border-radius:5px; padding:0px 10px 0px 10px; background:#f5f5f5; margin:0px 5px 0px 5px; color:#666666; font-size:16px;}
+#content .left_box div.page_box a:hover{ color:#fff; background:#3275b1;}
+#content .left_box div.page_box a.select{ color:#fff; background:#3275b1;}
+#content .left_box div.page_box span{ display:inline-block; height:30px; line-height:30px; margin:0px 5px 0px 5px; color:#4c4c4c; font-size:14px;}
+
+
+
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px;}
+#content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .function_box ul li:hover span{ color:#188eee;}
+#content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px;}
+#content .right_box .function_box ul li.profile i{ width:19px; height:19px; background:url(../../images/2017/profile_icon.png);}
+#content .right_box .function_box ul li.pm i{ width:19px; height:19px; background:url(../../images/2017/pm_icon_h.png);}
+#content .right_box .function_box ul li.pm span{ color:#188eee;}
+#content .right_box .function_box ul li.online_course i{ width:20px; height:20px; background:url(../../images/2017/online_course_icon.png);}
+#content .right_box .function_box ul li.password_edit i{ width:16px; height:18px; background:url(../../images/2017/password_edit_icon.png);}
+#content .right_box .function_box ul li.login_log i{ width:18px; height:19px; background:url(../../images/2017/login_log_icon.png);}
+#content .right_box .function_box ul li.profile:hover i{ width:19px; height:19px; background:url(../../images/2017/profile_icon_h.png);}
+#content .right_box .function_box ul li.pm:hover i{ width:19px; height:19px; background:url(../../images/2017/pm_icon_h.png);}
+#content .right_box .function_box ul li.online_course:hover i{ width:20px; height:20px; background:url(../../images/2017/online_course_icon_h.png);}
+#content .right_box .function_box ul li.password_edit:hover i{ width:16px; height:18px; background:url(../../images/2017/password_edit_icon_h.png);}
+
+#content .right_box .item_box{ float:left; background:#fff; padding:20px; width:240px; margin:10px 0px 0px 0px;}
+#content .right_box .item_box a{ float:left; display:block; width:100%;}
+#content .right_box .item_box a i{ float:left; display:inline-block; margin:0px 30px 0px 0px;}
+#content .right_box .item_box a span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .item_box a:hover span{ color:#188eee;}
+#content .right_box .item_box a.my_resume i{  width:16px; height:18px; background:url(../../images/2017/my_resume_icon.png); }
+#content .right_box .item_box a.my_resume:hover i{ background:url(../../images/2017/my_resume_icon_h.png);}
+#content .right_box .item_box a.zhaokao_qq i{  width:19px; height:17px; background:url(../../images/2017/zhaokao_qq_icon.png); }
+#content .right_box .item_box a.zhaokao_qq:hover i{ background:url(../../images/2017/zhaokao_qq_icon_h.png);}
+
+#content .right_box .ad_box{ float:left; background:#fff; width:280px; margin:10px 0px 0px 0px;}
+
+
+	
+
+

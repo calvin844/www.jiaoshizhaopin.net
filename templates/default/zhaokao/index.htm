@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/zhaokao/zhaokao_index.css" rel="stylesheet" type="text/css" />
+        <title>{#$smarty.now|date_format:"%Y"#}年教师招聘考试信息大全_{#$QISHI.site_name#}</title>
+        <meta name="keywords" content="教师招考,教师招聘考试,教师编制考试,事业单位招聘"/>
+        <meta name="description" content="{#$smarty.now|date_format:'%Y'#}年教师招聘考试信息大全，提供最新的教师考编信息、特岗教师招聘信息、教师资格证考试信息、事业单位招聘信息，免费推荐专业机构的教师招聘考试培训课程及备考资料、答题策略、面试技巧。教师招聘考试，就上教师招聘网。"/>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="top_banner">
+                <img src="{#$QISHI.site_template#}images/zhaokao/zhaokao_banner.jpg" width="100%" />
+            </div>
+            <div class="main_box">
+                <!--
+                <div class="announcement">
+                    <i></i>
+                    <label>公告：</label>
+                    <div class="marquee_box">
+                        <marquee scrollamount="5" scrolldelay="0" direction="left">
+                            <a href="#">2017年河南省招聘成绩查询</a>
+                            <a href="#">2017年河南省招聘成绩查询</a>
+                            <a href="#">2017年河南省招聘成绩查询</a>
+                            <a href="#">2017年河南省招聘成绩查询</a>
+                            <a href="#">2017年河南省招聘成绩查询</a>
+                        </marquee>
+                    </div>
+                    <a class="more" href="#">更多</a>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                -->
+                <div class="clear"></div>
+                <div class="course_box">
+                    <!--
+                        <div class="b_title">
+                            <p>精品课程</p>
+                            <ul>
+                                {#foreach from=$type_list item=tl#}
+                                <li><h2><a href="/zhaokao/kaoshi/{#$tl.en#}">{#$tl.name#}</a></h2></li>
+                                {#/foreach#}
+                            </ul>
+                            <a nofollw class="more" href="/zhaokao/kaoshi">更多</a>
+                        </div>
+                        <div class="list_box">
+                            <ul>
+                                {#foreach from=$course_list item=cl#}
+                                <li>
+                                    <a href="/zhaokao/kaoshi/{#$cl.id#}.htm"><img src="{#$cl.thumb#}" width="224" height="136" /></a>
+                                    <div class="info">
+                                        <h2><a class="title" href="/zhaokao/kaoshi/{#$cl.id#}.htm">{#$cl.title#}</a></h2>
+                                        <p class="school_name"><i></i>{#$cl.school#}</p>
+                                        <div class="bottom">
+                                            {#if $cl.price>0#}
+                                            <span class="price">￥{#$cl.price#}</span>
+                                            {#else#}
+                                            <span class="free">免费</span>
+                                            {#/if#}
+                                            <span class="people"><i></i>{#$cl.people_num#}</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                    -->
+                </div>
+                <div class="clear"></div>
+                <div class="news_box">
+                    <div id="news_list" class="b_title">
+                        <p>全国教师编制招聘</p>
+                        <div class="right">
+                            <a class="{#if $smarty.get.news_order == 'addtime>desc'#}hover{#/if#}" href="?news_order=addtime>desc#news_list">最新</a>
+                            <a class="{#if $smarty.get.news_order == 'click>desc'#}hover{#/if#}" href="?news_order=click>desc#news_list">热门</a>
+                            <!--<a href="?news_order=endtime>asc">即将过期</a>-->
+                        </div>
+                    </div>
+                    <ul>
+                        {#qishi_news_list set="列表名:list,显示数目:10,排序:$smarty.get.news_order,时间格式:Y-m-d,标题长度:30"#}
+                        {#foreach from=$list item=li#}
+                        <li>
+                            <div class="location">
+                                <i></i>
+                                <div class="clear"></div>
+                                <p>{#if $li.parent_pinyin!='' #}
+                                    <a target="_blank" class="city" title="{#$li.district_cn#}教师招聘网" href="/{#$li.parent_pinyin#}/{#$li.district_pinyin#}" >{#$li.district_cn#}</a>
+                                    <!--<li><a target="_blank" title="{#$c.categoryname#}" href="/{#$c.parent_pinyin#}/{#$c.pinyin#}">{#$c.categoryname#}</a></li>-->
+                                    {#else#}
+                                    <a target="_blank" class="city" title="{#$li.district_cn#}教师招聘网" href="/{#$li.district_pinyin#}">{#$li.district_cn#}</a>
+                                    <!--<li><a target="_blank" title="{#$c.categoryname#}" href="/{#$c.pinyin#}">{#$c.categoryname#}</a></li>-->
+                                    {#/if#}</p>
+                            </div>
+                            <div class="info">
+                                <h2><a class="title" title="{#$li.title#}" href="/morejobs/jobshow_{#$li.id#}.html">{#$li.title#}</a></h2>
+                                <div class="clear"></div>
+                                <p class="addtime">{#$li.addtime#}</p>
+                                <ul class="job">
+                                    {#foreach from=$li.jobs_list item=j#}
+                                    <li>
+                                        <a href="{#$j.url#}">{#$j.job_name#}（<span>{#$j.amount#}</span>）</a>
+                                    </li>
+                                    {#/foreach#}
+                                </ul>
+                            </div>
+                            <div class="details">
+                                <a href="/morejobs/jobshow_{#$li.id#}.html">查看详情</a>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="all_news">
+                        <a nofollw title="全国招聘简章" href="/morejobs">查看更多</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="tiku_box">
+                <div class="main_box">
+                    <div class="clear"></div>
+                    <p class="tiku_title">每日一练</p>
+                    <ul class="tiku_list">
+                        <li>
+                            <p>幼儿综合素质</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(2469,4469)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_youer/18/">练一练</a>
+                            </div>
+                            <p>幼儿保教知识与能力</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(3154,5469)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_youer/36">练一练</a>
+                            </div>
+                        </li>
+                        <li>
+                            <p>小学综合素质</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(9555,11555)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_xiaoxue/12">练一练</a>
+                            </div>
+                            <p>小学教育知识与能力</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(11731,13731)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_xiaoxue/25">练一练</a>
+                            </div>
+                        </li>
+                        <li>
+                            <p>中学综合素质</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(23564,25564)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_zhongxue/1">练一练</a>
+                            </div>
+                            <p>中学教育知识与能力</p>
+                            <div class="tiku_num">
+                                <span>已有{#math equation=rand(10036,12036)#}人参加</span>
+                                <a href="http://tiku.jiaoshizhaopin.net/tiku_zhongxue/31">练一练</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="all_tiku">
+                        <a nofollw title="教师招聘题库" href="http://tiku.jiaoshizhaopin.net/">查看更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="main_box">
+                <div class="guide_box">
+                    <div class="b_title">
+                        <h1>教师招考指南</h1>
+                        <a title="教师招考指南" nofollw class="more" href="/zhaokao/zhinan">更多</a>
+                    </div>
+                    <div class="guide_list">
+                        <div class="left">
+                            <ul class="l1">
+                                {#foreach from=$left_guide item=lg#}
+                                <li><h2><a title="{#$lg.title#}" href="/morejobs/jobshow_{#$lg.id#}.html"><i></i>{#$lg.title#}</a></h2></li>
+                                {#/foreach#}
+                            </ul>
+                            <ul class="l2">
+                                {#foreach from=$right_guide item=rg#}
+                                <li><h2><a title="{#$rg.title#}" href="/morejobs/jobshow_{#$rg.id#}.html"><i></i>{#$rg.title#}</a></h2></li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <div class="right">
+                            <div class="ad_box">
+                                <img src="{#$QISHI.site_template#}images/zhaokao/index_content_guide_box_ad.jpg" width="100%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="side_box">
+                <div class="back_top"><a href="#"><i></i></a></div>
+                <ul>
+                    <li class="wechat"><a href="#"><i></i><br/>微信</a></li>
+                    <li class="weibo"><a href="#"><i></i><br/>微博</a></li>
+                    <li class="service"><a href="#"><i></i><br/>咨询</a></li>
+                    <li class="package"><a href="#"><i></i><br/>套餐</a></li>
+                </ul>
+                <div class="hide"><a href="#"><i></i></a></div>
+            </div>
+            -->
+        </div>
+        <div class="clear"></div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>
+
+

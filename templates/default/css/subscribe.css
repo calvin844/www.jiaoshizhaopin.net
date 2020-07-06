@@ -1,0 +1,20 @@
+/*职位订阅*/
+.subscribe .subscribe_box{padding:25px 100px;font-family:"宋体";}
+.subscribe .subscribe_box li{margin-bottom:15px;}
+.subscribe .subscribe_box .w83{float:left;line-height:30px;font-size:14px;width:83px;}
+.subscribe .subscribe_box .input_box{float:left; max-width: 445px;}
+.subscribe .subscribe_box .input_box .input_check{float:left;height:24px;line-height:24px;padding:0 17px;margin:5px 15px 5px 0px;;color:#666666;background-color:#E6E6E6;border:3px solid #E6E6E6;cursor:pointer;}
+.subscribe .subscribe_box .input_box .input_check.select{background-color:#fff;color:#0180CF;border:3px solid #018FCF;}
+.subscribe .subscribe_box .input_box .ver_code{height:30px;line-height:30px;padding:0 16px;color:#A6A6A6;border:1px solid #ccc;cursor:pointer;}
+.sub_right p{font-size:14px;font-family:"宋体";color:#656565;}
+.sub_right p span{color:#017FCF;}
+.left_area{width:730px;float:left;border:1px solid #ccc;margin-bottom:10px;background:#fff;}  
+.left_area div.subscribe_box div.input_box a.resume_center{margin:0px 0px 0px 10px;;font-size:14px;}
+.left_tit_box{padding-top:14px;padding-bottom:14px;padding-left:15px;border-bottom:1px solid #ccc;}
+.left_tit_box h5{margin:0;font-size:14px;font-family:"宋体";font-weight:bold;}
+.right_area{width:250px;float:right;}
+.right_box{margin-bottom:10px;border:1px solid #ccc;background:#fff}
+.right_box .title_box{padding-top:14px;padding-bottom:14px;padding-left:15px;border-bottom:1px solid #ccc;}
+.right_box .title_box h5{margin:0;font-size:14px;font-family:"宋体";font-weight:bold;}
+.right_box .list{padding:17px 10px;}
+.right_box .list p{font-size:14px;font-family:"宋体";line-height:25px;}

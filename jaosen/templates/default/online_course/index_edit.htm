@@ -1,0 +1,48 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-修改目录</div>
+        <div class="clear"></div>
+    </div>
+    <div class="toptip">
+        <h2>提示：</h2>
+        <p>
+            正式使用后删除目录会导致与此目录关联的信息类别丢失，修改不会受影响。<br />
+        </p>
+    </div>
+    <div class="toptit">修改目录</div>
+    <form id="form1" name="form1" method="post" action="?act=edit_index_save">
+        <table width="100%" border="0" cellspacing="6" cellpadding="0" >
+            <tr>
+                <td width="120" align="right">所属章目录:</td>
+                <td>
+                        <select name="parent_id[]">
+                            <option value="0" {#if $cindex.parent_id == 0#}selected="selected"{#/if#}>作为章目录</option>
+                            {#foreach from=$c_index item=list#}
+                            <option value="{#$list.id#}" {#if $list.id==$cindex.parent_id#}selected="selected"{#/if#}>{#$list.name#}</option>
+                            {#/foreach#}
+                        </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="120" align="right">名称:</td>
+                <td><input name="categoryname" type="text" class="input_text_200"  value="{#$cindex.name#}"/></td>
+            </tr>
+        </table>
+
+        <table width="100%" border="0" cellspacing="6" cellpadding="0">
+            <tr>
+                <td width="120"> </td>
+                <td>
+                    <input name="id" type="hidden" value="{#$cindex.id#}" />
+                    <input type="submit" name="addsave" value="保存" class="admin_submit" />
+                    <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="window.location = '?act=index&cid={#$cindex.course_id#}'"/>
+
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,338 @@
+<?php
+global $db;
+
+$page = !empty($_GET['page']) && $_GET['page']>0?intval($_GET['page']):1;
+$offset = ($page-1)*25;
+//echo "1现在时间是 " . date("h:i:sa")."<br/>";
+switch($_GET['k']){
+case 1:
+$key_word = "幼儿";
+$title_word = "幼儿教师";
+break;
+case 2:
+$key_word = "中小学";
+$title_word = "中小学教师";
+break;
+default:
+$_GET['k'] = 0;
+$key_word = "";
+$title_word = "事业单位";
+}
+$kw = !empty($key_word)?" content LIKE '%".$key_word."%' AND ":"";
+if(!empty($_GET['city'])){
+$sql = "select categoryname from ".table('category_district')." where id = '".intval($_GET['city'])."' LIMIT 1";
+$city=$db->getone($sql);
+$cw = " seo_description LIKE '%".$city['categoryname']."%' AND ";
+}else{
+$_GET['city'] = 0;
+$cw = "";
+}
+//echo "2现在时间是 " . date("h:i:sa")."<br/>";
+$sql = "select id,title,seo_description,addtime from ".table('article')." WHERE ".$kw.$cw." is_display=1 order by addtime desc LIMIT 25 OFFSET ".$offset;
+//echo $sql;exit;
+$news_res=$db->getall($sql);
+$news_list = " ";
+foreach($news_res as $nr){
+$arr = explode(" ",$nr['seo_description']);
+$city_str = explode("-",$arr[1]);
+$sql = "select id,parentid from ".table('category_district')." where categoryname = '".$city_str[1]."' LIMIT 1";
+$city_res=$db->getone($sql);
+$city_id=$city_res['id'];
+
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$city_id."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$city_py['c_pinyin'] = $city_py_arr['pinyin'];
+if($city_res['parentid'] != 0){
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$city_res['parentid']."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$city_py['p_pinyin'] = $city_py_arr['pinyin'];
+$p_py_str = "/".$city_py['p_pinyin'];
+}else{
+$p_py_str = "";
+}
+
+$news_list .= '<li>';
+$news_list .= '<div class="left">';
+$news_list .= '<p class="box">';
+$news_list .= '<a target="_blank" class="area_a" title="'.$city_str[1].'" href="'.$p_py_str.'/'.$city_py['c_pinyin'].'">'.$city_str[1].'</a>';
+$news_list .= '<b>·</b>';
+$news_list .= '<a target="_blank" class="news_a" title="'.$nr['title'].'" href="/morejobs/jobshow_'.$nr['id'].'.html">'.$nr['title'].'</a>';
+$news_list .= '</p>';
+$news_list .= '</div>';
+$news_list .= '<p class="right">('.date("Y/m/d",$nr['addtime']).')</span>';
+$news_list .= '</li>';
+}
+//echo "3现在时间是 " . date("h:i:sa")."<br/>";
+$sql = "select id,categoryname from ".table('category_district')." where parentid = 0";
+$city_res=$db->getall($sql);
+$city_list = " ";
+foreach($city_res as $cr){
+$city_list .='<a class="area_a" title="'.$cr['categoryname'].'" href="/jobs-list/k/'.$_GET['k'].'/city/'.$cr['id'].'">'.$cr['categoryname'].'</a>';
+}
+/*
+//echo "4现在时间是 " . date("h:i:sa")."<br/>";
+$sql = "select count(1) as num from ".table('article')." WHERE ".$kw.$cw." is_display=1 order by addtime desc";
+$news_total=$db->getone($sql);
+$news_total = floor($news_total['num']/25);
+
+
+//echo "5现在时间是 " . date("h:i:sa")."<br/>";
+//分页功能
+if($news_total>25){
+$perpage=($page-1)>0?$page-1:1;
+$nextpage=($page+1)<$news_total?$page+1:$news_total;
+if($page>1){
+$page_str = '<a title="" href="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/'.$perpage.'"><< 上一页</a>';
+$page_str .= '<a title="" href="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/1">1...</a>';
+}
+for($i = $page; $i<=$page+9;$i++){
+if($page != $news_total){
+if($i > $news_total-1){
+continue;
+}
+}else{
+if($i > $news_total){
+continue;
+}
+}
+$cur = $i == $page?'  class="cur"  ':'';
+$page_str .= '<a '.$cur.'title="" href="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/'.$i.'">'.$i.'</a>';
+}
+if($page<$news_total){
+$page_str .= '<a title="" href="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/'.$news_total.'">...'.$news_total.'</a>';
+$page_str .= '<a title="" href="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/'.$nextpage.'">下一页 >></a>';
+}
+$page_select = '<select size="1" name="PageNo">';
+for($i = 1; $i<=$news_total;$i++){
+$page_select .='<option value="/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'].'/p/'.$i.'">'.$i.'</option>';
+}
+$page_select .= '</select>';
+}else{
+$page_str = "";
+$page_select = "";
+}
+*/
+
+//echo "6现在时间是 " . date("h:i:sa")."<br/>";
+//查询即将到期职位
+$now = time();
+$sql = "select id,jobs_name,deadline from ".table('jobs')." where deadline > ".$now." order by deadline asc LIMIT 10";
+$jobs_res = $db->getall($sql);
+foreach($jobs_res as $jr){
+if($jr['deadline']-$now < 86400){
+$jobs_arr[$jr['id']]['days'] = "今天";
+}elseif($jr['deadline']-$now < 86400*2){
+$jobs_arr[$jr['id']]['days'] = "明天";
+}elseif($jr['deadline']-$now < 86400*3){
+$jobs_arr[$jr['id']]['days'] = "后天";
+}
+$jobs_arr[$jr['id']]['jobs_name'] = $jr['jobs_name'];
+}
+$dl_jobs_str = " ";
+foreach($jobs_arr as $k=>$ja){
+$dl_jobs_str .= '<li>';
+$dl_jobs_str .= '<b class="left">·</b>';
+$dl_jobs_str .= '<a target="_blank" class="left" title="'.$ja['jobs_name'].'" href="/job/'.$k.'.html">'.$ja['jobs_name'].'</a>';
+$dl_jobs_str .= '<font class="left">（'.$ja['days'].'）</font>';
+$dl_jobs_str .= '</li>';
+}
+
+//查询急聘职位
+$sql = "select id,jobs_name,sdistrict,district_cn from ".table('jobs')." where emergency=1 order by refreshtime desc LIMIT 10";
+$jobs_res = $db->getall($sql);
+$vip_jobs_str = " ";
+foreach($jobs_res as $jr){
+
+$sql = "select id,parentid from ".table('category_district')." where id = '".$jr['sdistrict']."' LIMIT 1";
+$city_res=$db->getone($sql);
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$jr['sdistrict']."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$city_py['c_pinyin'] = $city_py_arr['pinyin'];
+if($city_res['parentid'] != 0){
+$sql = "select pinyin from ".table('category_district_pinyin')." where d_id = '".$city_res['parentid']."' LIMIT 1";
+$city_py_arr=$db->getone($sql);
+$city_py['p_pinyin'] = $city_py_arr['pinyin'];
+$p_py_str = "/".$city_py['p_pinyin'];
+}else{
+$p_py_str = "";
+}
+$vip_jobs_str .= '<li>';
+$vip_jobs_str .= '<b class="left">·</b>';
+$vip_jobs_str .= '<a target="_blank" class="left" title="'.$jr['jobs_name'].'" href="/job/'.$jr['id'].'.html">'.$jr['jobs_name'].'</a>';
+$vip_jobs_str .= '<a target="_blank" title="'.$jr['district_cn'].'" href="'.$p_py_str.'/'.$city_py['c_pinyin'].'"><font class="left">（'.$jr['district_cn'].'）</font></a>';
+$vip_jobs_str .= '</li>';
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title><?php echo $title_word;?>招聘</title>
+        <link href="{#$QISHI.site_template#}css/base_c.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/news-list-show_c.css" type="text/css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        {#include file="header.htm"#}
+        <div class="content">
+            <div class="main_box">
+                <ul class="top">
+                    {#qishi_ad set="调用名称:QS_indexcentreimg,列表名:list,显示数目:40"#}
+                    {#foreach from=$list item=li#}
+                    <li>
+                        <a title="{#$li.img_explain_#}" href="/ad_count/index.php?ad_name=QS_indexcentreimg&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="238" height="50" /></a>
+                    </li>
+                    {#/foreach#}
+                </ul>
+                <p class="nav">
+                    位置：<a href="{#$QISHI.site_dir#}">教师招聘网</a>&nbsp;-&nbsp;<a href="#"><?php echo $city['categoryname'].$title_word;?>招聘</a>
+                </p>
+                <div class="left">
+                    <p class="title"><?php echo $city['categoryname'].$title_word;?>招聘 <span>Latest Update</span></p>
+                    <ul class="n_list">
+                        <?php echo $news_list;?>
+                    </ul>
+                    <div class="pages_box">加载中....</div>
+                </div>
+                <div class="right">
+                    <a title="个人注册" href="#">
+                        <img src="{#$QISHI.site_template#}images/index_content_person_reg.gif" />
+                    </a>
+                    <a title="学校注册" href="#">
+                        <img src="{#$QISHI.site_template#}images/index_content_school_reg.gif" />
+                    </a>
+                    <div class="side_box">
+                        <p class="title">地区分类</p>
+                        <?php echo $city_list;?>
+                    </div>
+                    <div class="side_box">
+                        <p class="title">急聘职位 </p>
+                        <ul>
+                            <!--
+                            {#qishi_jobs_list set="列表名:list,显示数目:5,紧急招聘:1"#}
+                            {#foreach from=$list item=li#}
+                            <li>
+                                <b class="left">·</b>
+                                <a target="_blank" class="left" title="{#$li.jobs_name#}" href="{#$li.jobs_url#}">{#$li.jobs_name#}</a>
+                                <a target="_blank" title="{#$li.district_cn#}" href="/news/news-list.php?city={#$li.sdistrict#}"><font class="left">（{#$li.district_cn#}）</font></a>
+                            </li>
+                            {#/foreach#}
+                            -->
+                            <?php echo $vip_jobs_str;?>
+                        </ul>
+                    </div>
+                    <div class="side_box time_box">
+                        <p class="title"><i class="time"></i>即将截止职位倒计时 </p>
+                        <ul>
+                            <?php echo $dl_jobs_str;?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#include file="footer.htm"#}
+        <input type="hidden" id="kw" value="<?php echo $key_word ;?>"/>
+        <input type="hidden" id="cw" value="<?php echo $_GET['city'] ;?>"/>
+        <input type="hidden" id="url" value="<?php echo '/jobs-list/k/'.$_GET['k'].'/city/'.$_GET['city'] ;?>"/>
+        <input type="hidden" id="page" value="<?php echo $page ;?>"/>
+        <script>
+            $.post("{#$QISHI.site_dir#}" + "plus/ajax_page.php", {table: "article", kw: $('#kw').val(), cw: $('#cw').val(), num: 25, url: $('#url').val(), page: $('#page').val()},
+            function (data) {
+                //var page_str = UrlDecode(data.str);
+                //page_str = UrlEncode(page_str);
+                $('.pages_box').html(data.str + data.select);
+            }, "json");
+
+            $('select').live('change', function () {
+                var url = ($(this).children('option:selected').val());
+                window.location.href = url;
+            })
+            /*
+             function UrlDecode(str){   
+             var ret="";      
+             for(var i=0;i<str.length;i++){      
+             var chr = str.charAt(i);      
+             if(chr == "+"){      
+             ret+=" ";      
+             }else if(chr=="%"){      
+             var asc = str.substring(i+1,i+3);      
+             if(parseInt("0x"+asc)>0x7f){      
+             ret+=asc2str(parseInt("0x"+asc+str.substring(i+4,i+6)));      
+             i+=5;      
+             }else{      
+             ret+=asc2str(parseInt("0x"+asc));      
+             i+=2;      
+             }      
+             }else{      
+             ret+= chr;      
+             }      
+             }      
+             return ret;      
+             }    
+             
+             function str2asc(strstr){ 
+             return ("0"+strstr.charCodeAt(0).toString(16)).slice(-2); 
+             } 
+             function asc2str(ascasc){
+             return String.fromCharCode(ascasc); 
+             }
+             
+             
+             function UrlEncode(str)
+             {
+             var i, c, ret="", strSpecial="!\"#$%&'()*+,/:;<=>?@[\]^`{|}~%";
+             for(i = 0; i < str.length; i++)
+             {
+             //alert(str.charCodeAt(i));
+             
+             c = str.charAt(i);
+             if(c==" ")
+             ret+="+";
+             else if(strSpecial.indexOf(c)!=-1)
+             ret += "%" + str.charCodeAt(i).toString(16);
+             if(z[str.charCodeAt(i)]　!= null)
+             {
+             d = z[str.charCodeAt(i)];
+             try
+             {
+             ret += "%" + d.slice(0,2) + "%" + d.slice(-2);
+             }
+             catch (e)
+             {
+             alert(" $$ error name = " + e.name + ", message = " +e.message + ", d " + i + "= " + str.charCodeAt(i))
+             }
+             }
+             else
+             ret += c;
+             }
+             return ret;
+             }
+             
+             function getSpell(str, sp)
+             {
+             var i, c, t, ret="";
+             if(sp == null)
+             sp="";
+             
+             for(i = 0; i < str.length; i++)
+             {
+             if(str.charCodeAt(i) >= 0x4e00)
+             {
+             c = parseInt(z[str.charCodeAt(i)], 16);
+             if(c < 55290)
+             {
+             for(t = qswhSpell.length-1; t > 0; t = t - 2)
+             if(qswhSpell[t] <= c)
+             break;
+             if(t > 0)
+             ret += qswhSpell[t - 1] + sp;
+             }
+             }
+             } a
+             return ret.substr(0, ret.length-sp.length);
+             }
+             */
+        </script>
+    </body>
+</html>

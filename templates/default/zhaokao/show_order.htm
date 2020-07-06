@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/zhaokao/zhaokao_pay.css" rel="stylesheet" type="text/css" />
+        <title>教师招聘网-招考-确认订单</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <div class="order_box">
+                    <p>订单编号：{#$order.id#}</p>
+                    <p>商品名称：{#$order.course.title#}</p>
+                    <p>实付金额：<span>￥{#$order.price#}</span></p>
+                    <p>购买日期：{#$order.addtime|date_format:"%Y-%m-%d"#}</p>
+                    <hr/>
+                    <div class="payment">
+                        <label>支付方式：</label>
+                        <div class="clear"></div>
+                        <ul>
+                            <!--
+                            <li><input class="wechat_h" type="button" value="wechat" /></li>
+                            -->
+                            <li><input class="alipay_h" type="button" value="alipay" /></li>
+                        </ul>
+                        <input type="hidden" id="payment" name="payment" value="alipay" />
+                        <div class="clear"></div>
+                        <script>
+                            $('div.payment').on('click', 'input.wechat', function () {
+                                $(this).attr('class', 'wechat_h');
+                                $('div.payment li input.alipay_h').attr('class', 'alipay');
+                                $('input#payment').val('wechat');
+                            })
+                            $('div.payment').on('click', 'input.alipay', function () {
+                                $(this).attr('class', 'alipay_h');
+                                $('div.payment li input.wechat_h').attr('class', 'wechat');
+                                $('input#payment').val('alipay');
+                            })
+                        </script>
+                    </div>
+                    {#$order_form#}
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="/2017/footer_page.htm"#}
+    </body>
+</html>
+
+

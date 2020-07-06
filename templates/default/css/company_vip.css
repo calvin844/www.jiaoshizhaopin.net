@@ -1,0 +1,79 @@
+#header{ width:100%; height:615px; background:url(../images/2017/company_vip/haeder_bg.jpg) center top no-repeat;}
+#header .top{ height: 45px; width: 100%; position: relative;}
+#header .top .bg{ height: 45px; width: 100%; position: absolute; top: 0px; left: 0px; background: #000; opacity: 0.6; z-index: 1;}
+#header .top .logo{ display: inline-block; height: 28px; width:103px; background: url( ../images/2017/company_vip/top_logo.png) no-repeat; position: absolute; top: 10px; left: 10px; z-index: 2;}
+#header .top ul.left{ z-index: 3; position: relative;}
+#header .top ul.left li{ float: left; margin: 0px 15px 0px 0px; line-height: 45px; height: 45px;}
+#header .top ul.left li a{ font-size: 16px; color: #fff;}
+#header .top ul.left li a:hover{ color: #d59e26;}
+#header .top div.right{ z-index: 3; position: relative; top: 15px;}
+#header .top div.right a{ float: left; font-size: 16px; color: #d59e26; display: inline-block; height: 18px; line-height: 18px;}
+#header .top div.right a:hover{ text-decoration: underline;}
+#header .top div.right b{ float: left; display: inline-block; background: #d59e26; width: 1px; height: 16px; margin: 1px 10px 0px 10px;}
+#header .bottom .company_logo{ float: left; margin: 30px 0px 0px 105px;}
+#header .bottom .company_name{ float: left; width: 65%; text-align: center; font-size: 48px; color: #fff; margin: 75px 210px 20px 210px;}
+#header .bottom .company_info{ float: left; width: 100%; text-align: center; }
+#header .bottom .company_info span{ font-size: 18px; color: #fff; margin: 0px 25px 0px 25px;}
+#header .bg_bottom{ width: 100%; height: 155px; background: url(../images/2017/company_vip/bg_bottom.png) center bottom no-repeat; margin: 330px 0 0px 0;}
+
+#content .c1{ background: url(../images/2017/company_vip/c1_bg.jpg) repeat; padding: 0px 0px 60px 0px;}
+#content .c1 .module_title{ background: url(../images/2017/company_vip/c1_title.png) no-repeat center; text-align: center; font-size: 30px; color: #fff; margin: 0px 0px 30px 0px;}
+#content .c1 .text .top{ width: 100%; height: 43px; background: url(../images/2017/company_vip/c1_left.png) no-repeat left; margin: 0px 0px 30px 0px;}
+#content .c1 .text .bottom{ width: 100%; height: 43px; background: url(../images/2017/company_vip/c1_right.png) no-repeat right; margin: 30px 0px 0px 0px;}
+#content .c1 .text .middle{ padding: 0px 60px 0px 60px; line-height: 35px; color: #fff; font-size: 16px;}
+#content .c1 .box{ margin: 36px 0px 0px 0px; padding: 0px 250px 0px 250px; height: 436px;}
+#content .c1 .box div.item_box{ display: inline-block; margin: 10px; border-radius: 5px; float: left; height: 200px; position: relative; text-align: center; width: 154px; overflow: hidden;}
+#content .c1 .box div.item_box .bg{ width: 100%; height: 100%; background: #fff; opacity: 0.2; padding: 0; margin: 0;}
+#content .c1 .box div.item_box img{ position: absolute; top: 30px; left: 50%; margin: 0 0 0 -15px;}
+#content .c1 .box div.item_box p{ position: absolute; display: block; text-align: center; color: #fff; font-size:20px; width: 100%; top: 90px; font-weight: bold; z-index: 1;}
+#content .c1 .box div.item_box span{ position: absolute; display: block; text-align: center; width: 114px; color: #fff; font-size:14px; top: 120px; z-index: 1; padding: 0px 20px 0px 20px;}
+#content .c1 .box div.item_box span a{ color: #fff; font-size:14px; }
+#content .c1 .box div.item_box span a:hover{ text-decoration: underline;}
+#content .c1 .box div.long{ width: 328px;}
+#content .c1 .box div.long .bg{ width: 100%; height: 100%; background: #fff; opacity: 0.4; padding: 0; margin: 0;}
+#content .c1 .box div.long span{ width: 288px; }
+#content .c2{ padding: 80px 0px 60px 0px;}
+#content .c2 .module_title{ background: url(../images/2017/company_vip/c2_title.png) no-repeat center; text-align: center; font-size: 30px; color: #188eee; margin: 0px 0px 30px 0px;}
+#content .c2 .job_num{ text-align: center; width: 100%; font-size: 16px; color: #4c4c4c; margin: 40px 0px 30px 0px;}
+#content .c2 .ul_box{ width:1200px; max-height: 450px; overflow: hidden;}
+#content .c2 .ul_box ul{ width:1300px; }
+#content .c2 .ul_box ul li{ width:290px; height: 96px; border: 1px solid #ebebeb; float: left; margin: 5px 30px 25px 5px; padding: 30px 50px 0px 30px;}
+#content .c2 .ul_box ul li:hover{ box-shadow: 0 0 10px 0 rgba(56,81,76,.12);}
+#content .c2 .ul_box ul li .top{ width: 100%; float: left; margin: 0px 0px 20px 0px;}
+#content .c2 .ul_box ul li .top a{ font-size: 16px; color:#4c4c4c; max-width: 210px; height: 20px; display: inline-block; overflow: hidden; float: left;}
+#content .c2 .ul_box ul li .top a:hover{ color: #188eee; text-decoration: underline;}
+#content .c2 .ul_box ul li .top span{ font-size: 12px; color:#ff0000; float: left; margin: 0px 0px 0px 10px;}
+#content .c2 .ul_box ul li .bottom span{ font-size: 14px; color:#808080; }
+#content .c2 .show { text-align: center;}
+#content .c2 .show p{ font-size: 16px; color:#1d90ee; text-align: center; margin: 40px 0px 5px 0px; cursor: pointer;}
+#content .c2 .show i{ display: inline-block; width: 16px; height: 16px; cursor: pointer;}
+#content .c2 .show i.show_down{ background: url(../images/2017/company_vip/c2_show_down.png) no-repeat;}
+#content .c2 .show i.show_up{ background: url(../images/2017/company_vip/c2_show_up.png) no-repeat;}
+#content .c3{ padding: 80px 0px 60px 0px; background: #1d90ee;}
+#content .c3 .module_title{ background: url(../images/2017/company_vip/c3_title.png) no-repeat center; text-align: center; font-size: 30px; color: #fff; margin: 0px 0px 55px 0px;}
+#content .c3 .img_box{ float: left; width: 700px; height: 448px; padding: 10px 15px 10px 15px; border: 1px solid #fff; margin: 0 0 0 226px;}
+#content .c3 .img_box #focus ul li a{ display: block; width: 100%; text-align: center; line-height: 448px;}
+#content .c3 .img_box #focus { width: 700px; height: 448px; clear: both; position: relative; float: left; }
+#content .c3 .img_box #focus .focus_box{ width: 700px; overflow: hidden; height: 448px; position: absolute;}
+#content .c3 .img_box #focus ul { width: 700px; height: 448px; float: left; position: absolute; clear: both; padding: 0px; margin: 0px; }
+#content .c3 .img_box #focus ul li { float: left; width: 700px; height: 448px; overflow: hidden; position: relative; padding: 0px; margin: 0px; text-align: center;}
+#content .c3 .img_box #focus ul li img{ vertical-align: middle}
+#content .c3 .img_box #focus ul li a{ display: block; width: 100%; text-align: center; line-height: 448px;}
+#content .c3 .img_box #focus .img_left{ position: absolute; left: -226px; top: 160px;}
+#content .c3 .img_box #focus .img_left a{ display: inline-block; width: 62px; height: 122px; background: url(../images/2017/company_vip/c3_left.png) no-repeat;}
+#content .c3 .img_box #focus .img_right{ position: absolute; right: -226px; top: 160px;}
+#content .c3 .img_box #focus .img_right a{ display: inline-block; width: 62px; height: 122px; background: url(../images/2017/company_vip/c3_right.png) no-repeat;}
+
+#content .c4{ padding: 80px 0px 60px 0px; background: url(../images/2017/company_vip/c4_bg.png) center bottom no-repeat;}
+#content .c4 .module_title{ background: url(../images/2017/company_vip/c4_title.png) no-repeat center; text-align: center; font-size: 30px; color: #188eee; margin: 0px 0px 80px 0px;}
+#content .c4 .map_box{ width: 1200px; height: 562px;}
+#content .c4 .map_box div#map{ width: 1200px; height: 562px; border: 1px solid #ccc;}
+#content .c4 .text{ width: 100%; margin: 10px 0px 0px 0px;}
+#content .c4 .text i{ display: inline-block; width: 19px; height: 23px; float: left; margin: 0px 10px 0px 0px; background: url(../images/2017/company_vip/c4_icon.png)}
+#content .c4 .text span{ float: left; font-size: 14px; color: #fff; display: inline-block; height: 23px; line-height: 23px;}
+
+
+.wxapp_img{ position: fixed; bottom:60px; left: 50%; margin:0 0 0 -810px;}
+
+
+

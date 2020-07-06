@@ -1,0 +1,123 @@
+
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:20px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 30px 0px;}
+#content .left_box div.box_title p{ padding:0px 20px 0px 20px; height:40px; line-height:40px; border-bottom:1px solid #f3711a; font-size:16px; color:#808080; display:inline-block;}
+#content .left_box div.box_title p:nth-child(1){ padding:0px 20px 0px 0px;}
+#content .left_box div.box_title p.right{ font-size:12px; color:#808080; height:auto; line-height:normal; border-bottom:none; padding:0; margin:20px 0px 0px 0px;}
+#content .left_box div.box_title span{ font-size:12px; color:#f3711a;}
+
+#content .left_box div.item_box{ height:45px; margin:0px 0px 10px 235px; width:410px;}
+#content .left_box div.item_box div.input_box{ width:320px; border-bottom:1px solid #ebebeb; margin:0 0 5px 0; float:left; height:25px; }
+#content .left_box div.item_box label.item_name{ display:inline-block; color:#808080; font-size:14px; float: left; width:80px; text-align:right; height:45px; margin:0px 10px 0px 0px;}
+#content .left_box div.item_box b.must{ color:#ff0000; font-size:14px; float: left; height:45px; margin:0px 2px 0px 0px;}
+#content .left_box div.item_box label.error{ color:#ff0000;}
+#content .left_box div.item_box div.input_box .select_box{ float:left; margin:0px 0px 15px 0px; width:320px;}
+#content .left_box div.item_box div.input_box .select_box div.text span{ color:#333;}
+#content .left_box div.item_box div.input_box .half{ width:150px; }
+#content .left_box div.item_box div.input_box .half:nth-child(2){ width:150px; margin:0px 0px 15px 20px;}
+#content .left_box div.item_box div.input_box input{ background:none; color:#333; font-size:14px; margin:0px 0px 15px 0px; width:275px; float:left;}
+
+#content .left_box hr{ display:inline-block; width:100%; height:1px; border-bottom:1px dashed #dcdcdc; margin:10px 0px 20px 0px;}
+#content .left_box div.label { position:relative; height:auto; width:410px;}
+#content .left_box div.label a.add{ display:inline-block; width:15px; height:15px; background:url(../../images/2017/add_icon.png) no-repeat; float:right; position: absolute; right:0px; top:0px;}
+#content .left_box div.label a.add:hover{ background:url(../../images/2017/add_icon_h.png) no-repeat;}
+#content .left_box div.label div.input_box{ min-height:20px; width: 300px;  padding: 0 20px 0 0; height:auto;}
+#content .left_box div.label div.input_box p{ float:left; margin:0px 20px 10px 0px; font-size:14px;}
+#content .left_box div.label div.input_box p a{ margin:2px 0px 0px 5px; display:inline-block; width:8px; height:8px; background:url(../../images/2017/close.png); background-size:8px 8px;}
+
+#content .left_box div.age div.input_box span.font{ float:left; margin: 0 13px 0 13px; font-size: 14px;}
+#content .left_box div.age div.input_box .half{ width:140px;}
+#content .left_box div.age div.input_box .half:nth-child(2){ width:140px;}
+
+div.label_select_box{ position: absolute; width:100%; height:100%; top:0; display:none;}
+div.label_select_box .bg{ position: fixed; width:100%; height:100%; top:0; background:#000; opacity:0.6; z-index:5;}
+div.label_select_box .select_box{ position: fixed; width:530px; padding:10px; background:#fff; top:30%; left:50%; z-index:6; margin:0 0 0 -275px; float:left;}
+div.label_select_box .select_box div.top{ float:left; width:100%;}
+div.label_select_box .select_box div.top a.right{ background:url(../../images/2017/close.png); display:inline-block; width:9px; height:9px;}
+div.label_select_box .select_box div.middle{ float:left; width:100%; margin:20px 0px 20px 0px;}
+div.label_select_box .select_box div.middle ul li{ float:left; width:105px; margin:0px 35px 20px 35px;}
+div.label_select_box .select_box div.middle ul li i{ background:url(../../images/2017/checkbox.png); display:inline-block; width:12px; height:12px; float:left; margin:2px 0 0 0;}
+div.label_select_box .select_box div.middle ul li span{ float:left; color:#808080; margin:0 0 0 10px;}
+div.label_select_box .select_box div.middle ul li.selected i{ background:url(../../images/2017/checkbox_h.png);}
+div.label_select_box .select_box div.middle ul li.selected span{ color:#188eee;}
+div.label_select_box .select_box div.bottom a.right{ display:inline-block; width:75px; height:30px; background:#f3711a; color:#fff; font-size:14px; text-align:center; line-height:30px; border-radius:5px;}
+
+
+#content .left_box div.specialty { height:auto; width:410px;}
+#content .left_box div.specialty label.item_name{ height:30px;}
+#content .left_box div.specialty label.count{ float:right; color:#cccccc; margin:5px 0px 0px 0px;}
+#content .left_box div.specialty label.count span{ color:#cccccc;}
+#content .left_box div.specialty textarea{ width:390px; height:250px; border:1px solid #ebebeb; padding:10px; line-height:25px;}
+
+#content .left_box div.code { height:25px; width:410px;}
+#content .left_box div.code { height:25px; width:410px;}
+#content .left_box input.submit{ width:150px; height:45px; line-height:45px; color:#fff; text-align:center; border-radius:5px; background:#f3711a; font-size:20px; float:left; cursor:pointer; margin:10px 0px 30px 320px;}
+#content .left_box input.submit:hover{ opacity:0.8;}
+
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px; float:left;}
+#content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .function_box ul li:hover span{ color:#188eee;}
+#content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px; width:22px; height:23px;}
+
+#content .right_box .function_box ul li.company_profile i{ background:url(../../images/2017/company_profile_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job i{ background:url(../../images/2017/company_jobs_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume i{ background:url(../../images/2017/company_resume_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip i{ background:url(../../images/2017/company_vip_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account i{ background:url(../../images/2017/company_account_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate i{ background:url(../../images/2017/company_authenticate_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_profile:hover i{ background:url(../../images/2017/company_profile_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job:hover i{ background:url(../../images/2017/company_jobs_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume:hover i{ background:url(../../images/2017/company_resume_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip:hover i{ background:url(../../images/2017/company_vip_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account:hover i{ background:url(../../images/2017/company_account_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate:hover i{ background:url(../../images/2017/company_authenticate_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job i{ background:url(../../images/2017/company_jobs_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job span{ color:#188eee;}
+
+
+#content .right_box .quick_box{ width:280px; margin:10px 0px 0px 0px; float:left;}
+#content .right_box .quick_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .quick_box ul li{ float:left; width:53px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .quick_box ul li a{ display:block; float:left; width:100%; height:100%; text-align:center;}
+#content .right_box .quick_box ul li span{ color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .quick_box ul li:hover span{ color:#188eee;}
+#content .right_box .quick_box ul li i{ display:inline-block; width:50px; height:50px;}
+
+#content .right_box .quick_box ul li.add_jobs i{ background:url(../../images/2017/add_jobs.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page i{ background:url(../../images/2017/home_page.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume i{ background:url(../../images/2017/search_resume.png) center no-repeat;}
+
+#content .right_box .quick_box ul li.add_jobs:hover i{ background:url(../../images/2017/add_jobs_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page:hover i{ background:url(../../images/2017/home_page_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume:hover i{ background:url(../../images/2017/search_resume_h.png) center no-repeat;}
+
+div.promotion_box{ position: absolute; width:100%; height:100%; top:0; display: none;}
+div.promotion_box .bg{ position: fixed; width:100%; height:100%; top:0; background:#000; opacity:0.6; z-index:5;}
+div.promotion_box .select_box{ position: fixed; width:530px; padding:10px; background:#fff; top:30%; left:50%; z-index:6; margin:0 0 0 -275px; float:left;}
+div.promotion_box .select_box div.top{ float:left; width:100%; position:relative;}
+div.promotion_box .select_box div.top a.close{ background:url(../../images/2017/close.png); display:inline-block; width:9px; height:9px; position:absolute; right:5px; top:5px;}
+div.promotion_box .select_box div.top p{ font-size:14px; color:#188eee; padding:10px 0px 0px 0px;}
+div.promotion_box .select_box div.middle{ float:left; width:100%; margin:10px 0px 10px 0px; border-bottom:1px solid #ccc; border-top:1px solid #ccc; padding:20px 0px 20px 0px;}
+div.promotion_box .select_box div.middle p{ margin:0px 0px 20px 40px; color:#808080;}
+div.promotion_box .select_box div.middle span.note{ margin:40px 0px 0px 40px; color:#808080; display:block;}
+div.promotion_box .select_box div.bottom a{ display:inline-block; width:75px; height:30px; color:#fff; font-size:14px; text-align:center; line-height:30px; border-radius:5px; float:right; margin:10px 0px 10px 20px; cursor:pointer;}
+div.promotion_box .select_box div.bottom input{ display:inline-block; width:75px; height:30px; color:#fff; font-size:14px; text-align:center; line-height:30px; border-radius:5px; float:right; margin:10px 0px 10px 20px; cursor:pointer;}
+div.promotion_box .select_box div.bottom a.cancel{ background:#cccccc;}
+div.promotion_box .select_box div.bottom a.cancel:hover{ background:#808080;}
+div.promotion_box .select_box div.bottom input.sure{ background:#f3711a;}
+div.promotion_box .select_box div.bottom input.sure:hover{ opacity:0.8;}
+
+

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 机构动态</div>
+
+<div class="usermain">
+  <div class="leftmenu com link_bk">
+   {#include file="member_train/left.htm"#}	
+  </div>
+  <div class="rightmain">
+	<div class="bbox1">	
+	  <div class="addjob link_bk">
+	    <div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">机构动态</div>
+			</div>
+			<div class="navs">
+				<a href="?act=train_profile">基本资料</a>
+				<a href="?act=train_logo">机构Logo</a>
+				<a href="?act=train_news" class="se">机构动态</a>
+				<a href="?act=train_img">机构风采</a>
+				<a href="?act=train_map_set">地图标注</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+		 <div class="data" style="padding-top:25px;">
+		 	{#if $news#}
+		 	<form id="form1" name="form1" method="post" action="?act=train_news_del">
+		  	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  		<tbody>
+		  			<tr bgcolor="#F5F5F5" align="left">
+		  				<th width="175" class="left">新闻标题</th>
+		  				<th width="138">审核状态</th>
+		  				<th width="128">添加时间</th>
+		  				<th width="123">浏览次数</th>
+		  				<th width="101">排序</th>
+		  				<th width="106">操作</th>
+		  			</tr>
+		  			{#foreach from=$news item=list#}
+		  			<tr class="data_content">
+		  				<td width="175" class="left"><input name="id[]" type="checkbox" id="id"  value="{#$list.id#}"/><a href="{#$list.news_url#}" target="_blank">{#$list.title#}</a></td>
+		  				<td width="138">{#if $list.audit==1#}
+						<span style="color: #009900">审核通过</span>
+						{#elseif  $list.audit==2#}
+						<span style="color: #FF6600">审核中</span>
+						{#else#}
+						<span style="color: #FF0000">
+						审核未通过
+						{#/if#}
+						</td>
+		  				<td width="128">{#$list.addtime|date_format:"%Y-%m-%d"#}</td>
+		  				<td width="123">{#$list.click#}次</td>
+		  				<td width="101">{#$list.order#}</td>
+		  				<td width="106"><a href="?act=train_news_edit&id={#$list.id#}" >修改</a>&nbsp;&nbsp;<a href="?act=train_news_del&id={#$list.id#}"   onClick="return confirm('您确定删除吗?')">删除</a></td>
+		  			</tr>
+		  			{#/foreach#}
+		  		</tbody>
+		  	</table>
+		  	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  		<tbody>
+		  			<tr>
+		  				<td width="100" class="left"><input type="checkbox" name="chkAll"  id="chk" title="全选/反选" />全选</td>
+		  				<td width="500"><input type="submit" name="delete" value="删除"   class="but95_35lan"  onClick="return confirm('您确定删除吗?')"/></td>
+		  				<td><input type="button" name="add" value="添加新闻"   class="but95cheng" onclick="window.location='?act=train_news_add'"/></td>
+		  			</tr>
+		  		</tbody>
+		  	</table>
+		  </form>
+		 {#if $page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			{#else#}
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  		<tbody>
+		  			<tr bgcolor="#F5F5F5" align="left">
+		  				<th width="175" class="left">新闻标题</th>
+		  				<th width="138">审核状态</th>
+		  				<th width="128">添加时间</th>
+		  				<th width="123">浏览次数</th>
+		  				<th width="101">排序</th>
+		  				<th width="106">操作</th>
+		  			</tr>
+		  		</tbody>
+		  	</table>
+			<div class="emptytip">没有找到对应的信息！</div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  		<tbody>
+		  			<tr>
+		  				<td width="100" class="left"><input type="button" name="add" value="添加新闻"   class="but95cheng" onclick="window.location='?act=train_news_add'"/></td>
+		  				<td></td>
+		  				<td></td>
+		  			</tr>
+		  		</tbody>
+		  	</table>
+			{#/if#}
+		  </div>
+	  </div>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+
+
+
+</body>
+</html>

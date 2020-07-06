@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.idTabs.min.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.user.selectlayer.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+
+	showmenu("#jobsname","#menu1","#jobsid","#Form1","#jobsid");
+	
+	//计算总积分
+	$("#days").keyup(function(){	
+		var days_points={#$promotion.cat_points#};
+		var user_points={#$user_points#};
+		if((/^(\+|-)?\d+$/.test($(this).val())) && $(this).val()>={#$promotion.cat_minday#} && $(this).val()>0 && days_points>0)
+		{
+		$("#count").html("<br />您推广天数为<strong style=\"color:#009900\">&nbsp;&nbsp;"+$(this).val()+"&nbsp;&nbsp;</strong>天，需要扣除：&nbsp;&nbsp;<strong style=\"color: #009900;\">"+$(this).val()*days_points+"</strong>&nbsp;&nbsp;{#$QISHI.points_quantifier#}{#$QISHI.points_byname#}，您目前共有&nbsp;&nbsp;<strong style=\"color: #FF6600;\">"+user_points+"</strong>&nbsp;&nbsp;{#$QISHI.points_quantifier#}{#$QISHI.points_byname#}。<br /><br />");   
+		}
+		else
+		{
+		$("#count").html("");	
+		}
+	});		
+	
+$("#Form1").validate({
+   rules:{
+   days:{
+   required: true,
+   
+    {#if $promotion.cat_minday>0#}
+	min:{#$promotion.cat_minday#},
+	{#/if#}	
+	{#if $promotion.cat_maxday>0#}
+	max:{#$promotion.cat_maxday#},
+	{#/if#}	
+	digits: true
+   },
+    jobsid:{
+	required: true,
+	digits:true 
+	}
+	},
+    messages: {
+    days: {
+    required: "请输入推广天数",
+	digits: jQuery.format("请填写数字"),
+    min: jQuery.format("推广天数不能少于{0}天"),
+	max: jQuery.format("推广天数不能多于{0}天")
+   },
+   jobsid: {
+   required: "请选择推广职位",
+   digits: jQuery.format("请选择推广职位")
+   } 
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+当前位置：<a href="{#$QISHI.site_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#$userindexurl#}">会员中心</a>&nbsp;>&nbsp;企业推广&nbsp;>>添加{#$promotion.cat_name#}
+</div>
+<table width="985" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:8px;" >
+  <tr>
+    <td width="173" valign="top" class="link_bk">
+	{#include file="member_company/left.htm"#}
+	</td>
+    <td valign="top">
+<div class="user_right_box">
+		<div class="user_right_top_tit_bg">		
+		  <h1>企业推广</h1>
+		</div>	  
+	    <form id="Form1" name="Form1" method="post" action="?act=promotion_add_save">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+              <td height="50" colspan="2" bgcolor="#f9f9f9" style=" border-bottom:1px #C9D9E7 solid;padding-left:15px;font-size:14px;">
+			  <span style=" color:#003399; ">{#$promotion.cat_name#}</span>
+			  <span style=" color: #999999; ">(具体请查看下方方案说明)</span>
+			  </td>
+              </tr>
+			  </table>
+	    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="10" style="margin-top:10px;">
+          <tr>
+            <td width="220" align="right">推广方案：</td>
+            <td>{#$promotion.cat_name#}</td>
+          </tr>
+          <tr>
+            <td align="right">推广期限：</td>
+            <td>
+			<input name="days" type="text" class="input_text_200" id="days" value="" maxlength="4"   />
+			天
+		
+			</td>
+          </tr>
+		  {#if  $promotion.cat_id=="4"#}
+		  <script src="{#$QISHI.site_template#}js/jquery.iColorPicker.js" type='text/javascript' language="javascript"></script>
+		  <tr>
+            <td align="right">选择颜色：</td>
+            <td>
+			<input id="val" name="val" type="text" value="" class="iColorPicker input_text_200"  onclick="iColorShow('val','icp_val')"/>
+
+			
+		
+			</td>
+          </tr>
+		  {#/if#}
+		  
+		  
+          <tr>
+            <td align="right">选择推广职位：</td>
+            <td>
+			 <div>
+		<input type="text" value="{#$smarty.get.jobsname|default:"请选择推广职位"#}"  readonly="readonly" name="jobsname" id="jobsname" class="input_text_200 input_text_200_selsect"/>
+		<input name="jobsid" id="jobsid" type="hidden" value="{#$smarty.get.jobsid|default:""#}" />
+			<div id="menu1" class="menu">
+				<ul>
+				{#foreach from=$jobs item=list#}
+				<li id="{#$list.id#}" title="{#$list.jobs_name#}">{#$list.jobs_name#}</li>
+				{#/foreach#}
+				</ul>
+			</div>
+		  </div>
+	 
+		    </td>
+          </tr>
+          <tr>
+            <td align="right">&nbsp;</td>
+            <td height="55">
+			<span style="color:#0066CC" id="count"></span>
+			<input name="" type="submit" value="确定推广" class="but100" id="addsubmit"   />
+			<input name="promotionid" type="hidden" value="{#$promotion.cat_id#}" />
+			<input name="cat_type" type="hidden" value="{#$promotion.cat_type#}" />
+			<input name="golist" type="hidden" value="{#$smarty.get.golist#}" />
+			</td>
+          </tr>
+        </table>
+		
+        </form>
+		
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+          <td height="35" bgcolor="#f9f9f9" style="border-bottom:1px #C9D9E7 solid; padding-left:15px; border-top:1px #C9D9E7 solid; font-size:14px; color:#FF3300"><strong>方案说明</strong></td>
+          </tr> 
+		  <tr>
+          <td >
+		  
+		  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="5" style="margin-bottom:30px; margin-top:8px; line-height:180%">
+            <tr>
+              <td width="40%">方案名称：{#$promotion.cat_name#}</td>
+              <td width="60%">推广天数最少：
+			  {#if $promotion.cat_minday=="0"#}
+			  不限制
+			  {#else#}
+			  {#$promotion.cat_minday#}天
+			  {#/if#}			  </td>
+            </tr>
+            <tr>
+              <td>推广期每天消耗积分：
+			 {#if $promotion.cat_points=="0"#}
+			  免费
+			  {#else#}
+			  {#$promotion.cat_points#}{#$QISHI.points_quantifier#}{#$QISHI.points_byname#}
+			  {#/if#}			  </td>
+              <td>推广天数最多：
+			   {#if $promotion.cat_maxday=="0"#}
+			  不限制
+			  {#else#}
+			  {#$promotion.cat_maxday#}天
+			  {#/if#}			  </td>
+            </tr>
+            <tr>
+              <td>方案说明：</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+			   {#$promotion.cat_notes#}
+			   </td>
+              </tr>
+          </table></td>
+          </tr>
+      </table>
+</div></td>
+  </tr>
+</table>
+{#include file="footer.htm"#}
+</body>
+</html>

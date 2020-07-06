@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+            <title>{#$smarty.get.key#} - 资讯中心 - {#$QISHI.site_name#}</title>
+            <meta name="description" content="{#$smarty.get.key#} 资讯中心">
+                <meta name="keywords" content="{#$smarty.get.key#} 资讯中心">
+                    <meta name="author" content="骑士CMS" />
+                    <meta name="copyright" content="74cms.com" />
+                    <meta http-equiv="X-UA-Compatible" content="IE=7">
+                        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+                        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+                        <link href="{#$QISHI.site_template#}css/news.css" rel="stylesheet" type="text/css" />
+                        <link href="{#$QISHI.site_template#}css/base_c.css" type="text/css" rel="stylesheet"/>
+                        <link href="{#$QISHI.site_template#}css/index_c.css" type="text/css" rel="stylesheet"/>
+                        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $(".search_news").click(function () {
+                                    var key = $("#key").val();
+                                    news_search_location(key);
+                                });
+                                function news_search_location(key)
+                                {
+                                    $("body").append('<div id="pageloadingbox">页面加载中....</div><div id="pageloadingbg"></div>');
+                                    $("#pageloadingbg").css("opacity", 0.5);
+                                    $.get("{#$QISHI.website_dir#}plus/ajax_search_location.php", {"act": "QS_newssearch", "key": key},
+                                    function (data, textStatus)
+                                    {
+                                        window.location.href = data;
+                                    }
+                                    );
+                                }
+                            });
+                        </script>
+                        </head>
+                        <body style="background:#f5f5f5;">
+                            {#include file="header.htm"#}
+                            <!-- 当前位置 -->
+                            <div class="page_location link_bk">
+                                当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_news"|qishi_url#}">新闻资讯</a>&nbsp;>&nbsp;搜索结果
+                            </div>
+                            <!-- 主体内容 -->
+                            <div class="container link_bk">
+
+                                <!-- 左边内容 -->
+                                <div class="left_area" style="border-top:2px #8abbf8 solid;background:#fff;border-left:none;border-right:none;border-bottom:none;width:766px;">
+                                    <div class="company_list">
+                                        <div class="com_container">
+                                            <!-- 列表 -->
+                                            <div class="news">
+                                                <ul>
+                                                    {#qishi_news_list set="列表名:news,显示数目:10,标题长度:35,关键字:GET[key],分页显示:1,标题长度:35,摘要长度:100,填补字符:...,排序:article_order>desc"#}
+                                                    {#foreach from=$news item=list#}
+                                                    <li>
+                                                        <div class="new_tit s"><a href="{#$list.url#}" target="_blank">{#$list.title#}</a></div>
+                                                        <p>发布时间：{#$list.addtime|date_format:"%Y-%m-%d"#} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>浏览次数：{#$list.click#}</span></p>
+                                                        <p>{#$list.briefly#}<a href="{#$list.url#}">[查看全文]</a></p>
+                                                    </li>
+                                                    {#/foreach#}
+                                                </ul>
+                                            </div>
+                                            {#if $page#}
+                                            <table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+                                                <tr>
+                                                    <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+                                                </tr>
+                                            </table>
+                                            {#/if#}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 右边内容 -->
+                                <div class="right_area" style="border: none;
+                                     background: url(http://test.91jiaoshi.com/templates/default/images/d_box_code_bg.jpg) no-repeat;
+                                     width: 220px;
+                                     height: 259px;
+                                     padding: 0px;
+                                     margin-bottom:12px;">
+                                </div>
+                                <div class="right_area" style="border-top:2px #8abbf8 solid;background:#fff;border-left:none;border-right:none;border-bottom:none;margin-bottom:12px;width:220px;">
+                                    <div class="box">
+                                        <p class="bottom_title">
+                                            <span>急聘职位</span>
+                                            <a target="_blank" title="更多急聘职位" href="/jobs/jobs-list.php">更多 〉</a>
+                                        </p>
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="right_area" style="border-top:2px #8abbf8 solid;background:#fff;border-left:none;border-right:none;border-bottom:none;margin-bottom:12px;width:220px;">
+                                    <div class="box">
+                                        <p class="bottom_title">
+                                            <span>快到期职位</span>
+                                        </p>
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <!-- 主体内容 结束 -->
+                            {#include file="footer.htm"#}
+                        </body>
+                        </html>

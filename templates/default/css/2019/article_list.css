@@ -1,0 +1,192 @@
+/*
+#article_district_list { padding: 81px 0px 0px 0px;}
+#article_district_list #header{ width: 100%; background: #fff; border-bottom: 1px solid #f1f0f0; height: 80px; position: fixed; top: 0px; z-index: 2;}
+#article_district_list #header .left a.logo{ display: inline-block; width: 105px; height: 28px; background: url(../../images/2019/header_logo.png) no-repeat; background-size: 105px 28px; float: left; margin: 20px 0px 0px 0px;}
+#article_district_list #header .left .district_box { float:left; margin: 25px 0px 0px 30px; position: relative; width: 190px;}
+#article_district_list #header .left .district_box h1.district_name{ font-size:18px; color:#808080; float:left;}
+#article_district_list #header .left .district_box i.to_down{ display: inline-block; float: left; width: 14px; height: 8px; background: url(../../images/2019/to_down.png) no-repeat; background-size: 14px 8px; margin: 10px 0px 0px 5px;}
+
+#article_district_list #header .left .district_box div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top: 28px; right: -535px; z-index: 3; min-width: 680px; min-height: 150px; display: none;}
+#article_district_list #header .left .district_box div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#article_district_list #header .left .district_box div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#article_district_list #header .left .district_box div.district_list div.top p:nth-child(2){ left:70px;}
+#article_district_list #header .left .district_box div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#article_district_list #header .left .district_box div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#article_district_list #header .left .district_box div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#article_district_list #header .left .district_box div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none; width: 680px;}
+#article_district_list #header .left .district_box div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#article_district_list #header .left .district_box div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+#article_district_list #header .left .menu_box { float:left; }
+#article_district_list #header .left .menu_box a{ float:left; padding: 25px 0px 15px 0px; font-size: 18px; margin: 0px 30px 0px 0px; color: #808080; border-bottom: 3px solid #fff;}
+#article_district_list #header .left .menu_box a:hover{ color: #188eee; border-bottom: 3px solid #188eee;}
+#article_district_list #header .left .menu_box a.hover{ color: #188eee; border-bottom: 3px solid #188eee;}
+#article_district_list #header .right div.other_box{ float: left; margin: 30px 0px 0px 0px; position: relative;}
+#article_district_list #header .right div.other_box a{ float: left; font-size: 16px; color: #808080;}
+#article_district_list #header .right div.other_box a:hover{ color: #188eee;}
+#article_district_list #header .right div.other_box i.line{ float: left; width: 1px; height: 15px; background: #d9d9d9; margin: 5px 20px 0px 20px;}
+#article_district_list #header .right div.other_box div.code_img_box{ position: absolute; left: 0px; top: 30px; padding: 10px; background: #fff; box-shadow: 0px 2px 6px 0px rgba(2, 2, 2, 0.2); border: 1px solid #f1f0f0; display: none;}
+
+#article_district_list #header .right div.login_box{ float: left; margin: 25px 0px 0px 50px;}
+#article_district_list #header .right div.login_box .login{ display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:0px 0 0 10px;}
+#article_district_list #header .right div.login_box .login:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+#article_district_list #header .right div.login_box .reg{ display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:0px 0 0 10px;}
+#article_district_list #header .right div.login_box .reg:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+*/
+
+#article_district_list #content{ margin:15px 0px 0px 0px;}
+#article_district_list #content .top_box { margin: 0px 0px 20px 0px;}
+#article_district_list #content .top_box .sdistrict_box{ float: left; width: 255px; height: 130px; background: #fff; padding: 10px 0px 0px 0px;}
+#article_district_list #content .top_box .sdistrict_box label{ float: left; font-weight: bold; color: #188eee; margin: 0px 0px 0px 20px; font-size: 18px;}
+#article_district_list #content .top_box .sdistrict_box ul li{ float: left; width: 78px; height: 20px; overflow: hidden; text-align: center; margin: 7px 0px 7px 0px; border-right: 1px solid #e5e5e5;}
+#article_district_list #content .top_box .sdistrict_box ul li a{ font-size: 14px; color: #808080;}
+#article_district_list #content .top_box .sdistrict_box ul li a:hover{ color: #188eee;}
+#article_district_list #content .top_box .sdistrict_box ul{ float: left; width: 240px; overflow: hidden; background: #fff; padding: 5px 8px 0px 8px; position: relative; z-index: 1;}
+#article_district_list #content .top_box .sdistrict_box ul.city_list{ height: 100px;}
+#article_district_list #content .top_box .sdistrict_box ul.city_more{ display: none;}
+#article_district_list #content .top_box .sdistrict_box ul li.hide_line{ width: 3px; background: #fff; height: 100%; position: absolute; top: 0; right: 10px; border: none;}
+#article_district_list #content .top_box .sdistrict_box ul li.more_bt a{ font-weight: bold; color: #333}
+
+
+#article_district_list #content .top_box .search_box{ width:882px; margin:0 auto; text-align:center; position:relative; float: right;}
+#article_district_list #content .top_box .search_box .search{ border:1px solid #188eee; float:left; height:42px; margin:30px 0px 0px 0px; background:#fff; width:880px;}
+#article_district_list #content .top_box .search_box .search input.keyword{ padding:15px 20px 15px 20px; font-size:14px; color:#333; background:#fff; float:left; height:12px; line-height:12px; min-width:625px;}
+#article_district_list #content .top_box .search_box .search b{ display:inline-block; width:1px; height:20px; float:left; margin:12px 0px 0px 0px; background:#ccc; float:left;}
+#article_district_list #content .top_box .search_box .search .city_bt{ display:inline-block; height:42px; float:left; line-height:42px; text-align:center; font-size:14px; color:#cccccc; cursor:pointer; background:#fff; padding:0 10px;}
+#article_district_list #content .top_box .search_box .search div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top:75px; right: 105px; z-index: 3;min-width: 680px; min-height: 150px; display:none;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top p:nth-child(2){ left:70px;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#article_district_list #content .top_box .search_box .search div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#article_district_list #content .top_box .search_box .search div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none; width: 680px;}
+#article_district_list #content .top_box .search_box .search div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#article_district_list #content .top_box .search_box .search div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+#article_district_list #content .top_box .search_box .search input.submit{ display:inline-block; width:100px; height:42px; float: left; cursor:pointer; background:url(../../images/2019/submit_bt.jpg) no-repeat; background-size:100px 42px; }
+#article_district_list #content .top_box .search_box ul{ float:left; margin:10px 0px 30px 20px;}
+#article_district_list #content .top_box .search_box ul li{ float:left;}
+#article_district_list #content .top_box .search_box ul li span{ font-size:14px; color:#188eee;}
+#article_district_list #content .top_box .search_box ul li a{ font-size:14px; color:#188eee; margin:0px 10px 0px 0px;}
+
+#article_district_list #content .top_ad_box{ margin: 0px 0px 10px 0px; float: left;}
+#article_district_list #content .top_ad_box .top div{ width: 595px; height: 190px; overflow: hidden;}
+#article_district_list #content .top_ad_box .top a{ float: left; margin: 0px 0px 10px 0px;}
+#article_district_list #content .top_ad_box .bottom{ width: 1200px; overflow: hidden; margin: 10px 0px 0px 0px; float: left;}
+#article_district_list #content .top_ad_box .bottom div{ width: 1220px; float: left;}
+#article_district_list #content .top_ad_box .bottom div a{ float: left; margin: 0px 10px 10px 0px; overflow: hidden;}
+
+#article_district_list #content  a.more_list{width:160px; height:50px; display:inline-block; text-align:center; line-height:50px; border:1px solid #ebebeb; border-radius:5px; font-size:16px; color:#cccccc; margin:10px 0px 0px 368px;}
+#article_district_list #content  a.more_list:hover{ color:#fff; background:#f3711a; border-color:#f3711a;}
+#article_district_list #content  .box_title{ height:40px; border-bottom:2px solid #ebebeb; position:relative;}
+#article_district_list #content  .box_title .type_tab{ position:absolute; left:0px; top:0px;}
+#article_district_list #content  .box_title .type_tab a{ float:left; font-size:20px; color:#333; margin:0px 40px 0px 0px; line-height:40px; position:relative;}
+#article_district_list #content  .box_title .type_tab a i{ position: absolute; display:inline-block; width:22px; height:14px; background:url(../../images/2017/new2.gif) no-repeat; background-size:22px 14px; top:2px; right:-25px;}
+#article_district_list #content  .box_title .type_tab a:hover{ border-bottom:3px solid #f3711a;}
+#article_district_list #content  .box_title .type_tab a.hover{ border-bottom:3px solid #f3711a;}
+#article_district_list #content  .box_title .type_tab span{ float:left; font-size:20px; color:#333; margin:0px 40px 0px 0px; line-height:40px; border-bottom:2px solid #f3711a;}
+
+
+#article_district_list #content .recommend_box{ background:#fff; padding:20px; float:left; width:857.5px; overflow:hidden; margin: 0 0 20px 0;}
+#article_district_list #content .recommend_box .box_list{  display:none;}
+#article_district_list #content .recommend_box ul{ height: 325px; float:left; width:110%; margin:20px 0px 0px 0px;}
+#article_district_list #content .recommend_box ul li{ float:left; margin:0px 20px 20px 0px; padding:20px; width:233px; height:100px; overflow:hidden; border:1px solid #ccc;}
+#article_district_list #content .recommend_box ul li div.top{ float:left; width:100%; height:65px; border-bottom:1px solid #ebebeb;}
+#article_district_list #content .recommend_box ul li div.top a.name{ float:left; font-size:16px; color:#808080; display:inline-block; max-width:110px; height:22px; overflow:hidden;}
+#article_district_list #content .recommend_box ul li div.top a.name:hover{ color:#188eee;}
+#article_district_list #content .recommend_box ul li div.top span.wage{ float:right; font-size:14px; color:#f3711a; display:inline-block; max-width:120px; height:20px; line-height:20px;}
+#article_district_list #content .recommend_box ul li div.top p.info{ width:100%; float:left; font-size:14px; color:#cccccc; margin:10px 0px 0px 0px; height:20px; overflow:hidden;}
+#article_district_list #content .recommend_box ul li div.bottom{ float:left; height:20px; width:100%; margin:20px 0px 0px 0px;}
+#article_district_list #content .recommend_box ul li div.bottom span.company{ float:left; font-size:14px; color:#cccccc; display:inline-block; max-width:145px; height:20px; overflow:hidden;}
+#article_district_list #content .recommend_box ul li:hover{ box-shadow: 0px 0px 3px 3px #eae7e7;}
+
+#article_district_list #content .right_ad_box{ float: right; width: 292.5px; height: 487px; overflow: hidden; margin: 0 0 10px 0;}
+#article_district_list #content .right_ad_box a{ display: inline-block; float: left; width: 292.5px; margin: 0 0 10px 0;}
+#article_district_list #content .bottom_ad_box{ width: 1200px; overflow: hidden; margin: 0px 0px 10px 0px; float: left;}
+#article_district_list #content .bottom_ad_box div{ width: 1220px; float: left;}
+#article_district_list #content .bottom_ad_box div a{ float: left; margin: 0px 10px 10px 0px; overflow: hidden;}
+
+
+
+
+/*
+#article_district_list #content .news_box a.more_list{margin:30px 0px 0px 520px;}
+
+#article_district_list #content .news_box{ background:#fff; padding:20px; float:left; width:1160px; overflow:hidden; margin:0px 0px 20px 0px;}
+#article_district_list #content .news_box ul{ float:left; width:150%; margin:20px 0px 0px 0px;}
+#article_district_list #content .news_box ul li{ float:left; margin:0px 100px 0px 0px; width:530px; height:55px; overflow:hidden; border-bottom: 1px solid #ebeaea;}
+
+
+#article_district_list #content .news_box ul li div.left{ float:left; overflow:hidden; max-width: 400px;}
+#article_district_list #content .news_box ul li div.location{ float:left; height:35px; overflow:hidden; text-align:center; margin: 10px 10px 0px 0px;}
+#article_district_list #content .news_box ul li div.location i{ display:inline-block; width:12px; height:16px; background:url(../../images/2019/district_icon.png) no-repeat; background-size:12px 16px; float: left; margin: 10px 0px 0px 0px;}
+#article_district_list #content .news_box ul li div.location a{ display:inline-block; float: left; color:#808080; margin: 10px 0px 0px 5px;}
+#article_district_list #content .news_box ul li div.title{ height:40px; overflow:hidden; margin:10px 0px 0px 15px;}
+#article_district_list #content .news_box ul li div.title a{ font-size:16px; color:#808080; line-height:40px;}
+#article_district_list #content .news_box ul li div.date{ float:right; margin: 10px 0px 0px 0px;}
+#article_district_list #content .news_box ul li div.date span{ font-size:14px; color:#cccccc; line-height:40px;}
+#article_district_list #content .news_box ul li div.date span.top{ font-size:14px; color:#fff; background: #ff0000; padding: 1px 3px; margin: 0px 0px 0px 20px; display: inline-block; width: 15px; height: 18px; line-height: 18px;}
+#article_district_list #content .news_box ul li div.date span.no_top{ font-size:14px; color:#fff; background: #fff; padding: 1px 3px; margin: 0px 0px 0px 20px; display: inline-block; width: 15px; height: 18px; line-height: 18px; content: ""}
+#article_district_list #content .news_box ul li:hover div.location i{ background:url(../../images/2019/district_icon_h.png) no-repeat; background-size:12px 16px;}
+#article_district_list #content .news_box ul li:hover div.location a{ color:#188eee;}
+#article_district_list #content .news_box ul li:hover div.title a{ color:#188eee;}
+#article_district_list #content .news_box ul li:hover div.date span{ color:#188eee;}
+#article_district_list #content .news_box ul li:hover div.date span.top{ color:#fff;}
+#article_district_list #content .news_box ul li:hover div.date span.no_top{ color:#fff;}
+*/
+
+#article_district_list #content .news_box{ background:#fff; padding:20px; float:left; width:1160px; overflow:hidden; margin:0px 0px 20px 0px;}
+#article_district_list #content .news_box ul{ margin:20px 0px 0px 0px;}
+#article_district_list #content .news_box ul li{ border-bottom:1px dotted #dcdcdc; padding:15px; background:#fff;}
+#article_district_list #content .news_box ul li div.location{ float:left; width:25px; text-align:center; margin:5px 0px 0px 0px; overflow: hidden; line-height: 18px;}
+#article_district_list #content .news_box ul li div.location i{ display:inline-block; width:14px; height:18px; background:url(../../images/2019/index_content_news_list_location.png) no-repeat;}
+#article_district_list #content .news_box ul li div.location a{ color:#ccc;}
+#article_district_list #content .news_box ul li div.location:hover i{ background:url(../../images/2019/index_content_news_list_location_h.png) no-repeat;}
+#article_district_list #content .news_box ul li div.location:hover a{ color:#188eee;}
+#article_district_list #content .news_box ul li div.info{ width:1075px; margin:0px 15px 0px 15px; float:left;}
+#article_district_list #content .news_box ul li div.info div.title{ float:left; overflow:hidden; margin:0px 0px 15px 0px;}
+#article_district_list #content .news_box ul li div.info div.title h2{ max-width:960px; height:20px; line-height:20px; overflow:hidden; float:left; margin:0px 20px 0px 0px;}
+#article_district_list #content .news_box ul li div.info div.title a.title{ font-size:20px; color:#333; display:inline-block;}
+#article_district_list #content .news_box ul li div.info div.title a.title:hover{ color:#6eb5ef;}
+#article_district_list #content .news_box ul li div.info div.title i{ display:inline-block; width:20px; height:19px; float:left; margin:0px 10px 0px 0px;}
+#article_district_list #content .news_box ul li div.info div.title i.hot{ background:url(../../images/2019/hot_icon.png);}
+#article_district_list #content .news_box ul li div.info div.title i.top{ background:url(../../images/2019/top_icon.png);}
+#article_district_list #content .news_box ul li div.info div.title i.emergency{ background:url(../../images/2019/emergency_icon.png);}
+#article_district_list #content .news_box ul li div.info ul{ margin:0px 0px 15px 0px; float:left; width:100%; height:35px; overflow:hidden;}
+#article_district_list #content .news_box ul li div.info ul li{ float:left; margin:0px 10px 10px 0px; height:auto; padding:0; border:none;}
+#article_district_list #content .news_box ul li div.info ul li a{ display:inline-block; height:30px; line-height:30px; padding:0px 10px 0px 10px; border:1px solid #188eee; text-align:center; color:#188eee; border-radius:5px; overflow:hidden;}
+#article_district_list #content .news_box ul li div.info ul li a:hover{ background:#188eee; color:#fff;}
+#article_district_list #content .news_box ul li div.info ul li a span{ color:#f3711a;}
+#article_district_list #content .news_box ul li div.info ul li a:hover span{ color:#fff;}
+#article_district_list #content .news_box ul li div.info div.other span{ color:#ccc; float:left; margin:0px 20px 0px 0px;}
+#article_district_list #content .news_box ul li div.info div.other span.date i{ display:inline-block; width:14px; height:14px; background:url(../../images/2019/clock_icon.png) no-repeat; margin:1px 5px 0px 0px; float: left;}
+#article_district_list #content .news_box ul li div.info div.other span.click i{ display:inline-block; width:19px; height:14px; background:url(../../images/2019/eye_icon.png) no-repeat; margin:1px 5px 0px 0px; float: left;}
+#article_district_list #content ul.page_box{ width:100%; margin:40px 0px 30px 0px; text-align:center; background:#fff; padding: 0px 0px 30px 0px;}
+#article_district_list #content ul.page_box li{ display:inline-block; margin:0px 10px 0px 0px;}
+#article_district_list #content ul.page_box li a{ display:inline-block; line-height:28px; padding:0px 10px 0px 10px; color:#b2b2b2; font-size:16px; border:1px solid #b2b2b2;}
+#article_district_list #content ul.page_box li a.dot{ border:none;}
+#article_district_list #content ul.page_box li a:hover{ background:#188eee; color:#fff; border:1px solid #188eee;}
+#article_district_list #content ul.page_box li a.select{ background:#188eee; color:#fff; border:1px solid #188eee;}
+#article_district_list #content ul.page_box li a.dot{ background: none; color:#b2b2b2; border:none;}
+#article_district_list #content ul.page_box li.page_all{ font-size:16px; color:#b2b2b2;}
+#article_district_list #content p.emptytip{ text-align:center; font-size:20px; color:#cccccc; margin:0px 0px 50px 0px;}
+
+
+
+
+
+#article_district_list #content .news_box .news_b_list{ float:left; width:150%; margin:20px 0px 0px 0px;}
+#article_district_list #content .news_box .news_b_list li{ float:left; margin:0px 30px 0px 0px; width:565px; height:55px; overflow:hidden; border-bottom: 1px solid #ebeaea; padding: 0;}
+
+
+
+#article_district_list #content .news_box .news_b_list li div.left{ float:left; overflow:hidden; max-width: 400px;}
+#article_district_list #content .news_box .news_b_list li div.title{ height:40px; overflow:hidden; margin:10px 0px 0px 0px;}
+#article_district_list #content .news_box .news_b_list li div.title a{ font-size:16px; color:#808080; line-height:40px;}
+#article_district_list #content .news_box .news_b_list li div.date{ float:right; margin: 10px 0px 0px 0px;}
+#article_district_list #content .news_box .news_b_list li div.date span{ font-size:14px; color:#cccccc; line-height:40px;}
+#article_district_list #content .news_box .news_b_list li:hover div.title a{ color:#188eee;}
+#article_district_list #content .news_box .news_b_list li:hover div.date span{ color:#188eee;}
+
+#article_district_list .side_fix_ad_box{ position: fixed; top: 30%; left: 50%; margin: 0 0 0 630px;}
+#article_district_list .bottom_fix_ad_box{ position: fixed; bottom: 20px;left: 50%; margin: 0 0 0 630px; }
+#article_district_list .bottom_fix_ad_box a.close{ position: absolute; top: -18px; right: -18px; display: inline-block; width: 18px; height: 18px; background: url(../../images/2019/close2.png) no-repeat; background-size: 18px;}

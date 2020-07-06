@@ -1,0 +1,171 @@
+/*猎头详细页面*/
+.left_area.hunt{border:0;}
+.right_box .hunt_com p{color:#656565;}
+.hunt_info{border:1px solid #ccc;}
+.hunt_info .hunt_dateil{border-bottom:1px dashed #ccc;padding:17px 15px;_height:150px;}
+.hunt_info .hunt_dateil .avater{float:left;width:120px;height:150px;margin-right:15px;}
+.hunt_info .hunt_dateil .info_txt{float:left;}
+.hunt_info .hunt_dateil .info_txt h4{position:relative;font-size:18px;font-weight:normal;margin-top:0px;margin-bottom:10px;}
+.hunt_info .hunt_dateil .info_txt p{font-size:14px;font-family:"microsoft yahei";color:#656565;line-height:30px;}
+.hunt_info .hunt_dateil .info_txt p span{font-size:16px;color:#FF9900;font-weight:bold;}
+.hunt_info .hunt_dateil .info_txt h4 .card{display:inline-block;margin-left:5px;margin-top:4px;width:18px;height:13px;background:url(../images/hunter/29.gif) top left no-repeat;cursor:pointer;}
+.hunt_info .present{padding:16px 15px;background-color:#F5F5F5;}
+.hunt_info .present{font-size:12px;font-family:"microsoft yahei";line-height:20px;color:#7a7a7a;}
+.hunt_job_list{margin-top:20px;}
+.hunt_job_list h3{float:left;padding:10px;margin-bottom:-1px;font-size:16px;font-weight:normal;border-bottom:1px solid #e54043;}
+.hunt_job_list h3 span{color:#0180cf;}
+.hunt_job_list .job_table{border-top:1px solid #ccc;border-bottom:1px solid #ccc;padding-left:10px;padding-top:10px;padding-bottom:28px;}
+.hunt_job_list .job_table tr{height:30px;font-size:14px;font-family:"microsoft yahei";}
+.hunt_job_list .job_table tr span{font-size:16px;color:#FF9900;font-weight:bold;}
+/*猎头首页*/
+.headhunt .hunt_top{width:1000px;margin-bottom:19px;}
+.headhunt .hunt_top .left_logo{float:left;width:730px;}
+.headhunt .hunt_top .right_but{position: relative; float:right;padding-top:10px;padding-left:45px;border:1px solid #ccc;width:213px;}
+.headhunt .hunt_top .right_but .but_bg{ width:163px;height:197px;background:url(../images/hunter/32.gif) left top no-repeat;}
+.headhunt .hunt_top .right_but .but_bg input{position: absolute;}
+.headhunt .hunt_top .right_but .but_bg input.sreach1{top:52px;left:28px;}
+.headhunt .hunt_top .right_but .but_bg input.sreach2{top:123px;left:28px;}
+.hunt_hot_job{}
+.hunt_title{position: relative; float:left;padding:10px;padding-top:0;margin-bottom:-1px;font-size:16px;font-weight:normal;border-bottom:1px solid #e54043;+margin-bottom:-2px;z-index: 9999;_margin-bottom:-1px;font-family: "microsoft yahei";}
+.hot_job_con{border-top:1px solid #ccc;padding-top:9px;font-family:"microsoft yahei";zoom:1;}
+.hot_job_list{float:left;margin-bottom:28px;width:325px;margin-right:12px;}
+.hot_job_list.s{margin-right:0;_margin-top:0px;}
+.hot_job_list .list_tit{padding:13px 15px;background-color:#F5F5F5;+padding-bottom: 0;_padding-bottom:0;margin-bottom: 5px;}
+.hot_job_list .list_tit h4{float:left;font-size:14px;color:#333;font-weight:normal;font-family:"microsoft yahei";line-height:16px;}
+.hot_job_list .list_tit a{float:right;font-size:12px;color:#017FCE;line-height:16px;}
+.hot_job_list .list_tab{padding-left:10px;height:150px;}
+.hot_job_list .list_tab tr{height:27px;}
+.hunt_data{float:left;width:466px;border:1px solid #ccc;margin-bottom:10px;margin-right:12px;padding:15px 13px;}
+.hunt_data.s{margin-right:0;}
+.hunt_data .hunt_left_item{float:left;border-right: 1px dashed #ccc;padding-right: 2px;}
+.hunt_data .hunt_left_item .avater{float:left;width:63px;height:70px;overflow:hidden;margin-right:15px;}
+.hunt_data .hunt_left_item .hunt_txt{float:left;line-height:27px;}
+.hunt_data .hunt_right{float:right;padding-left:20px;}
+.hunt_data .hunt_right li{line-height:27px;}
+.hunt_data .hunt_right li p{float:left;width:149px;}
+.hunt_data .hunt_right li p a{color:#017FCF;}
+.hunt_data .hunt_right li div{float:left;}
+/*猎头列表*/
+.hunt_list_sreach{padding:26px 33px;border:1px solid #CFCFCF;background-color:#F5F5F5;margin-bottom:10px;}
+/*.hunt_list_sreach .line_1{margin-bottom:17px;}*/
+.hunt_list_sreach .line_1 .box{width:278px;height:30px;line-height:30px;font-size:14px;color:#ACACAC;border:1px solid #cccccc;background-color:#FFFFFF;padding-left:15px;position:relative;float:left;margin-right:10px;cursor:pointer;}
+.hunt_list_sreach .line_1 .box span{display:block;width:250px;height:30px;overflow:hidden;white-space: nowrap;text-overflow:ellipsis;}
+.hunt_list_sreach .line_1 .box i{position:absolute;right:15px;top:13px;width:0;height:0;font-size:0;line-height:0;border-color:#ccc transparent transparent transparent;_border-color:#ccc #ffffff #ffffff #ffffff;border-style:solid;border-width:6px;cursor:pointer;}
+.hunt_list_sreach .line_1 .keybox{width:420px;height:30px;line-height:30px;font-size:14px;color:#ACACAC;border:1px solid #cccccc;background-color:#FFFFFF;padding-left:15px;position:relative;float:left;}
+.hunt_list_sreach .line_1 .keybox input{width:420px;height:28px;line-height:28px;font-size:14px;color:#ACACAC;border:0;}
+.hunt_list_sreach .line_1 .input_text_280_bg{margin-right:10px;}
+.hunt_list_sreach .line_2 .input_text_604{margin-right:10px;}
+.hunt_list_sreach .line_2 .but130lan{position:relative;top:-2px;margin-right:90px;}
+.hunt_list_sreach .line_2 a{display:inline-block;padding-left:15px;line-height:16px;color:#017FCF;background:url(../images/hunter/35.gif)left center no-repeat;}
+.hunt_left{float:left;width:738px;border:1px solid #ccc;font-family:"microsoft yahei";padding-bottom:21px;_width:710px;_margin-right:6px;}
+.hunt_left .left_title{padding:16px 33px;background-color:#F5F5F5;border-bottom:1px solid #ccc;_width:677px;*padding-bottom: 0;_padding-bottom:15px;}
+.hunt_left .left_title h3{float:left;font-size:12px;font-weight:normal;height:14px;}
+.hunt_left .left_title h3 span{color:#017FCF;}
+.hunt_left .left_title p{float:right;}
+.hunt_left .left_hunt_list{padding:0 9px;}
+.hunt_left .left_hunt_list .hunt_list_item{padding:20px 24px 19px 24px;border-bottom:1px dashed #ccc;_width:672px;_padding-right:10px;}
+.hunt_left .left_hunt_list li .hunt_l{float:left;border-right: 1px dashed #ccc;width:338px;padding-right: 10px;}
+.hunt_left .left_hunt_list li .hunt_l .avater{float:left;width:79px;height:110px;overflow:hidden;margin-right:25px;}
+.hunt_left .left_hunt_list li .hunt_l .hunt_txt{float:left;line-height:27px;width:234px;}
+.hunt_left .left_hunt_list li .hunt_l .hunt_txt p{height:27px;overflow:hidden;}
+.hunt_left .left_hunt_list li .hunt_r{float:right;padding-left:25px;_padding-right:0;_width:283px;}
+.hunt_left .left_hunt_list li .hunt_r li{line-height:27px;}
+.hunt_left .left_hunt_list li .hunt_r li p{width:223px;float:left;_width:190px;}
+.hunt_left .left_hunt_list li .hunt_r li p a{color:#017FCF;}
+.hunt_left .left_hunt_list li .hunt_r li p a.all{font-weight:bold;}
+.hunt_left .left_hunt_list li .hunt_r li div{float:left;}
+.hunt_right{float:right;width:250px;_float:left;}
+.hunt_index_right{float:right;width:155px;_float:left;}
+
+/*职位详情页面 猎头职位详情页面*/
+.left_area{width:740px;float:left;border:1px solid #ccc;margin-bottom:10px;_width:710px;}
+.detail_top{position:relative;padding-top:20px;padding-bottom:20px;margin-left:20px;margin-right:20px;border-bottom:1px dashed #ccc;zoom:1; _margin-right:-10px;}
+.detail_top h3{position:relative;padding-bottom:16px;font-size:22px;font-weight:normal;font-family:"microsoft yahei";color:#323232;}
+.detail_top h3 .job_type{position:absolute;top:5px;left:140px;padding-left:5px;padding-right:5px;color:#fff;display:block;font-size:12px;background-color:#FF9900;cursor: default;}
+.detail_top .company{font-size:14px;color:#656565;}
+.detail_top .company a{float:left;color:#333;}
+.detail_top .company p{float: left; margin-left: 10px;}
+.detail_top .company p em{font-size: 16px;line-height: 14px; font-weight: bold;font-style: normal;color:#FF9900;}
+.detail_top .company span{float:left;margin-left:10px;margin-top:1px;display:block;width:18px;height:15px;background:url(../images/07.jpg)no-repeat 0px -180px;}
+.detail_top .company a:hover{text-decoration:none;}
+.detail_top .info{padding-top:16px;}
+.detail_top .info span{display:inline-block;height:18px;color:#A9A9A9;margin-right:15px;}
+.detail_top .info .data{padding-left:20px;background:url(../images/hunter/18.gif) 0px 0px no-repeat;}
+.detail_top .info .watch{padding-left:20px;background:url(../images/hunter/18.gif) 0px -25px no-repeat;}
+.detail_top .info .delivery{padding-left:20px;background:url(../images/hunter/18.gif) 0px -50px no-repeat;}
+.detail_top .info .times{font-style:normal;color:#FF7300;}
+.detail_top .welfare{padding-top:15px;}
+.detail_top .welfare li{display:block;float:left;padding:6px 7px;margin-right:8px;background-color:#F2F4F7;border:1px solid #D6D6D7;-webkit-border-radius:3px;-moz- border-radius:3px;-ms- border-radius:3px;-o- border-radius:3px;border-radius:3px;}
+.detail_top .welfare li p{line-height:17px;padding-left:18px;color:#656565;background:url(../images/hunter/18.gif) 0px -82px no-repeat;}
+.detail_top .apply_job{position:absolute;top:30px;right:20px;}
+.apply_job a{display:inline-block;line-height:14px;margin-left:15px;font-size:14px;color:#3D8FE5;padding-left:18px;background:url(../images/hunter/18.gif)0px -138px no-repeat;}
+.apply_job a.collect{background:url(../images/hunter/18.gif) 0px -109px no-repeat;}
+.apply_job a:hover{text-decoration:none;}
+.detail_info{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;border-bottom:1px dashed #ccc;zoom:1;_width:700px;}
+.titleh4{font-weight:normal;font-size:16px;font-family:"microsoft yahei";color:#333;}
+.detail_info ul{margin-top:10px;padding-left:10px;font-family:"microsoft yahei";font-size:14px;color:#666;}
+.detail_info ul li{margin-bottom:3px;}
+.detail_info ul li a.map{color:#017FCF;}
+.detail_info ul li div{float: left;}
+.detail_info ul li span{font-weight:bold;color:#ff9900;}
+.detail_info .w248{width:248px;float:left;}
+.detail_info .des{font-family:"microsoft yahei";margin-top:15px;padding-left:10px;color:#666;}
+.detail_info .des p{line-height:28px;font-size:14px;}
+.detail_info .des ol{margin:0;padding-left:5px;}
+.detail_info .des ol li{line-height:28px;}
+.contact{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;}
+.contact .contact_con{margin-top:15px;font-family:"microsoft yahei";font-size:14px;}
+.contact .contact_con p{padding-left:15px;line-height:28px;}
+.contact .contact_con .tip{margin-top:15px;padding-top:15px;padding-bottom:15px;background-color:#FFF5E6;}
+.contact .contact_con .tip div{text-align:center;color:#FF9900;}
+.contact .log_box{margin-top:15px;font-family:"microsoft yahei";font-size:14px;}
+.contact .log_box .log_tip{margin-top:15px;padding-top:15px;padding-bottom:15px;background-color:#FFF5E6;}
+.contact .log_box .log_tip div{text-align:center;color:#656565;}
+.contact .log_box .log_tip div a{color:#017FCF;}
+.apply{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;}
+.apply .fl{float:left;}
+.apply .share{float:right;_width:134px;}
+.apply .share .report{text-align:right;padding-right:5px;line-height:20px;margin-bottom:5px;}
+.apply .share .report a{color:#017FCF;}
+.other_job{padding:20px;border-top:1px solid #ccc;}
+.other_job table{margin-top:15px;font-size:14px;}
+.other_job table tr{height:40px;background:url(../images/11.jpg) repeat-x bottom;}
+.other_job table tr span{font-size: 16px;color:#FF9900;font-weight: bold;}
+.other_job table tr .frist{text-indent:15px;}
+.other_job .more{margin-top:10px;font-size:14px;text-align:right;}
+.other_job .more a{color:#017FCF;}
+.right_area{width:250px;float:right;}
+.company_info{border:1px solid #ccc;margin-bottom:10px;}
+.company_info .logo{padding:10px 20px 0px 20px;border-bottom:1px solid #ccc;}
+.company_info .logo .logo_box{margin:0 auto;}
+.company_info .logo .name{color:#656565;font-size:14px;text-align:center;padding-bottom:20px;}
+.company_info .info_txt{padding:10px 20px 20px 20px;font-size:14px;}
+.company_info .info_txt p{line-height:28px;}
+.company_info .info_txt p a{color:#017FCF;}
+.right_box{margin-bottom:10px;border:1px solid #ccc;padding-bottom: 15px;}
+.right_box .title_box{padding-top:14px;padding-bottom:14px;padding-left:15px;border-bottom:1px solid #ccc;background-color:#F5F5F5;}
+.right_box .title_box h5{margin:0;font-size:14px;font-family:"microsoft yahei";font-weight:bold;}
+.right_box .list{padding-top:10px;padding-left:15px;padding-right:15px;}
+.right_box .list.jobs_contact p a{color:#0180cf;}
+.right_box .list.hunter_contact{padding-top:10px;padding-right:10px;}
+.right_box .list.hunter_contact p{line-height:30px;width:223px;height:30px;overflow:hidden;word-break:break-all;}
+.right_box .list.hunter_contact p a{color:#0180cf;}
+.right_box .list.hunter_contact .hunter_log{font-size: 14px;line-height: 25px;font-family: "microsoft yahei";}
+.right_box .list.hunter_contact .hunter_log a{color:#0180CF;}
+.right_box .list p{font-size: 14px; line-height: 30px;font-family: "microsoft yahei";/*height:30px;*/overflow: hidden;}
+.right_box .list li{font-family:"microsoft yahei";margin-bottom:10px;}
+.right_box .list li .w150{width:150px;float:left;}
+.right_box .list li .j a{font-size:14px;color:#017FCF;}
+.right_box .list li .c{color:#656565;}
+.right_box .list li .w163{font-size:14px;width:163px;float:left;}
+.right_box .list li .w163 a{color:#666;}
+.right_box .list li .fl{font-size:14px;float:left;}
+.right_box .list li .fl span{color:#ff9900;font-weight: bold;}
+.right_box .list .hhunt_info{margin-left: -15px;padding-left: 15px;padding-bottom: 20px;padding-top:10px;_height:90px;border-bottom:1px solid #ccc;_margin-left:0;_border:0;width: 233px;}
+@media screen and (-webkit-min-device-pixel-ratio:0){ .right_box .list .hhunt_info{padding-top:15px;} }
+.right_box .list .hhunt_info .avatar{float: left;width:68px;height:85px;margin-right:9px;}
+.right_box .list .hhunt_info .hhunt_txt{float: left;}
+.right_box .list .hhunt_info .hhunt_txt p{line-height: 30px;}
+.right_box .list .enter{display:block;padding-left: 22px;background: url(../images/hunter/27.gif) top left no-repeat;font-size: 14px;color:#017FCF;margin-top: 13px;margin-left: 25px;}
+
+.left_area.hunt{border:0;}

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.idTabs.min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$("#tabshow li:nth-child(2)>a").addClass("selected");
+});
+</script>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+当前位置：<a href="{#$QISHI.site_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#$userindexurl#}">会员中心</a>&nbsp;>&nbsp;讲师信息
+</div>
+<table width="985" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:8px;" >
+  <tr>
+    <td width="173" valign="top" class="link_bk">
+	{#include file="member_train/left.htm"#}
+	</td>
+    <td valign="top">
+	<div class="user_right_box">
+		<div class="user_right_top_tit_bg">		
+		  <h1>预览讲师 - <span style="color:#FF6600">{#$teachers.teachername#}</span></h1>
+		</div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="30" bgcolor="#F5FAFC"  style="border-bottom:1px #C9D9E7 solid;"><span style="color:#0066CC; padding-left:20px;"><strong>基本信息</strong></span></td>
+          </tr>
+        <tr>
+          <td height="22" style="border-bottom:1px #C9D9E7 solid;">
+		  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="3">
+            <tr>
+              <td valign="top">
+			  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="8">
+		    <tr>
+              <td class="link_lan">姓名：
+			  {#$teachers.teachername#}
+			 </td>
+              <td class="link_lan">性别：{#$teachers.sex_cn#}</td>
+	          </tr>
+            <tr>
+              <td>年龄：{#$teachers.age#} 岁</td>
+              <td>学历：{#$teachers.education_cn#}</td>
+              </tr>
+            <tr>
+              <td colspan="2">擅长专业：{#$teachers.speciality_#}</td>
+              </tr>
+            <tr>
+              <td>毕业院校：{#$teachers.graduated_school#}</td>
+              <td>现有职称：{#$teachers.positionaltitles#}</td>
+              </tr>
+            <tr>
+              <td>工作单位：{#$teachers.work_unit#}</td>
+              <td>担任职位：{#$teachers.work_position#}</td>
+              </tr>
+            <tr>
+              <td>联系电话：{#$teachers.telephone#}</td>
+              <td>电子邮箱：
+			  {#$teachers.email#}
+				</td>
+              </tr>
+            <tr>
+              <td>通讯 Q Q：{#$teachers.qq#}</td>
+              <td>通讯地址：{#$teachers.address#}</td>
+            </tr>
+			  <tr>
+			  <td colspan="2">个人主页/博客：{#$teachers.website#}</td>
+			  </tr>
+          </table>
+			  </td>
+              <td width="150" valign="top" >
+			  <div style="position:relative">
+			  <div style="position:absolute; right:10px; top:10px;">
+			  <table border="0" align="center" cellpadding="0" cellspacing="1" style="line-height:180%" >
+                <tr>
+                  <td><table border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC" class="link_lan">
+                    <tr>
+                      <td bgcolor="#FFFFFF">{#if $teachers.photo_img<>""#} <img src="{#$QISHI.teacher_photo_dir_thumb#}{#$teachers.photo_img#}?wd={#$random#}" />{#else#}<img src="{#$QISHI.teacher_photo_dir_thumb#}no_photo.gif" />{#/if#}</td>
+                    </tr>
+                    
+                  </table>
+				  </td>
+                </tr>
+                <tr>
+                  <td height="35" align="center" class="link_lan">
+				  <a href="?act=photo_cutting&show=ok&pid={#$teachers.id#}">修改照片</a>				  </td>
+                </tr>
+              </table>
+			  </div>
+			  </div>
+			  </td>
+            </tr>
+          </table>
+		  <div align="center" style="padding:15px; padding-top:6px;">
+		    <input name="" type="button" value="修改" class="but80"  onclick="window.location='?act=add_teachers&pid={#$teachers.id#}&go_teachers_show=1'" />		    
+		    </div>
+			</td>
+	      </tr>
+		<tr>
+          <td height="30" bgcolor="#F5FAFC"  style="border-bottom:1px #C9D9E7 solid;"><span style="color:#0066CC; padding-left:20px;"><strong>个人简介</strong></span></td>
+        </tr>
+		<tr>
+          <td   style="border-bottom:1px #C9D9E7 solid;">
+		  {#if $teachers.contents#} 
+		  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="10">
+            <tr>
+              <td style="line-height:180%"> {#$teachers.contents|nl2br#}</td>
+              </tr>
+          </table>
+		  {#else#}
+			<div style="height:40px; line-height:40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您没有填写个人简介。</div>
+            {#/if#}
+			
+			
+			  <div align="center" style="padding:15px; padding-top:6px;">
+		    <input name="" type="button" value="修改" class="but80"  onclick="window.location='?act=add_teachers&pid={#$teachers.id#}&go_teachers_show=1'" />		    
+		    </div>
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" bgcolor="#F5FAFC"  style="border-bottom:1px #C9D9E7 solid;"><span style="color:#0066CC; padding-left:20px;"><strong>主要成就</strong></span></td>
+        </tr>
+		<tr>
+          <td   style="border-bottom:1px #C9D9E7 solid;">
+		  {#if $teachers.achievements#} 
+		  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="10">
+            <tr>
+              <td style="line-height:180%"> {#$teachers.achievements|nl2br#}</td>
+              </tr>
+          </table>
+		  {#else#}
+			<div style="height:40px; line-height:40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您没有填写个人简介。</div>
+            {#/if#}
+			
+			
+			  <div align="center" style="padding:15px; padding-top:6px;">
+		    <input name="" type="button" value="修改" class="but80"  onclick="window.location='?act=add_teachers&pid={#$teachers.id#}&go_teachers_show=1'" />		    
+		    </div>
+		  </td>
+        </tr>
+      </table>
+		  </div>
+    </td>
+  </tr>
+</table>
+{#include file="footer.htm"#}
+</body>
+</html>

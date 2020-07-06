@@ -1,0 +1,304 @@
+{#qishi_company_show set="列表名:company,企业ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+            <title>{#$company.companyname#}_{#$QISHI.site_name#}</title>
+            <meta name="keywords" content="{#$company.companyname#},{#$company.district_cn#}教师招聘,{#$company.companyname#}招聘信息"/>
+            <meta name="description" content="{#if !empty($company.contents)#}{#$company.contents|strip_tags|strip|mb_substr:0:150:'GBK'#}{#else#}{#$company.companyname#}{#/if#}"/>
+            <meta name="author" content="{#$QISHI.site_name#}" />
+            <meta name="copyright" content="jiaoshizhaopin.net" />
+            <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+            <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+            <link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+            <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+            <script src="{#$user_tpl#}js/simplefoucs.js" type="text/javascript" language="javascript"></script>
+            <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+            <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+
+            <SCRIPT TYPE="text/javascript">
+                $(document).ready(function () {
+                    var company_id = "{#$company.id#}";
+                    $(".check_full_map").click(function () {
+                        dialog("完整地图", "url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&id=" + company_id, "660px", "auto", "", "");
+                    });
+                    var tsTimeStamp = new Date().getTime();
+                    $.get("{#$QISHI.website_dir#}plus/ajax_contact.php", {"id": company_id, "time": tsTimeStamp, "act": "company_contact"},
+                    function (data, textStatus)
+                    {
+                        $("#company_contact").html(data);
+                    }
+                    );
+                    $(".jobsmore").click(function () {
+                        $(".jobsmore").show();
+                        $(".jobsmore").val('正在加载，请稍后...');
+                        var offset = $(".listbox:last-child").attr('id');
+                        offset = parseInt(offset.substr(3));
+                        var tsTimeStamp = new Date().getTime();
+                        $.get("{#$QISHI.website_dir#}plus/ajax_comajaxlist.php", {"companyid": company_id, "time": tsTimeStamp, "act": "show_jobs_more", "offset": offset + 5, "rows": "5"}, function (data, textStatus)
+                        {
+                            if (data == 'empty!')
+                            {
+                                $(".jobsmore").val('已加载所有数据！');
+                                $(".jobsmore").unbind();
+                                $(".jobsmore").css("cursor", "default");
+                            }
+                            else
+                            {
+                                $(".jobsmore").val('查看更多');
+                                $(".take_job ul").append(data);
+                            }
+                        }
+                        );
+                    });
+                    {#if $QISHI.open_comment == '1'#}
+                    $.get("{#$QISHI.website_dir#}plus/ajax_comment.php", { "companyid": company_id, "time":tsTimeStamp},
+                            function (data, textStatus)
+                            {
+                                $("#pl").html(data);
+                            }
+                    );
+                    {#/if#}
+                });
+            </SCRIPT>
+    </head>
+    <body>
+        {#include file="header.htm"#}
+        <!-- 当前位置 -->
+        <div class="page_location link_bk">
+            当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="/company">学校信息</a>&nbsp;>&nbsp;{#$company.companyname#}
+        </div>
+        <!-- 主体内容 -->
+        <div id="company_show_box" class="">
+            <div class="left_area">
+                <div class="com_title">
+                    <div class="code_img">
+                        <img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/company/detail?company_id={#$company.id#}" width="82" height="82" alt="二维码"/>
+                    </div>
+
+                    <div class="title_txt">
+                        <h2>{#$company.companyname#}</h2>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="com_info">
+                    {#if $company.audit == 1#}
+                    <table class="company_info">
+                        <tbody>
+                            <tr>
+                                <td width="80" valign="top" align="right">企业性质：</td>
+                                <td width="270" valign="top">{#$company.nature_cn#}</td>
+                                <td width="80" valign="top" align="right">注册资金：</td>
+                                <td width="270" valign="top">{#$company.registered#}万元&nbsp;{#$company.currency#}</td>
+                            </tr>
+                            <tr>
+                                <td width="80" valign="top" align="right">员工人数：</td>
+                                <td width="270" valign="top">{#$company.scale_cn#}</td>
+                                <td width="80" valign="top" align="right">所在地区：</td>
+                                <td width="270" valign="top">{#$company.district_cn#}</td>
+                            </tr>
+                            <tr>
+                                <td width="80" valign="top" align="right">官网：</td>
+                                <td width="270" valign="top">{#if $company.website && $company.website != "http://"#}<a target="_blank" href="{#$company.website#}">{#$company.website#}</a>{#else#}无{#/if#}</td>
+                            
+                                <td width="80" valign="top" align="right">地址：</td>
+                                <td width="270" valign="top">{#$company.address#}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <p class="info_title" id="companyshow">公司介绍</p>
+                    <div class="com_container">
+                        <!-- 公司介绍 -->
+                        <div class="com_txt">
+                            <p id="company_contents">{#$company.contents|truncate:500:"…[<a id='show_all' href='javascript:void(0);'>&nbsp;查看全部&nbsp;</a>]"#}</p>
+                            <p id="company_contents_noshow" style="display: none;">{#$company.contents|nl2br#}</p>
+                        </div>
+                    </div>
+                    <script>
+                        $('input.showmore').click(function () {
+                            var flag = $(this).val();
+                            if (flag == "展开") {
+                                $('div.com_txt').height('auto');
+                                $(this).val("收起");
+                            } else {
+                                $('div.com_txt').height(150);
+                                $(this).val("展开");
+                            }
+                        })
+
+                        $('a#show_all').click(function () {
+                            var all_str = $('p#company_contents_noshow').html();
+                            $('p#company_contents').html(all_str);
+                            $('div.left_area').removeAttr('style');
+                            if ($('div.left_area').height() > $("div.right_area").height()) {
+                                $('div#company_show_box').height($('div.left_area').height());
+                            } else {
+                                var ul_hieght = $('div.left_area').height() - 732;
+                                if (ul_hieght > 110) {
+                                    $('ul#comment_ul').css('max-height', ul_hieght);
+                                    $('ul#comment_ul').css('overflow-y', 'scroll');
+                                    $('ul#comment_ul div.left').css('width', '150px');
+                                }
+                                var right_h = $('div.right_area').height();
+                                $('div.left_area').height(right_h);
+                            }
+                        })
+                    </script>
+                    {#else#}
+
+                    <div class="emptytip">该企业资料正在审核中...</div>
+                    {#/if#}
+
+                    {#qishi_jobs_list set="列表名:jobs,填补字符:...,职位名长度:18,分页显示:1,显示数目:100,列表页:QS_companyjobs,描述长度:68,会员UID:"|cat:$company.uid#}
+                    {#if ($total > 0)#}
+                    <p class="info_title" id="companyjobs">招聘职位<span>（<font class="red">{#$total#}</font>&nbsp;个正在招聘）</span></p>
+                    <div class="com_container">
+                        <!-- 招聘职位 -->
+                        <div class="com_jobs">
+                            {#if $jobs#}
+                            <table>
+                                <tbody>
+                                    {#foreach from=$jobs item=list#}
+                                    {#if $list.jobs_name != ''#}
+                                    <tr>
+                                        <td width="400" class="frist"><a href="/job/{#$list.id#}.html" target="_blank">{#$list.jobs_name#}</a></td>
+                                        <td width="150">{#$list.wage_cn#}</td>
+                                        <td width="50">{#$list.education_cn#}</td>
+                                        <td width="113" style="overflow:hidden;">{#$list.district_cn#}</td>
+                                        <td width="82">{#$list.refreshtime_cn#}</td>
+                                    </tr>
+                                    {#/if#}
+                                    {#/foreach#}
+                                </tbody>
+                            </table>
+                            <!--<input type="button" value="查看更多" class="but698hui jobsmore" />-->
+                            {#/if#}
+                        </div>
+                    </div>
+                    {#/if#}
+
+
+                    {#if $company.audit == 1#}                                    
+                    {#qishi_company_img_list set="列表名:img,企业ID:GET[id]"#}
+                    {#if $img#}
+                    <p class="info_title">公司风采</p>
+                    <div class="com_img">
+                        <div id="focus">
+                            <ul>
+                                {#foreach from=$img item=li#}
+                                <li><a href="{#$QISHI.main_domain#}data/companyimg/original/{#$li.img#}" target="_blank">
+                                        <img src="{#$QISHI.main_domain#}data/companyimg/original/{#$li.img#}" alt="{#$company.companyname#}" /></a></li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                    </div>
+                    <script>
+                        $('div.com_img ul li img').each(function () {
+                            var w = $(this).width();
+                            var h = $(this).height();
+                            if (w < 700) {
+                                $(this).attr('height', 280);
+                                $(this).attr('width', w);
+                            } else {
+                                $(this).attr('height', h);
+                                $(this).attr('width', 700);
+                            }
+                        })
+                    </script>
+                    {#/if#}
+
+                    {#if $company.map_x > 0#}
+                    <p class="info_title">公司地址</p>
+                    <div class="com_map">
+                        <div id="map"></div>
+                        <script type="text/javascript">
+                            var map = new BMap.Map("map");
+                                    var point = new BMap.Point({#$company.map_x#}, {#$company.map_y#});
+                                    map.centerAndZoom(point, {#$company.map_zoom#});
+                                    var opts = {type: BMAP_NAVIGATION_CONTROL_SMALL, anchor: BMAP_ANCHOR_TOP_RIGHT}
+                            map.addControl(new BMap.NavigationControl(opts)); //添加鱼骨
+                            map.enableScrollWheelZoom();//启用滚轮放大缩小。
+                            // 创建标注
+                            var qs_marker = new BMap.Marker(point);
+                            map.addOverlay(qs_marker);
+                            // 创建标注 
+                            // 打开信息窗口 
+                            var opts = {
+                                width: 150, // 信息窗口宽度   
+                                height: 50, // 信息窗口高度   
+                                title: "{#$company.companyname#}"  // 信息窗口标题   
+                            }
+                            var infoWindow = new BMap.InfoWindow("{#$company.address#}", opts);  // 创建信息窗口对象   
+                            map.openInfoWindow(infoWindow, point);
+                            // 打开信息窗口  			
+                        </script>
+                        <p class="full_map"><a   class="check_full_map">查看完整地图</a></p>
+                    </div>
+                    {#/if#}
+                    {#/if#}
+                </div>
+
+
+            </div>
+            <!-- 右边内容 -->
+            <div class="right_area">
+
+                <div class="box">
+                    <div class="logo_img"><img src="{#$company.logo#}" width="212" /></div>
+                    {#if $company.website && $company.website != "http://"#}
+                    <center>网站：<a target="_blank" href="{#$company.website#}">{#$company.website#}</a></center>
+                    {#/if#}
+                </div>
+                <div class="box">
+                    {#qishi_ad set="调用名称:q001,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="ad_q001">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="{#$li.img_url#}"><img src="{#$li.img_path#}" width="220" height="300" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                </div>
+            </div>
+            <script>
+                        $('div.progress_box p.progress').css('width', {#$show.time_percent#} + "%"
+                                );
+                                /*
+                                 var left_h = $('div.left_area').height();
+                                 var right_h = $('div.right_area').height();
+                                 if (left_h > right_h) {
+                                 $('div.left_area').parent().height(left_h);
+                                 } else {
+                                 var ul_hieght = $('div.left_area').height() - 732;
+                                 if(ul_hieght > 110){
+                                 $('ul#comment_ul').css('max-height', ul_hieght);
+                                 $('ul#comment_ul').css('overflow-y', 'scroll');
+                                 $('ul#comment_ul div.left').css('width', '150px');
+                                 }
+                                 var right_h = $('div.right_area').height();
+                                 $('div.left_area').height(right_h+20);
+                                 }
+                                 */
+
+                                $('a.comment_more').click(function () {
+                            window.location.href = "http://" + window.location.hostname + window.location.pathname + "#comment_ul";
+                            location.reload();
+                        })
+            </script>
+            <div class="clear"></div>
+        </div>
+        <!-- 主体内容 结束 -->
+        <!--
+        <script src="{#$QISHI.site_template#}js/swipe.js"></script>
+        <script>
+                                window.mySwipe = Swipe(document.getElementById('slider'), {
+                                    auto: 3000,
+                                    speed: 400,
+                                    continuous: true
+                                });
+        </script>
+        -->
+        {#include file="footer.htm"#}
+    </body>
+</html>

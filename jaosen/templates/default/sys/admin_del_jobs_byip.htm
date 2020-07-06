@@ -1,0 +1,39 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        <div class="clear"></div>
+    </div>
+    <div class="toptip">
+        <p>IP£º<input id="ip" type="text" name="ip" /></p>
+        <div><input type="checkbox" id="deluser" />É¾³ýÓÃ»§</div>
+        <div><button id="show">²éÑ¯</button><button id="del">É¾³ý</button></div>
+        <script>
+            $('#show').click(function () {
+                var ip = $('#ip').val();
+                if (ip != "") {
+                    $.get('?ip=' + ip, function (result) {
+                        $('#result').html(result);
+                    })
+                }
+            })
+            $('#del').click(function () {
+                var ip = $('#ip').val();
+                if ($('#deluser').attr("checked")) {
+                    var deluser = 1;
+                } else {
+                    var deluser = 0;
+                }
+                if (ip != "") {
+                    $.get('?del=1&deluser=' + deluser + '&ip=' + ip, function (result) {
+                        $('#result').html(result);
+                    })
+                }
+            })
+        </script>
+        <div id="result"></div>
+    </div>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

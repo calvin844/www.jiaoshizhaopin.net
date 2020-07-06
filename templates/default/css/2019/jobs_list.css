@@ -1,0 +1,149 @@
+/*
+#jobs_type_list #header{ width: 100%; background: #fff; border-bottom: 1px solid #f1f0f0; height: 80px; position: fixed; top: 0px; z-index: 2;}
+#jobs_type_list #header .left a.logo{ display: inline-block; width: 105px; height: 28px; background: url(../../images/2019/header_logo.png) no-repeat; background-size: 105px 28px; float: left; margin: 20px 0px 0px 0px;}
+#jobs_type_list #header .left .type_box { float:left; margin: 25px 0px 0px 30px; position: relative; width: 190px;}
+#jobs_type_list #header .left .type_box h1.type_name{ font-size:18px; color:#808080; float:left;}
+#jobs_type_list #header .left .menu_box { float:left; }
+#jobs_type_list #header .left .menu_box a{ float:left; padding: 25px 0px 15px 0px; font-size: 18px; margin: 0px 30px 0px 0px; color: #808080; border-bottom: 3px solid #fff;}
+#jobs_type_list #header .left .menu_box a:hover{ color: #188eee; border-bottom: 3px solid #188eee;}
+#jobs_type_list #header .left .menu_box a.hover{ color: #188eee; border-bottom: 3px solid #188eee;}
+#jobs_type_list #header .right div.other_box{ float: left; margin: 30px 0px 0px 0px; position: relative;}
+#jobs_type_list #header .right div.other_box a{ float: left; font-size: 16px; color: #808080;}
+#jobs_type_list #header .right div.other_box a:hover{ color: #188eee;}
+#jobs_type_list #header .right div.other_box i.line{ float: left; width: 1px; height: 15px; background: #d9d9d9; margin: 5px 20px 0px 20px;}
+#jobs_type_list #header .right div.other_box div.code_img_box{ position: absolute; left: 0px; top: 30px; padding: 10px; background: #fff; box-shadow: 0px 2px 6px 0px rgba(2, 2, 2, 0.2); border: 1px solid #f1f0f0; display: none;}
+
+#jobs_type_list #header .right div.login_box{ float: left; margin: 25px 0px 0px 50px;}
+#jobs_type_list #header .right div.login_box .login{ display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:0px 0 0 10px;}
+#jobs_type_list #header .right div.login_box .login:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+#jobs_type_list #header .right div.login_box .reg{ display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:0px 0 0 10px;}
+#jobs_type_list #header .right div.login_box .reg:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+
+#jobs_type_list #header .right .user_box{ position:relative; float:left; height:50px; margin:0px 0px 0px 20px;}
+#jobs_type_list #header .right .user_box i.user_icon{ float:left; display:inline-block; width:17px; height:16px; background:url(../images/2017/header_user_icon.png) no-repeat; margin:18px 10px 0px 0px;}
+#jobs_type_list #header .right .user_box span{ float:left; font-size:14px; color:#fff; margin:18px 10px 0px 0px;}
+#jobs_type_list #header .right .user_box i.down_icon{ float:left; display:inline-block; width:9px; height:5px; background:url(../images/2017/header_down_icon.png) no-repeat; margin:25px 0px 0px 0px;}
+#jobs_type_list #header .right .user_box ul.user_menu{ position:absolute; right:0px; top:50px; display:none; z-index: 99;}
+#jobs_type_list #header .right .user_box ul.user_menu li a{ display:inline-block; width:90px; height:30px; line-height:30px; color:#fff; text-align:center; background:#5182d0;}
+#jobs_type_list #header .right .user_box ul.user_menu li a:hover{ color:#fff; background:#1e51a1;}
+*/
+
+#jobs_type_list #content{ margin:15px 0px 0px 0px;}
+#jobs_type_list #content .top_box { margin: 0px 0px 20px 0px;}
+#jobs_type_list #content .top_box .sdistrict_box{ float: left; width: 255px; height: 130px; background: #fff; padding: 10px 0px 0px 0px;}
+#jobs_type_list #content .top_box .sdistrict_box label{ float: left; font-weight: bold; color: #188eee; margin: 0px 0px 0px 20px; font-size: 18px;}
+#jobs_type_list #content .top_box .sdistrict_box ul li{ float: left; width: 78px; height: 20px; overflow: hidden; text-align: center; margin: 7px 0px 7px 0px; border-right: 1px solid #e5e5e5;}
+#jobs_type_list #content .top_box .sdistrict_box ul li a{ font-size: 14px; color: #808080;}
+#jobs_type_list #content .top_box .sdistrict_box ul li a:hover{ color: #188eee;}
+#jobs_type_list #content .top_box .sdistrict_box ul{ float: left; width: 240px; overflow: hidden; background: #fff; padding: 5px 8px 0px 8px; position: relative; z-index: 1;}
+#jobs_type_list #content .top_box .sdistrict_box ul.city_list{ height: 100px;}
+#jobs_type_list #content .top_box .sdistrict_box ul.city_more{ display: none;}
+#jobs_type_list #content .top_box .sdistrict_box ul li.hide_line{ width: 3px; background: #fff; height: 100%; position: absolute; top: 0; right: 10px; border: none;}
+#jobs_type_list #content .top_box .sdistrict_box ul li.more_bt a{ font-weight: bold; color: #333}
+
+
+#jobs_type_list #content .top_box .search_box{ width:882px; margin:0 auto; text-align:center; position:relative; float: right;}
+#jobs_type_list #content .top_box .search_box .search{ border:1px solid #188eee; float:left; height:42px; margin:30px 0px 0px 0px; background:#fff; width:880px;}
+#jobs_type_list #content .top_box .search_box .search input.keyword{ padding:15px 20px 15px 20px; font-size:14px; color:#333; background:#fff; float:left; height:12px; line-height:12px; min-width:625px;}
+#jobs_type_list #content .top_box .search_box .search b{ display:inline-block; width:1px; height:20px; float:left; margin:12px 0px 0px 0px; background:#ccc; float:left;}
+#jobs_type_list #content .top_box .search_box .search .city_bt{ display:inline-block; height:42px; float:left; line-height:42px; text-align:center; font-size:14px; color:#cccccc; cursor:pointer; background:#fff; padding:0 10px;}
+#jobs_type_list #content .top_box .search_box .search div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top:75px; right: 105px; z-index: 3;min-width: 680px; min-height: 150px; display:none;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top p:nth-child(2){ left:70px;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none; width: 680px;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#jobs_type_list #content .top_box .search_box .search div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+#jobs_type_list #content .top_box .search_box .search input.submit{ display:inline-block; width:100px; height:42px; float: left; cursor:pointer; background:url(../../images/2019/submit_bt.jpg) no-repeat; background-size:100px 42px; }
+#jobs_type_list #content .top_box .search_box ul{ float:left; margin:10px 0px 30px 20px;}
+#jobs_type_list #content .top_box .search_box ul li{ float:left;}
+#jobs_type_list #content .top_box .search_box ul li span{ font-size:14px; color:#188eee;}
+#jobs_type_list #content .top_box .search_box ul li a{ font-size:14px; color:#188eee; margin:0px 10px 0px 0px;}
+
+
+#jobs_type_list #content .top_ad_box{ margin: 0px 0px 10px 0px; float: left;}
+#jobs_type_list #content .top_ad_box .top div{ width: 595px; height: 190px; overflow: hidden;}
+#jobs_type_list #content .top_ad_box .top a{ float: left; margin: 0px 0px 10px 0px;}
+#jobs_type_list #content .top_ad_box .bottom{ width: 1200px; overflow: hidden; margin: 10px 0px 0px 0px; float: left;}
+#jobs_type_list #content .top_ad_box .bottom div{ width: 1220px; float: left;}
+#jobs_type_list #content .top_ad_box .bottom div a{ float: left; margin: 0px 10px 10px 0px; overflow: hidden;}
+
+
+
+#jobs_type_list #content .news_b_box{ width: 100%; overflow: hidden; float: left; padding: 0px 0px 20px 0px;}
+#jobs_type_list #content .news_b_box ul{ width: 105%; overflow: hidden;}
+#jobs_type_list #content .news_b_box ul li{ width: 30%; float: left; margin: 0px 15px 15px 0px;}
+#jobs_type_list #content .news_b_box ul li a{ color: #666; font-size: 16px; display: inline-block;  max-width: calc(100% - 35px); height: 20px;  overflow: hidden;}
+#jobs_type_list #content .news_b_box ul li i{ display:inline-block; width:20px; height:19px; margin:0px 0px 0px 10px;}
+#jobs_type_list #content .news_b_box ul li i.hot{ background:url(../../images/2019/hot_icon.png);}
+#jobs_type_list #content .news_b_box ul li a:hover{ color: #f3711a; }
+#jobs_type_list #content .news_b_box a.more_news{ font-size: 16px; color: #999; float: right; margin: 0px 0px 10px 0px;}
+#jobs_type_list #content .news_b_box a.more_news:hover{ text-decoration: underline;}
+
+#jobs_type_list #content  a.more_list{width:160px; height:50px; display:inline-block; text-align:center; line-height:50px; border:1px solid #ebebeb; border-radius:5px; font-size:16px; color:#cccccc; margin:10px 0px 0px 368px;}
+#jobs_type_list #content  a.more_list:hover{ color:#fff; background:#f3711a; border-color:#f3711a;}
+#jobs_type_list #content  .box_title{ height:40px; border-bottom:2px solid #ebebeb; position:relative;}
+#jobs_type_list #content  .box_title .type_tab{ position:absolute; left:0px; top:0px;}
+#jobs_type_list #content  .box_title .type_tab a{ float:left; font-size:20px; color:#333; margin:0px 40px 0px 0px; line-height:40px; position:relative;}
+#jobs_type_list #content  .box_title .type_tab a i{ position: absolute; display:inline-block; width:22px; height:14px; background:url(../../images/2017/new2.gif) no-repeat; background-size:22px 14px; top:2px; right:-25px;}
+#jobs_type_list #content  .box_title .type_tab a:hover{ border-bottom:3px solid #f3711a;}
+#jobs_type_list #content  .box_title .type_tab a.hover{ border-bottom:3px solid #f3711a;}
+#jobs_type_list #content  .box_title .type_tab span{ float:left; font-size:20px; color:#333; margin:0px 40px 0px 0px; line-height:40px; border-bottom:2px solid #f3711a;}
+
+
+#jobs_type_list #content .recommend_box{ background:#fff; padding:20px; float:left; width:857.5px; overflow:hidden; margin: 0 0 20px 0;}
+#jobs_type_list #content .recommend_box .box_list{  display:none;}
+#jobs_type_list #content .recommend_box ul{ height: 325px; float:left; width:110%; margin:20px 0px 0px 0px;}
+#jobs_type_list #content .recommend_box ul li{ float:left; margin:0px 20px 20px 0px; padding:20px; width:233px; height:100px; overflow:hidden; border:1px solid #ccc;}
+#jobs_type_list #content .recommend_box ul li div.top{ float:left; width:100%; height:65px; border-bottom:1px solid #ebebeb;}
+#jobs_type_list #content .recommend_box ul li div.top a.name{ float:left; font-size:16px; color:#808080; display:inline-block; max-width:110px; height:22px; overflow:hidden;}
+#jobs_type_list #content .recommend_box ul li div.top a.name:hover{ color:#188eee;}
+#jobs_type_list #content .recommend_box ul li div.top span.wage{ float:right; font-size:14px; color:#f3711a; display:inline-block; max-width:120px; height:20px; line-height:20px;}
+#jobs_type_list #content .recommend_box ul li div.top p.info{ width:100%; float:left; font-size:14px; color:#cccccc; margin:10px 0px 0px 0px; height:20px; overflow:hidden;}
+#jobs_type_list #content .recommend_box ul li div.bottom{ float:left; height:20px; width:100%; margin:20px 0px 0px 0px;}
+#jobs_type_list #content .recommend_box ul li div.bottom span.company{ float:left; font-size:14px; color:#cccccc; display:inline-block; max-width:145px; height:20px; overflow:hidden;}
+#jobs_type_list #content .recommend_box ul li:hover{ box-shadow: 0px 0px 3px 3px #eae7e7;}
+
+#jobs_type_list #content .right_ad_box{ float: right; width: 292.5px; height: 487px; overflow: hidden; margin: 0 0 10px 0;}
+#jobs_type_list #content .right_ad_box a{ display: inline-block; float: left; width: 292.5px; margin: 0 0 10px 0;}
+#jobs_type_list #content .bottom_ad_box{ width: 1200px; overflow: hidden; margin: 0px 0px 10px 0px; float: left;}
+#jobs_type_list #content .bottom_ad_box div{ width: 1220px; float: left;}
+#jobs_type_list #content .bottom_ad_box div a{ float: left; margin: 0px 10px 10px 0px; overflow: hidden;}
+
+
+
+
+#jobs_type_list #content .news_box a.more_list{margin:30px 0px 0px 520px;}
+
+#jobs_type_list #content .news_box{ background:#fff; padding:20px; float:left; width:1160px; overflow:hidden; margin:0px 0px 20px 0px;}
+#jobs_type_list #content .news_box ul{ float:left; width:150%; margin:20px 0px 0px 0px;}
+#jobs_type_list #content .news_box ul li{ float:left; margin:0px 100px 0px 0px; width:530px; height:55px; overflow:hidden; border-bottom: 1px solid #ebeaea;}
+
+
+
+#jobs_type_list #content .news_box ul li div.left{ float:left; overflow:hidden; max-width: 400px;}
+#jobs_type_list #content .news_box ul li div.location{ float:left; height:35px; overflow:hidden; text-align:center; margin: 10px 10px 0px 0px;}
+#jobs_type_list #content .news_box ul li div.location i{ display:inline-block; width:12px; height:16px; background:url(../../images/2019/district_icon.png) no-repeat; background-size:12px 16px; float: left; margin: 10px 0px 0px 0px;}
+#jobs_type_list #content .news_box ul li div.location a{ display:inline-block; float: left; color:#808080; margin: 10px 0px 0px 5px;}
+#jobs_type_list #content .news_box ul li div.title{ height:40px; overflow:hidden; margin:10px 0px 0px 15px;}
+#jobs_type_list #content .news_box ul li div.title a{ font-size:16px; color:#808080; line-height:40px;}
+#jobs_type_list #content .news_box ul li div.date{ float:right; margin: 10px 0px 0px 0px;}
+#jobs_type_list #content .news_box ul li div.date span{ font-size:14px; color:#cccccc; line-height:40px;}
+#jobs_type_list #content .news_box ul li div.date span.top{ font-size:14px; color:#fff; background: #ff0000; padding: 1px 3px; margin: 0px 0px 0px 20px; display: inline-block; width: 15px; height: 18px; line-height: 18px;}
+#jobs_type_list #content .news_box ul li div.date span.no_top{ font-size:14px; color:#fff; background: #fff; padding: 1px 3px; margin: 0px 0px 0px 20px; display: inline-block; width: 15px; height: 18px; line-height: 18px; content: ""}
+#jobs_type_list #content .news_box ul li:hover div.location i{ background:url(../../images/2019/district_icon_h.png) no-repeat; background-size:12px 16px;}
+#jobs_type_list #content .news_box ul li:hover div.location a{ color:#188eee;}
+#jobs_type_list #content .news_box ul li:hover div.title a{ color:#188eee;}
+#jobs_type_list #content .news_box ul li:hover div.date span{ color:#188eee;}
+#jobs_type_list #content .news_box ul li:hover div.date span.top{ color:#fff;}
+#jobs_type_list #content .news_box ul li:hover div.date span.no_top{ color:#fff;}
+
+
+
+
+#jobs_type_list .side_fix_ad_box{ position: fixed; top: 30%; left: 50%; margin: 0 0 0 630px;}
+#jobs_type_list .bottom_fix_ad_box{ position: fixed; bottom: 20px;left: 50%; margin: 0 0 0 630px; }
+#jobs_type_list .bottom_fix_ad_box a.close{ position: absolute; top: -18px; right: -18px; display: inline-block; width: 18px; height: 18px; background: url(../../images/2019/close2.png) no-repeat; background-size: 18px;}

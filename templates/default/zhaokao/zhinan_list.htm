@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link href="{#$QISHI.site_template#}css/2017/news_list.css" rel="stylesheet" type="text/css" />
+        <title>教师招聘网-招考指南</title>
+    </head>
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <!-- 广告位
+            <div class="top_ad_box">
+                <a href="#"><img src="images/index_content_tiku_bg.jpg" width="100%"/></a>
+            </div>
+            -->
+            <div class="main_box">
+                <div class="search_box">
+                    <form method="get" action="">
+                        <input type="text" class="key" name="keyword" placeholder="请输入搜索关键字" value="{#$smarty.get.keyword#}"/>
+                        <input type="submit" class="submit" value="" />
+                    </form>
+                </div>
+                <!-- 广告位
+                    <marquee><a href="#">广州市白云区桃园中学</a><a href="#">广州市白云区桃园中学</a><a href="#">广州市白云区桃园中学</a><a href="#">广州市白云区桃园中学</a></marquee>
+                -->
+                <div class="clear"></div>
+                <p class="nav">
+                    <a href="/">首页</a>
+                    &nbsp;>&nbsp;
+                    <a href="/zhaokao">招考</a>
+                    &nbsp;>&nbsp;
+                    <a>招考指南</a>
+                </p>
+                <div class="clear"></div>
+                <!-- 广告位
+                <div class="ad_box">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+                -->
+                <div class="clear"></div>
+                <div class="list_box">
+                    {#qishi_news_list set="列表名:news,显示数目:10,分页显示:1,排序:refreshtime>desc,摘要长度:85,填补字符:...,时间格式:Y-m-d,标题长度:30,排除分类:1-2-3-4-5-6"#}
+                    {#if !empty($news)#}
+                    <ul class="news_list">
+                        {#foreach from=$news item=list#}
+                        <li>
+                            <div class="title">
+                                <h2 class="{#if $list.top_flag == 1 ||  $list.emergency_flag == 1#}hot_news{#/if#}">
+                                    {#if $list.click > 1000#}<i class="hot"></i>{#/if#}
+                                    <a class="left" href="{#$list.url#}" target="_blank" title="{#$list.title#}">{#$list.title#}</a>
+                                    {#if $list.top_flag ==1#}<span class="flag">顶</span>{#/if#}
+                                    {#if $list.emergency_flag ==1#}<span class="flag">急</span>{#/if#}
+                                </h2>
+                                <a title="{#$list.title#}" class="right" href="{#$list.url#}">查看详情</a>
+                            </div>
+                            <div class="clear"></div>
+                            <p class="des">{#$list.briefly#}</p>
+                            <div class="clear"></div>
+                            {#if $list.jobs_count > 0#}
+                            <ul class="jobs">
+                                {#foreach from=$list.jobs_list item=j#}
+                                <li><a title="{#$j.job_name#}" href="{#$j.url#}">{#$j.job_name#}（<span>{#$j.amount#}</span>）</a></li>
+                                {#/foreach#}
+                            </ul>
+                            <div class="clear"></div>
+                            {#/if#}
+                            <div class="info">
+                                <span class="date"><i></i>发布时间：{#$list.refreshtime#}</span>
+                                {#if $list.is_url == 0#}<span class="click"><i></i>浏览次数：{#$list.click#}</span>{#/if#}
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    {#else#}
+                    <p class="emptytip">抱歉，这里没有符合条件的信息！</p>
+                    {#/if#}
+                    {#if $page#}
+                    <ul class="page_box">
+                        {#$page#}
+                    </ul>
+                    {#/if#}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- 主体内容 结束 -->
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

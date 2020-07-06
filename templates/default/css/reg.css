@@ -1,0 +1,54 @@
+/*注册页面*/
+.login_body{background-color:#F5F5F5;background-image: none;}
+.sign_up_box .sign_centent{border:2px solid #E8E8E8;border-radius:5px;margin-top:18px;background-color:#fff;padding:29px 36px 29px 46px;display: inline-block;}
+.sign_up_box .sign_centent .sign_left{float:left;width:608;padding-right:22px;border-right:1px solid #DADADA;}
+.sign_left .sign_nav{border-bottom:1px solid #DADADA;width:608px;}
+
+.sign_left .sign_nav li{float:left;margin-bottom:-1px;} 
+.sign_left .sign_nav li a{display:inline-block;padding:15px 20px;color:#CDCDCD;width:80px;background-color:#fff;text-decoration:none;font-size:18px;text-align: center;}
+.sign_left .sign_nav li a.select{border:1px solid #CDCDCD;border-bottom:0;color:#2C2C2C;padding:15px 20px;text-align: center;}
+.sign_left .sign_nav li a:focus{outline:none;}
+.sign_left .sign_form{margin-top:40px;font-size:16px;_width: 600px;}
+.sign_left .sign_form .w99{line-height:36px;float:left;width:99px;}
+.sign_left .sign_form .w99 span{margin-right:5px;color:#E94F8B}
+.sign_left .sign_form li{margin-bottom:25px;}
+/*注册页面输入框+按钮样式*/
+.sign_up_input_name{width:208px;font-size:14px;padding:10px 32px 10px 13px;border:1px solid #ccc;border-radius:3px;background:url(../images/48.gif) 215px 8px no-repeat;}
+.sign_up_input_pwd{width:208px;font-size:14px;padding:10px 32px 10px 13px;border:1px solid #ccc;border-radius:3px;background:url(../images/49.gif) 220px 8px no-repeat;}
+.sign_up_input_mail{width:208px;font-size:14px;padding:10px 32px 10px 13px;border:1px solid #ccc;border-radius:3px;background:url(../images/50.gif) 220px 10px no-repeat;}
+.sign_up_but_sign{width:250px;height:40px;color:#fff;line-height:40px;font-size:16px;font-weight:bold;font-family:"microsoft yahei";background-color:#017FCF;border:0;text-align:center;cursor:pointer;}
+.sign_up_but_login{width:120px;height:32px;color:#fff;line-height:32px;font-size:14px;font-family:"microsoft yahei";background-color:#017FCF;border:0;text-align:center;cursor:pointer;}
+.type_label{ display:inline-block; width:80px; height: 35px; background: #e5e5e5; text-align: center; color:#7D7D7D; margin: 0px 20px 0px 0px; font-size:14px; line-height: 35px; text-decoration: none; border: 1px solid #e5e5e5;}
+.type_label.cur{ border: 1px solid #0180CF; background-color: #fff; background: url(/templates/default/images/tick.gif) no-repeat right 0px;}
+.sign_left .sign_form .input_box .sign_up_input_varcode{display:block;float:left;width:100px;margin-right:14px;font-size:14px;padding:10px 8px 10px 8px;border:1px solid #ccc;border-radius:3px;}
+.sign_left .sign_form .input_box .var_code{float:left;margin-top:2px;margin-right:8px;width:75px;height:32px;border:1px solid #ccc;}
+.sign_left .sign_form .input_box p{float:left;font-size:12px;margin-top:2px;line-height:18px;color:#848484;}
+.sign_left .sign_form .input_box p a{color:#848484;text-decoration:none;}
+.sign_left .sign_form .input_box{float:left}
+.sign_left .sign_form .input_box.user_agree{font-size:14px;color:#2D3134;line-height:20px;}
+.sign_left .sign_form .input_box.user_agree a{color:#009900;text-decoration:none;}
+.sign_left .sign_form .input_box.user_agree a:hover{text-decoration: underline;}
+.sign_left .sign_form .input_box.user_agree input{margin-right:5px;}
+/*右边快速登录样式*/
+.sign_up_box .sign_centent .sign_right{float:left;font-size:14px;padding-left:25px;}
+.sign_right .fast_login{border-bottom:1px dashed #656565;}
+.sign_right .fast_login .title{font-size:16px;margin-bottom:20px;}
+.sign_right .other_sign{margin-top:30px;}
+.sign_right .other_sign p{line-height:30px;padding-left:10px;background:url(../images/41.gif)left center no-repeat;}
+.sign_right .other_sign p a{margin-left:10px;text-decoration:none;color:#1877AF;}
+.content_box p{margin-top:25px;margin-bottom:20px;color:#ADADAD;}
+
+.content_box li{text-indent:-9999px;float:left;margin-right:20px;*margin-right:7px;}
+.content_box li a{display:block;width:63px;height:24px;}
+.content_box li a.qq{background:url(../images/47.gif) 0px 0px no-repeat;}
+.content_box li a.weibo{background:url(../images/47.gif) 0px -38px no-repeat;}
+.content_box li a.taobao{background:url(../images/47.gif) 0px -76px no-repeat;}
+.content_box li a.weixin { background: url(../images/47.gif) 0px -113px no-repeat;}
+.content_box li.weixin { display: block; width:63px; height: 24px; background: url(../images/47.gif) 0px -113px no-repeat; position: relative; cursor: pointer;}
+.content_box li.weixin div#login_container { width:300px; height:300px; position:absolute; top:20px; left:-110px; text-indent: 1px; overflow: hidden; display:none;}
+.content_box li.weixin div#login_container iframe { position:relative; top:-45px;}
+
+/*验证*/
+.sign_form .item-tip{float: left;}
+.sign_form .item-tip label.error{color: #FF0000;display: block;height: 32px;line-height: 32px;padding-left: 10px;width: 180px;font-size:13px;}
+.sign_form .item-tip label.success{background: url("../images/42.gif") no-repeat scroll 0 8px rgba(0, 0, 0, 0);border: 0 none;padding-left: 16px;}

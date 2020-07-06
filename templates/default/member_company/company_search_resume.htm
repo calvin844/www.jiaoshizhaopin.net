@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.resume-search.js" type='text/javascript'></script>
+    </head>
+    <script type="text/javascript">
+                $(document).ready(function () {
+        allaround('{#$QISHI.website_dir#}', "");
+                // 显示行业
+                $("#jobsTrad").hover(function () {
+        $("#divTradCate").show();
+        }, function () {
+        $("#divTradCate").hide();
+        });
+                // 显示职位
+                $("#jobsSort").hover(function () {
+        $("#divJobCate").show();
+                $("#divJobCate li").hover(function () {
+        if ($(this).find('.subcate').length > 0) {
+        $(this).addClass('selected');
+                $(this).find('.subcate').show();
+        } else {
+        $(this).find('a').css("color", "#f77d40");
+        }
+        }, function () {
+        if ($(this).find('.subcate').length > 0) {
+        $(this).removeClass('selected');
+                $(this).find('.subcate').hide();
+        } else {
+        $(this).find('a').css("color", "#0180cf");
+        }
+        });
+        }, function () {
+        $("#divJobCate").hide();
+        });
+                // 显示地区
+                $("#jobsCity").hover(function () {
+        $("#divCityCate").show();
+                $("#divCityCate li").hover(function () {
+        if ($(this).find('.subcate').length > 0) {
+        $(this).addClass('selected');
+                $(this).find('.subcate').show();
+        } else {
+        $(this).find('a').css("color", "#f77d40");
+        }
+        }, function () {
+        if ($(this).find('.subcate').length > 0) {
+        $(this).removeClass('selected');
+                $(this).find('.subcate').hide();
+        } else {
+        $(this).find('a').css("color", "#0180cf");
+        }
+        });
+        }, function () {
+        $("#divCityCate").hide();
+        });
+        });    </script>
+    <body>
+        {#include file="user/company_header.htm"#}
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a></div>
+        <div class="usermain">
+            <div class="leftmenu  com link_bk">
+                {#include file="member_company/left.htm"#}
+            </div>
+            <div class="rightmain">
+                <div class="bbox1">
+                    <div id="searckeybox" class="jobsearch" style="margin-top:0px; border-top: none;">
+                        <h3 style="width: 100%; line-height: 25px; font-size: 18px;  margin-left: 10px;  margin-top: 10px;">简历搜索</h3>
+                        <div class="search_type" id="district_id" cn="district_cn">
+                            <p class="flag" id="city">请选择地区分类 <i></i></p>
+                            <div class="type_box">
+                                <p class="title">
+                                    <span>选择城市</span>
+                                    <a title="不选" class="no_select"  >不选</a>
+                                </p>
+                                <div class="hot">
+                                    <p>热门城市</p>
+                                    <ul>
+                                        {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                                        {#/foreach#}
+                                    </ul>
+                                </div>
+                                <ul class="selected">
+                                    <li id="select_bt" class="selected">请选择省份</li>
+                                    <li id="selected_bt" style="display:none;"></li>
+                                </ul>
+                                <ul id='city_box' class="select_box">
+                                    {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$city item=c#}
+                                    <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                                    {#/foreach#}
+                                </ul>
+                            </div>
+                        </div>
+                        <input id="district_id" type="hidden" value="" name="district_id">
+                            <input id="district_cn" type="hidden" value="" name="district_cn"/>
+                            <div class="search_type" id="jobs_id" cn="jobs_cn">
+                                <p class="flag" id="job_type">请选择职位类别<i></i></p>
+                                <div class="job_type_box">
+                                    <p class="title">
+                                        <span>选择职位类别</span>
+                                        <a title="不选" class="no_select"  >不选</a>
+                                    </p>
+                                    <ul class="job_ptype_ul">
+                                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$category item=list#}
+                                        {#if $list.parentid == 0 #}
+                                        <li val="{#$list.id#}">
+                                            <span>{#$list.categoryname#}</span>
+                                            <u>></u>
+                                        </li>
+                                        {#/if#}
+                                        {#/foreach#}
+                                    </ul>
+                                    <ul class="job_type_ul">
+                                    </ul>
+                                </div>
+                            </div>
+                            <input name="jobs_cn" id="jobs_cn" type="hidden" value="" />
+                            <input name="jobs_id" id="jobs_id" type="hidden" value="" />
+                            <div class="keybox">
+                                <input type="text" id="searckey" name="key" value="请输入关键字" />
+                                <input type="hidden" value="" name="education"/>
+                                <input type="hidden" value="" name="experience"/>
+                                <input type="hidden" value="" name="photo"/>
+                                <input type="hidden" value="" name="talent"/>
+                                <input type="hidden" value="" name="sort"/>
+                                <input type="hidden" value="1" name="page"/>
+                            </div>
+                            <div class="btnsearch" id="btnsearch" ty="QS_resumelist">搜 索</div>
+                            <a class="more" id="showmoreoption" href="javascript:;"><span>更多条件</span><i></i></a>
+                    </div>
+                    <!-- 选择地区弹出框  end-->
+                    <div class="searoptions" id="searoptions" style="height:130px;display: none;">
+
+                        <div class="list"><div class="tit">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</div><div class="option" id="resumeducation"></div></div>
+                        <div class="list"><div class="tit">经&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验：</div><div class="option" id="resumexperience"></div></div>
+                        <div class="list">
+                            <div class="tit">照&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片：</div>
+                            <div class="option" id="resumephoto">
+                                <a   class="opt" id="photo-1">有</a>
+                                <a   class="opt" id="photo-0">无</a>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="tit">等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</div>
+                            <div class="option" id="resumetalent">
+                                <a   class="opt" id="talent-1">普通</a>
+                                <a   class="opt" id="talent-2">高级</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                                
+                                <div class="myrec link_lan">
+                                    <div class="tit h1-title">为您推荐的人才</div>
+                                    <div class="more"><a href="{#"QS_resumelist"|qishi_url#}"  target="_blank">更多人才</a></div>
+                                    <div class="clear"></div>	 
+                                    {#qishi_resume_list set="列表名:resumelist,显示数目:6,意向职位长度:30,填补字符:...,排序:rtime>desc,职位大类:"|cat:$concern_id#}
+                                    {#if !$resumelist#}
+                                    {#qishi_resume_list set="列表名:resumelist,显示数目:6,意向职位长度:30,填补字符:...,排序:rtime>desc"#}
+                                    {#/if#}
+                                    {#if $resumelist#}
+                                    <div class="listtit">
+                                        <div class="listt1"><strong>姓名</strong></div>
+                                        <div class="listt2"><strong>学历</strong></div>
+                                        <div class="listt3"><strong>工作经验</strong></div>
+                                        <div class="listt5"><strong>求职意向</strong></div>
+                                        <div class="listt6"><strong>更新时间</strong></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    {#foreach from=$resumelist item=list#}
+                                    <div class="listtxt">
+                                        <div class="listc1"><a href="{#$list.resume_url#}" target="_blank">{#$list.fullname#}</a></div>
+                                        <div class="listc2">{#$list.education_cn#}</div>
+                                        <div class="listc3">{#$list.experience_cn#}</div>
+                                        <div class="listc5" title="{#$list.intention_jobs#}">{#$list.intention_jobs#}</div>
+                                        <div class="listc6">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    {#/foreach#}
+                                    {#else#}
+                                    <div class="emptytip">对不起！没有找到您要的信息！</div>
+                                    {#/if#}
+                                </div>
+                    -->
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

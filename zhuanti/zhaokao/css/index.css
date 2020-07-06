@@ -1,0 +1,58 @@
+* {
+    border: medium none;
+    font-family: "微软雅黑",Arial,sans-serif;
+    font-size: 14px;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+.left{ float:left;}
+.right{ float:right;}
+.main_box{ width:1000px; margin:0 auto;}
+#header{ height:30px; width:100%; background:#fff; padding:15px 0px 15px 0px;}
+#header .main_box{ overflow:hidden;}
+#header .left{ width:625px; overflow:hidden;}
+#header .left ul{ position:relative; left:-1px;}
+#header .left ul li{ height:30px; line-height:30px; float:left; border-left:1px solid #cacaca; padding:0px 20px 0px 20px; text-align:center;}
+#header .left ul li a{ font-size:18px; color:#666;}
+#header .left ul li a:hover{ color:#333;}
+#header .right ul{ position:relative; right:-2px;}
+#header .right ul li{ height:30px; line-height:30px; float:left; border-right:1px solid #cacaca; padding:0px 20px 0px 20px; text-align:center;}
+#header .right ul li a{ font-size:18px; color:#4d8ad3;}
+#content .c1{ background:#fff; width:100%;}
+#content .c1 .main_box{ background:url(../images/c1.jpg); height:796px; position:relative;}
+#content .c1 .main_box p{ position:absolute; right:0px; top:90px; font-size:24px; color:#333;}
+#content .c1 .main_box p span{ font-size:36px; color:#d83376;}
+#content .c1 .main_box i{ display:block; width:80px; height:80px; background:url(../images/c1_bicon.png); left:50%; bottom:-40px; margin:0px -40px 0px 0px; position:absolute; z-index:1;}
+#content .c2{ background:#ededed; width:100%;}
+#content .c2 .main_box{ background:url(../images/c2.jpg); height:598px; position:relative;}
+#content .c2 .main_box i{ display:block; width:80px; height:80px; background:url(../images/c2_bicon.png); left:50%; bottom:-40px; margin:0px -40px 0px 0px; position:absolute; z-index:1;}
+#content .c3{ background:#fff; width:100%;}
+#content .c3 .main_box{ background:url(../images/c3.jpg); height:989px; position:relative;}
+#content .c3 .main_box i{ display:block; width:80px; height:80px; background:url(../images/c1_bicon.png); left:50%; bottom:-40px; margin:0px -40px 0px 0px; position:absolute; z-index:1;}
+#content .c4{ background:#ededed; width:100%;}
+#content .c4 .main_box{ background:url(../images/c4.jpg); height:818px; position:relative;}
+#content .c4 .main_box i{ display:block; width:80px; height:80px; background:url(../images/c2_bicon.png); left:50%; bottom:-40px; margin:0px -40px 0px 0px; position:absolute; z-index:1;}
+#content .c5{ background:#fff; width:100%;}
+#content .c5 h1{ font-size:60px; text-align:center; color:#333; margin:80px 0px 45px 0px;}
+#content .c5 h2{ font-size:24px; color:#333; font-weight:bold; height:47px; line-height:45px;}
+#content .c5 h2 i{ display:inline-block; width:47px; height:47px; float:left;}
+#content .c5 h2 i.q1{ background:url(../images/q1.png);}
+#content .c5 h2 i.q2{ background:url(../images/q2.png);}
+#content .c5 h2 i.q3{ background:url(../images/q3.png);}
+#content .c5 h2 i.q4{ background:url(../images/q4.png);}
+#content .c5 h2 i.q5{ background:url(../images/q5.png);}
+#content .c5 h2 i.q6{ background:url(../images/q6.png);}
+#content .c5 h2 i.q7{ background:url(../images/q7.png);}
+#content .c5 p.a{ font-size:16px; color:#333; line-height:25px; margin:0px 0px 30px 50px;}
+#content .c5 p.a7{ font-size:16px; color:#333; line-height:25px; margin:0px 0px 10px 50px;}
+#content .c5 p.a7 span.a{ font-size:16px; color:#139893;}
+#content .c5 p.a7 span.b{ font-size:16px; color:#ff9f00;}
+#content .c5 p.a1{ font-size:22px; color:#d37693; line-height:25px; margin:0px 0px 10px 50px;}
+#footer{ background:#FFF; border-top:#ddd 1px solid; height:165px; padding:35px 0px 0px 0px; margin:35px 0px 0px 0px;}
+#footer p{ text-align:center; font-size:14px; margin-bottom:20px; color:#333;}
+#footer p a{ text-align:center; color:#034b99; font-size:14px;}
+#footer a.back_top{ display: block; width: 30px; position: fixed; right: 50%; margin-right: -600px; bottom: 230px; color: #a6a8b2; font-size: 20px; text-align: center; background:#fff; border:1px solid #cacaca; border-radius:5px; padding:5px;}
+#footer a.back_top i{ display:block; width:30px; height:40px; background:url(../images/backtop.png);}
+

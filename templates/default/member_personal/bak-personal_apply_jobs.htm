@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type="text/javascript" language="javascript"></script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a>&nbsp;>&nbsp;<a href="{#$userindexurl#}">会员中心</a>&nbsp;>&nbsp;已申请的职位</div>
+
+<div class="usermain">
+	<div style="display:inline-block">
+  <div class="leftmenu link_bk">
+   {#include file="member_personal/left.htm"#}
+  </div>
+<div class="rightmain">
+	<div class="bbox1">
+	  <div class="apply link_bk">
+ 	    <div class="topnav">
+		 	<div class="titleH1">
+			  <div class="h1-title">已申请的职位</div>
+			</div>
+			<div class="navs">
+				<a href="?act={#$act#}&aetlook="{#if $smarty.get.aetlook==""#} class="se"{#/if#}>所有<span{#if $smarty.get.aetlook==""#} class="h"{#/if#}>({#$count.2#})</span></a>
+				<a href="?act={#$act#}&aetlook=1"{#if $smarty.get.aetlook=="1"#} class="se"{#/if#}>未查看<span{#if $smarty.get.aetlook=="1"#} class="h"{#/if#}>({#$count.0#})</span></a>
+				<a href="?act={#$act#}&aetlook=2"{#if $smarty.get.aetlook=="2"#} class="se"{#/if#}>已查看<span{#if $smarty.get.aetlook=="2"#} class="h"{#/if#}>({#$count.1#})</span></a>
+				<div class="clear"></div>
+			</div>
+	  	</div> 
+	  	<form action="?act=del_jobs_apply" id="form1" name="form1" method="post">
+	  		<div class="toptitle">
+			    <div class="t1"><label><input name="chkAll" type="checkbox" value="" id="chk" />&nbsp;&nbsp;职位名称</label> </div>
+				<div class="t2">公司名称</div>
+				<div class="t3">投递的简历</div>
+				<div class="t4">对方查看</div>
+				<div class="t5">投递时间</div>
+				<div class="t6">备注</div>
+				<div class="clear"></div>
+			</div>
+			{#if $jobs_apply#}
+			{#foreach from=$jobs_apply item=list#}
+			{#if $list.type == 'job' #}
+			{#if $list.district_cn#}
+			<div class="ilist userliststyle">
+			    <div class="t1"><input name="y_id[]" type="checkbox" id="y_id" value="{#$list.did#}" />&nbsp;&nbsp;<a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></div>
+				<div class="t2"><a href="{#$list.company_url#}" target="_blank">{#$list.company_name#}</a></div>
+				<div class="t3">{#if $list.resume_name#}<a href="personal_resume.php?act=edit_resume&pid={#$list.resume_id#}">{#$list.resume_name#}</a>{#else#}<font color="red">该简历已删除！</font>{#/if#}</div>
+				<div class="t4">{#if $list.personal_look eq '2'#}<span style="color:#999999">[已查看]</span>{#else#}<span style="color: #FF3300">[未查看]</span>{#/if#}</div>
+				<div class="t5">{#$list.apply_addtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="t6"><img src="{#$QISHI.site_template#}images/17.jpg" width="14" height="13" title="{#$list.notes|nl2br#}" class="vtip" /></div>	
+				<div class="clear"></div>
+			</div>
+			{#else#}
+			<div class="ilist userliststyle">
+			    <div class="t1" style="width:450px;"><input name="y_id[]" id="y_id" type="checkbox" value="{#$list.did#}" />&nbsp;&nbsp;该职位可能已经被删除，您可以删除本条信息。</div>	
+				<div class="clear"></div>
+			</div>
+			{#/if#}
+			{#else#}
+			<div class="ilist userliststyle">
+			    <div class="t1"><input name="article_id[]" type="checkbox" id="article_id" value="{#$list.id#}" />&nbsp;&nbsp;<a href="{#$list.article_url#}" target="_blank" style="line-height:18px;">{#$list.title#}</a></div>
+				<div class="t2">[简章]</div>
+				<div class="t3">{#if $list.resume_name#}<a href="personal_resume.php?act=edit_resume&pid={#$list.resume_id#}">{#$list.resume_name#}</a>{#else#}<font color="red">该简历已删除！</font>{#/if#}</div>
+				<div class="t4">{#if $list.personal_look eq '2'#}<span style="color:#999999">[已查看]</span>{#else#}<span style="color: #FF3300">[未查看]</span>{#/if#}</div>
+				<div class="t5">{#$list.apply_addtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="t6"><img src="{#$QISHI.site_template#}images/17.jpg" width="14" height="13" title="{#$list.notes|nl2br#}" class="vtip" /></div>	
+				<div class="clear"></div>
+			</div>
+			{#/if#}
+			{#/foreach#}
+			<div class="but">
+			   <input type="submit" name="delete" id="submitsave" value="删除所选"  class="but100lan" onClick="return confirm('删除后招聘单位将无法通过职位申请栏目找到您，您确定删除吗?')"/>
+			</div>
+			{#if $page#}
+			<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+	          <tr>
+	            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+	          </tr>
+	      </table>
+	      {#/if#}
+			{#else#}
+			<div class="emptytip">对不起！没有找到您要的信息！</div>
+			{#/if#}
+		</form>
+		
+	  </div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="clear"></div>
+ {#include file="user/footer.htm"#}
+</body>
+</html>

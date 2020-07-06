@@ -1,0 +1,117 @@
+/*培训 首页*/
+.train_top{margin-bottom:10px;}
+.train_top .train_left{float:left;width:710px;}
+.train_top .train_left .big_ad{width:708px;margin-bottom:10px;border:1px solid #ccc;}
+.train_top .train_left .big_ad img{width:708px;height:290px;}
+.train_top .train_left .sreach_box{padding:17px 15px;border:1px solid #ccc;background-color:#F5F5F5;}
+.train_top .train_left .sreach_box .soinput{width:195px; height:35px; float:left;line-height:35px;}
+.train_top .train_left .sreach_box .soinput .keyinput{ width:170px; padding:5px; border:#CCCCCC solid 1px;color: #CCCCCC}
+.train_top .train_left .sreach_box .soinput .selectinput{ width:170px; padding:7px; border:#CCCCCC solid 1px;background:url(../images/102.gif) no-repeat right -60px; cursor:pointer;background-color:#FFFFFF;color:#666666;padding-bottom:6px;font-size:12px;color:#ACACAC;}
+.train_top .train_left .sreach_box .soinput .trainshowdiv{ width:184px;border:1px #D5D5D5 solid; border-top:0;background-color: #FFFFFF;left:0px; top:0px; display:none}
+.train_top .train_left .sreach_box .soinput .trainshowdiv ul{ padding:0px;}
+.train_top .train_left .sreach_box .soinput .trainshowdiv ul li{ height:28px; line-height:28px; padding-left:8px; cursor:pointer;}
+.train_top .train_left .sreach_box .input_text_210_bg{height:30px;padding:0 9px;margin-right:10px;}
+.train_top .train_left .sreach_box .but70lan{position:relative;top:0px;left:-3px;margin-right:10px;}
+.train_top .train_left .sreach_box a{color:#017FCF;}
+.train_top .train_right{float:right;width:280px;}
+.train_top .train_right .publish{width:280px;height:50px;background:url(../images/train/40.gif) left top no-repeat;cursor:pointer;margin-bottom:10px;}
+.train_top .train_right .new_class{width:278px;border:1px solid #ccc;font-family:"microsoft yahei";}
+.train_top .train_right .new_class .n_class_tit{padding-top:16px;padding-left:15px;padding-bottom:16px;background-color:#F5F5F5;border-bottom:1px solid #ccc;font-size:14px;font-weight:bold;}
+.train_top .train_right .new_class .n_class_list{padding-left:15px;padding-right:14px;padding-bottom:28px;_padding-bottom:24px;height:228px;+height:236px;}
+.train_top .train_right .new_class .n_class_list li{border-bottom:1px dashed #ccc;padding-left:7px;line-height:37px;background:url(../com_images/41.gif)left center no-repeat;}
+.train_mid{margin-bottom:10px;}
+.train_mid .mid_item{width:332px;float:left;border:1px solid #ccc;border-right:0;}
+.train_mid .mid_item.last{border-right:1px solid #ccc;_width:332px;}
+.train_mid .mid_item .item_tit{padding:16px 20px 14px 15px;background-color:#F5F5F5;border-bottom:1px solid #ccc;+padding-bottom: 0;_padding-bottom:0;}
+.train_mid .mid_item .item_tit h4{float:left;font-size:14px;}
+.train_mid .mid_item .item_tit a{float:right;font-size:12px;color:#017FCF;}
+.train_mid .mid_item .item_content{padding:20px 23px;height:216px;}
+.train_mid .mid_item .item_content li{line-height:27px;}
+.train_mid .mid_item .item_content .coming_soon li{padding-left:7px;background:url(../com_images/22.gif) -5px -138px no-repeat;}
+.train_mid .mid_item .item_content li .w110{float:left;width:110px;}
+.train_mid .mid_item .item_content li .w93{float:left;width:89px;}
+.train_mid .mid_item .item_content li .w76{float:left;text-align:right;width:76px;}
+.train_mid .mid_item .item_content .rec_t_list{width:297px;height:216px;_width:285px;}
+.train_mid .mid_item .item_content .rec_t_list li{float:left;margin-right:23px;_margin-right:22px;margin-bottom:20px;width:76px;height:95px;overflow: hidden;}
+.train_bot .bot_left{width:666px;float:left;border:1px solid #ccc;border-right:0;}
+.train_bot .bot_left .item_tit{padding:15px 20px;background-color:#F5F5F5;border-bottom:1px solid #ccc;+padding-bottom: 0;_padding-bottom:0;}
+.train_bot .bot_left .item_tit h4{font-size:14px;line-height:16px;float:left;}
+.train_bot .bot_left .item_tit a{float:right;font-size:12px;line-height:16px;color:#017FCF;}
+.job_box .box_tit h4 a.s{font-weight:normal;}
+.train_bot .bot_left .bot_content{padding-left:15px;padding-right:15px;height:270px;}
+.train_bot .bot_left .bot_content .b_tab_tit{text-align:left;height:40px;background:url(../images/11.jpg) repeat-x bottom;}
+.train_bot .bot_left .bot_content .frist{padding-left:10px;}
+.train_bot .bot_left .bot_content td{height:26px;overflow:hidden;}
+.train_bot .bot_left .bot_content tr{height:28px;}
+.train_bot .bot_left .bot_content td span{color:#FF9900;}
+.train_bot .bot_left .bot_content td em{font-style:normal;color:#979797;text-decoration:line-through;}
+
+.job_box{border:1px solid #ccc;margin-bottom:0px;}
+.job_box.right_box{margin-bottom:0px;}
+.job_box.l{border-right:0px;}
+.job_box .box_tit{padding:15px 20px;background-color:#F5F5F5;border-bottom:1px solid #ccc;line-height: 16px;+padding-bottom: 0;_padding-bottom:0;}
+.job_box .box_tit h4{color:#323232;font-size:14px;float: left;}
+.job_box .box_tit a{float:right;color:#007FCD;font-size: 12px;}
+.information_box{width:333px;float:left;}
+.job_box .box_content{padding:15px 20px;height:240px;}
+.info_box .img_box{width:90px;height:90px;float:left;margin-right:10px;}
+.info_box .info_content{float:left;width:180px;}
+.info_box .info_content h5{font-size:12px;color:#017FCE;margin-top:0px;margin-bottom:10px;}
+.info_box .info_content p{line-height:20px;height:20px;}
+.info_box .info_content p a{color:#0180CF;}
+.info_box .info_list{margin-top:20px;}
+.info_box .info_list li{line-height:25px;padding-left:12px;background:url(../images/index/07.gif) center left no-repeat;}
+.ad_1000{width:1000px;margin-bottom: 10px;}
+
+/*-----课程列表------*/
+.trainsel{width:998px; margin:0 auto; border:1px solid #D5D5D5; margin-top:10px;  line-height:180%;font-size:12px; }
+.trainsel .tit{background:url(../images/14t.gif) repeat-x 0px -169px; height:36px; border-bottom:1px #D5D5D5 solid;}
+.trainsel .tit h3{font-family:"microsoft yahei","宋体"; font-size:15px; padding-left:15px; padding-top:8px; color: #4095ef}
+.trainsel .listbox{ padding-bottom:10px;}
+.trainsel .listbox .bleft{ float:left; width:85px; text-align:right; height:20px; padding-top:10px;}
+.trainsel .listbox .bright{ float:left; width:885px; padding-top:10px; padding-left:5px; }
+.trainsel .listbox .bright li{ float:left; height:20px; line-height:20px; width:100px; padding-left:5px; overflow:hidden;}
+/*-----搜索框------*/
+.s1 { padding-top:10px;}
+.s1 .litit { width:85px; margin-top:8px; float:left; text-align:right; }
+.s1 .litit.keysel{ padding-top:15px;}
+.s1 .litit.csel{ padding-top:6px;}
+.s1 .littxt{ width:880px; margin-top:8px; float:left;padding-left:8px;}
+.s1 .littxt .keybox{background-color:#E9E9E9; padding-left:4px; padding-top:4px; height:36px; float:left; padding-right:4px;}
+.s1 .littxt .keybox .keyinputbox{ width:342px; float:left}
+.s1 .littxt .keybox .keyinputbox input{ width:330px; border:1px   #B9B9B9 solid; background-color:#FFFFFF; height:22px; padding-left:10px; padding-top:6px; border-right:0px; line-height:18px;}
+.s1 .littxt .keybox .subinputbox{ width:70px; height:31px; float:left;}
+.s1 .littxt .keybox .subinputbox input{ width:70px; height:31px;background:#4095ef; border:0px; color:#FFFFFF; font-family:"microsoft yahei","宋体"; font-size:15px; line-height:31px; *margin-top:1px;}
+.myselbox{width:998px;  margin:0 auto; border-top:1px #D5D5D5 solid;background-color:#F2F2F2; display:none;padding-bottom:5px; }
+.myselbox .left{float:left; width:80px; text-align:right; padding-top:6px;}
+.myselbox .optcentet{float:left; width:805px; padding-left:5px;}
+.myselbox .optcentet a{display:block;float:left; color:#4095ef; border:1px #4095ef solid; height:19px;  line-height:19px; padding-left:5px; padding-right:20px; text-decoration:none; margin-right:8px;background:url(../images/51.gif) no-repeat right -274px;background-color:#FFFFFF;white-space: nowrap; margin-top:5px;}
+.myselbox .optcentet a u{ color:#666666; text-decoration:none}
+.myselbox .optcentet a:hover{background:url(../images/51.gif) no-repeat right -297px;background-color: #FFFBD9; border-color:#FF6600}
+.myselbox .right{float:left; width:90px;}
+.myselbox .right a{display:block;color:#009900; border:1px #ADC581 solid; height:19px;  line-height:19px; padding-left:23px; width:55px; text-decoration:none;  background:url(../images/51.gif) no-repeat 0px -320px;background-color:#FFFFFF;white-space: nowrap; margin-top:5px;}
+.myselbox .right a:hover{background-color: #F1FEDA; border-color: #009900}
+.train_list{width:998px; margin:0 auto; margin-top:8px;border:1px solid #ccc;}
+.train_list .pageminnav{ float:right;}
+.train_list .pageminnav a {border: 1px solid #dddddd;display:block;height:20px; line-height:20px; margin-right:5px; float:left;padding-left:5px; padding-right:5px;  }
+.train_list .pageminnav a:hover { border:1px #0066CC solid; color: #0066CC}
+.train_list .pageminnav span {display:block; padding-top:5px; margin-right:5px; float:left;padding-left:5px; padding-right:5px;  }
+.train_list .sort{width:978px; background-color:#F5F5F5; height:35px;line-height:35px;padding-top:15px;padding-left:20px;_padding-left:15px;border-bottom:1px #D5D5D5 solid;}
+.train_list .sort .txt{width:985px; height:27px;background:url(../images/14t.gif) repeat-x 0px -240px; line-height:27px; padding-left:13px;}
+.train_list .sort .txt span{display:block; float:left; padding-right:10px;border-right:1px #D5D5D5 solid}
+.train_list .sort a{display:block;height:20px;line-height:20px;padding-right:15px;float:left;text-decoration:none;position:relative;background:url(../images/jobslistdown.gif) no-repeat scroll right -19px;margin-right:10px;color:#666666;}
+.train_list .sort a:hover{color:#ff9900;}
+.train_list .sort a.select{color:#0180CF;background:url(../images/jobslistdown.gif) no-repeat scroll right 1px;}
+.train_list .sort .pagerow{ float:right;}
+.train_list .sort .pagerow span{display:block;float:left; border:0px;}
+.train_list .sort .pagerow a{ display:block; float:left; width:15px; height:15px; line-height:15px; padding:0px; margin-right:8px; border:1px #CCCCCC solid; background:none; font-size:10px; text-align:center; margin-top:5px;}
+.train_list .sort .pagerow a.select{ border-color:#4095ef; width:15px; height:15px;}
+.train_list .list{width:980px; border-bottom:1px #D5D5D5 dotted; color:#666666; padding-top:6px; padding-bottom:6px; padding-left:18px;}
+.train_list .list .curriculumname{ font-size:14px; height:28px; line-height:28px; font-weight:bold;font-family:"microsoft yahei","宋体"; width:380px; float:left}
+.train_list .list .trainname{ font-size:14px; height:28px; line-height:28px; font-weight:bold;font-family:"microsoft yahei","宋体"; width:400px;float:left}
+.train_list .list .tli{ width:190px; height:20px; line-height:20px; color:#666666; float:left}
+.train_list .list .briefly{height:23px; line-height:23px;word-break:break-all;word-wrap:break-word; width:920px;}
+.train_list .list .briefly1{ color: #999999;height:23px; line-height:23px;word-break:break-all;word-wrap:break-word; width:920px;}
+.train_list .noinfo{ padding:10px; width:965px;line-height:180%; padding-bottom:150px;}
+.train_list .noinfo span{ font-size:14px; font-weight:bold; color:#4095ef}
+

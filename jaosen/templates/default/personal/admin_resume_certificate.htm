@@ -1,0 +1,137 @@
+{#include file="sys/admin_header.htm"#}
+<script type="text/javascript" src="js/jquery.userinfotip-min.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$("#nopass_bt").click(function(){
+            $('form#form1').attr('action','?act=set_certificate&pass=2');
+            $('form#form1').submit();
+        });
+	$("#pass_bt").click(function(){
+            $('form#form1').attr('action','?act=set_certificate&pass=1');
+            $('form#form1').submit();
+        });
+	$("#del_bt").click(function(){
+            if (confirm('你确定要删除吗？')){
+                $('form#form1').attr('action','?act=set_certificate&del=1');
+                $('form#form1').submit();
+            }
+        });
+		
+});
+</script>
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  <div class="clear"></div>
+</div>
+
+<div class="seltpye_y">
+
+	<div class="tit link_lan">
+	<strong>简历证书列表</strong><span>(共找到{#$total_val#}条)</span>
+	<a href="?act=list">[恢复默认]</a>
+	<div class="pli link_bk"><u>每页显示：</u>
+	<a href="{#"perpage:10"|qishi_parse_url#}" {#if $smarty.get.perpage=="10"#}class="select"{#/if#}>10</a>
+	<a href="{#"perpage:20"|qishi_parse_url#}" {#if $smarty.get.perpage=="20"#}class="select"{#/if#}>20</a>
+	<a href="{#"perpage:30"|qishi_parse_url#}" {#if $smarty.get.perpage=="30"#}class="select"{#/if#}>30</a>
+	<a href="{#"perpage:60"|qishi_parse_url#}" {#if $smarty.get.perpage=="60"#}class="select"{#/if#}>60</a>
+	<div class="clear"></div>
+	</div>
+	</div>	
+    
+	<div class="list">
+	  <div class="t">审核状态</div>	  
+	  <div class="txt link_lan">
+	 	<a href="{#"audit:"|qishi_parse_url#}" {#if $smarty.get.audit==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"audit:1"|qishi_parse_url#}" {#if $smarty.get.audit=="1"#}class="select"{#/if#}>审核通过</a>
+		<a href="{#"audit:3"|qishi_parse_url#}" {#if $smarty.get.audit=="3"#}class="select"{#/if#}>等待审核</a>
+		<a href="{#"audit:2"|qishi_parse_url#}" {#if $smarty.get.audit=="2"#}class="select"{#/if#}>审核未通过</a>
+	  </div>
+    </div>
+	
+	<div class="clear"></div>
+</div>
+ 
+  <form id="form1" name="form1" method="post" action="?act=set_certificate">
+  {#$inputtoken#}
+  <table  width="100%" border="0" cellpadding="0" cellspacing="0"   class="link_lan">
+    <tr>
+      <td   width="80"  class="admin_list_tit admin_list_first" >
+     <label id="chkAll">
+         <input type="checkbox" name=" " title="全选/反选" id="chk"/>姓名</label>	 </td>
+	   <td   align="center"  width="80" class="admin_list_tit">用户名 </td>
+	  <td  align="center"  class="admin_list_tit">证书名</td>
+	   <td align="center"  width="10%"  class="admin_list_tit">审核状态</td> 
+      <td align="center" width="12%"  class="admin_list_tit">添加时间</td>
+      <td align="center"  width="15%" class="admin_list_tit">操作</td>
+    </tr>
+	{#foreach from=$list item=list#}
+        <tr>
+            <td class="admin_list admin_list_first" >
+                <input name="id[]" type="checkbox" id="id" value="{#$list.id#}"  />
+                <span>{#$list.user_resume.fullname#}</span>
+		<a href="admin_mail.php?act=send&email={#$list.user_resume.email#}&uid={#$list.uid#}"> <img src="images/email.gif" border="0" title="发送邮件" /></a>
+            </td>
+            <td align="center"  class="admin_list">
+                <span>{#$list.user_info.username#}</span>
+            </td>
+            <td align="center"  class="admin_list">
+                <a target="_blank" href="/data/resume_certificate/{#$list.path#}" class="vtip">{#$list.note#}</a>
+            </td>
+            <td align="center"  class="admin_list">
+                {#if $list.audit == 0#}<span style="color: #999">未审核</span>{#elseif $list.audit == 1#}<span>审核通过</span>{#elseif $list.audit == 2#}<span style="color: #666666">审核未通过</span>{#/if#}
+            </td>
+            <td align="center"  class="admin_list">
+                <span>{#$list.addtime#}</span>
+            </td>
+            <td align="center"  class="admin_list">
+                <a href="?act=management&id={#$list.uid#}"  target="_blank" class="userinfo"  id="{#$list.uid#}">管理</a>
+            </td>
+        </tr>
+	 {#/foreach#}
+  </table>
+ </form>
+{#if !$list#}
+<div class="admin_list_no_info">没有任何信息！</div>
+{#/if#}
+<table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+      <tr>
+        <td>
+<input type="button" class="admin_submit" id="nopass_bt" value="不通过" />
+<input type="button" class="admin_submit" id="pass_bt" value="通过审核" />  
+<input type="button" class="admin_submit" id="del_bt" value="删除" />
+		</td>
+        <td width="305" align="right">
+		<form id="formseh" name="formseh" method="get" action="?act=certificate_list">	
+			<div class="seh">
+			    <div class="keybox"><input name="key" type="text"   value="{#$smarty.get.key#}" /></div>
+			    <div class="selbox">
+					<input name="key_type_cn"  id="key_type_cn" type="text" value="{#$smarty.get.key_type_cn|default:"姓名"#}" readonly="true"/>
+						<div>
+								<input name="key_type" id="key_type" type="hidden" value="{#$smarty.get.key_type|default:"1"#}" />
+												<div id="sehmenu" class="seh_menu">
+														<ul>
+														<li id="1" title="姓名">姓名</li>
+														<li id="2" title="ID">ID</li>
+														<li id="3" title="UID">UID</li>
+														</ul>
+												</div>
+						</div>				
+				</div>
+				<div class="sbtbox">
+				<input name="act" type="hidden" value="list" />
+				<input type="submit" name="" class="sbt" id="sbt" value="搜索"/>
+				</div>
+				<div class="clear"></div>
+		  </div>
+		  </form>
+		  <script type="text/javascript">$(document).ready(function(){showmenu("#key_type_cn","#sehmenu","#key_type");});	</script>
+	    </td>
+      </tr>
+  </table>
+<div class="page link_bk">{#$page#}</div>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

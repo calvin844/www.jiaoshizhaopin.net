@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 发布职位</div>
+
+<div class="usermain">
+  <div class="leftmenu  hunter link_bk">
+  	 {#include file="member_hunter/left.htm"#}		
+  </div>
+  <div class="rightmain">
+  
+	<div class="bbox1">
+  		<div class="step1succeed">
+		  
+		  
+						<div class="tip">
+						  <div class="left"></div>
+						  <div class="right">
+						  			<div class="h1-title">恭喜您，职位发布成功！</div>
+						            <div class="txt">
+									<p>为了吸引更多求职者应聘，提高招聘效率，<br />我们强烈建议您：<br /></p>
+									<p class="link"><a href="#">完善猎头认证 >></a> 认证通过后会明显提高猎头信誉度</p>
+								</div>
+						  </div>
+						  <div class="clear"></div>
+						</div>
+
+						
+		                <div class="butbox">
+						<input type="button" name="submitsave" id="submitsave" value="搜索简历"  class="but180lan" onclick="javascript:window.open('{#"QS_resumelist,talent:2"|qishi_url#}')"/>
+						<input type="button" name="submitsave" id="submitsave" value="继续发布"  class="but180hui" onclick="javascript:location.href='?act=addjobs'"/>
+						</div>						
+						
+		                <div class="recommend">
+						    <div class="title"><div class="h2-title">为您推荐的人才</div></div>
+							{#qishi_resume_list set="列表名:resumelist,显示数目:6,等级:2,意向职位长度:30,填补字符:...,排序:rtime>desc,职位大类:"|cat:$concern_id#}
+							  {#if !$resumelist#}
+							  {#qishi_resume_list set="列表名:resumelist,显示数目:6,等级:2,意向职位长度:30,填补字符:...,排序:rtime>desc"#}
+							  {#/if#}
+							{#if $resumelist#}
+							{#foreach from=$resumelist item=list#}
+					        <div class="l1 link_bk"><a href="{#$list.resume_url#}" target="_blank">{#$list.fullname#}</a></div>
+							<div class="l2 link_bk">{#$list.education_cn#}</div>
+							<div class="l3">{#$list.experience_cn#}</div>
+							<div class="l4">{#$list.intention_jobs#}</div>
+							<div class="l5">{#$list.wage_cn#}</div>
+							<div class="clear"></div>
+							{#/foreach#}
+							{#else#}
+							<div class="emptytip">对不起！没有找到您要的信息！</div>
+							{#/if#}
+							<div class="more link_lan"><a href="{#"QS_resumelist,talent:2"|qishi_url#}"  target="_blank">更多人才>></a></div>	
+					    </div>
+	</div>
+			
+  </div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

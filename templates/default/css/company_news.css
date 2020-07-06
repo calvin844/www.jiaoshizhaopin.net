@@ -1,0 +1,50 @@
+.about_left{float:left;width:178px;border:1px solid #ccc;font-family:"宋体"; background: #fff;}
+.about_left li{padding:14px 0;font-size:14px;text-align:center;cursor:pointer;}
+.about_left li.active{padding-top:16px;padding-bottom:18px;text-align:center;font-size:14px;color:#fff;border-bottom:1px solid #ccc;background-color:#0180CF; font-weight: bold;}
+.about_left li.active a{ color: #fff}
+.about_left li a:hover{text-decoration:none;}
+
+.about_right{float:right;width:808px;margin-bottom:10px;border:1px solid #ccc;font-family:"宋体"; background: #fff;}
+.about_right .about_r_tit{padding:16px 20px 18px 20px;font-size:14px;font-weight:bold;border-bottom:1px solid #ccc;}
+.about_right .about_r_tit span{font-weight: normal;}
+.about_right .about_r_tit span b{font-weight: normal; color:red;}
+.about_right p.login_tip{margin: 15px 0 0 20px;}
+.about_right p.login_tip a{ color:#02a1fd;}
+.about_right .about_r_content{padding:20px;font-size:14px;}
+.about_right .about_r_content table{margin-top:-20px;}
+.about_right .about_r_content p{line-height:25px;}
+.about_right .about_r_content .about_con{line-height:26px;}
+.about_right .about_r_content td.item_name{ text-align: right;}
+.about_right .about_r_content td textarea{width:565px;height:131px;padding:10px;resize:none;border:1px solid #ccc;}
+
+.about_right table.success_box{margin:200px 0 200px 150px;}
+
+
+.input_text_400 {width:400px; height:20px;border:1px  solid;border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px; line-height:20px; padding-left:3px; background-color:#F9F9F9}
+.input_text_150 {width:150px; height:20px; border:1px  solid;border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px;line-height:20px;padding-left:3px;background-color:#F9F9F9}
+.input_text_200 {width:200px; height:16px; border:1px solid; border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px;line-height:16px;padding:3px;background-color:#F9F9F9}
+.input_text_200_select{width:208px; font-size:12px;}
+.input_text_100 {width:100px; height:30px; border:1px   solid; border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px;line-height:30px;padding:3px;background-color:#F9F9F9; margin:5px 0px 5px 0px;}
+.input_text_50 {width:50px; height:20px; border:1px solid; border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px;line-height:20px;padding-left:3px;background-color:#F9F9F9}
+.input_textarea_400{ width:400px; height:120px; border:1px  solid;border-color:#666666 #CCCCCC #CCCCCC #666666; font-size:12px;line-height:20px;background-color:#F9F9F9}
+.input_text_selsect{ background-image:url(../images/input_bg.gif); background-position:right center; background-repeat:no-repeat; cursor:pointer; margin:5px 0px 5px 0px;}
+
+/*模拟浮动菜单*/
+.menu { position:absolute; left:0px; top:23px; z-index:88; background-color:#FFFFFF; border:1px #8A89A9 solid; width:206px; display:none;}
+.menu ul { padding:0px; margin:0px;}
+.menu li { padding-left:10px; line-height:23px; cursor:pointer}
+.dmenu {position:absolute; left:0px; top:23px; z-index:99; background-color: #F7FBFD; border:1px #8A89A9 solid; width:620px; display:none; padding:15px;}
+.dmenu .tit { width:280px; margin-bottom:5px;}
+.dmenu ul { padding:0px; margin:0px;}
+.dmenu li { line-height:25px; cursor:pointer; width:150px; float:left; color:#0066CC; padding-left:5px;}
+.dmenu .go_back { color:#009900; cursor:pointer; line-height:180%; padding-left:5px;}
+.menu_bg_layer{background-image:url(../images/28.gif);}
+.dmenu.shadow {   
+ -moz-box-shadow: 3px 3px 4px #CCCCCC;   
+ -webkit-box-shadow: 3px 3px 4px #CCCCCC;   
+box-shadow: 3px 3px 4px #CCCCCC;   
+/* For IE 8 */   
+-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CCCCCC')";   
+/* For IE 5.5 - 7 */   
+filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CCCCCC');   
+}

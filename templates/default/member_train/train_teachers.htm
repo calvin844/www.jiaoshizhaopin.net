@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="{#$QISHI.site_template#}js/jquery.vtip-min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//更多操作
+ $(".publicity").hover(
+  function () {
+     $(this).children(".selbox").slideDown('fast');
+  },
+  function () {
+     $(this).children(".selbox").hide();
+  }
+);
+//更多操作-菜单效果
+$(".publicity .selbox li").hover(
+  function () {
+     $(this).css("background-color","#F6F6F6");
+  },
+  function () {
+     $(this).css("background-color","#FFFFFF");
+  }
+);
+});
+
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 讲师列表</div>
+<div class="usermain">
+  <div class="leftmenu  train link_bk">
+  	 {#include file="member_train/left.htm"#}
+  </div>
+  <div class="rightmain">
+  
+ 	<div class="bbox1 link_bk">
+		<div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">讲师列表</div>
+			</div>
+
+			<div class="navs">
+				<a   class="se">所有讲师</a>
+					
+				<div class="clear"></div>
+			</div>
+		
+		</div>
+		<form id="form1" name="form1" method="post" action="?act=del_teachers" >
+		<!-- 所有讲师 -->
+		<div class="manage_list">
+			<div class="mlist_tit">
+				<div class="mlistt1"><input type="checkbox" id="chk" name="chkAll">&nbsp;讲师姓名</div>
+				<div class="mlistt2">毕业院校</div>
+				<div class="mlistt3">擅长专业</div>
+				<div class="mlistt4">最高学历</div>
+				<div class="mlistt5">审核状态</div>
+				<div class="mlistt7">更多操作</div>
+			</div>
+			{#if $teachers#}
+				{#foreach from=$teachers item=list#}
+				<div class="mlist_txt">
+					<div class="mlistc1">
+						<input name="y_id[]" type="checkbox" id="y_id"   value="{#$list.id#}"/> 
+						<a href="{#$list.teachers_url#}" target="_blank">{#$list.teachername#}</a>{#$list.title#}
+					</div>
+					<div class="mlistc2">{#$list.graduated_school#}</div>
+					<div class="mlistc3"><a   class="vtip" title="{#$list.speciality_#}" style="cursor:pointer">{#$list.speciality#}</a></div>
+					<div class="mlistc4">{#$list.education_cn#}</div>
+					<div class="mlistc5">{#if $list.audit=="1"#}审核通过{#/if#}
+				{#if $list.audit=="2"#}审核中{#/if#}
+				{#if $list.audit=="3"#}
+				审核未通过
+				{#/if#}	</div>
+					<div class="mlistc7">
+						<div class="publicity">
+						    <div class="input_text_50_z" onclick="javascript:location.href='?act=del_teachers&y_id={#$list.id#}'">删除</div>
+							<ul style="display:none;" class="selbox">
+								<li><a href="?act=add_teachers&pid={#$list.id#}">修改</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				{#/foreach#}
+				<div class="mlist_txt last">
+					<input type="button" name="add" value="添加讲师" class="but100lan" id="add" onclick="javascript:location.href='?act=add_teachers' "/>
+					<input type="submit" name="delete" value="删除讲师" class="but100lan" id="delete"/>
+				</div>
+			<div class="clear"></div>
+			{#if $page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			{#else#}
+			<div class="emptytip">您没有添加讲师！</div>
+			{#/if#}
+		</div>
+		<!-- 所有讲师 结束 -->
+		</form>
+
+  	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

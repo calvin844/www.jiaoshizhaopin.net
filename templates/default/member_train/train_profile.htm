@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/date_input.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type="text/javascript" charset="utf-8"></script>
+<script src="{#$QISHI.site_template#}js/jquery.train.selectlayer.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	allaround('{#$QISHI.site_dir#}');
+	// 显示地区
+ 		$("#jobsCity").hover(function() {
+ 			$("#divCityCate").show();
+ 			$("#divCityCate li").hover(function() {
+ 				if($(this).find('.subcate').length > 0) {
+ 					$(this).addClass('selected');
+ 					$(this).find('.subcate').show();
+ 				} else {
+ 					$(this).find('a').css("color","#f77d40");
+ 				}
+ 			}, function() {
+ 				if($(this).find('.subcate').length > 0) {
+	 				$(this).removeClass('selected');
+	 				$(this).find('.subcate').hide();
+ 				} else {
+ 					$(this).find('a').css("color","#0180cf");
+ 				}
+ 			});
+ 		}, function() {
+ 			$("#divCityCate").hide();
+ 		});
+	$(".date_input").date_input(); 
+	menuDown("#nature_menu","#nature","#nature_cn","#menu1","218px");
+	function menuDown(menuId,input,input_cn,menuList,width){
+	$(menuId).click(function(){
+		$(menuList).css("width",width);
+		$(menuList).slideDown('fast');
+		//生成背景
+		$(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+		$(".menu_bg_layer").height($(document).height());
+		$(".menu_bg_layer").css({ width: $(document).width(), position: "absolute", left: "0", top: "0" , "z-index": "0", "background-color": "#ffffff"});
+		$(".menu_bg_layer").css("opacity","0");
+		$(".menu_bg_layer").click(function(){
+			$(".menu_bg_layer").remove();
+			$(menuList).slideUp("fast");
+			$(menuId).parent("div").css("position","");
+		});
+	});
+
+	$(menuList+" li").click(function(){
+		var id = $(this).attr("id");
+		var title = $(this).attr("title");
+		$(input).val(id);
+		$(input_cn).val(title);
+		$(menuId).html(title);
+		$(menuList).slideUp('fast');
+		$(".menu_bg_layer").remove();
+	});
+}
+	$("#Form1").validate({
+ 
+   rules:{
+   trainname:{
+    required: true,
+	minlength:4
+   },
+   nature:"required",
+    founddate:{
+    required: true
+    },
+   district:"required",
+   contact:{
+   required: true,
+   minlength:2
+    },
+   telephone:{
+   required: true,
+	minlength:7
+   },
+	   email: {
+	   required:true,
+	   email:true
+	   },
+	   address: {
+	   required:true,
+	    minlength:8
+	   },
+	   contents: {
+	   required:true,
+	    minlength:30,
+		maxlength:2000
+	   },
+	   teacherpower: {
+	   required:true,
+	    minlength:30,
+		maxlength:2000
+	   },
+	   achievement: {
+	   required:true,
+	    minlength:30,
+		maxlength:2000
+	   }
+	},
+    messages: {
+    trainname: {
+    required: "请输入机构名称",
+    minlength: jQuery.format("机构名称不能小于{0}个字符")
+   },
+   nature: {
+    required: jQuery.format("请选择机构性质")
+   },
+    founddate: {
+    required: "请输入成立时间"
+    },
+   district: {
+    required: jQuery.format("请选择所在地区")
+   },
+   contact:{
+    required:jQuery.format("请输入联系人"),
+	minlength:jQuery.format("联系人不能小于{0}个字符")
+   },
+   telephone: {
+    required: jQuery.format("请填写联系电话"),
+	minlength:jQuery.format("联系电话不能小于{0}个字符")
+   },
+   email: {
+    required: jQuery.format("请填写电子邮箱"),
+	email: jQuery.format("请正确填写电子邮箱")
+   },
+   address: {
+    required: jQuery.format("请填写联系地址"),
+	minlength: jQuery.format("请详细填写联系地址")
+   },
+   contents: {
+    required: jQuery.format("请填写公司简介"),
+	minlength: jQuery.format("请填写公司简介，不能小于{0}个字符"),
+	maxlength:jQuery.format("公司简介不能大于{0}个字符，省略一下吧")
+   },
+   teacherpower: {
+    required: jQuery.format("请填写师资力量"),
+	minlength: jQuery.format("请填写师资力量，不能小于{0}个字符"),
+	maxlength:jQuery.format("师资力量不能大于{0}个字符，省略一下吧")
+   },
+   achievement: {
+    required: jQuery.format("请填写主要业绩"),
+	minlength: jQuery.format("请填写主要业绩，不能小于{0}个字符"),
+	maxlength:jQuery.format("主要业绩不能大于{0}个字符，省略一下吧")
+   } 
+   
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+});
+</script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 机构资料</div>
+
+<div class="usermain">
+  <div class="leftmenu train link_bk">
+   {#include file="member_train/left.htm"#}	
+  </div>
+  <div class="rightmain">
+	<div class="bbox1">	
+	  <div class="addjob link_bk">
+	    <div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">机构资料</div>
+			</div>
+			<div class="navs">
+				<a href="?act=train_profile" class="se">基本资料</a>
+				<a href="?act=train_logo">机构Logo</a>
+				<a href="?act=train_news">机构动态</a>
+				<a href="?act=train_img">机构风采</a>
+				<a href="?act=train_map_set">地图标注</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<form id="Form1" name="Form1" method="post" action="?act=train_profile_save" style="margin-top:25px;"  >
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td width="125" align="right"><span class="nec">机构名称</span>：</td>
+			<td width="230"><input name="trainname" type="text" class="input_text_200" id="trainname" maxlength="80"   value="{#$train_profile.trainname#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"><span class="nec">机构性质</span>：</td>
+			<td width="230">
+				<div style="position:relateve;">
+             	 	<div id="nature_menu" class="input_text_200_bg">{#$train_profile.nature_cn|default:"请选择"#}</div>	
+             	 	<div class="menu" id="menu1">
+	              		<ul>
+	              			{#qishi_get_classify set="列表名:c_nature,类型:QS_train_type"#}
+	              			{#foreach from=$c_nature item=list#}
+	              			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+	              			{#/foreach#}
+	              		</ul>
+	              	</div>
+	            </div>				
+             	 <input name="nature" type="hidden" id="nature" value="{#$train_profile.nature#}" />
+             	 <input name="nature_cn" type="hidden" id="nature_cn" value="{#$train_profile.nature_cn#}" />
+			</td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"><span class="nec">成立时间</span>：</td>
+			<td width="230"><input name="founddate" type="text" class="input_text_200 date_input" id="founddate" maxlength="80"   value="{#if $train_profile.founddate#}{#$train_profile.founddate|date_format:"%Y-%m-%d"#}{#/if#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr class="jobmain">
+			<td width="125" align="right"><span class="nec">所在地区</span>：</td>
+			<td width="230" id="jobsCity" style="position:relative;">
+				<div class="input_text_200_bg" id="cityText">{#$train_profile.district_cn#}</div>
+				<div style="display:none;left:1px;top:46px;" id="divCityCate" class="divJobCate">
+					<table class="jobcatebox citycatebox"><tbody></tbody></table>
+				</div>
+				<input id="district" type="hidden" value="{#$train_profile.district#}" name="district">
+	            <input id="sdistrict" type="hidden" value="{#$train_profile.sdistrict#}" name="sdistrict">
+	            <input id="districtID" type="hidden" value="">
+	            <input name="district_cn" id="district_cn" type="hidden" value="{#$train_profile.district_cn#}" />
+			</td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"><span class="nec">联系人</span>：</td>
+			<td width="230"><input name="contact" type="text" class="input_text_200" id="contact" maxlength="80"   value="{#$train_profile.contact#}"/></td>
+			<td><label><input name="contact_show" type="checkbox" value="1" {#if $train_profile.contact_show<>"0"#}checked="checked"{#/if#}/>联系人在机构介绍业显示</label></td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"><span class="nec">联系电话</span>：</td>
+			<td width="230"><input name="telephone" type="text" class="input_text_200" id="telephone" maxlength="80"   value="{#$train_profile.telephone#}"/></td>
+			<td><label><input name="telephone_show" type="checkbox" value="1" {#if $train_profile.telephone_show<>"0"#}checked="checked"{#/if#}/>联系电话在机构介绍中显示</label></td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"><span class="nec">联系邮箱</span>：</td>
+			<td width="230"><input name="email" type="text" class="input_text_200" id="email" maxlength="80"   value="{#$train_profile.email#}"/></td>
+			<td><label><input name="email_show" type="checkbox" value="1" {#if $train_profile.email_show<>"0"#}checked="checked"{#/if#}/>联系邮箱在机构介绍中显示</label></td>
+		  </tr>
+		   <tr>
+			<td width="125" align="right">机构网址：</td>
+			<td width="230"><input name="website" type="text" class="input_text_200" id="website" maxlength="80" value="{#$train_profile.website#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+	    </table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td width="125" align="right"><span class="nec">通讯地址</span>：</td>
+			<td width="500"><input name="address" type="text" class="input_text_500" id="address" maxlength="80"   value="{#$train_profile.address#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right"></td>
+			<td><label><input name="address_show" type="checkbox" value="1" {#if $train_profile.address_show<>"0"#}checked="checked"{#/if#}/>通讯地址在机构详细页中显示</label></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right" valign="top"><span class="nec">机构介绍</span>：</td>
+			<td width="500"><textarea name="contents" id="contents" cols="30" rows="10" class="input_textarea_500">{#$train_profile.contents#}</textarea></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right" valign="top"><span class="nec">师资力量</span>：</td>
+			<td width="500"><textarea name="teacherpower" id="teacherpower" cols="30" rows="10" class="input_textarea_500">{#$train_profile.teacherpower#}</textarea></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="125" align="right" valign="top"><span class="nec">主要业绩</span>：</td>
+			<td width="500"><textarea name="achievement" id="achievement" cols="30" rows="10" class="input_textarea_500">{#$train_profile.achievement#}</textarea></td>
+			<td>&nbsp;</td>
+		  </tr>
+	    </table>
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td align="right" width="125">&nbsp;</td>
+			<td width="130"><input type="submit" value="保存" id="save_profile" class="but100lan" /></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  </table>
+		</form>
+	  </div>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+</body>
+</html>

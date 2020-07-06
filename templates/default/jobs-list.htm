@@ -1,0 +1,743 @@
+{#qishi_jobs_list  set="分页显示:1,列表名:jobslist,填补字符:...,职位名长度:13,企业名长度:19,描述长度:135,关键字:GET[key],职位分类:GET[jobs_id],地区分类:GET[district_id],行业:GET[trade],日期范围:GET[settr],学历:GET[education],工作经验:GET[experience],工资:GET[wage],职位状态:GET[state],职位性质:GET[nature],排序:GET[sort]"#}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/jobs-list.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        {#if empty($district_arr) && empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}教师职位搜索_教师招聘信息_{#$QISHI.site_name#}</title>
+        {#/if#}
+        {#else#}
+
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$subclass_cn#}教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$subclass_cn#}教师职位搜索_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#/if#}
+        {#elseif !empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$sdistrict_arr.categoryname#}教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$sdistrict_arr.categoryname#}教师职位搜索_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#else#}
+
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$sdistrict_arr.categoryname#}{#$subclass_cn#}教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$sdistrict_arr.categoryname#}{#$subclass_cn#}教师职位搜索_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#/if#}
+        {#else#}
+        {#if empty($subclass_cn)#}
+
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$district_arr.categoryname#}教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$district_arr.categoryname#}教师职位搜索_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#else#}
+
+        {#if $smarty.get.state > 0#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$district_arr.categoryname#}{#$subclass_cn#}教师{#if $smarty.get.state == 1#}推荐{#elseif $smarty.get.state == 2#}急聘{#/if#}职位_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#if $smarty.get.key#}{#$smarty.get.key#}_{#/if#}{#$smarty.now|date_format:"%Y"#}年{#$district_arr.categoryname#}{#$subclass_cn#}教师职位搜索_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#/if#}
+        {#/if#}
+
+
+        {#if empty($district_arr) && empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}中小学教师职位,教师招聘信息,教师职位信息"/>
+        {#else#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}{#$subclass_cn#}教师职位搜索"/>
+        {#/if#}
+        {#elseif !empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}{#$sdistrict_arr.categoryname#}教师职位搜索"/>
+        {#else#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}{#$sdistrict_arr.categoryname#}{#$subclass_cn#}教师职位搜索"/>
+        {#/if#}
+        {#else#}
+        {#if empty($subclass_cn)#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}{#$district_arr.categoryname#}教师职位搜索"/>
+        {#else#}
+        <meta name="keywords" content="{#if $smarty.get.key#}{#$smarty.get.key#},{#/if#}{#$district_arr.categoryname#}{#$subclass_cn#}教师职位搜索"/>
+        {#/if#}
+        {#/if#}
+
+
+
+        {#if empty($district_arr) && empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+        <meta name="description" content="{#$smarty.now|date_format:'%Y'#}年中小学教师招聘职位信息库，免费提供教师招聘职位搜索、教师招聘职位发布等服务。"/>
+        {#else#}
+        <meta name="description" content="{#$subclass_cn#}教师职位搜索，全国各地最新{#$subclass_cn#}教师招聘信息，招聘{#$subclass_cn#}老师，就上教师招聘网。"/>
+        {#/if#}
+        {#elseif !empty($sdistrict_arr)#}
+        {#if empty($subclass_cn)#}
+        <meta name="description" content="{#$sdistrict_arr.categoryname#}教师招聘职位搜索，免费提供{#$sdistrict_arr.categoryname#}最新教师招聘职位信息，包括{#$sdistrict_arr.categoryname#}中学教师招聘职位、{#$sdistrict_arr.categoryname#}小学教师招聘职位、{#$sdistrict_arr.categoryname#}幼儿教师招聘信息等。"/>
+        {#else#}
+        <meta name="description" content="{#$sdistrict_arr.categoryname#}{#$subclass_cn#}教师职位信息大全，{#$smarty.now|date_format:'%Y'#}年{#$sdistrict_arr.categoryname#}{#$subclass_cn#}最新招聘信息，招聘{#$sdistrict_arr.categoryname#}{#$subclass_cn#}老师，就上教师招聘网。"/>
+        {#/if#}
+        {#else#}
+        {#if empty($subclass_cn)#}
+        <meta name="description" content="{#$district_arr.categoryname#}教师招聘职位搜索，免费提供{#$district_arr.categoryname#}最新教师招聘职位信息，包括{#$district_arr.categoryname#}中学教师招聘职位、{#$district_arr.categoryname#}小学教师招聘职位、{#$district_arr.categoryname#}幼儿教师招聘信息等。"/>
+        {#else#}
+        <meta name="description" content="{#$district_arr.categoryname#}{#$subclass_cn#}教师职位信息大全，{#$smarty.now|date_format:'%Y'#}年{#$district_arr.categoryname#}{#$subclass_cn#}最新招聘信息，招聘{#$district_arr.categoryname#}{#$subclass_cn#}老师，就上教师招聘网。"/>
+        {#/if#}
+        {#/if#}
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+        <div id="content">
+            <div class="main_box">
+                <div class="top_box">
+                    <div class="page_title">
+                        {#if empty($district_arr) && empty($sdistrict_arr) #}
+                        <h1><a title="教师职位搜索" href="/jobs/jobs-list.php?listpage=jobs_list">教师职位搜索</a></h1>
+                        {#else#}
+                        {#if !empty($sdistrict_arr)#}
+                        <h1><a title="{#$sdistrict_arr.categoryname#}教师职位" href="/jobs/jobs-list.php?listpage=jobs_list&citycategory={#$sdistrict_arr.id#}.{#$sdistrict_arr.parentid#}">{#$sdistrict_arr.categoryname#}教师职位</a></h1>
+                        {#else#}
+                        <h1><a title="{#$district_arr.categoryname#}教师职位" href="/jobs/jobs-list.php?listpage=jobs_list&citycategory={#$district_arr.id#}.0">{#$district_arr.categoryname#}教师职位</a></h1>
+                        {#/if#}
+                        {#/if#}
+                        <i class="line"></i>
+
+                        {#if empty($district_arr) && empty($sdistrict_arr) #}
+                        <span class="district_name">全国</span>
+                        {#else#}
+                        {#if !empty($sdistrict_arr)#}
+                        <span class="district_name">{#$sdistrict_arr.categoryname#}</span>
+                        {#else#}
+                        <span class="district_name">{#$district_arr.categoryname#}</span>
+                        {#/if#}
+                        {#/if#}
+                        <a class="district_select" ><span>[切换城市]</span><i></i></a>
+                        <div class="district_list">
+                            <div class="top">
+                                <p class="hot hover">热门城市</p>
+                                <p class="district">省份</p>
+                                <p class="sdistrict">市级</p>
+                            </div>
+                            <div id="show_hot" class="list son">
+                                {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                <!-- 以下为循环数组category内容  -->
+                                {#foreach from=$city item=c#}
+                                <a data-name="district" data-val="{#$c.parentid#}.{#$c.id#}">{#$c.categoryname#}</a>
+                                {#/foreach#}
+                            </div>
+                            <div id="show_district" class="list">
+                                <a data-name="district" data-val="" title="全国教师招聘">全国</a>
+                                {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                <!-- 以下为循环数组category内容  -->
+                                {#foreach from=$city item=c#}
+                                <a data-name="district" data-data="{#$c.id#}" data-val="{#$c.parentid#}.{#$c.id#}" title="{#$c.categoryname#}教师招聘">{#$c.categoryname#}</a>
+                                {#/foreach#}
+                            </div>
+                            <div id="show_sdistrict" class="list son"></div>
+                        </div>
+                        <script>
+                            $('.page_title .district_list #show_hot').show();
+                            $('.page_title .district_select').click(function() {
+                                $('.page_title .district_list').show();
+                            })
+                            $('div.page_title').mouseleave(function() {
+                                $('.page_title .district_list').hide();
+                            })
+                            $('.page_title .district_list .top p').click(function() {
+                                $('.page_title .district_list .list').hide();
+                                $('.page_title .district_list .top p.sdistrict').hide();
+                                $('.page_title .district_list .top p').removeClass('hover');
+                                var c = $(this).attr('class');
+                                $(this).addClass('hover');
+                                $('.page_title #show_' + c).show();
+                            })
+                            $('.page_title #show_district a').click(function() {
+                                var name = $(this).attr('data-name');
+                                var val = $(this).attr('data-data');
+                                $.get("/plus/ajax_common.php?act=get_city&id=" + val, function(result) {
+                                    var html = '';
+                                    if (result.indexOf('||') > 0) {
+                                        var arr = result.split("||");
+                                    } else {
+                                        var arr = new Array(result);
+                                    }
+
+                                    for (var i = 0; i < arr.length; i++) {
+                                        var item = arr[i].split("-");
+                                        if (item[3] != 0) {
+                                            html += '<a data-name="district" title="' + item[1] + '中小学教师招聘" data-val="' + item[4] + '.' + item[0] + '" >' + item[1] + '</a>';
+                                        } else {
+                                            html += '<a data-name="district" title="' + item[4] + '中小学教师招聘" data-val="' + item[0] + '.' + item[5] + '" >' + item[1] + '</a>';
+                                        }
+                                    }
+
+                                    $('.page_title #show_sdistrict').html(html);
+                                    $('.page_title .district_list .list').hide();
+                                    $('.page_title .district_list .top p').removeClass('hover');
+                                    $('.page_title .district_list .top p.sdistrict').addClass('hover');
+                                    $('.page_title .district_list .top p.sdistrict').show();
+                                    $('#show_sdistrict').show();
+                                });
+
+                            })
+                            $('.page_title .district_list .son').on('click', 'a', function() {
+                                $('input#listpage').attr('value', 'jobs_list');
+                                $('input#citycategory').attr('value', $(this).attr('data-val'));
+                                $('#form1').submit();
+                            });
+                        </script>
+                    </div>
+                    <div class="search_box">
+                        <div class="search">
+                            <form id="form1" class="search_form" method = 'get' action="">
+                                <input class="key" type="text" id="key_value" name="key" placeholder="请输入职位关键字" value="{#$smarty.get.key#}"/>
+                                <input type="hidden" id="type_value" name="jobs_id" value="{#$smarty.get.jobs_id#}" />
+                                <input type="hidden" id="district_value" name="district_id" value="{#$smarty.get.district_id#}" />
+                                <input type="hidden" id="citycategory" name="citycategory" value="" />
+                                <input type="hidden" id="wage_value" name="wage" value="{#$smarty.get.wage#}"/>
+                                <input type="hidden" id="education_value" name="education" value="{#$smarty.get.education#}"/>
+                                <input type="hidden" id="experience_value" name="experience" value="{#$smarty.get.experience#}"/>
+                                <input type="hidden" id="state_value" name="state" value="{#$smarty.get.state#}"/>
+                                <input type="hidden" id="nature_value" name="nature" value="{#$smarty.get.nature#}"/>
+                                <input type="hidden" id="listpage" name="listpage" value=""/>
+                                <input class="submit" type="submit" value=""/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <p class="nav">
+                    <a title="教师招聘网" href="/">教师招聘网</a>
+                    &nbsp;>&nbsp;
+                    <a title="教师职位" href="/TeachingJobs?listpage=jobs_list">教师职位</a>
+                    &nbsp;>&nbsp;
+                    <span>职位搜索</span>
+                </p>
+                <div class="left_box">
+                    <div class="conditions_box">
+                        <div class="conditions_show">
+                            <ul class="top">
+                                <li class="district">
+                                    <div class="left">
+                                        <b>工作地区：</b>
+                                    </div>
+                                    <div class="right">
+                                        {#if empty($district_arr) && empty($sdistrict_arr) #}
+                                        <span id="district_text">不限</span>
+                                        {#else#}
+                                        {#if !empty($sdistrict_arr)#}
+                                        <span id="district_text">{#$sdistrict_arr.categoryname#}</span>
+                                        {#else#}
+                                        <span id="district_text">{#$district_arr.categoryname#}</span>
+                                        {#/if#}
+                                        {#/if#}
+                                        <a id="show_district_list" >选择</a>
+                                        <div class="district_list">
+                                            <div class="top">
+                                                <p class="hot hover">热门城市</p>
+                                                <p class="district">省份</p>
+                                                <p class="sdistrict">市级</p>
+                                            </div>
+                                            <div id="show_hot" class="list son">
+                                                {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                                <!-- 以下为循环数组category内容  -->
+                                                {#foreach from=$city item=c#}
+                                                {#if $c.parentid >0#}
+                                                <a data-name="district" data-val="{#$c.parentid#}.{#$c.id#}">{#$c.categoryname#}</a>
+                                                {#else#}
+                                                <a data-name="district" data-val="{#$c.id#}.0">{#$c.categoryname#}</a>
+                                                {#/if#}
+                                                {#/foreach#}
+                                            </div>
+                                            <div id="show_district" class="list">
+                                                {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                                <!-- 以下为循环数组category内容  -->
+                                                {#foreach from=$city item=c#}
+                                                <a data-name="district" data-val="{#$c.id#}.0">{#$c.categoryname#}</a>
+                                                {#/foreach#}
+                                            </div>
+                                            <div id="show_sdistrict" class="list son"></div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $('.conditions_show .district_list #show_hot').show();
+                                        $('.conditions_show #show_district_list').click(function() {
+                                            $('.conditions_show .district_list').show();
+                                        })
+                                        $('.conditions_show li.district').mouseleave(function() {
+                                            $('.conditions_show .district_list').hide();
+                                        })
+                                        $('.conditions_show .district_list .top p').click(function() {
+                                            $('.conditions_show .district_list .list').hide();
+                                            $('.conditions_show .district_list .top p.sdistrict').hide();
+                                            $('.conditions_show .district_list .top p').removeClass('hover');
+                                            var c = $(this).attr('class');
+                                            $(this).addClass('hover');
+                                            $('.conditions_show #show_' + c).show();
+                                        })
+                                        $('.conditions_show #show_district a').click(function() {
+                                            var name = $(this).attr('data-name');
+                                            var val = $(this).attr('data-val');
+                                            $.get("/plus/ajax_common.php?act=get_city&id=" + val, function(result) {
+                                                var html = '';
+                                                if (result.indexOf('||') > 0) {
+                                                    var arr = result.split("||");
+                                                } else {
+                                                    var arr = new Array(result);
+                                                }
+                                                for (var i = 0; i < arr.length; i++) {
+                                                    var item = arr[i].split("-");
+                                                    if (item[3] == 0) {
+                                                        html += '<a data-name="district" data-val="' + item[0] + '.0">' + item[1] + '</a>';
+                                                    } else {
+                                                        html += '<a data-name="district" data-val="' + item[4] + '.' + item[0] + '">' + item[1] + '</a>';
+                                                    }
+                                                }
+                                                $('.conditions_show #show_sdistrict').html(html);
+                                                $('.conditions_show .district_list .list').hide();
+                                                $('.conditions_show .district_list .top p').removeClass('hover');
+                                                $('.conditions_show .district_list .top p.sdistrict').addClass('hover');
+                                                $('.conditions_show .district_list .top p.sdistrict').show();
+                                                $('.conditions_show #show_sdistrict').show();
+                                            });
+                                        })
+                                        $('.conditions_show .district_list').on('click', '.son a', function() {
+                                            $('.conditions_show .district_list').hide();
+                                            var val = $(this).attr('data-val');
+                                            $('#district_value').val(val);
+                                            $('#listpage').val('');
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                                <li class="type">
+                                    <div class="left">
+                                        <b>执教类型：</b>
+                                    </div>
+                                    <ul class="type_list">
+                                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$category item=list#}
+                                        {#if $list.parentid == 0 #}
+                                        <li>
+                                            <a class="parent_type" data-id="{#$list.id#}">{#$list.categoryname#}</a>
+                                            <div class="type_list_b">
+                                                <a data-name="type" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                                {#foreach from=$category item=list2#}
+                                                {#if $list2.parentid == $list.id #}
+                                                <a data-name="type" data-val="{#$list2.id#}">{#$list2.categoryname#}</a>
+                                                {#/if#}
+                                                {#/foreach#}
+                                            </div>
+                                        </li>
+                                        {#/if#}
+                                        {#/foreach#}
+                                    </ul>
+                                    <script>
+                                        $('ul.type_list a').mouseover(function() {
+                                            $(this).parent().find('.type_list_b').show();
+                                        })
+                                        $('ul.type_list li').mouseleave(function() {
+                                            $(this).find('.type_list_b').hide();
+                                        })
+                                        $('div.type_list_b a').click(function() {
+                                            $(this).parent().find('.type_list_b').show();
+                                            $('div.type_list_b').hide();
+                                            var val = $(this).attr('data-val');
+                                            $('#type_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                        var parent_type_text = "parent_type|" + "{#$subclass_arr.parentid#}"
+                                        var get_type = "{#$smarty.get.type#}"
+                                        if (parent_type_text != "") {
+                                            var type_text = "type|" + "{#$subclass_arr.categoryname#}"
+                                            var type_arr = type_text.split('|');
+                                            var parent_type_arr = parent_type_text.split('|');
+                                            $('ul.type_list a.parent_type').removeClass('hover');
+                                            $('ul.type_list a.parent_type').each(function() {
+                                                if ($(this).attr('data-id') == parent_type_arr[1] || $(this).attr('data-id') == "{#$smarty.get.jobs_id#}") {
+                                                    $(this).addClass('hover');
+                                                    $(this).html($(this).html() + "（" + type_arr[1] + "）")
+                                                }
+                                            })
+                                        } else {
+                                            $('ul.type_list').prepend("<li><a class='parent_type hover'>不限</a></li>");
+                                        }
+                                    </script>
+                                </li>
+                                <li class="education">
+                                    <div class="left">
+                                        <b>最高学历：</b>
+                                    </div>
+                                    <div class="right">
+                                        {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                        {#foreach from=$c_education item=list#}
+                                        <a data-name="education" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                        {#/foreach#}
+                                    </div>
+                                    <script>
+                                        var education_id = "{#$smarty.get.education#}";
+                                        if (education_id != "") {
+                                            $('li.education a').each(function() {
+                                                if ($(this).attr('data-val') == education_id) {
+                                                    $(this).addClass('hover');
+                                                }
+                                            })
+                                        }
+                                        $('li.education a').click(function() {
+                                            var val = $(this).attr('data-val');
+                                            $('#education_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                                <li class="wage">
+                                    <div class="left">
+                                        <b>期望月薪：</b>
+                                    </div>
+                                    <div class="right">
+                                        {#qishi_get_classify  set="类型:QS_wage,列表名:c_wage"#}
+                                        {#foreach from=$c_wage item=list#}
+                                        <a data-name="wage" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                        {#/foreach#}
+                                    </div>
+                                    <script>
+                                        var wage_id = "{#$smarty.get.wage#}";
+                                        if (wage_id != "") {
+                                            $('li.wage a').each(function() {
+                                                if ($(this).attr('data-val') == wage_id) {
+                                                    $(this).addClass('hover');
+                                                }
+                                            })
+                                        }
+                                        $('li.wage a').click(function() {
+                                            var val = $(this).attr('data-val');
+                                            $('#wage_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                                <li class="experience">
+                                    <div class="left">
+                                        <b>经验要求：</b>
+                                    </div>
+                                    <div class="right">
+                                        {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                        {#foreach from=$c_experience item=list#}
+                                        <a data-name="experience" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                        {#/foreach#}
+                                    </div>
+                                    <script>
+                                        var experience_id = "{#$smarty.get.experience#}";
+                                        if (experience_id != "") {
+                                            $('li.experience a').each(function() {
+                                                if ($(this).attr('data-val') == experience_id) {
+                                                    $(this).addClass('hover');
+                                                }
+                                            })
+                                        }
+                                        $('li.experience a').click(function() {
+                                            var val = $(this).attr('data-val');
+                                            $('#experience_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                                <li class="nature">
+                                    <div class="left">
+                                        <b>职位性质：</b>
+                                    </div>
+                                    <div class="right">
+                                        <a data-name="nature" data-val="62">全职</a>
+                                        <a data-name="nature" data-val="63">兼职</a>
+                                    </div>
+                                    <script>
+                                        var nature_id = "{#$smarty.get.nature#}";
+                                        if (nature_id != "") {
+                                            $('li.nature a').each(function() {
+                                                if ($(this).attr('data-val') == nature_id) {
+                                                    $(this).addClass('hover');
+                                                }
+                                            })
+                                        }
+                                        $('li.nature a').click(function() {
+                                            var val = $(this).attr('data-val');
+                                            $('#nature_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                                <li class="state">
+                                    <div class="left">
+                                        <b>职位状态：</b>
+                                    </div>
+                                    <div class="right">
+                                        <a data-name="state" data-val="1">推荐</a>
+                                        <a data-name="state" data-val="2">急聘</a>
+                                    </div>
+                                    <script>
+                                        var state_id = "{#$smarty.get.state#}";
+                                        if (state_id != "") {
+                                            $('li.state a').each(function() {
+                                                if ($(this).attr('data-val') == state_id) {
+                                                    $(this).addClass('hover');
+                                                }
+                                            })
+                                        }
+                                        $('li.state a').click(function() {
+                                            var val = $(this).attr('data-val');
+                                            $('#state_value').val(val);
+                                            $('#form1').submit();
+                                        })
+                                    </script>
+                                </li>
+                            </ul>
+                            <p class="more"><a id="conditions_hide"><span>收起</span>&nbsp;&nbsp;<i></i></a></p>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="conditions_hide"><a id="conditions_show"><span>更多选项</span>&nbsp;&nbsp;<i></i></a></div>
+                        <script>
+                            $('#conditions_hide').click(function() {
+                                $('div.conditions_show').hide();
+                                $('div.conditions_hide').show();
+                            })
+                            $('#conditions_show').click(function() {
+                                $('div.conditions_show').show();
+                                $('div.conditions_hide').hide();
+                            })
+                        </script>
+                        <div class="conditions_select">
+                            <b class="left">已经选择：</b>
+                            <div class="select_item">
+                                {#if !empty($smarty.get.key)#}
+                                <a data-name="key"><span>{#$smarty.get.key#}</span><i></i></a>
+                                {#/if#}
+
+                                {#if !empty($sdistrict_arr.categoryname)#}
+                                <a id="select_district" data-name="district"><span>{#$sdistrict_arr.categoryname#}</span><i></i></a>
+                                {#elseif !empty($district_arr.categoryname)#}
+                                <a id="select_district" data-name="district"><span>{#$district_arr.categoryname#}</span><i></i></a>
+                                {#/if#}
+
+                                {#if !empty($subclass_arr.categoryname)#}
+                                <a id="select_type" data-name="type"><span></span><i></i></a>
+                                <script>
+                                    var type_text = "{#$subclass_arr.categoryname#}"
+                                    $('#select_type span').html(type_arr[1]);
+                                </script>
+                                {#/if#}
+                                {#if !empty($select_education)#}
+                                <a id="select_education" data-name="education"><span></span><i></i></a>
+                                <script>
+                                    var education_text = "{#$select_education#}"
+                                    var education_arr = education_text.split('|');
+                                    $('#select_education span').html(education_arr[1]);
+                                </script>
+                                {#/if#}
+                                {#if !empty($select_wage)#}
+                                <a id="select_wage" data-name="wage"><span></span><i></i></a>
+                                <script>
+                                    var wage_text = "{#$select_wage#}"
+                                    var wage_arr = wage_text.split('|');
+                                    $('#select_wage span').html(wage_arr[1]);
+                                </script>
+                                {#/if#}
+                                {#if !empty($select_experience)#}
+                                <a id="select_experience" data-name="experience"><span></span><i></i></a>
+                                <script>
+                                    var experience_text = "{#$select_experience#}";
+                                    var experience_arr = experience_text.split('|');
+                                    $('#select_experience span').html(experience_arr[1]);
+                                </script>
+                                {#/if#}
+                                {#if $smarty.get.state == 1#}
+                                <a id="select_state" data-name="state"><span>推荐职位</span><i></i></a>
+                                {#elseif $smarty.get.state == 2#}
+                                <a id="select_state" data-name="state"><span>急聘职位</span><i></i></a>
+                                {#/if#}
+                                {#if $smarty.get.nature == 63#}
+                                <a id="select_nature" data-name="nature"><span>兼职</span><i></i></a>
+                                {#elseif $smarty.get.nature == 62#}
+                                <a id="select_nature" data-name="nature"><span>全职</span><i></i></a>
+                                {#/if#}
+                                <script>
+                                    $('.select_item a').click(function() {
+                                        var name = $(this).attr('data-name');
+                                        $('#' + name + '_value').val('');
+                                        $('#form1').submit();
+                                    })
+                                </script>
+                            </div>
+                            <a id="clear_select" class="left">清空</a>
+                            <script>
+                                $('#clear_select').click(function() {
+                                    $('#form1 input').each(function() {
+                                        if ($(this).attr('type') != 'submit') {
+                                            $(this).val('');
+                                        }
+                                    })
+                                    $('#form1').submit();
+                                })
+                            </script>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    {#if !empty($complete_percent)#}
+                    <div class="box_tip">
+                        <div class="tip_box">
+                            <i></i>
+                            <p class="left">您的简历完整度{#$complete_percent#}%，立即<a href="/user/personal/personal_resume.php?act=edit_resume">完善简历</a>，获得更精准的职位匹配哦~~</p>
+                            <a class="close"></a>
+                        </div>
+                    </div>
+                    <script>
+                        $('.box_tip a.close').click(function() {
+                            $('.box_tip').hide();
+                        })
+                    </script>
+                    {#/if#}
+                    <div class="clear"></div>
+                    <ul class="job_list">
+                        {#foreach from=$jobslist item=list#}
+                        {#if $list.jobs_name != ''#}
+                        <li>
+                            <div class="district">
+                                <p title="{#$list.d_cn#}教师职位">{#$list.d_cn#}</p>
+                            </div>
+                            <div class="info">
+                                <a href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name_#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                <div class="clear"></div>
+                                <p><span>{#$list.wage_cn#}</span>&nbsp;&nbsp;&nbsp;&nbsp;{#$list.experience_cn#}/{#$list.education_cn|default:"不限"#}/{#$list.amount#}人</p>
+                            </div>
+                            <div class="company">
+                                <b><a href="{#$list.company_url#}" title="{#$list.companyname#}招聘" target="_blank">{#$list.companyname#}</a></b><!--<i class="vip"></i><i class="auth"></i><i class="setmeal"></i>-->
+                                <div class="clear"></div>
+                                <p>{#$list.refreshtime|date_format:"%Y-%m-%d"#}</p>
+                            </div>
+                            <div class="button">
+                                <a rel="nofollow" class="apply app_jobs" data-id="{#$list.id#}">快速申请</a>
+                                <div class="clear"></div>
+                                <a rel="nofollow" class="fav add_favorites" data-id="{#$list.id#}"><i></i>收藏</a>
+                            </div>
+                        </li>
+                        {#/if#}
+                        {#/foreach#}
+                    </ul>
+                    <div class="page_box">{#$page#}</div>
+                </div>
+                <div class="right_box">
+                    {#if !empty($view_jobs)#}
+                    <div class="item_box">
+                        <p class="b_title">
+                            <b></b>
+                            <span>浏览过的职位</span>
+                        </p>
+                        <ul class="look_jobs">
+                            {#foreach from=$view_jobs item=list#}
+                            {#if $list.jobs_name#}
+                            <li>
+                                <div class="title">
+                                    <p><a class="name" title="{#$list.d_cn#}{#$list.jobs_name#}招聘" href="{#$list.url#}" target="_blank">{#$list.jobs_name#}</a></p>
+                                </div>
+                                <div class="info">
+                                    <span class="left">{#$list.wage_cn#}</span>
+                                    <span class="right">{#$list.addtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+
+                    {#jiaoshi_jobs set="地区:$district_arr.id,显示数目:5"#}
+                    {#if !empty($companies)#}
+                    <div class="item_box">
+                        <div class="b_title">
+                            <b></b>
+                            {#if empty($district_arr) && empty($sdistrict_arr) #}
+                            <h3><a title="中小学教育机构推荐" href="/company"><span>中小学教育机构推荐</span></a></h3>
+                            {#else#}
+                            {#if !empty($sdistrict_arr)#}
+                            <h3><a title="{#$sdistrict_arr.categoryname#}教育机构推荐" href="/company/{#$district_arr.pinyin#}/{#$sdistrict_arr.pinyin#}"><span>{#$sdistrict_arr.categoryname#}教育机构推荐</span></a></h3>
+                            {#else#}
+                            <h3><a title="{#$district_arr.categoryname#}教育机构推荐" href="/company/{#$district_arr.pinyin#}"><span>{#$district_arr.categoryname#}教育机构推荐</span></a></h3>
+                            {#/if#}
+                            {#/if#}
+                        </div>
+                        <ul class="company">
+                            {#foreach from=$companies item=company#}
+                            <li>
+                                <b><a target="_blank" class="company_name" title="{#$company.name#}招聘" href="/school/{#$company.id#}.html">{#$company.name#}</a></b>
+                                <div class="clear"></div>
+                                <div class="job">
+                                    <span>诚聘：</span>
+                                    {#foreach from=$company.jobs item=jobs#}
+                                    <a title="{#$jobs.district_cn#}{#$jobs.jobs_name#}招聘" href="/job/{#$jobs.id#}.html">{#$jobs.jobs_name#}</a>
+                                    {#/foreach#}
+                                </div>                  
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+
+                    {#qishi_ad set="调用名称:list_402,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="list_402">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_402&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <script>
+            //单个申请职位
+            $(".app_jobs").unbind().click(function() {
+                var id = $(this).attr("data-id")
+                var utype = "{#$smarty.session.utype#}";
+                if (utype != 2) {
+                    dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_jobs.php?id=" + id + "&act=app", "500px", "auto", "", "");
+                } else {
+                    $.post("/user/user_apply_jobs.php", {"jobsid": id, "quick_apply": 1, "act": "app_save"},
+                    function(data, textStatus) {
+                        if (data == "ok") {
+                            alert("投递成功！");
+                        } else if (data == "repeat") {
+                            alert("您投递过此职位，不能重复投递");
+                        } else {
+                            alert("投递失败！失败原因：" + data);
+                        }
+                    })
+                }
+            });
+            // 单个收藏职位
+            $(".add_favorites").unbind().click(function() {
+                dialog("收藏职位", "url:/user/user_favorites_job.php?id=" + $(this).attr("data-id") + "&act=add", "500px", "auto", "");
+            });
+        </script>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

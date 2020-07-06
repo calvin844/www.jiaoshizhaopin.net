@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+            {#qishi_pageinfo set="列表名:pageinfo,调用:QS_noticelist"#}
+            {#if $pageinfo.title#}
+            <title>{#$pageinfo.title#}</title>
+            {#else#}
+            <title>招聘会 - {#$QISHI.site_name#}</title>
+            {#/if#}
+            <meta name="description" content="{#$pageinfo.description#}">
+                <meta name="keywords" content="{#$pageinfo.keywords#}">
+                    <meta name="author" content="骑士CMS" />
+                    <meta name="copyright" content="74cms.com" />
+                    <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+                    <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+                    <link href="{#$QISHI.site_template#}css/jobfair.css" rel="stylesheet" type="text/css" />
+                    <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+                    <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+                    <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".check_full_map").click(function () {
+                                var map_x = $(this).attr("map_x");
+                                var map_y = $(this).attr("map_y");
+                                var map_zoom = $(this).attr("map_zoom");
+                                var title = $(this).attr("title");
+                                var address = $(this).attr("address");
+                                dialog("地图定位", "url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&map_x=" + map_x + "&map_y=" + map_y + "&map_zoom=" + map_zoom + "&companyname=" + title + "&address=" + address, "660px", "auto", "", "");
+                            });
+                            $(".booth").click(function () {
+                                $.get("{#$QISHI.website_dir#}plus/ajax_booth_jobfair.php?act=booth&id=" + $(this).attr("jobfair_id"), function (result) {
+                                    dialog("温馨提示", "text:" + result, "400px", "", "", "");
+                                });
+                            });
+                        });
+                        $(function () {
+                            $("input[type='button']").hover(function () {
+                                $(this).addClass("hover");
+                            }, function () {
+                                $(this).removeClass("hover");
+                            })
+                        })
+                    </script>
+                    </head>
+                    <body>
+                        {#include file="header.htm"#}
+                        <!-- 当前位置 -->
+                        <div class="page_location link_bk">
+                            当前位置：<a href="{#$QISHI.website_dir#}">首页</a>>招聘会
+                        </div>
+                        <!-- 主体内容 -->
+                        <div class="container link_bk">
+                            {#qishi_ad set="显示数目:12,调用名称:QS_jobfairallimg,列表名:ad,文字长度:12"#}
+                            {#if $ad#}
+                            {#foreach from=$ad item=list#}
+                            <div class="rec_banner">
+                                <a target="_blank" href="{#$ad[list].img_url#}"><img src="{#$list.img_path#}" alt="{#$list.img_explain#}" width="1000" height="60"/></a>
+                            </div>
+                            {#/foreach#}
+                            {#/if#}
+
+                            {#qishi_jobfair_list set="列表名:jobfair,显示数目:5,标题长度:10,分页显示:1,填补字符:..."#}
+                            {#foreach from=$jobfair item=list#}  
+                            {#if $list.predetermined_ok=="1" && $list.predetermined_web=="1"#}
+                            <div class="rec_info">
+                                <div class="info_bbox">
+                                    <div class="streamer"></div>
+                                    <div></div>
+                                    <div class="calendar sc">
+                                        <div class="cal1">{#$list.holddates|date_format:"%Y"#}年</div>
+                                        <div class="cal2">{#$list.holddates_week#}</div>
+                                        <div class="cal3">{#$list.holddates|date_format:"%d"#}</div>
+                                        <div class="cal4">{#$list.holddates|date_format:"%m"#}月</div>
+                                    </div>
+                                    <div class="info_txt si">
+                                        <h3>{#$list.title#}</h3>
+                                        <ul>
+                                            <li><span>行业主题：</span>{#$list.industry#}</li>
+                                            <li><span>举办时间：</span>{#$list.holddates|date_format:"%Y年%m月%d日"#}</li>
+                                            <li><span>举办地址：</span>{#$list.address#}</li>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </div>
+                                    <div class="info_but sbut">
+                                        <input type="button" value="在线预订" class="but125_35lan booth" jobfair_id="{#$list.id#}"/>
+                                        <input type="button" value="地图定位" class="but125_35lan check_full_map" map_x="{#$list.map_x#}" map_y="{#$list.map_y#}" map_zoom="{#$list.map_zoom#}" title="{#$list.title_#}" address="{#$list.address#}"/>
+                                        <input type="button" value="参会企业" class="but125_35cheng" onclick="javascript:location.href = '{#$list.exhibitorsurl#}'" />
+                                        <input type="button" value="查看详情" class="but125_35cheng" onclick="javascript:location.href = '{#$list.url#}'"/>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            {#else#}
+                            <div class="rec_info">
+                                <div class="info_bbox">
+                                    <div class="streamer st_hui"></div>
+                                    <div></div>
+                                    <div class="calendar hui s">
+                                        <div class="cal1">{#$list.holddates|date_format:"%Y"#}年</div>
+                                        <div class="cal2">{#$list.holddates_week#}</div>
+                                        <div class="cal3">{#$list.holddates|date_format:"%d"#}</div>
+                                        <div class="cal4">{#$list.holddates|date_format:"%m"#}月</div>
+                                    </div>
+                                    <div class="info_txt si huit">
+                                        <h3>{#$list.title#}</h3>
+                                        <ul>
+                                            <li><span>行业主题：</span>{#$list.industry#}</li>
+                                            <li><span>举办时间：</span>{#$list.holddates|date_format:"%Y年%m月%d日"#}</li>
+                                            <li><span>举办地址：</span>{#$list.address#}</li>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </div>
+                                    <div class="info_but sbut">
+                                        <input type="button" value="在线预订" class="but125_35lan huib" />
+                                        <input type="button" value="地图定位" class="but125_35lan huib"/>
+                                        <input type="button" value="参会企业" class="but125_35cheng huib"/>
+                                        <input type="button" value="查看详情" class="but125_35cheng huib"/>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            {#/if#}
+                            {#/foreach#}
+
+                        </div>
+
+                        {#include file="footer.htm"#}
+                    </body>
+                    </html>

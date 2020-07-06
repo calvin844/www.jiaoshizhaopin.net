@@ -1,0 +1,75 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-修改讲师</div>
+        <div class="clear"></div>
+    </div>
+    <div class="toptit">修改讲师</div>
+    <form id="form1" name="form1" method="post" action="?act=edit_save" enctype="multipart/form-data">
+        {#$inputtoken#}
+        <input type="hidden" name="id" value="{#$teacher.id#}">
+        <table width="100%" border="0" cellpadding="4" cellspacing="0"  >
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">讲师名称：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="name" type="text" class="input_text_200" id="name" maxlength="25" value="{#$teacher.name#}"/> </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">所属机构：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" >
+                    <select name="school_id">
+                        <option value="0">不属于机构</option>
+                        {#foreach from=$school item=s#}
+                        <option {#if $s.id == $teacher.school_id#}selected{#/if#} value="{#$s.id#}">{#$s.name#}</option>
+                        {#/foreach#}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">照片：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" ><input name="photo" type="file" id="photo" /></td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">简介：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" >
+                    <textarea style=" width: 450px; height: 200px;" name="des" id="des">{#$teacher.des#}</textarea>
+                    <p id="text_count"><var class="word">100</var>/<var>100</var></p>
+                    <script>
+                        $('#des').blur(function () {
+                            var haha = $(this).val();
+                            haha = haha.replace('<br />', '/n');
+                            $(this).val(haha);
+                        })
+                        $(function () {
+                            statInputNum($("#des"), $("#text_count").find(".word"));
+                        });
+                        /*
+                         * 剩余字数统计
+                         * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
+                         */
+                        function statInputNum(textArea, numItem) {
+                            var max = numItem.text(),
+                                    curLength;
+                            textArea[0].setAttribute("maxlength", max);
+                            curLength = textArea.val().length;
+                            numItem.text(max - curLength);
+                            textArea.on('input propertychange', function () {
+                                var _value = $(this).val().replace(/\n/gi, "");
+                                numItem.text(max - _value.length);
+                            });
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" >&nbsp;</td>
+                <td   >
+                    <input name="submit3" type="submit" class="admin_submit"    value="保存"/>
+                    <input name="submit22" type="button" class="admin_submit" value="返 回" onclick="window.location.href = '/jaosen/admin_online_course_teacher.php'"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

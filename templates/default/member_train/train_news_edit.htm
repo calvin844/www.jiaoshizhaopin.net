@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+//验证
+$(document).ready(function() {
+ $("#Form1").validate({
+ //debug: true,
+// onsubmit:false,
+//onfocusout :true,
+   rules:{
+    title:{
+    required: true,
+	minlength:5,
+    maxlength:60
+   },
+   content:{
+    required: true,
+	minlength:30,
+    maxlength:8000
+   }
+	},
+    messages: {
+	title: {
+    required: "请输入新闻标题",
+    minlength: jQuery.format("不能小于{0}个字符"),
+	maxlength: jQuery.format("不能大于{0}个字符")
+   },
+    content: {
+    required: "请输入新闻内容",
+    minlength: jQuery.format("内容不能小于{0}个字符"),
+	maxlength: jQuery.format("内容不能大于{0}个字符")
+   }
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+});
+})
+</script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 机构动态</div>
+
+<div class="usermain">
+  <div class="leftmenu com link_bk">
+   {#include file="member_train/left.htm"#}	
+  </div>
+  <div class="rightmain">
+	<div class="bbox1">	
+	  <div class="addjob link_bk">
+	    <div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">机构动态</div>
+			</div>
+			<div class="navs">
+				<a href="?act=train_profile">基本资料</a>
+				<a href="?act=train_logo">机构Logo</a>
+				<a href="?act=train_news" class="se">机构动态</a>
+				<a href="?act=train_img">机构风采</a>
+				<a href="?act=train_map_set">地图标注</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+
+		  <!-- 机构动态 -->
+		  <form action="?act=train_news_edit_save" method="post" id="Form1" >
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td width="125" align="right">新闻标题：</td>
+			<td><input name="title" type="text" class="input_text_500" id="title" maxlength="80"   value="{#$news.title#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  	<tbody>
+		  		<tr>
+					<td width="125" align="right">排序：</td>
+					<td width="150"><input name="order" type="text" class="input_text_100" id="order" maxlength="80"   value="{#$news.order#}"/></td>
+					<td>数字越大越靠前</td>
+		  		</tr>
+		  	</tbody>
+		  </table>
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  	<tbody>
+		  		<tr>
+					<td width="125" align="right" valign="top">新闻内容：</td>
+					<td width="500"><textarea name="content" id="content" cols="30" rows="10" class="input_textarea_500">{#$news.content#}</textarea></td>
+					<td>&nbsp;</td>
+		  		</tr>
+		  	</tbody>
+		  </table>
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td align="right" width="125">&nbsp;</td>
+			<td width="130">
+				<input name="id" type="hidden" value="{#$news.id#}" />
+				<input type="submit" name="Submit" value="保存" class="but100lan" /></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  </table> 
+		 </form>
+	
+	  </div>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+
+
+
+</body>
+</html>

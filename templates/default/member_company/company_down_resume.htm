@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_down_resume.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/company/company_index.php">企业中心 </a>&nbsp;>&nbsp;简历管理</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a href="/user/company/company_recruitment.php?act=apply_jobs">收到的简历（{#$total_nolook_resume#}）</a>
+                        <a class="cur" href="/user/company/company_recruitment.php?act=down_resume_list">我的下载（{#$total_down_resume#}）</a>
+                        <a href="/user/company/company_recruitment.php?act=favorites_list">我的收藏（{#$total_favorites_resume#}）</a>
+                        <a href="/user/company/company_recruitment.php?act=interview_list">面试邀请（{#$total_interview#}）</a>
+                        <a href="/user/company/company_recruitment.php?act=my_attention">浏览记录（{#$total_view_resume#}）</a>
+                    </div>
+                    <div class="vip_tips">
+                        <i></i>
+                        <span class="left">VIP特权：下载高级简历，微信推送匹配精准简历</span>
+                        <a class="del"  ></a>
+                        <a class="right" href="/user/company/company_service.php?act=setmeal_list">开通VIP会员</a>
+                        <script>
+                            $('div.vip_tips a.del').click(function () {
+                                $('div.vip_tips').hide();
+                            })
+                        </script>
+                    </div>
+                    {#if $down_resume#}
+                    <form id="form1" name="form1" method="post" action="?act=perform">
+                        <table width="840" border="1" cellspacing="0" cellpadding="1">
+                            <tr>
+                                <th width="147" scope="col">名称</th>
+                                <th width="138" scope="col">
+                                    <span>期望职位</span>
+                                    <i class="select"></i>
+                                    {#if !empty($jobs)#}
+                            <ul data-type="intention_jobs">
+                                <li data-id="0"><p>无</p></li>
+                                {#foreach from=$jobs item=list#}
+                                <li title="{#$list.jobs_name_#}" data-id="{#$list.id#}"><p>{#$list.jobs_name_#}</p></li>
+                                {#/foreach#}
+                            </ul>
+                            {#/if#}
+                            </th>
+                            <th width="60" scope="col">
+                                <span>类型</span>
+                                <i class="select"></i>
+                            <ul data-type="talent">
+                                <li data-id="0"><p>无</p></li>
+                                <li data-id="1"><p>普通</p></li>
+                                <li data-id="2"><p>高级</p></li>
+                            </ul>
+                            </th>
+                            <th width="87" scope="col">
+                                <span>工作经验</span>
+                                <i class="select"></i>
+                            <ul data-type="experience">
+                                <li data-id="0"><p>无</p></li>
+                                {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                {#foreach from=$c_experience item=list#}
+                                <li data-id="{#$list.id#}"><p>{#$list.categoryname#}</p></li>
+                                {#/foreach#}
+                            </ul>
+                            </th>
+                            <th width="60" scope="col">
+                                <span>学历</span>
+                                <i class="select"></i>
+                            <ul data-type="education">
+                                <li data-id="0"><p>无</p></li>
+                                {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                {#foreach from=$c_education item=list#}
+                                <li data-id="{#$list.id#}"><p>{#$list.categoryname#}</p></li>
+                                {#/foreach#}
+                            </ul>
+                            </th>
+                            <th width="60" scope="col">
+                                <span>性别</span>
+                                <i class="select"></i>
+                            <ul data-type="sex">
+                                <li data-id="0"><p>无</p></li>
+                                <li data-id="1"><p>男</p></li>
+                                <li data-id="2"><p>女</p></li>
+                            </ul>
+                            </th>
+                            <th width="116" scope="col">地区</th>
+                            <!--<th width="50" scope="col"><span>年龄</span><i data-type="age" data-id="{#$smarty.get.age#}" class="order {#if $smarty.get.age==1#}hover{#/if#}"></i></th>-->
+                            <th width="50" scope="col"><span>附件</span></th>
+                            <th width="102" scope="col"><span>下载时间</span><i data-type="addtime" data-id="{#$smarty.get.addtime#}" class="order {#if $smarty.get.addtime==1#}hover{#/if#}"></i></th>
+                            </tr>
+
+                            {#section name=foo loop=$down_resume#}
+                            {#if !empty($down_resume[foo].sex_cn) || !empty($down_resume[foo].attachment_resume)#}
+                            <tr class="{#if $smarty.section.foo.iteration % 2 != 0#}w{#/if#}">
+                                <td>
+                                    <input name="y_id[]" type="checkbox" id="y_id"   value="{#$down_resume[foo].did#}" />
+                                    <a title="{#$down_resume[foo].fullname#}" class="resume" href="{#$down_resume[foo].resume_url#}" target="_blank">{#$down_resume[foo].fullname#}</a>
+                                    <a data-id="{#$down_resume[foo].did#}" class="fav"  ></a>
+                                    <a data-id="{#$down_resume[foo].did#}" class="del"  ></a>
+                                </td>
+                                <td><p>{#$down_resume[foo].intention_jobs_#}</p></td>
+                                <td><p>{#if $down_resume[foo].talent == 2#}高级{#else#}普通{#/if#}</p></td>
+                                <td><p>{#$down_resume[foo].experience_cn#}</p></td>
+                                <td><p>{#$down_resume[foo].education_cn#}</p></td>
+                                <td><p>{#$down_resume[foo].sex_cn#}</p></td>
+                                <td><p>{#$down_resume[foo].district_cn#}</p></td>
+                                <!--<td><p>{#$favorites[foo].age#}</p></td>-->
+                                {#if !empty($down_resume[foo].attachment_resume)#}
+                                <td><p class="attachment_resume"><a title="{#$down_resume[foo].attachment_resume#}" href="?act=download_attachment_resume&resume_uid={#$down_resume[foo].resume_uid#}"></a></p></td>
+                                {#else#}
+                                <td><p class="attachment_resume">无</p></td>
+                                {#/if#}
+                                <td><p class="time">{#$down_resume[foo].down_addtime|date_format:"%Y-%m-%d"#}</p></td>
+                            </tr>
+                            {#else#}
+                            <tr class="empty {#if $smarty.section.foo.iteration % 2 != 0#}w{#/if#}">
+                                <td colspan = "9">
+                                    <input name="y_id[]" type="checkbox" id="y_id"  value="{#$down_resume[foo].did#}" />
+                                    <span>此简历信息不全或可能已被删除！</span>
+                                </td>
+                            </tr>
+                            {#/if#}
+                            {#/section#}
+                        </table>
+                        <div class="clear"></div>
+                        <div class="do_box">
+                            <input type="checkbox" class="check_all_input"/>
+                            <span class="check_all_span">全选</span>
+                            <span class="check_all_span" id="check_total">已选择0个简历</span>
+                            <input type="submit" name="shift" id="fav_save" value="收藏" />
+                            <input type="submit" id="del_save" value="删除" />
+                        </div>
+                        <script>
+                            function check_total() {
+                                var total = 0;
+                                $('table td input').each(function () {
+                                    if ($(this).is(':checked')) {
+                                        total = total + 1;
+                                    }
+                                })
+                                var str = "已选择" + total + "个简历";
+                                $('span#check_total').html(str)
+                            }
+                            check_total()
+                            $('table td input').click(function () {
+                                if ($(this).hasClass('checked')) {
+                                    $(this).removeClass('checked');
+                                    $(this).removeAttr('checked');
+                                } else {
+                                    $(this).addClass('checked');
+                                    $(this).attr('checked');
+                                }
+                                check_total();
+                            })
+                            $('.check_all_input').click(function () {
+                                if ($('.check_all_input').hasClass('checked')) {
+                                    $('.check_all_input').removeClass('checked');
+                                    $('table td input').removeClass('checked');
+                                    $('table td input').removeAttr('checked');
+                                } else {
+                                    $('.check_all_input').addClass('checked');
+                                    $('table td input').addClass('checked');
+                                    $('table td input').attr('checked', 'checked');
+                                }
+                                check_total();
+                            })
+                            $('table td a.fav').click(function () {
+                                var y_id = $(this).attr('data-id');
+                                $.get('?act=ajax_down_to_favorites&y_id=' + y_id, function (result) {
+                                    alert(result);
+                                    location.reload();
+                                })
+                            })
+                            $('table td a.del').click(function () {
+                                if (confirm('您确定删除吗?')) {
+                                    var y_id = $(this).attr('data-id');
+                                    $.get('?act=down_resume_del&ajax=1&y_id=' + y_id, function (result) {
+                                        alert(result);
+                                        location.reload();
+                                    })
+                                }
+                            })
+                            $("#del_save").click(function () {
+                                if (confirm('您确定删除吗?')) {
+                                    $("#form1").attr("action", "?act=down_resume_del");
+                                    $("#form1").submit();
+                                }
+                            });
+                            $('table th').mouseover(function () {
+                                $(this).find('ul').show();
+                            }).mouseleave(function () {
+                                $(this).find('ul').hide();
+                            })
+                            $('table th ul li').click(function () {
+                                var type = $(this).parent().attr('data-type');
+                                var id = $(this).attr('data-id');
+                                if (type == "intention_jobs") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs=" + id + "&talent={#$smarty.get.talent#}&experience={#$smarty.get.experience#}&education={#$smarty.get.education#}&sex={#$smarty.get.sex#}&age={#$smarty.get.age#}&addtime={#$smarty.get.addtime#}";
+                                }
+                                if (type == "talent") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent=" + id + "&experience={#$smarty.get.experience#}&education={#$smarty.get.education#}&sex={#$smarty.get.sex#}&age={#$smarty.get.age#}&addtime={#$smarty.get.addtime#}";
+                                }
+                                if (type == "experience") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent={#$smarty.get.talent#}&experience=" + id + "&education={#$smarty.get.education#}&sex={#$smarty.get.sex#}&age={#$smarty.get.age#}&addtime={#$smarty.get.addtime#}";
+                                }
+                                if (type == "education") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent={#$smarty.get.talent#}&experience={#$smarty.get.experience#}&education=" + id + "&sex={#$smarty.get.sex#}&age={#$smarty.get.age#}&addtime={#$smarty.get.addtime#}";
+                                }
+                                if (type == "sex") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent={#$smarty.get.talent#}&experience={#$smarty.get.experience#}&education={#$smarty.get.education#}&sex=" + id + "&age={#$smarty.get.age#}&addtime={#$smarty.get.addtime#}";
+                                }
+                            })
+                            $('table th i.order').click(function () {
+                                var type = $(this).attr('data-type');
+                                var id = $(this).attr('data-id');
+                                if (id == 0) {
+                                    id = 1;
+                                } else {
+                                    id = 0;
+                                }
+                                if (type == "age") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent={#$smarty.get.talent#}&experience={#$smarty.get.experience#}&education={#$smarty.get.education#}&sex={#$smarty.get.sex#}&age=" + id + "&addtime={#$smarty.get.addtime#}";
+                                }
+                                if (type == "addtime") {
+                                    window.location.href = "?act=down_resume_list&intention_jobs={#$smarty.get.intention_jobs#}&talent={#$smarty.get.talent#}&experience={#$smarty.get.experience#}&education={#$smarty.get.education#}&sex={#$smarty.get.sex#}&age={#$smarty.get.age#}&addtime=" + id;
+                                }
+                            })
+                        </script>
+                    </form>
+                    <div class="clear"></div>
+                    <div class="page_box">{#$page#}</div>
+                    {#else#}
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>您当前还没下载简历，我也很无奈~~</p>
+                        <div class="clear"></div>
+                        <a href="/resume/resume-list.php">搜索人才</a>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company_profile.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

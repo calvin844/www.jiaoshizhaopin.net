@@ -1,0 +1,45 @@
+{#qishi_explain_show set="说明页ID:GET[id],列表名:show"#}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/explain-show.css" type="text/css" rel="stylesheet"/> 
+        <title>{#$show.title#}_{#$QISHI.site_name#}</title>
+        <meta name="description" content="{#$show.description#}"/>
+        <meta name="keywords" content="{#$show.keywords#}"/>
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="nav">
+                    <a title="教师招聘网" href="/">教师招聘网</a>
+                    &nbsp;>&nbsp;
+                    <span>{#$show.title#}</span>
+                </p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a class="cur">{#$show.title#}</a>
+                    </div>
+                    <div class="box_content">
+                        <p>{#$show.content#}</p>
+                    </div>
+                </div>
+                <div class="right_box">
+                    {#qishi_explain_list set="列表名:explain,分类ID:1"#}
+                    <ul>
+                        {#foreach from=$explain item=list#}
+                        <a class="{#if $smarty.get.id==$list.id#}hover{#/if#}" title="{#$list.title#}" href="{#$list.url#}">{#$list.title#}</a>
+                        {#/foreach#}
+                        <a href="{#'QS_suggest'|qishi_url#}">意见反馈</a>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer.htm"#}
+    </body>
+</html>

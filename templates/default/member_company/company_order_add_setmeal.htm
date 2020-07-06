@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_order_add_setmeal.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/company/company_index.php">企业中心 </a>&nbsp;>&nbsp;VIP服务</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a href="/user/company/company_service.php?act=setmeal_list">VIP服务</a>
+                        <a class="cur" href="/user/company/company_service.php?act=order_list">我的订单</a>
+                    </div>
+                    <p class="setmeal_info">套餐类型：<span>{#$setmeal.setmeal_name#}</span>（服务期限：{#if $setmeal.days=="0"#}无限制{#else#}{#$setmeal.days#}天{#/if#}）</p>
+                    <p class="setmeal_info">套餐价格：{#if $setmeal.expense=="0"#}<span>免费</span>{#else#}<span>{#$setmeal.expense#}</span> 元{#/if#}（<span class="original_price">原价：{#if $setmeal.original_price=="0"#}免费{#else#}￥ {#$setmeal.original_price#}{#/if#}</span>）</p>
+                    <div class="step_box">
+                        <div class="step1 cur">
+                            <span class="num">1</span>
+                            <span class="text">填写订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step2">
+                            <span class="num">2</span>
+                            <span class="text">确认订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step3">
+                            <span class="num">3</span>
+                            <span class="text">提交订单</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <form id="form1" name="form1" method="post" action="?act=setmeal_order_add_save" >
+                        <div class="payment_box">
+                            <p class="payment_title">支付方式</p>
+                            <ul class="payment_list">
+                                {#section name=payment loop=$payment#}
+                                {#if !strstr($payment[payment].typename,"alipayapi-")#}
+                                <li><input data-class="{#$payment[payment].typename#}" data-hover="{#$payment[payment].typename#}_h" class="{#$payment[payment].typename#} {#if $payment[payment].typename == 'alipay'#}alipay_h{#/if#}" type="button" value="{#$payment[payment].typename#}" /></li>
+                                {#/if#}
+                                {#/section#}
+                                <li><input data-class="online" data-hover="online_h" class="online" type="button" /></li>
+                            </ul>
+                            <div class="clear"></div>
+                            <ul class="online_list">
+                                {#section name=payment loop=$payment#}
+                                {#if strstr($payment[payment].typename,"alipayapi-")#}
+                                <li data-value="{#$payment[payment].typename#}">
+                                    <img src="/include/payment/logo/{#$payment[payment].typename#}.gif" height="39" />
+                                    <i></i>
+                                </li>
+                                {#/if#}
+                                {#/section#}
+                            </ul>
+                            <div class="clear"></div>
+                            <input type="hidden" id="payment_name" name="payment_name" value="alipay"/>
+                            <input type="hidden" name="setmealid" value="{#$setmeal.id#}"/>
+                            <input class="submit" type="submit" value="立即购买" />
+                            <script>
+                                $('.payment_list li input').click(function () {
+                                    $('ul.online_list').hide();
+                                    $('.payment_list li input').each(function () {
+                                        var c = $(this).attr('data-class');
+                                        $(this).attr('class', c);
+                                    })
+                                    var c = $(this).attr('data-hover');
+                                    $(this).attr('class', c);
+                                    if ($(this).attr('class') != "online_h") {
+                                        $('#payment_name').attr('value', $(this).attr('value'));
+                                    } else {
+                                        $('ul.online_list').show();
+                                        $('ul.online_list li').find('i').hide();
+                                        $('ul.online_list li:first').find('i').show();
+                                        var v = $('ul.online_list li:first').attr('data-value');
+                                        $('#payment_name').attr('value', v);
+                                    }
+                                })
+                                $('.online_list li').click(function () {
+                                    $('ul.online_list li').find('i').hide();
+                                    $(this).find('i').show();
+                                    var v = $(this).attr('data-value');
+                                    $('#payment_name').attr('value', v);
+                                });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs&jobtype=1"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company_profile.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

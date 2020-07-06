@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#if $smarty.get.streetid#}{#"QS_street,"|cat:$smarty.get.streetid|qishi_categoryname#}{#else#}按道路搜索{#/if#}  - 职位列表  - {#$QISHI.site_name#}</title>
+        <meta name="description" content="{#$QISHI.site_name#} - 按道路搜索 - 招聘岗位">
+            <meta name="keywords" content="{#$QISHI.site_name#},职位信息">
+                <meta name="author" content="骑士CMS" />
+                <meta name="copyright" content="74cms.com" />
+                <meta http-equiv="X-UA-Compatible" content="IE=7">
+                    <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+                    <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+                    <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+                    <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+                    <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+                    <script src="{#$QISHI.site_template#}js/jquery.highlight-3.js" type='text/javascript' ></script>
+                    <script src="{#$QISHI.site_template#}js/jquery.jobs-street-list.js" type='text/javascript' ></script>
+                    <script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type='text/javascript' ></script>
+                    <script type="text/javascript">
+                        $(document).ready(function ()
+                        {
+                            jobslist();
+                            apply_jobs("{#$QISHI.website_dir#}");
+                            favorites("{#$QISHI.website_dir#}");
+                            $("#alphabet a").click(function ()
+                            {
+                                $("#key").val('');
+                                $("#alphabet a").removeClass("select");
+                                $(this).addClass("select");
+                                var x = $(this).attr('id');
+                                $.get("{#$QISHI.website_dir#}plus/ajax_street.php", {"act": "alphabet", "x": x},
+                                function (data, textStatus)
+                                {
+                                    $("#showtit").html("首字母为：<b>" + x + "</b>");
+                                    $("#showli").html(data);
+                                }
+                                );
+                            });
+                            $("#sosub").click(function ()
+                            {
+                                var str = $("#key").val();
+                                if (str != '')
+                                {
+                                    $("#alphabet a").removeClass("select");
+                                    $.get("{#$QISHI.website_dir#}plus/ajax_street.php", {"act": "key", "key": str},
+                                    function (data, textStatus)
+                                    {
+                                        $("#showtit").html("搜索结果：");
+                                        $("#showli").html(data);
+                                    }
+                                    );
+                                }
+                            });
+                        });
+                    </script>
+                    </head>
+                    <body>
+                        {#include file="header.htm"#}
+                        <div class="page_location link_bk">
+                            当前位置：<a href="{#$QISHI.index_url#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_jobs"|qishi_url#}">招聘信息</a>&nbsp;>&nbsp;按道路搜索
+                        </div>
+                        <div class="jobsearch" style="height:auto;">
+                            <div class="jobnav">
+                                <span>搜索方式 : </span>
+                                <a href="{#"QS_jobslist"|qishi_url#}">全能搜索</a>
+                                <a href="{#"QS_street"|qishi_url#}" class="select">按道路搜索</a>
+                                <a href="{#"QS_jobtag"|qishi_url#}" >按标签搜索</a>
+                            </div>
+                            <div class="jobmain" id="searckeybox" style="margin-left:0px;margin-bottom:10px;">
+                                <div class="jobsearchbox" id="jobsearchbox" style="border-left:none;border-bottom:none;">
+                                    <div class="s2">
+                                        <div class="topsobox">
+                                            <div class="left">按字母检索：</div>
+                                            <div class="right link_bk" id="alphabet">
+                                                <a   id="a">A</a>
+                                                <a   id="b">B</a>
+                                                <a   id="c">C</a>
+                                                <a   id="d">D</a>
+                                                <a   id="e">E</a>
+                                                <a   id="f">F</a>
+                                                <a   id="g">G</a>
+                                                <a   id="h">H</a>
+                                                <a   id="j">J</a>
+                                                <a   id="k">K</a>
+                                                <a   id="l">L</a>
+                                                <a   id="m">M</a>
+                                                <a   id="n">N</a>
+                                                <a   id="o">O</a>
+                                                <a   id="p">P</a>
+                                                <a   id="q">Q</a>
+                                                <a   id="r">R</a>
+                                                <a   id="s">S</a>
+                                                <a   id="t">T</a>
+                                                <a   id="w">W</a>
+                                                <a   id="x">X</a>
+                                                <a   id="y">Y</a>
+                                                <a   id="z">Z</a>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="left">按关键字检索：</div>
+                                            <div class="right"><div class="keyboxtag"><input name="key" id="key" type="text" /></div><div class="keysub"><a   id="sosub">搜索</a></div></div>
+                                            <div class="clear"></div>
+                                        </div>  
+                                        <div class="showsobox">
+                                            <div class="left" id="showtit">热门道路：</div>
+                                            <div class="right">
+                                                <ul class="link_bk" id="showli">
+                                                    {#qishi_get_classify set="列表名:c_jobs,类型:QS_street,显示数目:30"#}{#foreach from=$c_jobs item=li#}				
+                                                    <li><a href="{#"QS_street,page:1-streetid:"|cat:$li.c_id|cat:"-sort:"|cat:$smarty.get.sort|cat:"-inforow:"|cat:$smarty.get.inforow|qishi_url#}" >{#$li.categoryname#}</a><span>{#$li.stat_jobs#}</span></li>
+                                                    {#/foreach#}
+                                                </ul>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    <div class="bottomheight"></div>
+                                    {#if $smarty.get.streetid#}
+                                    <div class="myselbox"  style="display:block;">
+                                        <div class="left">已选条件：</div>
+                                        <div class="optcentet">
+                                            <a href="{#"QS_street"|qishi_url#}"  title="点击取消"><u>道路:</u>{#"QS_street,"|cat:$smarty.get.streetid|qishi_categoryname#}</a>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    {#/if#}
+                                </div>
+                            </div>
+                        </div>
+                        <!--职位列表 -->
+                        {#qishi_jobs_list  set="分页显示:1,列表名:jobslist,列表页:QS_street,显示数目:GET[inforow],填补字符:...,职位名长度:13,企业名长度:19,描述长度:135,关键字:GET[key],职位分类:GET[jobcategory],职位大类:GET[category],职位小类:GET[subclass],地区分类:GET[citycategory],地区大类:GET[district],地区小类:GET[sdistrict],道路:GET[streetid],写字楼:GET[officebuildingid],行业:GET[trade],日期范围:GET[settr],学历:GET[education],工作经验:GET[experience],工资:GET[wage],职位性质:GET[nature],公司规模:GET[scale],排序:GET[sort]"#}
+                        <div class="jobinfolists">
+                            <div class="tit">
+                                <div class="sort">
+                                    <a href="{#"QS_street,sort:rtime-page:1-streetid:"|cat:$smarty.get.streetid|cat:"-inforow:"|cat:$smarty.get.inforow|qishi_url#}" {#if $smarty.get.sort=="rtime" || $smarty.get.sort==""#}class="slect"{#/if#}>更新时间</a>
+                                    <a href="{#"QS_street,sort:wage-page:1-streetid:"|cat:$smarty.get.streetid|cat:"-inforow:"|cat:$smarty.get.inforow|qishi_url#}" {#if $smarty.get.sort=="wage"#}class="slect"{#/if#}>薪资待遇</a>
+                                    <a href="{#"QS_street,sort:hot-page:1-streetid:"|cat:$smarty.get.streetid|cat:"-inforow:"|cat:$smarty.get.inforow|qishi_url#}" {#if $smarty.get.sort=="hot"#}class="slect"{#/if#}>热度</a>
+                                </div>
+                                <div class="pagerow">
+                                    <span>{#$pagenow#}</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="infolists" id="infolists">
+                                <div class="head">
+                                    <label><input name="selectall" type="checkbox" value="" id="selectall"/>&nbsp;全选</label>
+                                    <div class="titsub s deliver">申请职位</div>
+                                    <div class="titsub collecter">收藏职位</div>
+                                </div>
+                                {#if $jobslist#}
+                                {#foreach from=$jobslist item=list#}
+                                <div class="list">
+                                    <div class="li_left_check"><input name="jid" type="checkbox" value="{#$list.id#}"/></div>
+                                    <div class="li_left">
+                                        <div class="jobname">
+                                            <a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a>
+                                            {#if $list.emergency=="1"#}<img src="{#$QISHI.site_template#}images/iconji.gif" border="0">{#/if#}
+                                                {#if $list.recommend=="1"#}<img src="{#$QISHI.site_template#}images/iconjian.gif" border="0">{#/if#}
+                                                    </div>
+                                                    <div class="com">
+                                                        <a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a>
+                                                        {#if $list.company_audit=="1"#}<img src="{#$QISHI.site_template#}images/iconyan.gif" border="0">{#/if#}
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                    <div class="txt">
+                                                        <p>学历要求：{#$list.education_cn|default:"不限"#}&nbsp;&nbsp;|&nbsp;&nbsp;工作经验：{#$list.experience_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;工作地点：{#$list.district_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;招聘人数：{#$list.amount#}人&nbsp;&nbsp;|&nbsp;&nbsp;薪资待遇：{#$list.wage_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$list.refreshtime_cn#}发布</p>
+                                                        <div class="briefly">{#$list.briefly#}</div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="li_right">
+                                                        <div id="{#$list.id#}" class="app_jobs"></div>
+                                                        <div id="{#$list.id#}" class="collect add_favorites"></div>
+                                                    </div>
+                                                    </div>
+                                                    {#/foreach#}
+                                                    <div class="head" style="border-top:1px solid #cccccc;border-bottom:none;">
+                                                        <label><input name="selectall" type="checkbox" value=""/>&nbsp;全选</label>
+                                                        <div class="titsub s deliver">申请职位</div>
+                                                        <div class="titsub collecter">收藏职位</div>
+                                                    </div>
+                                                    {#if $page#}
+                                                    <table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+                                                        <tr>
+                                                            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+                                                        </tr>
+                                                    </table>
+                                                    {#/if#}
+                                                    {#else#}
+                                                    <div class="emptytip">抱歉，没有符合此条件的信息！</div>
+                                                    {#/if#}
+
+
+                                                    </div>
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        $("#infolists .list:last").css("border-bottom", "none");
+                                                    </script>
+                                                    <script src="{#$QISHI.site_template#}js/jquery.jobs-list.js" type='text/javascript' ></script>
+                                                    {#include file="footer.htm"#}
+                                                    </body>
+                                                    </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>在线报名_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/bd001/bd_from.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            //验证
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    wrapper: "li",
+                    rules: {
+                        item1: {
+                            required: true,
+                            userName: true
+                        },
+                        item2: {
+                            required: true,
+                            digits: true,
+                            minlength: 11,
+                            is_mobile: true
+                        },
+                        item3: {
+                            required: true,
+                            userName: true
+                        }
+                    },
+                    messages: {
+                        item1: {
+                            required: "请填写您的姓名"
+                        },
+                        item2: {
+                            required: "请填写您的手机号",
+                            digits: "手机号格式错误",
+                            minlength: "手机号格式错误"
+                        },
+                        item3: {
+                            required: "请填写您的微信号"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo($('#Form1 ul').after());
+                    }
+                });
+                //字符验证
+                jQuery.validator.addMethod("userName", function (value, element) {
+                    return this.optional(element) || /^[\u0391-\uFFE5\w]+$/.test(value);
+                }, "只能包含中英文");
+                jQuery.validator.addMethod("is_mobile", function (value, element) {
+                    var tel = /^(1)\d{10}$/;
+                    var $cstr = false;
+                    if (tel.test(value))
+                        $cstr = true;
+                    return $cstr || this.optional(element);
+                }, "手机号格式错误");
+            });
+        </script>
+        <div class="box">
+            <form id="Form1" action="/bd001/save.php" method="post">
+                <p>共赢的第一步，请告诉我们您的信息</p>
+                <input type="text" name="item1" id="item1" placeholder="请输入您的姓名" />
+                <input type="text" name="item2" id="item2" placeholder="请输入您的手机号码" />
+                <input type="text" name="item3" id="item3" placeholder="请输入您的微信号" />
+                <input type="hidden" name="bd_name" value="bd001" />
+                <div class="clear"></div>
+                <ul></ul>
+                <input type="submit" class="submit" value="提交" />
+            </form>
+        </div>
+        <div class="box_bg"></div>
+    </body>
+</html>

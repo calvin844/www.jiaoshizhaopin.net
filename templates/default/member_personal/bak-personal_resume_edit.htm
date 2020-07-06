@@ -1,0 +1,1978 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.Jcrop.min.js" type='text/javascript' language="javascript"></script>
+        <link href="{#$QISHI.site_template#}css/jquery.Jcrop.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_dir#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.user.selectlayer.js" type='text/javascript' language="javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+                allaround('{#$QISHI.site_dir#}');
+                // 显示地区
+                $("#jobsCity").hover(function() {
+                    $("#divCityCate").show();
+                    $("#divCityCate li").hover(function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function() {
+                    $("#divCityCate").hide();
+                });
+                // 显示籍贯
+                $("#jobsCityH").hover(function() {
+                    $("#divCityCateH").show();
+                    $("#divCityCateH li").hover(function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function() {
+                    $("#divCityCateH").hide();
+                });
+                // 显示工作地区
+                $("#jobsCityW").hover(function() {
+                    $("#divCityCateW").show();
+                    $("#divCityCateW li").hover(function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function() {
+                    $("#divCityCateW").hide();
+                });
+                // 显示行业
+                $("#jobsTrad").hover(function() {
+                    $("#divTradCate").show();
+                }, function() {
+                    $("#divTradCate").hide();
+                });
+                // 显示职位
+                $("#jobsSort").hover(function() {
+                    $("#divJobCate").show();
+                    $("#divJobCate li").hover(function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function() {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function() {
+                    $("#divJobCate").hide();
+                });
+                $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                    $("#education_list_box").html(result);
+                });
+                $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                    $("#work_list_box").html(result);
+                });
+                $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                    $("#training_list_box").html(result);
+                });
+                //填写基本信息，打开选填内容
+                $("#displaymore").click(function() {
+                    var tb = $("#displaymorediv");
+                    var tb_display = tb.css("display");
+                    if (tb_display == "block")
+                    {
+                        $(this).css("background", "url({#$QISHI.site_template#}images/13.gif) no-repeat 108px -122px");
+                        tb.slideUp('fast');
+                    }
+                    else
+                    {
+                        $(this).css("background", "url({#$QISHI.site_template#}images/13.gif) no-repeat 108px -149px");
+                        tb.slideDown('fast');
+                    }
+                });
+                //发送手机验证码按钮效果
+                $("#mobilesend").hover(
+                        function() {
+                            $(this).addClass("h");
+                        },
+                        function() {
+                            $(this).removeClass("h");
+                        }
+                );
+                //发送手机验证码
+                //发送邮箱验证码按钮效果
+                $("#emailsend").hover(
+                        function() {
+                            $(this).addClass("h");
+                        },
+                        function() {
+                            $(this).removeClass("h");
+                        }
+                );
+                //发送邮箱验证码
+                //填写基本信息,打开选填项按钮效果
+                $("#displaymore").hover(
+                        function() {
+                            $(this).css("background-color", "#F6F6F6");
+                        },
+                        function() {
+                            $(this).css("background-color", "#FFFFFF");
+                        }
+                );
+                //工作性质单选
+                var nature_obj = $("#nature_radio .input_radio").first();
+                $("#nature").val(nature_obj.attr("id"));
+                $("#nature_cn").val(nature_obj.text());
+                $("#nature_radio .input_radio").click(function() {
+                    $("#nature").val($(this).attr('id'));
+                    $("#nature_cn").val($(this).text());
+                    $("#nature_radio .input_radio").removeClass("select");
+                    $(this).addClass("select");
+                });
+                //简历公开设置
+                $("#publicitydiv").hover(
+                        function() {
+                            $("#publicitydiv .selbox").slideDown('fast');
+                        },
+                        function() {
+                            $("#publicitydiv .selbox").slideUp('fast');
+                        }
+                );
+                //简历公开设置-菜单效果
+                $("#publicitydiv .selbox div").hover(
+                        function() {
+                            $(this).css("background-color", "#F6F6F6");
+                        },
+                        function() {
+                            $(this).css("background-color", "#FFFFFF");
+                        }
+                );
+                //简历公开设置-点击执行填充表单
+                $("#publicitydiv .selbox div").click(function() {
+                    $("#display_name").val($(this).attr('id'));
+                    $("#display_name_cn").text($(this).text());
+                    $("#publicitydiv .selbox").slideUp('fast');
+                });
+                //性别单选
+                $("#sex_radio .input_radio").click(function() {
+                    $("#sex").val($(this).attr('id'));
+                    $("#sex_cn").val($(this).text());
+                    $("#sex_radio .input_radio").removeClass("select");
+                    $(this).addClass("select");
+                });
+                //婚姻状况单选
+                $("#marriage_radio .input_radio").click(function() {
+                    $("#marriage").val($(this).attr('id'));
+                    $("#marriage_cn").val($(this).text());
+                    $("#marriage_radio .input_radio").removeClass("select");
+                    $(this).addClass("select");
+                });
+                //下拉菜单
+                menuDown("#education_menu", "#education", "#education_cn", "#menu1", "218px");
+                menuDown("#experience_menu", "#experience", "#experience_cn", "#menu2", "218px");
+                menuDown("#wage_menu", "#wage", "#wage_cn", "#menu3", "218px");
+                function menuDown(menuId, input, input_cn, menuList, width) {
+                    $(menuId).click(function() {
+                        $(menuList).css("width", width);
+                        $(menuList).slideDown('fast');
+                        //生成背景
+                        $(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function() {
+                            $(".menu_bg_layer").remove();
+                            $(menuList).slideUp("fast");
+                            $(menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $(menuList + " li").click(function() {
+                        var id = $(this).attr("id");
+                        var title = $(this).attr("title");
+                        $(input).val(id);
+                        $(input_cn).val(title);
+                        $(menuId).html(title);
+                        $(menuList).slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                    });
+                }
+                showyearbox("#birthdate_div", "#birthdate", "1");
+                function showyearbox(divname, inputname, birth)
+                {
+                    $(divname).click(function() {
+                        var inputdiv = $(this);
+                        $(inputdiv).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0"});
+                        $(inputdiv).parent("div").css("position", "relative");
+                        var myDate = new Date();
+                        var y = myDate.getFullYear();
+                        if (birth == "1") {
+                            y = y - 18;
+                            var ymin = y - 35;
+                            htm = "<div class=\"showyearbox yearlist\">";
+                            htm += "<ul>";
+                            for (i = y; i >= ymin; i--)
+                            {
+                                htm += "<li title=\"" + i + "\">" + i + "年</li>";
+                            }
+                            htm += "<div class=\"clear\"></div>";
+                            htm += "</ul>";
+                            htm += "</div>";
+                        } else {
+                            y = y + 4;
+                            var ymin = y - 35;
+                            htm = "<div class=\"showyearbox yearlist\">";
+                            htm += "<ul>";
+                            for (i = y; i >= ymin; i--)
+                            {
+                                htm += "<li title=\"" + i + "\">" + i + "年</li>";
+                            }
+                            htm += "<div class=\"clear\"></div>";
+                            htm += "</ul>";
+                            htm += "</div>";
+                        }
+
+
+                        $(inputdiv).blur();
+                        if ($(inputdiv).parent("div").find(".showyearbox").html())
+                        {
+                            $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                        }
+                        else
+                        {
+                            $(inputdiv).parent("div").append(htm);
+                            $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                        }
+                        //
+                        $(inputdiv).parent("div").children(".yearlist").find("li").unbind("click").click(function()
+                        {
+                            $(inputname).val($(this).attr("title"));
+                            $(inputdiv).html($(this).attr("title"));
+                            $(inputdiv).parent("div").children(".yearlist").hide();
+                            $(".menu_bg_layer").remove();
+                        });
+                        //
+                        $(".showyearbox>ul>li").hover(
+                                function()
+                                {
+                                    $(this).css("background-color", "#DAECF5");
+                                    $(this).css("color", "#ff0000");
+                                },
+                                function()
+                                {
+                                    $(this).css("background-color", "");
+                                    $(this).css("color", "");
+                                }
+                        );
+                        //
+                        $(".menu_bg_layer").click(function() {
+                            $(".menu_bg_layer").hide();
+                            $(inputdiv).parent("div").css("position", "");
+                            $(inputdiv).parent("div").find(".showyearbox").hide();
+                        });
+                    });
+                }
+                $("#mobilesend").click(function() {
+                    var tel = /^(13|15|14|18)\d{9}$/;
+                    if ($("#mobile").val() == '')
+                    {
+                        alert_dialog("fail:请填写手机号", "", "", "", "");
+                    }
+                    else if (!tel.test($("#mobile").val()))
+                    {
+                        alert_dialog("fail:手机号错误", "", "", "", "");
+                    }
+                    else
+                    {
+                        $("#mobilesend").html("正在发送...");
+                        var mobile = $("#mobile").val();
+                        $("#mobile").attr("disabled", "disabled");
+                        $("#Form1").append("<input type='hidden' name='mobile' id='mobile' value='" + mobile + "'>");
+                        $.post("{#$QISHI.website_dir#}plus/ajax_verify_mobile.php", {"mobile": $("#mobile").val(), "send_key": "{#$send_key#}", "time": new Date().getTime(), "act": "send_code"},
+                        function(data, textStatus)
+                        {
+                            if (data == "success")
+                            {
+                                $("#mobilesend").hide();
+                                $("#mobilesendsucceed").show();
+                                $("#displaymobilesend").show();
+                                // $("#sendsms").css({ "background-color": "#ffffff", "border-color": "#E0E0E0" });
+                                // $("#sendsms .us_step").addClass("wait");
+                                // $("#verifysms").css({ "background-color": "#F1FBFE", "border-color": "#C9D9E7" });
+                                // $("#verifysms .us_step").removeClass("wait");
+                                $("#verifycode").attr("disabled", "");
+                                SysSecond = 60;
+                                InterValObj = window.setInterval(SetRemainTime, 1000);
+                                function SetRemainTime()
+                                {
+                                    if (SysSecond > 0)
+                                    {
+                                        SysSecond--;
+                                        $("#remainTime").html(SysSecond);
+                                    }
+                                    else
+                                    {
+                                        window.clearInterval(InterValObj);
+                                        $("#mobilesend").attr("disabled", "");
+                                        $("#mobile").attr("disabled", "");
+                                        $("#mobilesend").show();
+                                        $("#mobilesendsucceed").hide();
+                                        $("#displaymobilesend").hide();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                $("#mobilesend").attr("disabled", "");
+                                $("#mobilesend").html("获取验证码");
+                                $("#mobile").attr("disabled", "");
+                                $("#displaymobilesend").hide();
+                                $("#mobilesendsucceed").hide();
+                                alert_dialog("fail:" + data, "", "", "", "");
+                            }
+                        }
+                        , "text"
+                                )
+                    }
+                });
+                //发送验证完毕
+                //检测验证码
+                $("#postverify").click(function()
+                {
+                    if ($("#verifycode").val() == '')
+                    {
+                        alert_dialog("fail:请填写效验码", "", "", "", "");
+                    }
+                    else
+                    {
+                        $.post("{#$QISHI.website_dir#}plus/ajax_verify_mobile.php", {"verifycode": $("#verifycode").val(), "send_key": "{#$send_key#}", "time": new Date().getTime(), "act": "verify_code"},
+                        function(data, textStatus)
+                        {
+                            if (data == "success")
+                            {
+                                window.location.href = "?act=user_mobile";
+                            }
+                            else
+                            {
+                                alert_dialog("fail:验证码填写错误", "", "", "", "");
+                            }
+                        })
+                    }
+                });
+                //当没有教育经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_education").live("click", function() {
+                    $("#education_empty_box").hide();
+                    $(":input", "#education_add_form").not(':button,:submit').val("");
+                    $("#education_menu").html("请选择");
+                    $("#edu_start_year_div").html("年份");
+                    $("#edu_start_month_menu").html("9月");
+                    $("#edu_start_month").val("9月");
+                    $("#edu_end_year_div").html("年份");
+                    $("#edu_end_month_menu").html("7月");
+                    $("#edu_end_month").val("7月");
+                    $("#education_add_form").slideDown("slow");
+                    $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}		
+                });
+                //当有教育经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_education").click(function() {
+                    $(":input", "#education_add_form").not(':button,:submit').val("");
+                    $("#education_menu").html("请选择");
+                    $("#edu_start_year_div").html("年份");
+                    $("#edu_start_month_menu").html("9月");
+                    $("#edu_start_month").val("9月");
+                    $("#edu_end_year_div").html("年份");
+                    $("#edu_end_month_menu").html("7月");
+                    $("#edu_end_month").val("7月");
+                    $("#education_add_form").slideUp("fast");
+                    $("#education_add_form").slideDown("slow");
+                    $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}	
+                });
+                //取消添加教育经历表单
+                $("#close_education_form").click(function() {
+                    $("#education_add_form").slideUp("slow");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}
+                });
+                //当没有工作经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_work").live("click", function() {
+                    $("#work_empty_box").hide();
+                    $(":input", "#work_add_form").not(':button,:submit').val("");
+                    $("#work_start_year_div").html("年份");
+                    $("#work_start_month_menu").html("月份");
+                    $("#work_end_year_div").html("年份");
+                    $("#work_end_month_menu").html("月份");
+                    $("#work_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}	
+                });
+                //当有工作经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_work").click(function() {
+                    $(":input", "#work_add_form").not(':button,:submit').val("");
+                    $("#work_start_year_div").html("年份");
+                    $("#work_start_month_menu").html("月份");
+                    $("#work_end_year_div").html("年份");
+                    $("#work_end_month_menu").html("月份");
+                    $("#work_add_form").slideUp("fast");
+                    $("#work_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#training_add_form").slideUp("fast");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}
+                });
+                //取消添加工作经历表单
+                $("#close_work_form").click(function() {
+                    $("#work_add_form").slideUp("slow");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}
+                });
+                //当没有培训经历，点击添加按钮，同时关闭掉添加提示
+                $("#empty_add_training").live("click", function() {
+                    $("#training_empty_box").hide();
+                    $(":input", "#training_add_form").not(':button,:submit').val("");
+                    $("#training_start_year_div").html("年份");
+                    $("#training_start_month_menu").html("月份");
+                    $("#training_end_year_div").html("年份");
+                    $("#training_end_month_menu").html("月份");
+                    $("#training_add_form").slideDown("slow");
+                    $("#education_add_form").slideUp("fast");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}		
+                });
+                //当有培训经历，点击标题右侧添加按钮打开表单
+                $("#nav_add_training").click(function() {
+                    $(":input", "#training_add_form").not(':button,:submit').val("");
+                    $("#training_start_year_div").html("年份");
+                    $("#training_start_month_menu").html("月份");
+                    $("#training_end_year_div").html("年份");
+                    $("#training_end_month_menu").html("月份");
+                    $("#training_add_form").slideUp("fast");
+                    $("#training_add_form").slideDown("slow");
+                    {#if !$resume_education#}
+                    $("#education_empty_box").show();
+                    {#/if#}	
+                            $("#work_add_form").slideUp("fast");
+                    {#if !$resume_work#}
+                    $("#work_empty_box").show();
+                    {#/if#}
+                });
+                //取消添加培训经历表单
+                $("#close_training_form").click(function() {
+                    $("#training_add_form").slideUp("slow");
+                    {#if !$resume_training#}
+                    $("#training_empty_box").show();
+                    {#/if#}
+                });
+                menuDown("#edu_education_menu", "#edu_education", "#edu_education_cn", "#menu4", "218px");
+                showyearbox("#edu_start_year_div", "#edu_start_year");
+                showyearbox("#edu_end_year_div", "#edu_end_year");
+                menuDown("#edu_start_month_menu", "", "#edu_start_month", "#menu5", "68px");
+                menuDown("#edu_end_month_menu", "", "#edu_end_month", "#menu6", "68px");
+                showyearbox("#work_start_year_div", "#work_start_year");
+                showyearbox("#work_end_year_div", "#work_end_year");
+                menuDown("#work_start_month_menu", "", "#work_start_month", "#menu7", "68px");
+                menuDown("#work_end_month_menu", "", "#work_end_month", "#menu8", "68px");
+                showyearbox("#training_start_year_div", "#training_start_year");
+                showyearbox("#training_end_year_div", "#training_end_year");
+                menuDown("#training_start_month_menu", "", "#training_start_month", "#menu9", "68px");
+                menuDown("#training_end_month_menu", "", "#training_end_month", "#menu10", "68px");
+            });
+            function changeType(sid) {
+                var id = $("#job_ptype_ul").val();
+                $.get("/plus/ajax_index_c.php", {"act": "index_search_type", "id": id, "type": "type_box", "son": "option"},
+                function(data) {
+                    $("#job_type_ul").html(data);
+                    if (sid != "") {
+                        $("#job_type_ul").find('option').each(function() {
+                            if ($(this).val() == sid) {
+                                $(this).attr('selected', 'selected');
+                            }
+                        })
+                    }
+                });
+            }
+            function changeProvince(iname) {
+                get_cities($("#" + iname + "_district").val(), iname, 0);
+            }
+            function get_cities(provinceId, iname, sid) {
+                if (provinceId > 0) {
+                    $.get("/plus/ajax_index_c.php", {"act": "get_cities", "id": provinceId},
+                    function(data) {
+                        $("#" + iname + "_sdistrict").html(data);
+                        if (sid > 0) {
+                            $("#" + iname + "_sdistrict").find('option').each(function() {
+                                if ($(this).val() == sid) {
+                                    $(this).attr('selected', 'selected');
+                                }
+                            })
+                        }
+                    });
+                }
+            }
+            $(".sdistrict").live('change', function() {
+                var iname = $(this).attr('iname');
+                var cn = $(this).find("option:selected").text();
+                var pcn = $(this).parent().find("#" + iname + "_district option:selected").text();
+                var id = $(this).find("option:selected").val();
+                var pid = $(this).parent().find("#" + iname + "_district option:selected").val();
+                if (iname == "district") {
+                    $("#" + iname).val(pid);
+                    $("#s" + iname).val(id);
+                    $("#" + iname + "_cn").val(pcn + "/" + cn);
+                } else {
+                    $("#" + iname).val(pid + "." + id);
+                    $("#" + iname + "_cn").val(pcn + "/" + cn);
+                }
+            });
+
+        </script>
+    </head>
+
+    <body>
+        {#include file="user/header.htm"#}
+
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 修改简历</div>
+        <!-- 进度条 -->
+        <div class="photoTrad" id="photoTrad">正在上传，请稍后！</div>
+        <!-- 进度条 End-->
+        <div class="usermain">
+            <div class="leftmenu link_bk">
+                {#include file="member_personal/left.htm"#}	
+            </div>
+            <div class="rightmain">
+
+                <div class="bbox1">	
+                    <div class="addresume">
+
+                        <div class="titleH1">
+                            <div class="h1-title">修改简历</div>
+                        </div>
+                        <div class="titleH2"><span>个人信息</span></div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                            <tr>
+                                <td width="125" align="right">简历名称：</td>
+                                <td width="230"><input name="title" type="text" class="input_text_200" id="title" maxlength="80"   value="{#$resume_basic.title#}"/></td>
+                                <td><div class="righttip">简历名称仅用来区分您的不同简历，不在网站中显示!</div></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><span class="nec">姓名</span>：</td>
+                                <td><input name="fullname" type="text" class="input_text_200" id="fullname" maxlength="6"   value="{#$resume_basic.fullname#}" /> </td>
+                                <td>
+                                    <input name="display_name" id="display_name" type="hidden" value="{#$resume_basic.display_name#}" />
+                                    <div class="publicity" id="publicitydiv">
+                                        <div class="input_text_70_bg" id="display_name_cn">{#if $resume_basic.display_name=="1"#}完全公开{#elseif $resume_basic.display_name=="2"#}显示编号{#elseif $resume_basic.display_name=="3"#}隐藏名字{#/if#}</div>
+                                        <div class="selbox">
+                                            <div class="div" id="1">完全公开</div>
+                                            <div class="div" id="2">显示编号</div>
+                                            <div class="div" id="3">隐藏名字</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><span class="nec">性别</span>：</td>
+                                <td>
+                                    <div id="sex_radio">
+                                        <input name="sex" id="sex" type="hidden" value="{#$resume_basic.sex#}" />
+                                        <input name="sex_cn" id="sex_cn" type="hidden" value="{#$resume_basic.sex_cn#}" />
+                                        <div class="input_radio{#if $resume_basic.sex==1#} select{#/if#}" id="1">男</div>
+                                        <div class="input_radio{#if $resume_basic.sex==2#} select{#/if#}" id="2">女</div>			  
+                                        <div class="clear"></div>
+                                    </div>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right"><span class="nec">出生年份</span>：</td>
+                                <td>
+                                    <div>
+                                        <div class="input_text_200_bg date_input" id="birthdate_div">{#$resume_basic.birthdate#}</div>
+                                        <input name="birthdate" id="birthdate" type="hidden" value="{#$resume_basic.birthdate#}" />
+                                    </div>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            
+                            <tr>
+                                <td align="right"><span class="nec">学历</span>：</td>
+                                <td>
+                                    <div style="position:relateve;">
+                                        <div id="education_menu" class="input_text_200_bg">{#$resume_basic.education_cn#}</div>	
+                                        <div class="menu" id="menu1">
+                                            <ul>
+                                                {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                                {#foreach from=$c_education item=list#}
+                                                <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                {#/foreach#}
+                                            </ul>
+                                        </div>
+                                    </div>				
+                                    <input name="education" type="hidden" id="education" value="{#$resume_basic.education#}" />
+                                    <input name="education_cn" type="hidden" id="education_cn" value="{#$resume_basic.education_cn#}" />
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right"><span class="nec">工作经验</span>：</td>
+                                <td>
+                                    <div style="position:relateve;">
+                                        <div id="experience_menu" class="input_text_200_bg">{#$resume_basic.experience_cn#}</div>	
+                                        <div class="menu" id="menu2">
+                                            <ul>
+                                                {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                                {#foreach from=$c_experience item=list#}
+                                                <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                {#/foreach#}
+                                            </ul>
+                                        </div>
+                                    </div>				
+                                    <input name="experience" type="hidden" id="experience" value="{#$resume_basic.experience#}" />
+                                    <input name="experience_cn" type="hidden" id="experience_cn" value="{#$resume_basic.experience_cn#}" />
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right"><span class="nec">手机</span>：</td>
+                                <td><input name="mobile" id="mobile" type="text" class="input_text_200" value="{#$resume_basic.telephone#}" /> </td>
+                                <!--<td>
+                                        {#if $user.mobile_audit!="1"#}
+                                        <div class="mobilesend" id="mobilesend">发送验证码</div><div class="mobilesend succeed" id="mobilesendsucceed">已成功发送这验证码，<span id="remainTime">60</span>秒后可重新发送！</div>
+                                        {#/if#}
+                                </td>-->
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" id="displaymobilesend" style="display:none" >
+                            <tr>
+                                <td align="right" width="125"><span class="nec">手机验证码</span>：</td>
+                                <td width="230"><input name="verifycode" id="verifycode" type="text" class="input_text_200" value="" /></td>
+                                <td><div class="righttip">请填写您手机收到的验证码!</div></td>
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                            <tr>
+                                <td width="125" align="right"><span class="nec">邮箱</span>：</td>
+                                <td width="230"><input name="email" id="email" type="text" class="input_text_200" value="{#$resume_basic.email#}" /></td>
+                                <td style="display:none;">&nbsp;<label><input name="email_notify" id="email_notify" type="checkbox" value="1" {#if $resume_basic.email_notify=="1"#}checked="checked"{#/if#}/>接收面试邀请</label></td>
+                            </tr>
+                            <tr>
+                                <td align="right">&nbsp;</td>
+                                <td> <div class="displaymore" id="displaymore">展开选填信息</div></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" id="displaymorediv" style="display:none">
+                            <tr class="jobmain">
+                                <td width="125" align="right">现居住地：</td>
+                                <td>
+                                    <select iname="residence" id="residence_district" onchange="javascript:changeProvince('residence');" class="input_text_100 district">
+                                        <option disabled selected>请选省份</option>
+                                        {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <option value="{#$c.id#}">{#$c.categoryname#}</option>
+                                        {#/foreach#}
+                                    </select>
+                                    <select iname="residence"  id="residence_sdistrict" class="input_text_100 sdistrict">
+                                        <option disabled>请选城市</option>
+                                    </select>
+                                    <input name="residence" type="hidden" id="residence"  value="{#$resume_basic.residence#}" />
+                                    <input name="residence_cn" type="hidden" id="residence_cn"  value="{#$resume_basic.residence_cn#}" />
+                                    <!--<td id="jobsCity" style="position:relative;">
+                                        <div class="input_text_200_bg" id="cityText">{#$resume_basic.residence_cn|default:"请选择"#}</div>	
+                                        
+                                        <div style="display:none;left:1px;top:46px;" id="divCityCate" class="divJobCate">
+                                            <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                        </div>-->
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="125" align="right">身高：</td>
+                                <td width="220"><input name="height" id="height" type="text" class="input_text_200_bgsg" value="{#$resume_basic.height#}" /> </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr class="jobmain">
+                                <td width="125" align="right">籍贯：</td>
+                                <td>
+                                    <select iname="householdaddress" id="householdaddress_district" onchange="javascript:changeProvince('householdaddress');" class="input_text_100 district">
+                                        <option disabled selected>请选省份</option>
+                                        {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <option value="{#$c.id#}">{#$c.categoryname#}</option>
+                                        {#/foreach#}
+                                    </select>
+                                    <select iname="householdaddress"  id="householdaddress_sdistrict" class="input_text_100 sdistrict">
+                                        <option disabled>请选城市</option>
+                                    </select>
+                                    <input name="householdaddress" id="householdaddress" type="hidden"   value="{#$resume_basic.householdaddress#}" />
+                                    <input name="householdaddress_cn" id="householdaddress_cn" type="hidden"   value="{#$resume_basic.householdaddress_cn#}" />
+                                </td>
+                                <!--
+                            <td width="220" id="jobsCityH" style="position:relative;">
+                                <div class="input_text_200_bg" id="cityTextH">{#$resume_basic.householdaddress_cn|default:"请选择"#}</div>
+                                <div style="display:none;left:1px;top:46px;" id="divCityCateH" class="divJobCate">
+                                    <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                </div>
+                            </td>
+                                -->
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right">婚姻状况：</td>
+                                <td>
+                                    <div id="marriage_radio">
+                                        <input name="marriage" id="marriage" type="hidden" value="{#$resume_basic.marriage#}" />
+                                        <input name="marriage_cn" id="marriage_cn" type="hidden" value="{#$resume_basic.marriage_cn#}" />
+                                        <div class="input_radio{#if $resume_basic.marriage==1#} select{#/if#}" id="1">未婚</div>
+                                        <div class="input_radio{#if $resume_basic.marriage==2#} select{#/if#}" id="2">已婚</div>			  
+                                        <div class="clear"></div>
+                                    </div>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr> 
+                        </table>
+
+                        <div class="titleH2"><span>求职意向</span></div>
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >
+                            <tr class="jobmain">
+                                <td width="127" align="right" valign="top" style="padding-top:16px;"><span class="nec">期望职位：</span></td>
+                                <td style="position:relative">
+                                    <select id="job_ptype_ul" onchange="javascript:changeType();" class="input_text_200">
+                                        <option disabled selected>请选类别</option>
+                                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$category item=list#}
+                                        {#if $list.parentid == 0 #}
+                                        <option value="{#$list.id#}">{#$list.categoryname#}</option>
+                                        {#/if#}
+                                        {#/foreach#}
+                                    </select>
+                                    <select id="job_type_ul" class="input_text_200">
+                                        <option disabled>请选类别</option>
+                                    </select>
+                                    <input type="button" name="" id="add_intention_jobs" value="添加职位" class="but130lan_add" />
+                                    <div id="intention_jobs_box"></div>
+                                    <input name="intention_jobs" id="intention_jobs" type="hidden" value="{#$resume_basic.intention_jobs#}" />
+                                    <input name="intention_jobs_id" id="intention_jobs_id"  type="hidden" value="{#$resume_jobs_id#}" />
+                                    <script>
+                                        $('#add_intention_jobs').click(function() {
+                                            var num = $('#intention_jobs_box a').length;
+                                            if (num > 4) {
+                                                alert('最多选择5个期望职位！');
+                                            } else if ($('#job_type_ul').val() == null) {
+                                                alert('请选择职位！');
+                                            } else {
+                                                var jid = $('#job_type_ul').val();
+                                                var jname = $('#job_type_ul option:selected').text();
+                                                var jpname = $('#job_ptype_ul option:selected').text();
+                                                var jname_full = jpname + "-" + jname;
+                                                var a_str = '<a class="sx-yx-cnt" href="javascript:;">';
+                                                a_str += '<span jid="' + jid + '" jname="' + jname + '">' + jname_full + '</span>';
+                                                a_str += '<i class="del cls_checked_del"></i>';
+                                                a_str += '</a>';
+                                                $("#intention_jobs_box").append(a_str);
+                                                up_intention_jobs_box();
+                                            }
+                                        })
+
+                                        $("#intention_jobs_box a .cls_checked_del").live('click', function() {
+                                            $(this).parent().remove();
+                                            up_intention_jobs_box();
+                                        })
+                                        function up_intention_jobs_box() {
+                                            var id_str = "";
+                                            var name_str = "";
+                                            $("#intention_jobs_box a").each(function() {
+                                                var jid = $(this).find('span').attr('jid');
+                                                var jname = $(this).find('span').attr('jname');
+                                                id_str += jid + ",";
+                                                name_str += jname + ",";
+                                            })
+                                            id_str = id_str.substr(0, id_str.length - 1);
+                                            name_str = name_str.substr(0, name_str.length - 1);
+                                            $('#intention_jobs_id').val(id_str);
+                                            $('#intention_jobs').val(name_str);
+                                        }
+                                        var has_pjob_str = $('#intention_jobs').val();
+                                        var has_job_str = $('#intention_jobs_id').val();
+                                        if (has_job_str != "") {
+                                            var arr = has_job_str.split(',');
+                                            var parr = has_pjob_str.split(',');
+                                            for (var i = 0; i < arr.length; i++) {
+                                                var t_arr = arr[i].split('.');
+                                                $('#job_ptype_ul option').each(function() {
+                                                    $('#job_ptype_ul option').removeAttr('selected');
+                                                    if ($(this).attr('value') == t_arr[1]) {
+                                                        var jpname = $(this).text();
+                                                        var jname = parr[i];
+                                                        var jid = arr[i];
+                                                        var jname_full = jpname + "-" + jname;
+                                                        var a_str = '<a class="sx-yx-cnt" href="javascript:;">';
+                                                        a_str += '<span jid="' + jid + '" jname="' + jname + '">' + jname_full + '</span>';
+                                                        a_str += '<i class="del cls_checked_del"></i>';
+                                                        a_str += '</a>';
+                                                        $("#intention_jobs_box").append(a_str);
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    </script>
+                                    <!--
+                                    <div id="jobsSort" style="width:400px;">
+                                        <div class="input_text_200_bg" alt=""  id="jobText"></div>
+                                        <div style="display:none;left:1px;top:46px;" id="divJobCate" class="divJobCate">
+                                            <table class="jobcatebox">
+                                                <div class="acquired">
+                                                    <div class="l">已选</div>
+                                                    <div class="c" id="jobAcq"></div>
+                                                    <div class="r">
+                                                        <div class="empty" id="jobEmpty"></div>
+                                                        <div class="sure" id="jobSure">确定</div>
+                                                        <div class="container" id="jobdropcontent">
+                                                            <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                            <s><e></e></s>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                        <input name="intention_jobs" id="intention_jobs" type="hidden" value="{#$resume_basic.intention_jobs#}" />
+                                        <input name="intention_jobs_id" id="intention_jobs_id"  type="hidden" value="{#$resume_jobs_id#}" />
+                                    </div>
+                                    -->
+                                </td>
+                            </tr> 
+                            <tr class="jobmain" style="display:none;">
+                                <td width="127" align="right" valign="top" style="padding-top:16px;"><span>期望行业：</span></td>
+                                <td style="position:relative">
+                                    <div id="jobsTrad" style="width:200px;">
+                                        <div class="input_text_200_bg" id="tradText">请选择</div>
+                                        <div id="divTradCate" class="infoList divIndCate" style="display:none;left:1px;top:46px;">
+                                            <div class="acquired">
+                                                <div class="l">已选</div>
+                                                <div class="c" id="tradAcq"></div>
+                                                <div class="r">
+                                                    <div class="empty" id="tradEmpty"></div>
+                                                    <div class="sure" id="tradSure">确定</div>
+                                                    <div class="container" id="tradropcontent">
+                                                        <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                        <s><e></e></s>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="indcatelist" id="tradList"></ul>
+                                        </div>
+                                        <input name="trade_cn" id="trade_cn" type="hidden" value="教育/培训" />
+                                        <input name="trade" id="trade" type="hidden" value="33" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="jobmain">
+                                <td width="127" align="right"><span class="nec">工作地区：</span></td>
+                                <td>
+                                    <select iname="district" id="district_district" onchange="javascript:changeProvince('district');" class="input_text_100 district">
+                                        <option disabled selected>请选省份</option>
+                                        {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <option value="{#$c.id#}">{#$c.categoryname#}</option>
+                                        {#/foreach#}
+                                    </select>
+                                    <select iname="district"  id="district_sdistrict" class="input_text_100 sdistrict">
+                                        <option disabled>请选城市</option>
+                                    </select>
+                                    <input id="district" type="hidden" value="{#$resume_basic.district#}" name="district"/>
+                                    <input id="sdistrict" type="hidden" value="{#$resume_basic.sdistrict#}" name="sdistrict"/>
+                                    <input id="districtID" type="hidden" value=""/>
+                                    <input name="district_cn" id="district_cn" type="hidden" value="{#$resume_basic.district_cn#}" />
+                                </td>
+                                <!--
+                                <td style="position:relative;"s>
+                                    <div id="jobsCityW" style="width:200px;">
+                                        <div class="input_text_200_bg" id="cityTextW">{#$resume_basic.district_cn|default:"请选择"#}</div>
+                                        <div style="display:none;left:1px;top:46px;" id="divCityCateW" class="divJobCate">
+                                            <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                        </div>
+                                        <input id="district" type="hidden" value="{#$resume_basic.district#}" name="district">
+                                            <input id="sdistrict" type="hidden" value="{#$resume_basic.sdistrict#}" name="sdistrict">
+                                                <input id="districtID" type="hidden" value="">
+                                                    <input name="district_cn" id="district_cn" type="hidden" value="{#$resume_basic.district_cn#}" />
+                                                    </div>
+                                                    </td>
+                                -->
+                            </tr>
+
+                            <tr>
+                                <td width="127" align="right">工作性质：</td>
+                                <td colspan="2">
+                                    <div id="nature_radio">
+                                        <input name="nature" id="nature" type="hidden" value="{#$resume_basic.nature#}" />
+                                        <input name="nature_cn" id="nature_cn" type="hidden" value="{#$resume_basic.nature_cn#}" />
+                                        {#qishi_get_classify  set="类型:QS_jobs_nature,列表名:c_nature"#}
+                                        {#foreach from=$c_nature item=list#}
+                                        <div class="input_radio {#if $list.id==$resume_basic.nature#}select{#/if#}" id="{#$list.id#}">{#$list.categoryname#}</div>
+                                        {#/foreach#}			  
+                                        <div class="clear"></div>
+                                    </div>			  </td>
+                            </tr>
+
+
+                            <tr>
+                                <td width="127" align="right">期望薪资：</td>
+                                <td colspan="2">
+                                    <div style="position:relateve;">
+                                        <div id="wage_menu" class="input_text_200_bg">{#$resume_basic.wage_cn#}</div>	
+                                        <div class="menu" id="menu3">
+                                            <ul>
+                                                {#qishi_get_classify  set="类型:QS_wage,列表名:c_wage"#}
+                                                {#foreach from=$c_wage item=list#}
+                                                <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                {#/foreach#}
+                                            </ul>
+                                        </div>
+                                    </div>				
+                                    <input name="wage" type="hidden" id="wage" value="{#$resume_basic.wage#}" />
+                                    <input name="wage_cn" type="hidden" id="wage_cn" value="{#$resume_basic.wage_cn#}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="127" align="right"> </td>
+                                <td colspan="2"><input type="button" name="basic_save" id="basic_save" value="保存"  class="but220lan"/>			</td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $("#basic_save").click(function() {
+                                var pid = "{#$pid#}";
+                                var title = $("#title").val();
+                                var fullname = $("#fullname").val();
+                                var display_name = $("#display_name").val();
+                                var sex = $("#sex").val();
+                                var sex_cn = $("#sex_cn").val();
+                                var birthdate = $("#birthdate").val();
+                                var residence = $("#residence").val();
+                                var residence_cn = $("#residence_cn").val();
+                                var education = $("#education").val();
+                                var education_cn = $("#education_cn").val();
+                                var experience = $("#experience").val();
+                                var experience_cn = $("#experience_cn").val();
+                                var mobile = $("#mobile").val();
+                                var verifycode = $("#verifycode").val();
+                                var email = $("#email").val();
+                                var email_notify = $('input[name="email_notify"]:checkbox:checked').val();
+                                var height = $("#height").val();
+                                var householdaddress = $("#householdaddress").val();
+                                var householdaddress_cn = $("#householdaddress_cn").val();
+                                var marriage = $("#marriage").val();
+                                var marriage_cn = $("#marriage_cn").val();
+                                var intention_jobs = $("#intention_jobs").val();
+                                var intention_jobs_id = $("#intention_jobs_id").val();
+                                var trade_cn = $("#trade_cn").val();
+                                var trade = $("#trade").val();
+                                var district = $("#district").val();
+                                var sdistrict = $("#sdistrict").val();
+                                var tdistrict = $("#tdistrict").val();
+                                var district_cn = $("#district_cn").val();
+                                var nature = $("#nature").val();
+                                var nature_cn = $("#nature_cn").val();
+                                var wage = $("#wage").val();
+                                var wage_cn = $("#wage_cn").val();
+                                $.post("?act=ajax_save_basic", {pid: pid, title: title, fullname: fullname, display_name: display_name, sex: sex, sex_cn: sex_cn, birthdate: birthdate, residence: residence, residence_cn: residence_cn, education: education, education_cn: education_cn, experience: experience, experience_cn: experience_cn, mobile: mobile, verifycode: verifycode, email: email, email_notify: email_notify, height: height, householdaddress: householdaddress, householdaddress_cn: householdaddress_cn, marriage: marriage, marriage_cn: marriage_cn, intention_jobs: intention_jobs, intention_jobs_id: intention_jobs_id, trade_cn: trade_cn, trade: trade, district: district, sdistrict: sdistrict, tdistrict: tdistrict, district_cn: district_cn, nature: nature, nature_cn: nature_cn, wage: wage, wage_cn: wage_cn}, function(result) {
+                                    if (result == "success") {
+                                        alert_dialog("success:保存成功", "", "", "", "");
+                                    } else {
+                                        alert_dialog("fail:" + result, "", "", "", "");
+                                    }
+                                });
+                            });
+                        });</script>
+
+                    <div class="addresume2">
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">教育经历</div>
+                            <div class="add" id="add_education" 
+                                 {#if $resume_education#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_education" value="添加"  class="but55lan_add"/></div><!--当教育经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>
+
+
+
+                        <div id="education_list_box"></div>
+
+                        <!--未添加教育经历显示添加按钮 -->
+                        <!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="education_add_form">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">学校名称：</td>
+                                    <td><input name="school" id="school" type="text" class="input_text_200"      value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">专业名称：</td>
+                                    <td><input name="speciality" id="speciality" type="text" class="input_text_200"      value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">学历：</td>
+                                    <td>
+                                        <div style="position:relateve;">
+                                            <div id="edu_education_menu" class="input_text_200_bg">请选择</div>	
+                                            <div class="menu" id="menu4">
+                                                <ul>
+                                                    {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                                    {#foreach from=$c_education item=list#}
+                                                    <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                    {#/foreach#}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <input name="edu_education" type="hidden" id="edu_education" value="" />
+                                        <input name="edu_education_cn" type="hidden" id="edu_education_cn" value="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right" >就读时间：</td>
+                                    <td >
+
+                                        <table border="0" cellpadding="0" cellspacing="0" >
+                                            <tr>
+                                                <td width="90" style="padding:0px">
+                                                    <div>
+                                                        <div class="input_text_60_bg date_input" id="edu_start_year_div">年份</div>
+                                                        <input name="edu_start_year" id="edu_start_year" type="hidden" value="" />
+                                                    </div>
+                                                </td>
+                                                <td width="80" style="padding:0px">
+                                                    <div style="position:relateve;">
+                                                        <div id="edu_start_month_menu" class="input_text_50_bg">9月</div>
+                                                        <div class="menu" id="menu5">
+                                                            <ul>
+                                                                <li title="1月">1月</li>
+                                                                <li title="2月">2月</li>
+                                                                <li title="3月">3月</li>
+                                                                <li title="4月">4月</li>
+                                                                <li title="5月">5月</li>
+                                                                <li title="6月">6月</li>
+                                                                <li title="7月">7月</li>
+                                                                <li title="8月">8月</li>
+                                                                <li title="9月">9月</li>
+                                                                <li title="10月">10月</li>
+                                                                <li title="11月">11月</li>
+                                                                <li title="12月">12月</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <input name="edu_start_month" type="hidden" id="edu_start_month" value="9月" />
+                                                </td>
+                                                <td width="20" style="padding:0px">至</td>
+                                                <td width="90" style="padding:0px">
+                                                    <div>
+                                                        <div class="input_text_60_bg date_input" id="edu_end_year_div">年份</div>
+                                                        <input name="edu_end_year" id="edu_end_year" type="hidden" value="" />
+                                                    </div>
+                                                </td>
+                                                <td style="padding:0px">
+                                                    <div style="position:relateve;">
+                                                        <div id="edu_end_month_menu" class="input_text_50_bg">7月</div>
+                                                        <div class="menu" id="menu6">
+                                                            <ul>
+                                                                <li title="1月">1月</li>
+                                                                <li title="2月">2月</li>
+                                                                <li title="3月">3月</li>
+                                                                <li title="4月">4月</li>
+                                                                <li title="5月">5月</li>
+                                                                <li title="6月">6月</li>
+                                                                <li title="7月">7月</li>
+                                                                <li title="8月">8月</li>
+                                                                <li title="9月">9月</li>
+                                                                <li title="10月">10月</li>
+                                                                <li title="11月">11月</li>
+                                                                <li title="12月">12月</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <input name="edu_end_month" type="hidden" id="edu_end_month" value="7月" />
+                                                </td>
+                                            </tr>
+                                        </table>						
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="edu_id" id="edu_id">
+                                        <td><input type="submit" name="save_education" id="save_education" value="保存"  class="but100lan"/><input type="button" name="" id="close_education_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_education").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#edu_id").val();
+                                    var school = $("#school").val();
+                                    var speciality = $("#speciality").val();
+                                    var education = $("#edu_education").val();
+                                    var education_cn = $("#edu_education_cn").val();
+                                    var edu_start_year = $("#edu_start_year").val();
+                                    var edu_start_month = $("#edu_start_month").val();
+                                    var edu_end_year = $("#edu_end_year").val();
+                                    var edu_end_month = $("#edu_end_month").val();
+                                    $.post("?act=save_education", {id: id, pid: pid, school: school, speciality: speciality, education: education, education_cn: education_cn, edu_start_year: edu_start_year, edu_start_month: edu_start_month, edu_end_year: edu_end_year, edu_end_month: edu_end_month}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功", "", "", "", "");
+                                            $("#education_add_form").slideUp("slow");
+                                            $("#add_education").show();
+                                        } else {
+                                            alert_dialog("fail:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                                            $("#education_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_education").live("click", function() {
+                                    $("#training_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    $("#education_add_form").slideUp("fast");
+                                    {#if !$resume_work#}
+                                    $("#work_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_training#}
+                                    $("#training_empty_box").show();
+                                    {#/if#}	
+                                            $("#education_add_form").slideDown("slow");
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#education_add_form").slideDown("slow");
+                                        $("#edu_id").val(data["id"]);
+                                        $("#school").val(data["school"]);
+                                        $("#speciality").val(data["speciality"]);
+                                        $("#edu_education").val(data["education"]);
+                                        $("#edu_education_cn").val(data["education_cn"]);
+                                        $("#edu_education_menu").html(data["education_cn"]);
+                                        $("#edu_start_year").val(data["startyear"]);
+                                        $("#edu_start_year_div").html(data["startyear"] + "年");
+                                        $("#edu_start_month").val(data["startmonth"]);
+                                        $("#edu_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#edu_end_year").val(data["endyear"]);
+                                        $("#edu_end_year_div").html(data["endyear"] + "年");
+                                        $("#edu_end_month").val(data["endmonth"]);
+                                        $("#edu_end_month_menu").html(data["endmonth"] + "月");
+                                    });
+                                });
+                                $(".del_education").live("click", function() {
+                                    $("#education_add_form").hide();
+                                    dialog("删除", "url:personal_ajax.php?act=del_resume_edu&pid=" + $(this).attr("pid") + "&id=" + $(this).attr("edu_id"), "300px", "auto", "", "");
+                                });
+                            });</script>
+                        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">工作经历</div>
+                            <div class="add" id="add_work" {#if $resume_work#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_work" value="添加"  class="but55lan_add"/></div><!--当工作经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>
+
+                        <div id="work_list_box"></div>
+                        <!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="work_add_form"  style="border:0px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">公司名称：</td>
+                                    <td><input name="companyname" id="companyname" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">职位名称：</td>
+                                    <td><input name="jobs" id="jobs" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <td width="125" align="right" >任职时间：</td>
+                                <td >
+
+                                    <table border="0" cellpadding="0" cellspacing="0" >
+                                        <tr>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="work_start_year_div">年份</div>
+                                                    <input name="work_start_year" id="work_start_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td width="80" style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="work_start_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu7">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="work_start_month" type="hidden" id="work_start_month" value="" />
+                                            </td>
+                                            <td width="20" style="padding:0px">至</td>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="work_end_year_div">年份</div>
+                                                    <input name="work_end_year" id="work_end_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="work_end_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu8">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="work_end_month" type="hidden" id="work_end_month" value="" />
+                                            </td>
+                                        </tr>
+                                    </table>						
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">工作职责：</td>
+                                    <td>
+                                        <textarea name="achievements" id="achievements" cols="" rows="" class="input_textarea_500"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="work_id" id="work_id">
+                                        <td><input type="submit" name="save_work" id="save_work" value="保存"  class="but100lan"/><input type="button" name="" id="close_work_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_work").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#work_id").val();
+                                    var companyname = $("#companyname").val();
+                                    var jobs = $("#jobs").val();
+                                    var work_start_year = $("#work_start_year").val();
+                                    var work_start_month = $("#work_start_month").val();
+                                    var work_end_year = $("#work_end_year").val();
+                                    var work_end_month = $("#work_end_month").val();
+                                    var achievements = $("#achievements").val();
+                                    $.post("?act=save_work", {id: id, pid: pid, companyname: companyname, jobs: jobs, work_start_year: work_start_year, work_start_month: work_start_month, work_end_year: work_end_year, work_end_month: work_end_month, achievements: achievements}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功", "", "", "", "");
+                                            $("#work_add_form").slideUp("slow");
+                                            $("#add_work").show();
+                                        } else {
+                                            alert_dialog("fail:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                                            $("#work_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_work").live("click", function() {
+                                    $("#training_add_form").slideUp("fast");
+                                    $("#education_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    {#if !$resume_education#}
+                                    $("#education_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_training#}
+                                    $("#training_empty_box").show();
+                                    {#/if#}
+                                            $("#work_add_form").slideDown("slow");
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#work_add_form").slideDown("slow");
+                                        $("#work_id").val(data["id"]);
+                                        $("#companyname").val(data["companyname"]);
+                                        $("#jobs").val(data["jobs"]);
+                                        $("#work_start_year").val(data["startyear"]);
+                                        $("#work_start_year_div").html(data["startyear"] + "年");
+                                        $("#work_start_month").val(data["startmonth"]);
+                                        $("#work_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#work_end_year").val(data["endyear"]);
+                                        $("#work_end_year_div").html(data["endyear"] + "年");
+                                        $("#work_end_month").val(data["endmonth"]);
+                                        $("#work_end_month_menu").html(data["endmonth"] + "月");
+                                        $("#achievements").val(data["achievements"]);
+                                    });
+                                });
+                                $(".del_work").live("click", function() {
+                                    $("#work_add_form").hide();
+                                    dialog("删除", "url:personal_ajax.php?act=del_resume_work&pid=" + $(this).attr("pid") + "&id=" + $(this).attr("work_id"), "300px", "auto", "", "");
+                                });
+                            });</script>
+
+
+
+
+
+                        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">培训经历</div>
+                            <div class="add" id="add_training" 
+                                 {#if $resume_training#}style="display:block;"{#else#}style="display:none;"{#/if#}><input type="button"   id="nav_add_training" value="添加"  class="but55lan_add"/></div>
+                            <!--当培训经历存在，则显示这个按钮 -->
+                            <div class="clear"></div>
+                        </div>		
+                        <div id="training_list_box"></div><!--添加表单，默认是隐藏 -->
+                        <div class="addbox" id="training_add_form"  style="border:0px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                                <tr>
+                                    <td width="125" align="right">培训机构：</td>
+                                    <td><input name="agency" id="agency" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">培训课程：</td>
+                                    <td><input name="course" id="course" type="text" class="input_text_200" value="" /></td>
+                                </tr>
+                                <td width="125" align="right" >培训时间：</td>
+                                <td >
+
+                                    <table border="0" cellpadding="0" cellspacing="0" >
+                                        <tr>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="training_start_year_div">年份</div>
+                                                    <input name="training_start_year" id="training_start_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td width="80" style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="training_start_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu9">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="training_start_month" type="hidden" id="training_start_month" value="" />
+                                            </td>
+                                            <td width="20" style="padding:0px">至</td>
+                                            <td width="90" style="padding:0px">
+                                                <div>
+                                                    <div class="input_text_60_bg date_input" id="training_end_year_div">年份</div>
+                                                    <input name="training_end_year" id="training_end_year" type="hidden" value="" />
+                                                </div>
+                                            </td>
+                                            <td style="padding:0px">
+                                                <div style="position:relateve;">
+                                                    <div id="training_end_month_menu" class="input_text_50_bg">月份</div>
+                                                    <div class="menu" id="menu10">
+                                                        <ul>
+                                                            <li title="1月">1月</li>
+                                                            <li title="2月">2月</li>
+                                                            <li title="3月">3月</li>
+                                                            <li title="4月">4月</li>
+                                                            <li title="5月">5月</li>
+                                                            <li title="6月">6月</li>
+                                                            <li title="7月">7月</li>
+                                                            <li title="8月">8月</li>
+                                                            <li title="9月">9月</li>
+                                                            <li title="10月">10月</li>
+                                                            <li title="11月">11月</li>
+                                                            <li title="12月">12月</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <input name="training_end_month" type="hidden" id="training_end_month" value="" />
+                                            </td>
+                                        </tr>
+                                    </table>						
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right">培训内容：</td>
+                                    <td>
+                                        <textarea name="description" id="description" cols="" rows="" class="input_textarea_500"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <input type="hidden" name="training_id" id="training_id">
+                                        <td><input type="submit" name="save_training" id="save_training" value="保存"  class="but100lan"/><input type="button" name="" id="close_training_form" value="取消"  class="but100hui"/>
+                                        </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#save_training").click(function() {
+                                    var pid = "{#$pid#}";
+                                    var id = $("#training_id").val();
+                                    var agency = $("#agency").val();
+                                    var course = $("#course").val();
+                                    var training_start_year = $("#training_start_year").val();
+                                    var training_start_month = $("#training_start_month").val();
+                                    var training_end_year = $("#training_end_year").val();
+                                    var training_end_month = $("#training_end_month").val();
+                                    var description = $("#description").val();
+                                    $.post("?act=save_training", {id: id, pid: pid, agency: agency, course: course, training_start_year: training_start_year, training_start_month: training_start_month, training_end_year: training_end_year, training_end_month: training_end_month, description: description}, function(result) {
+                                        if (result == "success") {
+                                            alert_dialog("success:保存成功", "", "", "", "");
+                                            $("#training_add_form").slideUp("slow");
+                                            $("#add_training").show();
+                                        } else {
+                                            alert_dialog("fail:" + result, "", "", "", "");
+                                            return false;
+                                        }
+                                        $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                                            $("#training_list_box").html(result);
+                                        });
+                                    });
+                                });
+                                $(".edit_training").live("click", function() {
+                                    $("#education_add_form").slideUp("fast");
+                                    $("#work_add_form").slideUp("fast");
+                                    $("#training_add_form").slideUp("fast");
+                                    {#if !$resume_education#}
+                                    $("#education_empty_box").show();
+                                    {#/if#}	
+                                    {#if !$resume_work#}
+                                    $("#work_empty_box").show();
+                                    {#/if#}
+                                            $("#training_add_form").slideDown("slow");
+                                    var url = $(this).attr("url");
+                                    $.getJSON(url, function(data) {
+                                        $("#training_add_form").slideDown("slow");
+                                        $("#training_id").val(data["id"]);
+                                        $("#agency").val(data["agency"]);
+                                        $("#course").val(data["course"]);
+                                        $("#training_start_year").val(data["startyear"]);
+                                        $("#training_start_year_div").html(data["startyear"] + "年");
+                                        $("#training_start_month").val(data["startmonth"]);
+                                        $("#training_start_month_menu").html(data["startmonth"] + "月");
+                                        $("#training_end_year").val(data["endyear"]);
+                                        $("#training_end_year_div").html(data["endyear"] + "年");
+                                        $("#training_end_month").val(data["endmonth"]);
+                                        $("#training_end_month_menu").html(data["endmonth"] + "月");
+                                        $("#description").val(data["description"]);
+                                    });
+                                });
+                                $(".del_training").live("click", function() {
+                                    $("#training_add_form").hide();
+                                    dialog("删除", "url:personal_ajax.php?act=del_resume_training&pid=" + $(this).attr("pid") + "&id=" + $(this).attr("training_id"), "300px", "auto", "", "");
+                                });
+                            });</script>
+
+                        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                        <div class="titleH2">
+                            <div class="lt h2-title">证书上传</div>
+                            <div class="clear"></div>
+                        </div>	
+                        <table id="certificate_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >
+                            <tr>
+                                <td width="127" align="right"><span>上传证书：</span></td>
+                                <td><input type="file" name="certificate" id="certificate" class="input_text_200"  onkeydown="alert('请点击右侧“浏览”选择您电脑上的图片！');return false"/></td>
+                            </tr>
+                            <tr>
+                                <td width="127" align="right"><span>证书名称：</span></td>
+                                <td><input type="text" name="certificate_name" id="certificate_name"  class="input_text_200" /></td>
+                            </tr>
+                            <tr>
+                                <td width="127" align="right"> </td>
+                                <td colspan="2"><a   id="up" class="but_upload" >上传</a><span>(允许上传的照片格式为:jpg,gif,png,bmp，大小不能超过{#$QISHI.resume_photo_max#}KB，最多上传5张证书)</span></td>
+                            </tr>
+                            <tr class="loading">
+                                <td width="127" align="right"></td>
+                                <td colspan="2"><img src="{#$QISHI.site_template#}images/30.gif"  border="0"/>&nbsp;&nbsp;&nbsp;&nbsp;正在上传，请稍后...</td>
+                            </tr>
+                        </table>
+                        <ul class="certificate_list">
+                            {#foreach from=$resume_certificate item=r#}
+                            <li id="{#$r.id#}">
+                                {#if $r.audit == 0#}
+                                <p style="text-align: left;color:#999;">未审核</p>
+                                {#elseif $r.audit == 1#}
+                                <p style="text-align: left;color:green;">审核通过</p>
+                                {#elseif $r.audit == 2#}
+                                <p style="text-align: left;color:red;">审核不通过</p>
+                                {#/if#}
+                                <img src="{#$QISHI.website_dir#}data/resume_certificate/{#$r.path#}" height="100" />
+                                <p>{#$r.note#}</p>
+                                <a title="删除证书" class="del" value="{#$r.id#}"  ></a>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        <div class="clear"></div>
+                        <script>
+                            get_certificate_list_width();
+                            $('ul.certificate_list li').live('mouseover', function() {
+                                $(this).find('a.del').show();
+                            })
+                            $('ul.certificate_list li').live('mouseleave', function() {
+                                $(this).find('a.del').hide();
+                            })
+                            $('ul.certificate_list li a.del').live('click', function() {
+                                if (confirm("确认删除？")) {
+                                    var id = $(this).attr('value');
+                                    $.get('?act=del_certificate&id=' + id, function(data) {
+                                        if (data.indexOf('成功') > -1) {
+                                            location.reload();
+                                        } else {
+                                            alert(data)
+                                        }
+                                    })
+                                }
+                            })
+                            function get_certificate_list_width() {
+                                $('ul.certificate_list li').each(function() {
+                                    var w = $(this).find('img').width();
+                                    if (w > 0) {
+                                        $(this).width(w);
+                                    }
+                                })
+                            }
+                            $('#certificate_table a#up').click(function() {
+                                $("table.tableall tr.loading").show();
+                                var certificate_name = $('#certificate_name').attr('value');
+                                $.ajaxFileUpload({
+                                    url: '?act=make2_certificate_save&pid={#$pid#}&certificate_name=' + certificate_name,
+                                    secureuri: false,
+                                    fileElementId: 'certificate',
+                                    dataType: 'string',
+                                    success: function(data, status) {
+                                        $("table.tableall tr.loading").hide();
+                                        var f = data.substr(0, 1);
+                                        if (f == "-") {
+                                            switch (data) {
+                                                case "-1":
+                                                    alert("上传图片失败：上传目录不存在!");
+                                                    return false;
+                                                    break;
+                                                case "-2":
+                                                    alert("上传图片失败：上传目录无法写入!");
+                                                    return false;
+                                                    break;
+                                                case "-3":
+                                                    alert("上传图片失败：你选择的文件无法上传");
+                                                    return false;
+                                                    break;
+                                                case "-4":
+                                                    alert("上传图片失败：文件大小超过限制");
+                                                    return false;
+                                                    break;
+                                                case "-5":
+                                                    alert("上传图片失败：文件类型错误！");
+                                                    return false;
+                                                    break;
+                                                case "-6":
+                                                    alert("上传图片失败：文件上传出错！");
+                                                    return false;
+                                                    break;
+                                                case "-7":
+                                                    alert("参数错误！");
+                                                    return false;
+                                                    break;
+                                                case "-8":
+                                                    alert("请先填写简历基本信息！");
+                                                    return false;
+                                                    break;
+                                                case "-9":
+                                                    alert("最多只能上传5个证书！");
+                                                    return false;
+                                                    break;
+                                                case "-10":
+                                                    alert("请上传图片！");
+                                                    return false;
+                                                    break;
+                                                case "-11":
+                                                    alert("请填写证书名称！");
+                                                    return false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        } else {
+                                            var list = data.split('##');
+                                            var li_str = "";
+                                            for (var i = 0; i < list.length; i++) {
+                                                var item = list[i].split('-+-');
+                                                li_str += '<li id="' + item[0] + '">';
+                                                li_str += '<img src="{#$QISHI.website_dir#}data/resume_certificate/' + item[1] + '" height="100" />';
+                                                li_str += '<p>' + item[2] + '</p>';
+                                                li_str += '<a class="del" value="' + item[0] + '"  ></a>';
+                                                li_str += '</li>';
+                                            }
+                                            $('ul.certificate_list').html(li_str);
+                                            location.reload();
+                                        }
+                                    }
+                                })
+                            })
+                        </script>
+
+
+                        <div class="titleH2 h2-title">选填信息</div>
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >		  
+                            <form action="?act=tag_save" method="post">
+                                <tr>
+                                    <td width="125" align="right" valign="top" style="padding-top:20px;">特长标签：</td>
+                                    <td>
+                                        <div id="tag_checkbox">
+                                            <div class="showchecktag"></div>
+                                            <div class="input_checkbox_add" id="tagAdd"><span>添加</span></div>
+                                            <div class="clear"></div>
+                                            <input type="hidden" value="{#$resume_basic.tag#}" id="tag" name="tag">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="125" align="right" valign="top">自我描述：</td>
+                                    <td>
+                                        <textarea name="specialty" cols="" rows="" class="input_textarea_500">{#$resume_basic.specialty#}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <td>
+                                        <input type="hidden" name="pid" value="{#$pid#}">
+                                            <input type="submit" name="" id="" value="保存"  class="but100lan"/>
+                                    </td>
+                                </tr>
+                            </form>
+                            <form action="?act=make2_photo_save" method="post">
+                                <tr>
+                                    <td width="125" align="right" valign="top">简历照片：</td>
+                                    <td>
+                                        <div class="lim"><input name="photo" type="file" id="photo"  class="input_text_200"  style=" width:260px;"/></div>
+                                        <div class="rim">
+                                            <input type="hidden" id="img" name="img" />
+                                            <input type="hidden" id="x" name="x" />
+                                            <input type="hidden" id="y" name="y" />
+                                            <input type="hidden" id="w" name="w" />
+                                            <input type="hidden" id="h" name="h" />
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="photobox">
+                                            <div class="l">
+                                                <div class="bg" id="imgbg">
+                                                </div>
+                                            </div>
+                                            <div class="r">
+                                                <div class="tit">效果预览</div>
+                                                <p>您上传的图片会自动生成以下尺寸，请注意上传后是否清晰。</p>
+                                                <div class="rimg">
+                                                    {#if $resume_basic.photo_img ==""#}
+                                                    <img id="preview" src="{#$QISHI.site_template#}images/no_photo.gif" />
+                                                    {#else#}
+                                                    <img id="preview" src="/data/photo/rlogo/{#$resume_basic.photo_img#}" />
+                                                    {#/if#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <script type="text/javascript">
+                                    $("#photo").bind('change', function() {
+                                        photoCut();
+                                    }).live('change', function() {
+                                        photoCut();
+                                    });
+                                    function photoCut() {
+                                        $("#photoTrad").before("<div class=\"menu_bg_layer\"></div>");
+                                        $(".menu_bg_layer").height($(document).height());
+                                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "99", "background-color": "#73848C"});
+                                        $(".menu_bg_layer").css("opacity", 0.3);
+                                        $('#photoTrad').css({
+                                            position: 'absolute',
+                                            left: ($(window).width() - $('#photoTrad').outerWidth()) / 2,
+                                            top: $("#photo").offset().top
+                                        });
+                                        $("#photoTrad").show();
+                                        $.ajaxFileUpload({
+                                            url: '?act=make2_photo_ready&pid={#$pid#}',
+                                            secureuri: false,
+                                            fileElementId: 'photo',
+                                            dataType: 'string',
+                                            success: function(data, status) {
+                                                switch (data) {
+                                                    case "-1":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：上传目录不存在!");
+                                                        return false;
+                                                        break;
+                                                    case "-2":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：上传目录无法写入!");
+                                                        return false;
+                                                        break;
+                                                    case "-3":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：你选择的文件无法上传");
+                                                        return false;
+                                                        break;
+                                                    case "-4":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件大小超过限制");
+                                                        return false;
+                                                        break;
+                                                    case "-5":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件类型错误！");
+                                                        return false;
+                                                        break;
+                                                    case "-6":
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        alert("上传图片失败：文件上传出错！");
+                                                        return false;
+                                                        break;
+                                                    default:
+                                                        $("#photoTrad").hide();
+                                                        $(".menu_bg_layer").hide().remove();
+                                                        break;
+                                                }
+                                                var src = '{#$QISHI.main_domain#}data/photo/rlogo/' + data;
+                                                $("#imgbg").html('<img style="" src="' + src + '" id="target" border="0" />');
+                                                $("#preview").attr('src', src);
+                                                $(function() {
+                                                    var jcrop_api, boundx, boundy;
+                                                    $('#target').Jcrop({
+                                                        onChange: updatePreview,
+                                                        onSelect: updatePreview,
+                                                        onSelect: updateCoords,
+                                                                aspectRatio: 0.8
+                                                    }, function() {
+                                                        // Use the API to get the real image size  
+                                                        var bounds = this.getBounds();
+                                                        boundx = bounds[0];
+                                                        boundy = bounds[1];
+                                                        // Store the API in the jcrop_api variable  
+                                                        jcrop_api = this;
+                                                    });
+                                                    function updateCoords(c)
+                                                    {
+                                                        $('#x').val(c.x);
+                                                        $('#y').val(c.y);
+                                                        $('#w').val(c.w);
+                                                        $('#h').val(c.h);
+                                                    }
+                                                    ;
+                                                    function updatePreview(c) {
+                                                        if (parseInt(c.w) > 0) {
+                                                            $('#preview').css({
+                                                                width: Math.round(120 / c.w * boundx) + 'px',
+                                                                height: Math.round(150 / c.h * boundy) + 'px',
+                                                                marginLeft: '-' + Math.round(120 / c.w * c.x) + 'px',
+                                                                marginTop: '-' + Math.round(150 / c.h * c.y) + 'px'
+                                                            });
+                                                        }
+                                                    }
+                                                    ;
+                                                });
+                                            }
+                                        })
+                                    }
+                                </script>
+                                <tr>
+                                    <td width="125" align="right"> </td>
+                                    <td><input type="submit" name="" id="up" value="修改照片"  class="but100lan"/>
+                                        <input name="pid" type="hidden" id="pid" value="{#$pid#}" />
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- 特长标签选择框 -->
+        <div id="tagBox" class="alert-window" style="display:none;width: 810px; height: 300px; left: 50%; top: 1596px; margin-left: -405px; position: absolute; z-index: 100001;">
+            <div style="width: 810px;" class="resume-tc">
+                <div class="resume-tc-head">
+                    <h3><i class="icon-loc"></i> 请选特长标签（最多选择5个）</h3>
+                    <a class="close wd_close cm_closeMsg" href="javascript:;"></a> 
+                </div>
+                <div class="sx-yx">
+                    <span class="clr-grn fnt-b">已选：</span>
+                    <span id="box_checkedTag"></span>
+                </div>
+                <div id="showTag" style="width:810px; height: 200px; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative;">
+
+                </div>
+                <div class="sx-action">
+                    <button id="btn_tagsave" class="grn" type="button">确定</button> 
+                </div>
+            </div>
+        </div>
+        <!-- 特长标签选择框 end-->
+        <script type="text/javascript">
+            if ($("#tag").val()) {
+                var tagval = $("#tag").val();
+                var tagvalArray = tagval.split("|");
+                var checkhtm = "";
+                $.each(tagvalArray, function(index, val) {
+                    var taghtm = val.split(",");
+                    checkhtm += '<div class="input_checkbox"><span>' + taghtm[1] + '</span></div>';
+                });
+                $("#tag_checkbox .showchecktag").html(checkhtm);
+            }
+            // 特长标签
+            showTagBox("#tagAdd", "#tagBox", "#showTag", "#box_checkedTag", "#btn_tagsave", "#tag", "#tag_checkbox", QS_resumetag);
+            
+            $('select.input_text_100').each(function() {
+                var data_arr = new Array(0, 0);
+                if ($(this).attr('iname') != "") {
+                    var iname = $(this).attr('iname');
+                    if (iname == "district") {
+                        data_arr[0] = $('#district').val();
+                        data_arr[1] = $('#sdistrict').val();
+                    } else {
+                        var data = $("#" + iname).val();
+                        if (data != "") {
+                            data_arr = data.split('.');
+                        }
+                    }
+                    if ($(this).hasClass('district')) {
+                        $(this).find('option').each(function() {
+                            if ($(this).val() == data_arr[0]) {
+                                $(this).attr('selected', 'selected');
+                            }
+                        })
+                        get_cities($("#" + iname + "_district").val(), iname, data_arr[1]);
+                    }
+                }
+            })
+            var job_data = $("#intention_jobs_id").val();
+            var job_arr = job_data.split('.');
+            $('#job_ptype_ul').find('option').each(function() {
+                if ($(this).val() == job_arr[1]) {
+                    $(this).attr('selected', 'selected');
+                }
+            })
+            changeType(job_data);
+        </script>
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

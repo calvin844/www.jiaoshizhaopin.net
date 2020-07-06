@@ -1,0 +1,115 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="set_com/admin_set_com_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+	<h2>提示：</h2>
+	<p>
+服务套餐模式是指会员可以购买不同等级服务，如普通会员，VIP会员等，每个等级都有不同的使用权限
+</p>
+</div>
+<div class="toptit">新增服务套餐</div>
+ 
+	  <form id="form1" name="form1" method="post" action="?act=set_meal_add_save">
+	 {#$inputtoken#}
+    <table border="0" cellspacing="3" cellpadding="3">
+      <tr>
+        <td width="200" align="right">套餐名称：</td>
+        <td width="391"><input name="setmeal_name" type="text" class="input_text_200" id="setmeal_name"/></td>
+      </tr>
+      <tr>
+        <td align="right">有效时间：</td>
+        <td><input name="days" type="text" class="input_text_200" id="days" value="15" maxlength="10"/>
+        天 <span class="admin_note">(0表示不限制)</span> </td>
+      </tr><tr>
+        <td align="right">服务价格：</td>
+        <td><input name="expense" type="text" class="input_text_200" id="expense" value="0" maxlength="10"/>
+        元 <span class="admin_note">(0表示免费) </span></td>
+      </tr>
+	  <tr>
+        <td align="right">发布课程条数：</td>
+        <td><input name="course_num" type="text" class="input_text_200" id="course_num" value=""  maxlength="10"/>
+        条   <span class="admin_note">(0为不允许)</span></td>
+      </tr>
+      <tr>
+        <td align="right">刷新课程时间间隔：</td>
+        <td><input name="refresh_course_space" type="text" class="input_text_200" id="refresh_course_space" value="{#$show.refresh_course_space#}"  maxlength="10"/>
+        分钟   <span class="admin_note">(0表示不限制)</span></td>
+      </tr>
+      <tr>
+        <td align="right">每天刷新课程次数限制：</td>
+        <td><input name="refresh_course_time" type="text" class="input_text_200" id="refresh_course_time" value="{#$show.refresh_course_time#}"  maxlength="10"/>
+        次   <span class="admin_note">(0表示不限制)</span></td>
+      </tr>
+	  <tr>
+        <td align="right">添加讲师数：</td>
+        <td><input name="teachers_num" type="text" class="input_text_200" id="teachers_num" value=""  maxlength="10"/>
+        位   <span class="admin_note">(0为不允许)</span></td>
+      </tr>
+	  <tr>
+        <td align="right">下载在线申请数：</td>
+        <td><input name="down_apply" type="text" class="input_text_200" id="down_apply" value=""  maxlength="10"/>
+        位   <span class="admin_note">(0为不允许)</span></td>
+      </tr>
+	  <tr>
+        <td align="right">允许会员切换模板：</td>
+        <td><label>
+          <input name="change_templates" type="radio" value="1"  checked="checked" />
+        允许</label> &nbsp;&nbsp;&nbsp;<label>
+        <input type="radio" name="change_templates" value="0"   />
+        不允许</label></td>
+      </tr>
+    <tr>
+        <td align="right">开通企业电子地图：</td>
+        <td>
+		<label>
+          <input name="map_open" type="radio" value="1" />
+        是</label> &nbsp;&nbsp;&nbsp;<label>
+        <input name="map_open" type="radio" value="0" checked="checked" />
+        否</label>		</td>
+      </tr>
+      <tr>
+        <td align="right">显示顺序：</td>
+        <td><input name="show_order" type="text" class="input_text_200" id="show_order" onkeyup="if(event.keyCode !=37 &amp;&amp; event.keyCode != 39) value=value.replace(/\D/g,'');" value="0" maxlength="3"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>
+          数字越大越靠前</td>
+      </tr>
+	  <tr>
+        <td align="right">显示状态：</td>
+        <td><label>
+          <input name="display" type="radio" value="1" checked="checked" />
+        正常</label> &nbsp;&nbsp;&nbsp;<label>
+        <input type="radio" name="display" value="0" />
+        屏蔽</label></td>
+      </tr>
+	  <tr>
+        <td align="right">允许会员申请此服务：</td>
+        <td><label>
+          <input name="apply" type="radio" value="1" checked="checked" />
+        是</label> &nbsp;&nbsp;&nbsp;<label>
+        <input type="radio" name="apply" value="0" />
+        否</label></td>
+      </tr>
+	  
+      <tr>
+        <td align="right" valign="top">其他说明：</td>
+        <td><textarea name="added" id="added" style="width:300px; height:50px; font-size:12px; line-height:180%" onpropertychange="if(this.value.length&gt;100){this.value=this.value.slice(0,100)}"></textarea>
+            <br />
+          (可填写：赠送广告位或者其他特殊推荐等) </td>
+      </tr>
+      <tr>
+        <td align="center">&nbsp;</td>
+        <td height="50" align="left"><input type="submit" name="Submit3" value="提交" class="admin_submit"   />
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="Javascript:window.history.go(-1)"/>
+		</td>
+      </tr>
+    </table>
+  
+    </form>
+    </div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

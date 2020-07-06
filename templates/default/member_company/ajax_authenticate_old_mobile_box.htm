@@ -1,0 +1,111 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+	<tr>
+		<p class="security" style="padding: 10px 0px 5px 36px; color: #FF9900;">为了保障你的账号安全，请先帮助我们验证你的身份</p>
+    </tr>
+    <tr>
+		<td width="120" align="right">原认证手机：</td>
+		<td class="mobile">{#$hid_mobile#}<input type="hidden" name="mobile" id="mobile" value="{#$mobile#}"> </td>
+    </tr>
+    <tr id="displaymobilesend" style="display:none">
+		<td width="120" align="right">验证码：</td>
+		<td><input name="mobile_verifycode" id="mobile_verifycode" type="text" class="input_text_200" value="" /></td>
+    </tr>
+    <tr id="mobilesenddiv">
+		<td></td>
+		<td>
+			<input type="button" name="mobilesend" id="mobilesend" value="发送验证短信"  class="but130lan"/>
+		</td>
+    </tr>
+    <tr id="postverify" style="display:none">
+		<td align="right"></td>
+		<td><div class="but95cheng" style="margin-bottom: 10px;">确定</div></td>
+	</tr>
+</table>
+<script src="{#$site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//发送短信验证
+	$("#mobilesend").click(function(){
+		var tel = /^(13|15|14|18)\d{9}$/; 
+		if($("#mobile").val()=='')
+		{
+		alert_dialog("fail:请填写手机号","","","","");
+		}
+		else if(!tel.test($("#mobile").val()))
+		{
+		alert_dialog("fail:手机号错误","","","","");
+		}
+		else
+		{
+			 $("#mobilesend").html("正在发送...");
+			 var mobile = $("#mobile").val();
+			 $("#mobile").attr("disabled","disabled");
+			 $("#Form1").append("<input type='hidden' name='mobile' id='mobile' value='"+mobile+"'>");
+			 $.post("../../plus/ajax_verify_old_mobile.php", {"mobile": $("#mobile").val(),"send_key": "{#$send_mobile_key#}","time":new Date().getTime(),"act":"send_code"},
+	 	function (data,textStatus)
+	 	 {
+			if (data=="success")
+			{	
+				$("#mobilesend").hide();
+				$("#mobilesendsucceed").show();
+				$("#displaymobilesend").show();
+				$("#postverify").show();
+				$("#mobile_verifycode").attr("disabled","");
+				function SetRemainTime()
+				 {
+						  if (SysSecond > 0)
+						  {
+						   SysSecond --;
+						   $("#remainTime").html(SysSecond);
+						  } 
+						  else 
+						  {
+						   window.clearInterval(InterValObj);
+							$("#mobile").attr("disabled","");
+							$("#mobilesenddiv").show();
+							$("#mobilesendsucceed").hide();
+							$("#displaymobilesend").hide();
+						  }
+				 }
+				SysSecond =60;
+				InterValObj = window.setInterval(SetRemainTime, 1000);
+			}
+			else
+			{
+				$("#mobilesenddiv").show();
+				$("#mobilesend").html("发送验证短信");
+				$("#mobile").attr("disabled","");
+				$("#displaymobilesend").hide();
+				$("#mobilesendsucceed").hide();
+				alert_dialog("fail:"+data,"220px","","","");
+			}
+	 	 }
+		 ,"text"
+		 )				 
+		}
+	});
+	$("#postverify").click(function()
+	{
+		if($("#mobile_verifycode").val()=='')
+		{
+			alert_dialog("fail:请填写效验码","","","","");
+		}
+		else
+		{
+					$.post("../../plus/ajax_verify_old_mobile.php", {"verifycode": $("#mobile_verifycode").val(),"send_key": "{#$send_mobile_key#}","time":new Date().getTime(),"act":"verify_code"},
+				function (data,textStatus)
+				 {
+					if (data=="success")
+					{	
+						$(".FloatBox").remove();
+						 dialog("身份验证","url:company_ajax.php?act=edit_mobile","500px","auto","","");
+					}
+					else
+					{
+						alert_dialog("fail:验证码填写错误","","","","");
+					}
+				 })		
+		}
+	});
+});
+</script>

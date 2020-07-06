@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/2017/map.css" type="text/css" rel="stylesheet">
+        <title>网站地图_{#$QISHI.site_name#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="nav">
+                    <a title="教师招聘网" href="/">首页</a>
+                    &nbsp;>&nbsp;
+                    <a title="网站地图" href="/map">网站地图</a>
+                </p>
+                <div class="left_box">
+                    {#if empty($smarty.get.p_id)#}
+                    <div class="item_box">
+                        <div class="title">
+                            <span><a title="教师招聘网" href="/">教师招聘网</a></span>
+                            <hr/>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="list">
+                            <ul>
+                                {#jiaoshi_districts set="列表名:city,是否显示不限:0,类别:省份"#}
+                                <!-- 以下为循环数组category内容  -->
+                                {#foreach from=$city item=c#}
+                                <li><a target="_self" title="{#$c.categoryname#}教师招聘" href="{#if $c.id == 56 || $c.id == 57 || $c.id == 58 || $c.id == 406#}/{#$c.pinyin#}{#else#}/map?p_id={#$c.id#}{#/if#}">{#$c.categoryname#}教师招聘</a></li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                    </div>
+                    {#else#}
+                    <div class="item_box">
+                        {#jiaoshi_districts set="列表名:cities,类别:城市,父地区id:$smarty.get.p_id,屏蔽:article_count,后台排序:desc,不显示:国外|香港|台湾|澳门"#}
+                        <div class="title">
+                            <span><a title="{#if !empty($cities)#}{#$cities.0.parent_name#}{#/if#}教师招聘网" href="/{#if !empty($cities)#}{#$cities.0.parent_pinyin#}{#/if#}">{#if !empty($cities)#}{#$cities.0.parent_name#}{#/if#}教师招聘网</a></span>
+                            <hr/>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="list">
+                            <ul>
+                                {#if !empty($cities)#}
+                                {#foreach from=$cities item=city#}
+                                <li><a title="{#$city.categoryname#}教师招聘" href="/{#$city.parent_pinyin#}/{#$city.pinyin#}">{#$city.categoryname#}教师招聘</a></li>
+                                {#/foreach#}
+                                {#/if#}
+                            </ul>
+                        </div>
+                    </div>
+                    {#/if#}
+                    {#if empty($smarty.get.p_id)#}
+                    <div class="item_box">
+                        <div class="title">
+                            <span><a title="招聘服务">招聘服务</a></span>
+                            <hr/>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="list">
+                            <ul>
+                                <li><a target="_blank" title="标准招聘套餐" href="/charge.htm">标准招聘套餐</a></li>
+                                <li><a target="_blank" title="良师直聘通" href="/explain/explain-show.php?id=14">良师直聘通</a></li>
+                                <li><a target="_blank" title="广告刊例" href="/explain/explain-show.php?id=12">广告刊例</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <p class="b_title"><b></b><span>推荐职位</span></p>
+                    <div class="clear"></div>
+                    <ul>
+                        {#jiaoshi_jobs set="开始位置:0,显示数目:7,单位:job"#}
+                        {#if !empty($jobs)#}
+                        {#foreach from=$jobs item=job#}
+                        <li>
+                            <div class="title">
+                                <a target="_blank" title="{#$job.jobs_name#}" href="/job/{#$job.id#}.html">{#$job.jobs_name#}</a>
+                                <span>[<a target="_blank" href="{#$job.city_pinyin#}">{#$job.district_cn#}</a>]</span>
+                            </div>
+                            <div class="info">
+                                <span class="wage">{#$job.wage_cn#}</span>
+                                <span class="date">{#$job.addtime|date_format:'%Y-%m-%d'#}</span>
+                            </div>
+                        </li>
+                        {#/foreach#}
+                        {#/if#}
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer.htm"#}
+    </body>
+</html>

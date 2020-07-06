@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/common.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/login_index.css" type="text/css" rel="stylesheet"/>
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+        <title>中国教师招聘网_国内优秀的教师招聘平台_{#$smarty.now|date_format:'%Y'#}年最新教师招聘考试信息</title>
+        <meta name="description" content="中国教师招聘网是国内大型教育人力资源专业网站!集网络招聘、高校毕业生就业服务、事业单位公共招聘信息发布等多项服务于一身。专注缔造高效，通过中国教师人才库为各用人单位提供更加精准的教师人才，让学校在最短的时间招到满意的教师！"/>
+        <meta name="keywords" content="教师招聘,教师招聘网,英语教师招聘,美术教师招聘,中学教师招聘,中小学教师招聘,{#$smarty.now|date_format:'%Y'#}年教师招聘,老师招聘,中国教师招聘网"/>
+        <script>
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    submitHandler: function (form) {
+                        if ($("#agreement").attr("checked") == false)
+                        {
+                            alert("您必须同意[注册协议]才能继续下一步");
+                            return false;
+                        }
+                        var tsTimeStamp = new Date().getTime();
+                        $.post("{#$QISHI.main_domain#}plus/ajax_user.php", {"username": $("#username").val(), "password": $("#password").val(), "member_type": 2, "email": $("#email").val(), "url": "{#$smarty.get.url#}", "act_url": "{#$smarty.get.act_url#}", "postcaptcha": $("#postcaptcha").val(), "time": tsTimeStamp, "tiku_key": "{#$smarty.get.tiku_key#}", "tiku_index": "{#$smarty.get.tiku_index#}", "act": "do_reg"},
+                        function (data, textStatus) {
+                            if (data == "err") {
+                                $("#username").attr("value", "");
+                                $("#email").attr("value", "");
+                                alert("注册失败");
+                            } else {
+                                $("body").append(data);
+                            }
+                        })
+                        //$(form).ajaxSubmit();
+                    },
+                    success: function (label) {
+                        label.text(" ").addClass("success");
+                    },
+                    rules: {
+                        username: {
+                            required: true,
+                            remote: {
+                                url: "{#$QISHI.main_domain#}plus/ajax_user.php",
+                                type: "post",
+                                data: {"usname": function () {
+                                        return $("#username").val()
+                                    }, "act": "check_usname", "time": function () {
+                                        return new Date().getTime()
+                                    }
+                                }
+                            }
+                        },
+                        email: {
+                            required: true,
+                            email: true,
+                            remote: {
+                                url: "{#$QISHI.main_domain#}plus/ajax_user.php",
+                                type: "post",
+                                data: {"email": function () {
+                                        return $("#email").val()
+                                    }, "act": "check_email", "time": new Date().getTime()
+                                }
+                            }
+                        },
+                        postcaptcha: {
+                            IScaptchastr: true,
+                            required: true,
+                            remote: {
+                                url: "{#$QISHI.main_domain#}include/imagecaptcha.php",
+                                type: "post",
+                                data: {"postcaptcha": function () {
+                                        return $("#postcaptcha").val()
+                                    }, "act": "verify", "time": function () {
+                                        return new Date().getTime()
+                                    }
+                                }
+                            }
+                        },
+                        passwordtxt: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 18
+                        }
+                    },
+                    messages: {
+                        username: {
+                            required: "请填写用户名",
+                            remote: jQuery.format("用户名已经存在或者不合法")
+                        },
+                        email: {
+                            required: "请填写电子邮箱",
+                            email: jQuery.format("电子邮箱格式错误"),
+                            remote: jQuery.format("email已经存在")
+                        },
+                        postcaptcha: {
+                            required: "请填写验证码",
+                            remote: jQuery.format("验证码错误")
+                        },
+                        passwordtxt: {
+                            required: "请填写密码",
+                            minlength: jQuery.format("填写不能小于{0}个字符"),
+                            maxlength: jQuery.format("填写不能大于{0}个字符")
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parent().append());
+                    }
+                })
+                //中文字两个字节
+                jQuery.validator.addMethod("byteRangeLength", function (value, element, param) {
+                    var length = value.length;
+                    for (var i = 0; i < value.length; i++) {
+                        if (value.charCodeAt(i) > 127) {
+                            length++;
+                        }
+                    }
+                    return this.optional(element) || (length >= param[0] && length <= param[1]);
+                }, "确保的值在3-18个字节之间");
+                //字符验证
+                jQuery.validator.addMethod("userName", function (value, element) {
+                    return this.optional(element) || /^[\u0391-\uFFE5\w]+$/.test(value);
+                }, "只能包含中英文、数字和下划线");
+                jQuery.validator.addMethod("nomobile", function (value, element) {
+                    var tel = /^(1)\d{10}$/;
+                    var $cstr = true;
+                    if (tel.test(value)) {
+                        $cstr = false;
+                    }
+                    return $cstr || this.optional(element);
+                }, "用户名不能是手机号");
+                jQuery.validator.addMethod("IScaptchastr", function (value, element) {
+                    var str = "验证码：";
+                    var flag = true;
+                    if (str == value) {
+                        flag = false;
+                    }
+                    return  flag || this.optional(element);
+                }, "请填写验证码");
+                function imgcaptcha(inputID, imgdiv) {
+                    $(inputID).focus(function () {
+                        if ($(inputID).val() == "验证码：") {
+                            $(inputID).val("");
+                            $(inputID).css("color", "#333333");
+                        }
+                        if ($(imgdiv).html() == '') {
+                            $(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function () {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                        });
+                        $(document).unbind().click(function (event) {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha") {
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+            })
+        </script>
+    </head>
+
+    <body id="login_index">
+        <div class="header">
+            <div class="main_box">
+                <div class="left">
+                    <a href="/">
+                        <img src="{#$QISHI.site_template#}images/header_logo.png" height="45" />
+                    </a>
+                </div>
+                <div class="right">
+                    <ul>
+                        <li class="weibo">
+                            <a href="http://weibo.com/zgjiaoshizhaopin/profile?rightmod=1&wvr=6&mod=personnumber"></a>
+                        </li>
+                        <li class="qq">
+                            <a href="/morejobs"></a>
+                        </li>
+                        <li class="wechat">
+                            <a href="#"></a>
+                            <div class="code_img">
+                                <img src="{#$QISHI.site_template#}images/login_index_header_code_img.jpg" width="80" height="80" />
+                            </div>
+                            <script>
+                                $('.header li.wechat').mouseover(function(){
+                                    $(this).find('div.code_img').show();
+                                }).mouseleave(function(){
+                                    $(this).find('div.code_img').hide();
+                                })
+                            </script>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="content">
+            <div class="main_box">
+                <div class="left">
+                    <ul>
+                        {#qishi_ad set="调用名称:yd001,列表名:list,显示数目:10"#}
+                        <!--   以下为循环读取 -->
+                        {#foreach from=$list item=li#}
+                        <li>
+                            <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=yd001&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" /></a>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+                <div class="right">
+                    <p class="tip">10秒注册，不错过更好的工作机会</p>
+
+                    <form id="Form1" name="Form1" method="post" action="/plus/ajax_user.php">
+                        <ul>
+                            <li>
+                                <input name="username" id="username" type="text" value="" placeholder="用户名：" />
+                                <i></i>
+                            </li>
+                            <li>
+                                <input name="passwordtxt" id="passwordtxt" type="text" placeholder="密码：6-20位字母、数字组成" value="" />
+                                <i></i>
+                            </li>
+                            <li>
+                                <input name="email" id="email" type="text" placeholder="常用邮箱：" value="" />
+                                <i></i>
+                                <script>
+                                    $('#email').focus(function () {
+                                        if ($(this).val() == "常用邮箱：") {
+                                            $(this).val('');
+                                        }
+                                    }).blur(function () {
+                                        if ($(this).val() == "") {
+                                            $(this).val('常用邮箱：');
+                                        }
+                                    })
+                                </script>
+                            </li>
+                            <li class="code">
+                                <input name="postcaptcha" id="postcaptcha" type="text" placeholder="验证码：" value="" />
+                                <i></i>
+                            </li>
+                            <li id="imgdiv" class="code_img"></li>
+                        </ul>
+                        <div class="agreement">
+                            <input name="agreement" id="agreement" value="1" type="checkbox" checked="checked" value="1"/><span>已阅读并同意<a target="_blank" href="/agreement">《教师招聘网用户协议》</a></span>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" value="注册" />
+                        </div>
+                    </form>
+                    <div class="clear"></div>
+                    <p class="login"><a href="/user/login.php">已有账号，直接登录</a></p>
+                    <div class="qc_login">
+                        {#if $QISHI.sina_apiopen=="1"#}
+                        <a class="weibo" href="{#$QISHI.main_domain#}user/connect_sina.php?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}" class="weibo"></a>
+                        {#/if#}
+                        {#if $QISHI.qq_apiopen=="1"#}
+                        <a class="qq" href="{#$QISHI.main_domain#}user/{#if $QISHI.qq_logintype=='1'#}connect_qq_client.php{#else#}connect_qq_server.php{#/if#}?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}" class="qq"></a>
+                        {#/if#}
+                        {#if $QISHI.wx_login_apiopen=="1"#}
+                        <a href="{#$QISHI.main_domain#}user/connect_wechat.php?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}" class="wechat"></a>
+                        <div id="login_container" data="0"></div>
+                        {#/if#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="main_box">
+                <ul>
+                    <li class="f1">
+                        <div class="left"><img src="{#$QISHI.site_template#}images/login_index_footer_f1.png" width="80" height="80"/></div>
+                        <div class="right">
+                            <p>事业单位招聘</p>
+                            <span>全国60多家市级教育局招聘简章公示平台</span>
+                        </div>
+                    </li>
+                    <li class="f2">
+                        <div class="left"><img src="{#$QISHI.site_template#}images/login_index_footer_f2.png" width="80" height="80"/></div>
+                        <div class="right">
+                            <p>教师人才招聘</p>
+                            <span>为6万家教育机构提供网络招聘服务</span>
+                        </div>
+                    </li>
+                    <li class="f3">
+                        <div class="left"><img src="{#$QISHI.site_template#}images/login_index_footer_f3.png" width="80" height="80"/></div>
+                        <div class="right">
+                            <p>高级教师直聘</p>
+                            <span>为高级教师提供精准职位与猎头服务</span>
+                        </div>
+                    </li>
+                    <li class="f4">
+                        <div class="left"><img src="{#$QISHI.site_template#}images/login_index_footer_f4.png" width="80" height="80"/></div>
+                        <div class="right">
+                            <p>教师招考通</p>
+                            <span>教师资格证考试、入编考试咨询与培训</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+                <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+            </div>
+        </div>
+    </body>
+</html>

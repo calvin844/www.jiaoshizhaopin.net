@@ -1,0 +1,32 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-修改类型</div>
+        <div class="clear"></div>
+    </div>
+    <div class="toptit">修改类型</div>
+    <form id="form1" name="form1" method="post" action="?act=edit_save" enctype="multipart/form-data">
+        {#$inputtoken#}
+        <input type="hidden" name="id" value="{#$type.id#}">
+        <table width="100%" border="0" cellpadding="4" cellspacing="0"  >
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">类型名称：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="name" type="text" class="input_text_200" id="name" maxlength="25" value="{#$type.name#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">类型英文缩写：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="en" type="text" class="input_text_200" id="en" maxlength="25" value="{#$type.en#}"/> </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" >&nbsp;</td>
+                <td   >
+                    <input name="submit3" type="submit" class="admin_submit"    value="保存"/>
+                    <input name="submit22" type="button" class="admin_submit" value="返 回" onclick="window.location.href = '/jaosen/admin_online_course_type.php'"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

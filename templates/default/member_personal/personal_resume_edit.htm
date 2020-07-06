@@ -1,0 +1,2266 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_resume_edit.css" type="text/css" rel="stylesheet"/>
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <title>{#$title#}</title>
+        <script>
+            $(document).ready(function() {
+                function menuDown(menuId) {
+                    $("#content").off('click', "#" + menuId + " div.text");
+                    $("#content").on('click', "#" + menuId + " div.text", function() {
+                        $(".select_box").find('ul.list').slideUp("fast");
+                        $("#" + menuId).find('ul.list').slideDown('fast');
+                        //生成背景
+                        $("#" + menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function() {
+                            $(".menu_bg_layer").remove();
+                            $("#" + menuId).find('ul.list').slideUp("fast");
+                            $("#" + menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $("#content").off('click', "#" + menuId + " ul.list li");
+                    $("#content").on('click', '#' + menuId + ' ul.list li', function() {
+                        var data = $(this).attr("data");
+                        var text = $(this).find('span').html();
+                        var sdistrict = $('#' + menuId).attr('data-sdistrict');
+                        var job = $('#' + menuId).attr('data-job');
+                        $("#" + menuId).find('input[type="hidden"]').val(data);
+                        $("#" + menuId).find('div.text span').html(text);
+                        $("#" + menuId).find('ul.list').slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                        if (sdistrict == 1) {
+                            var data_arr = data.split('-');
+                            $.get("?act=get_city&id=" + data_arr[0], function(result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.sdistrict ul.list').html(html)
+                                $("#" + menuId).parent().find('.sdistrict .text span').html('全部')
+                                $("#" + menuId).parent().find('.sdistrict input').attr('value', '0-全部')
+                            });
+                        }
+                        if (job == 1) {
+                            var data_arr = data.split('-');
+                            $.get("?act=get_job_type&id=" + data_arr[0], function(result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.job_type ul.list').html(html)
+                                $("#" + menuId).parent().find('.job_type .text span').html('请选择分类')
+                                $("#" + menuId).parent().find('.job_type input').attr('value', '')
+                            });
+                        }
+                    });
+                }
+                $('#content').ajaxStop(function() {
+                    $('div.select_box').each(function() {
+                        var did = $(this).attr('id');
+                        menuDown(did);
+                    })
+                })
+            })
+        </script>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;我的简历</p>
+                <div class="left_box">
+                    <div class="title_box">
+                        <div class="resume_title">
+                            <p>{#$resume_basic.title#}</p>
+                            <i title="高级人才简历" class="{#if $resume_basic.talent == 2#}senior_h{#else#}senior{#/if#}"></i>
+                            <i title="照片" class="{#if !empty($resume_basic.photo_img)#}photo_h{#else#}photo{#/if#}"></i>
+                            {#if $resume_basic.audit == 1#}
+                            <label title="简历审核状态" class="s3">已通过</label>
+                            {#elseif  $resume_basic.audit == 2#}
+                            <label title="简历审核状态" class="s2">待审核</label>
+                            {#elseif  $resume_basic.audit == 3#}
+                            <label title="简历审核状态" class="s1">未通过</label>
+                            {#/if#}
+                        </div>
+                        <a class="edit"></a>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="base_box" class="base_box">
+                        <div class="left">
+                            {#if $resume_basic.photo_img ==""#}
+                            <img id="preview" src="{#$QISHI.site_template#}images/no_photo.gif" width="122" height="155" />
+                            {#else#}
+                            <img id="preview" src="/data/photo/{#$resume_basic.photo_img#}" width="122" height="155" />
+                            {#/if#}
+                        </div>
+                        <div class="right">
+                            <ul>
+                                <li><label>姓名：</label><span>{#$resume_basic.fullname#}</span></li>
+                                <li><label>年龄：</label><span>{#$resume_basic.age#}</span></li>
+                                <li><label>性别：</label><span>{#if !empty($resume_basic.sex_cn)#}{#$resume_basic.sex_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>婚姻状况：</label><span>{#if !empty($resume_basic.marriage_cn)#}{#$resume_basic.marriage_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>工作经验：</label><span>{#if !empty($resume_basic.experience_cn)#}{#$resume_basic.experience_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>最高学历：</label><span>{#if !empty($resume_basic.education_cn)#}{#$resume_basic.education_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>居住地：</label><span>{#if !empty($resume_basic.residence_cn)#}{#$resume_basic.residence_cn#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>手机：</label><span>{#if !empty($resume_basic.telephone)#}{#$resume_basic.telephone#}{#else#}未填写{#/if#}</span></li>
+                                <li><label>邮箱：</label><span>{#if !empty($resume_basic.email)#}{#$resume_basic.email#}{#else#}未填写{#/if#}</span></li>
+                                <li class="label"></li>
+                                <li class="profile"><label>个人简介：</label><span>{#if !empty($resume_basic.specialty)#}{#$resume_basic.specialty#}{#else#}未填写{#/if#}</span></li>
+                            </ul>
+                            <script>
+            var data_str = "{#$resume_basic.tag#}";
+            var html_str = "<label>标签：</label>";
+            if (data_str !== "") {
+                if (data_str.indexOf('|') > 0) {
+                    var data_arr = data_str.split("|");
+                    for (var i = 0; i < data_arr.length; i++) {
+                        var item = data_arr[i].split(",");
+                        html_str += "<span>" + item[1] + "</span>";
+                    }
+                } else {
+                    var item = data_str.split(",");
+                    html_str += "<span>" + item[1] + "</span>";
+                }
+            } else {
+                html_str += "<span>未填写</span>";
+            }
+            $(".base_box li.label").html(html_str);
+                            </script>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="base_edit">
+                        <div class="left">
+                            <form>
+                                {#if $resume_basic.photo_img ==""#}
+                                <img id="preview" src="{#$QISHI.site_template#}images/no_photo.gif" width="122" height="155" />
+                                {#else#}
+                                <img id="preview" src="/data/photo/rlogo/{#$resume_basic.photo_img#}" width="122" height="155" />
+                                {#/if#}
+                                <input type="file" id="photo" class="header_img_upload" name="photo" />
+                            </form>
+                            <script>
+                                $('.base_edit').on('change', '.header_img_upload', function() {
+                                    $.ajaxFileUpload({
+                                        url: '?act=make2_photo_ready&pid={#$pid#}',
+                                        secureuri: false,
+                                        fileElementId: 'photo',
+                                        dataType: 'string',
+                                        success: function(data, status) {
+                                            switch (data) {
+                                                case "-1":
+                                                    alert("上传图片失败：上传目录不存在!");
+                                                    return false;
+                                                    break;
+                                                case "-2":
+                                                    alert("上传图片失败：上传目录无法写入!");
+                                                    return false;
+                                                    break;
+                                                case "-3":
+                                                    alert("上传图片失败：你选择的文件无法上传");
+                                                    return false;
+                                                    break;
+                                                case "-4":
+                                                    alert("上传图片失败：文件大小超过限制");
+                                                    return false;
+                                                    break;
+                                                case "-5":
+                                                    alert("上传图片失败：文件类型错误！");
+                                                    return false;
+                                                    break;
+                                                case "-6":
+                                                    alert("上传图片失败：文件上传出错！");
+                                                    return false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            var src = '{#$QISHI.main_domain#}data/photo/rlogo/' + data;
+                                            $('.base_edit .left img').attr('src', src);
+                                        }
+                                    })
+                                })
+                            </script>
+                        </div>
+                        <div class="right">
+                            <form id="base_form">
+                                <div class="item_box">
+                                    <label class="item_name">姓名：</label>
+                                    <div class="input_box">
+                                        <input name="fullname" type="text" class="text" value="{#$resume_basic.fullname#}" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">出生年份：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="birthdate">
+                                            <div class="text">
+                                                <span>{#$resume_basic.birthdate#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class = "list"></ul>
+                                            <input type="hidden" name="birthdate" id="birthdate_value" value="{#$resume_basic.birthdate#}" />
+                                            <script>
+                                                var html = "";
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                y = y - 18;
+                                                var ymin = y - 35;
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html += '<li data = "' + i + '"> <span> ' + i + '年 </span></li>';
+                                                }
+                                                $('#birthdate ul').html(html);
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">性别：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="sex">
+                                            <div class="text">
+                                                <span>{#$resume_basic.sex_cn#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1-男"><span>男</span></li>
+                                                <li data="2-女"><span>女</span></li>
+                                            </ul>
+                                            <input type="hidden" name="sex" id="sex_value" value="{#$resume_basic.sex#}-{#$resume_basic.sex_cn#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">婚姻状况：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="marriage">
+                                            <div class="text">
+                                                <span>{#$resume_basic.marriage_cn#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1-未婚"><span>未婚</span></li>
+                                                <li data="2-已婚"><span>已婚</span></li>
+                                            </ul>
+                                            <input type="hidden" name="marriage" id="marriage_value" value="{#$resume_basic.marriage#}-{#$resume_basic.marriage_cn#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">工作经验：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="experience">
+                                            <div class="text">
+                                                <span>{#$resume_basic.experience_cn#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                                {#foreach from=$c_experience item=list#}
+                                                <li data="{#$list.id#}|{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                                {#/foreach#}
+                                            </ul>
+                                            <input type="hidden" name="experience" id="experience_value" value="{#$resume_basic.experience#}|{#$resume_basic.experience_cn#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">最高学历：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="education">
+                                            <div class="text">
+                                                <span>{#$resume_basic.education_cn#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                                {#foreach from=$c_education item=list#}
+                                                <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                                {#/foreach#}
+                                            </ul>
+                                            <input type="hidden" name="education" id="education_value" value="{#$resume_basic.education#}-{#$resume_basic.education_cn#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">居住地：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" data-sdistrict="1" id="residence_district">
+                                            <div class="text">
+                                                <span>{#$resume_basic.residence_district_cn#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                                <!-- 以下为循环数组category内容  -->
+                                                {#foreach from=$city item=c#}
+                                                <li data="{#$c.id#}-{#$c.categoryname#}"><span>{#$c.categoryname#}</span></li>
+                                                {#/foreach#}
+                                            </ul>
+                                            <input type="hidden" name="residence_district" id="residence_district_value" value="{#if $resume_basic.residence_district>0#}{#$resume_basic.residence_district#}-{#$resume_basic.residence_district_cn#}{#/if#}" />
+                                        </div>
+                                        <div class="select_box half sdistrict" id="residence_sdistrict">
+                                            <div class="text">
+                                                <span>{#if $resume_basic.residence_district>0#}{#$resume_basic.residence_sdistrict_cn#}{#/if#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                {#if !empty($resume_basic.residence_sdistrict_list)#}
+                                                {#foreach from=$resume_basic.residence_sdistrict_list item=s#}
+                                                <li data="{#$s.id#}-{#$s.categoryname#}"><span>{#$s.categoryname#}</span></li>
+                                                {#/foreach#}
+                                                {#/if#}
+                                            </ul>
+                                            <input type="hidden" name="residence_sdistrict" id="residence_sdistrict_value" value="{#if $resume_basic.residence_district>0#}{#$resume_basic.residence_sdistrict#}-{#$resume_basic.residence_sdistrict_cn#}{#/if#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">手机：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="telephone" class="text" value="{#$resume_basic.telephone#}" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">邮箱：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="email" class="text" value="{#$resume_basic.email#}" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">简历状态：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="display">
+                                            <div class="text">
+                                                <span>{#if $resume_basic.display == 1#}公开{#else#}保密{#/if#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"><span>公开</span></li>
+                                                <li data="2"><span>保密</span></li>
+                                            </ul>
+                                            <input type="hidden" name="display" id="display_value" value="{#$resume_basic.display#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">智能投递：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="entrust">
+                                            <div class="text">
+                                                <span>{#if $resume_basic.entrust == 1#}开{#else#}关{#/if#}</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"><span>开</span></li>
+                                                <li data="0"><span>关</span></li>
+                                            </ul>
+                                            <input type="hidden" name="entrust" id="entrust_value" value="{#$resume_basic.entrust#}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box label">
+                                    <label class="item_name">标签：</label>
+                                    <a class="add"  ></a>
+                                    <div class="input_box">
+                                        <div class="clear"></div>
+                                        <input type="hidden" value="{#$resume_basic.tag#}" id="tag" name="tag"/>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="item_box specialty">
+                                    <label class="item_name">个人简介：</label>
+                                    <label class="count"><span>200</span>/200</label>
+                                    <div class="clear"></div>
+                                    <textarea name="specialty">{#$resume_basic.specialty#}</textarea>
+                                    <script>
+                                        $(function() {
+                                            statInputNum($(".specialty textarea"), $(".specialty .count").find("span"));
+                                        });
+                                        /*
+                                         * 剩余字数统计
+                                         * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
+                                         */
+                                        function statInputNum(textArea, numItem) {
+                                            var max = numItem.text(),
+                                                    curLength;
+                                            textArea[0].setAttribute("maxlength", max);
+                                            curLength = textArea.val().length;
+                                            numItem.text(max - curLength);
+                                            textArea.on('input propertychange', function() {
+                                                var _value = $(this).val().replace(/\n/gi, "");
+                                                numItem.text(max - _value.length);
+                                            });
+                                        }
+                                    </script>
+                                </div>
+                                <input type="submit" class="submit" value="保存" />
+                                <a class="cancel"  >取消</a>
+                            </form>
+                            <script>
+                                $('.base_edit a.cancel').click(function() {
+                                    $('div.base_edit').slideUp();
+                                    $('div.base_box').show();
+                                })
+                                $('.title_box a.edit').click(function() {
+                                    $('div.base_box').hide();
+                                    $('div.base_edit').slideDown();
+                                })
+                                $('#base_form').submit(function() {
+                                    var pid = "{#$pid#}";
+                                    var fullname = $("input[name=fullname]").val();
+                                    var sex = $("input[name=sex]").val();
+                                    var birthdate = $("input[name=birthdate]").val();
+                                    var residence_district = $("input[name=residence_district]").val();
+                                    var residence_sdistrict = $("input[name=residence_sdistrict]").val();
+                                    var education = $("input[name=education]").val();
+                                    var experience = $("input[name=experience]").val();
+                                    var telephone = $("input[name=telephone]").val();
+                                    var email = $("input[name=email]").val();
+                                    var marriage = $("input[name=marriage]").val();
+                                    var tag = $("input[name=tag]").val();
+                                    var specialty = $("textarea[name=specialty]").val();
+                                    var display = $("input[name=display]").val();
+                                    var entrust = $("input[name=entrust]").val();
+                                    $.post("?act=ajax_save_basic", {pid: pid, fullname: fullname, sex: sex, birthdate: birthdate, residence_district: residence_district, residence_sdistrict: residence_sdistrict, education: education, experience: experience, telephone: telephone, email: email, marriage: marriage, tag: tag, specialty: specialty, display: display, entrust: entrust}, function(result) {
+                                        if (result != "success") {
+                                            alert(result);
+                                        } else {
+                                            alert("保存成功！");
+                                        }
+                                        location.reload();
+                                    });
+                                    return false;
+                                })
+                            </script>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="intention_box" class="intention_box">
+                        <div class="box_title">
+                            <p>求职意向</p>
+                            <a class="edit"  ></a>
+                        </div>
+                        <ul>
+                            <li><p>工作性质：{#if !empty($resume_basic.nature_cn)#}{#$resume_basic.nature_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li><p>期望地区：{#if !empty($resume_basic.district_cn)#}{#$resume_basic.district_cn#}/{#$resume_basic.sdistrict_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li><p>期望薪资：{#if !empty($resume_basic.wage_cn)#}{#$resume_basic.wage_cn#}{#else#}未填写{#/if#}</p></li>
+                            <li class="intention_jobs_li">
+                                <script>
+                                    var data_str = "{#$resume_basic.intention_jobs#}";
+                                    var html_str = "<p>期望职位：";
+                                    if (data_str !== "") {
+                                        if (data_str.indexOf(',') > 0) {
+                                            var data_arr = data_str.split(",");
+                                            for (var i = 0; i < data_arr.length; i++) {
+                                                html_str += "<span>" + data_arr[i] + "</span>";
+                                            }
+                                        } else {
+                                            html_str += "<span>" + data_str + "</span>";
+                                        }
+                                    } else {
+                                        html_str += "<span>未填写</span>";
+                                    }
+                                    html_str += "</p>";
+                                    $(".intention_box li.intention_jobs_li").html(html_str);
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="intention_edit">
+                        <div class="box_title">
+                            <p>求职意向</p>
+                        </div>
+                        <form id="intention_form">
+                            <div class="item_box">
+                                <label class="item_name">工作性质：</label>
+                                <div class="input_box">
+                                    <div class="select_box" id="nature">
+                                        <div class="text">
+                                            <span>{#$resume_basic.nature_cn#}</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#qishi_get_classify  set="类型:QS_jobs_nature,列表名:c_nature"#}
+                                            {#foreach from=$c_nature item=list#}
+                                            <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                            {#/foreach#}	
+                                        </ul>
+                                        <input type="hidden" name="nature" id="nature_value" value="{#$resume_basic.nature#}-{#$resume_basic.nature_cn#}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item_box">
+                                <label class="item_name">期望地区：</label>
+                                <div class="input_box">
+                                    <div class="select_box half" data-sdistrict="1" id="district">
+                                        <div class="text">
+                                            <span>{#$resume_basic.district_cn#}</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                            <!-- 以下为循环数组category内容  -->
+                                            {#foreach from=$city item=c#}
+                                            <li data="{#$c.id#}-{#$c.categoryname#}"><span>{#$c.categoryname#}</span></li>
+                                            {#/foreach#}
+                                        </ul>
+                                        <input type="hidden" name="district" id="residence_district_value" value="{#$resume_basic.district#}-{#$resume_basic.district_cn#}" />
+                                    </div>
+                                    <div class="select_box half sdistrict" id="sdistrict">
+                                        <div class="text">
+                                            <span>{#$resume_basic.sdistrict_cn#}</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#if !empty($resume_basic.sdistrict_list)#}
+                                            {#foreach from=$resume_basic.sdistrict_list item=s#}
+                                            <li data="{#$s.id#}-{#$s.categoryname#}"><span>{#$s.categoryname#}</span></li>
+                                            {#/foreach#}
+                                            {#/if#}
+                                        </ul>
+                                        <input type="hidden" name="sdistrict" id="sdistrict_value" value="{#$resume_basic.sdistrict#}-{#$resume_basic.sdistrict_cn#}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item_box">
+                                <label class="item_name">期望薪资：</label>
+                                <div class="input_box">
+                                    <div class="select_box" id="wage">
+                                        <div class="text">
+                                            <span>{#$resume_basic.wage_cn#}</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#qishi_get_classify  set="类型:QS_wage,列表名:c_wage"#}
+                                            {#foreach from=$c_wage item=list#}
+                                            <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                            {#/foreach#}	
+                                        </ul>
+                                        <input type="hidden" name="wage" id="wage_value" value="{#$resume_basic.wage#}-{#$resume_basic.wage_cn#}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item_box intention_job">
+                                <label class="item_name">期望职位：</label>
+                                <div class="input_box">
+                                    <div class="select_box half" data-job="1" id="job_ptype">
+                                        <div class="text">
+                                            <span>请选择分类</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                            <!-- 以下为循环数组category内容  -->
+                                            {#foreach from=$category item=list#}
+                                            {#if $list.parentid == 0 #}
+                                            <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                            {#/if#}
+                                            {#/foreach#}
+                                        </ul>
+                                        <input type="hidden" name="job_ptype" id="job_ptype_value" value="" />
+                                    </div>
+                                    <div class="select_box half job_type" id="job_type">
+                                        <div class="text">
+                                            <span>请选择子类</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list"></ul>
+                                        <input type="hidden" name="job_type" id="job_type_value" value="" />
+                                    </div>
+                                </div>
+                                <a id="add_job"  >添加</a>
+                                <div class="clear"></div>
+                                <ul class="select_list"></ul>
+                                <input name="intention_jobs" id="intention_jobs" type="hidden" value="{#$resume_basic.intention_jobs#}" />
+                                <input name="intention_jobs_id" id="intention_jobs_id"  type="hidden" value="{#$resume_jobs_id#}" />
+                                <div class="clear"></div>
+                                <script>
+                                    var job_str = $('#intention_jobs_id').val();
+                                    var job_id_str = "";
+                                    var job_cn_str = "";
+                                    var job_list_str = "";
+                                    if (job_str != "") {
+                                        if (job_str.indexOf(',') > 0) {
+                                            var arr = job_str.split(',');
+                                        } else {
+                                            var arr = new Array(job_str);
+                                        }
+                                        for (var i = 0; i < arr.length; i++) {
+                                            var item = arr[i].split('||');
+                                            job_id_str += item[0] + ",";
+                                            job_cn_str += item[1] + ",";
+                                            job_list_str += '<li id="j' + item[0] + '"><span>' + item[1] + '</span><a  ></a></li>';
+                                        }
+                                        job_id_str = job_id_str.slice(0, -1);
+                                        job_cn_str = job_cn_str.slice(0, -1);
+                                        $('.intention_job ul.select_list').html(job_list_str);
+                                        $('#intention_jobs').val(job_cn_str);
+                                        $('#intention_jobs_id').val(job_id_str);
+                                    }
+                                    $('.intention_job ul.select_list li a').click(function() {
+                                        $(this).parent().remove();
+                                        reset_intention_jobs();
+                                    })
+                                    $('.intention_job a#add_job').click(function() {
+                                        var parent = $('#job_ptype_value').val();
+                                        var son = $('#job_type_value').val();
+                                        if (son == "") {
+                                            alert("请选择职位分类！");
+                                            return false;
+                                        }
+                                        var parent_arr = parent.split('-');
+                                        var son_arr = son.split('-');
+                                        var job_id = "0." + parent_arr[0] + "." + son_arr[0];
+                                        var job_cn = parent_arr[1] + "-" + son_arr[1];
+                                        var li_length = 0;
+                                        var li_total = 0;
+                                        $('.intention_job ul.select_list li').each(function() {
+                                            li_total = li_total + 1;
+                                            if ($(this).attr('id') == "j" + job_id) {
+                                                li_length = 1;
+                                            }
+                                        })
+                                        if (li_total == 5) {
+                                            alert('最多只能选择5个期望职位！');
+                                            return false;
+                                        }
+                                        if (li_length < 1) {
+                                            $('.intention_job ul.select_list').append('<li id="j' + job_id + '"><span>' + job_cn + '</span><a  ></a></li>')
+                                        } else {
+                                            alert('该职位已存在！')
+                                        }
+                                        reset_intention_jobs();
+                                    })
+                                    function reset_intention_jobs() {
+                                        var job_id_str = "";
+                                        var job_cn_str = "";
+                                        if ($('.intention_job ul.select_list li').length > 0) {
+                                            $('.intention_job ul.select_list li').each(function() {
+                                                job_id_str += $(this).attr('id').slice(1) + ",";
+                                                job_cn_str += $(this).find('span').html() + ",";
+                                            })
+                                            job_id_str = job_id_str.slice(0, -1);
+                                            job_cn_str = job_cn_str.slice(0, -1);
+                                        }
+                                        $('#intention_jobs').val(job_cn_str);
+                                        $('#intention_jobs_id').val(job_id_str);
+                                    }
+                                </script>
+                            </div>
+                            <div class="submit_box">
+                                <input type="submit" class="submit" value="保存" />
+                                <a class="cancel"  >取消</a>
+                            </div>
+                        </form>
+                        <div class="clear"></div>
+                    </div>
+                    <script>
+                        $('.intention_edit a.cancel').click(function() {
+                            $('div.intention_edit').slideUp();
+                            $('div.intention_box').show();
+                        })
+                        $('.intention_box a.edit').click(function() {
+                            $('div.intention_box').hide();
+                            $('div.intention_edit').slideDown();
+                        })
+                        $('#intention_form').submit(function() {
+                            var pid = "{#$pid#}";
+                            var nature = $("input[name=nature]").val();
+                            var district = $("input[name=district]").val();
+                            var sdistrict = $("input[name=sdistrict]").val();
+                            var wage = $("input[name=wage]").val();
+                            var intention_jobs = $("input[name=intention_jobs]").val();
+                            var intention_jobs_id = $("input[name=intention_jobs_id]").val();
+                            $.post("?act=ajax_save_intention", {pid: pid, nature: nature, district: district, sdistrict: sdistrict, wage: wage, intention_jobs: intention_jobs, intention_jobs_id: intention_jobs_id}, function(result) {
+                                if (result != "success") {
+                                    alert(result);
+                                } else {
+                                    alert("保存成功！");
+                                }
+                                location.reload();
+                            });
+                            return false;
+                        })
+                    </script>
+
+
+
+
+
+
+                    <div id="education_box" class="education_box">
+                        <div class="box_title">
+                            <p>教育经历</p>
+                            <a class="add"  ></a>
+                        </div>
+                        <ul class="education_list"></ul>
+                        <script>
+                            function get_education_list() {
+                                $.get("?act=ajax_get_education_list&pid={#$pid#}", function(result) {
+                                    if (result !== "") {
+                                        var html_str = "";
+                                        if (result.indexOf('-|-') > 0) {
+                                            var arr = result.split("-|-");
+                                        } else {
+                                            var arr = new Array(result);
+                                        }
+                                        for (var ii = 0; ii < arr.length; ii++) {
+                                            var item = arr[ii].split('||');
+                                            html_str += '<li>';
+                                            html_str += '<span>' + item[2] + '-' + item[3] + '至' + item[4] + '-' + item[5] + '</span>';
+                                            html_str += '<span>' + item[6] + '</span>';
+                                            html_str += '<span>' + item[7] + '</span>';
+                                            html_str += '<span>' + item[8] + '</span>';
+                                            html_str += '<a data-id="' + item[1] + '" class="del"  ></a>';
+                                            html_str += '<a class="edit"  ></a>';
+                                            html_str += '<div class="education_edit">';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">学校名称：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" class="text" name="school" value="' + item[6] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">专业名称：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" class="text" name="speciality" value="' + item[7] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">学历：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<div class="select_box" id="edu_education' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[8] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class="list">';
+                                            html_str += '{#qishi_get_classify  set = "类型:QS_education,列表名:c_education"#}';
+                                            html_str += '{#foreach from = $c_education item = list#}';
+                                            html_str += '<li data="{#$list.id#}-{#$list.categoryname#}"><span title="{#$list.categoryname#}">{#$list.categoryname#}</span></li>';
+                                            html_str += '{#/foreach#}';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="edu_education" id="edu_education_value" value="' + item[9] + '-' + item[8] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "item_box">';
+                                            html_str += '<label class = "item_name"> 就读时间： </label>';
+                                            html_str += '<div class = "input_box">';
+                                            html_str += '<div class = "select_box half" id="edu_start_year' + item[1] + '">';
+                                            html_str += '<div class = "text">';
+                                            html_str += '<span> ' + item[2] + ' </span>';
+                                            html_str += '<i> </i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 4;
+                                            var ymin = y - 35;
+                                            for (var i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="edu_start_year" id="edu_start_year_value" value=" ' + item[2] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "select_box half" id="edu_start_month' + item[1] + '">';
+                                            html_str += '<div class = "text">';
+                                            html_str += '<span> ' + item[3] + ' </span>';
+                                            html_str += '<i> </i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="edu_start_month" id="edu_start_month_value" value="' + item[3] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "item_box">';
+                                            html_str += '<label class = "item_name"> 毕业时间： </label>';
+                                            html_str += '<div class = "input_box">';
+                                            html_str += '<div class = "select_box half" id="edu_end_year' + item[1] + '">';
+                                            html_str += '<div class = "text">';
+                                            html_str += '<span> ' + item[4] + ' </span>';
+                                            html_str += '<i> </i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 4;
+                                            var ymin = y - 35;
+                                            for (i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="edu_end_year" id="edu_end_year_value" value="' + item[4] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "select_box half" id="edu_end_month' + item[1] + '">';
+                                            html_str += '<div class = "text">';
+                                            html_str += '<span> ' + item[5] + ' </span>';
+                                            html_str += '<i> </i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="edu_end_month" id="edu_end_month_value" value="' + item[5] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "submit_box">';
+                                            html_str += '<input type="hidden" name="edu_id" id="edu_id" value="' + item[1] + '">';
+                                            html_str += '<input id="save_education" type = "submit" class = "submit" value = "保存" />';
+                                            html_str += '<a class = "cancel" href = "javascript:void();"> 取消 </a>';
+                                            html_str += '</div>';
+                                            html_str += '<div class = "clear"> </div>';
+                                            html_str += '</div>';
+                                            html_str += '</li>';
+                                        }
+                                        $('div.education_box ul.education_list').html(html_str);
+                                    }
+                                });
+                            }
+                            get_education_list();
+                            $('div.education_box ul.education_list').on('click', 'li a.edit', function() {
+                                $(this).parent().find('div.education_edit').slideDown();
+                            })
+                            $('div.education_box ul.education_list').on('click', 'li div.education_edit a.cancel', function() {
+                                $(this).parents('.education_edit').slideUp();
+                            })
+                            $('#content').on('click', '.education_edit #save_education', function() {
+                                var box = $(this).parents('.education_edit');
+                                var pid = "{#$pid#}";
+                                var id = box.find("input[name=edu_id]").val();
+                                var school = box.find("input[name=school]").val();
+                                var speciality = box.find("input[name=speciality]").val();
+                                var education_str = box.find("input[name=edu_education]").val();
+                                var education_tmp = education_str.split('-');
+                                var education = education_tmp[0];
+                                var education_cn = education_tmp[1];
+                                var edu_start_year = box.find("input[name=edu_start_year]").val();
+                                var edu_start_month = box.find("input[name=edu_start_month]").val();
+                                var edu_end_year = box.find("input[name=edu_end_year]").val();
+                                var edu_end_month = box.find("input[name=edu_end_month]").val();
+                                $.post("?act=save_education", {id: id, pid: pid, school: school, speciality: speciality, education: education, education_cn: education_cn, edu_start_year: edu_start_year, edu_start_month: edu_start_month, edu_end_year: edu_end_year, edu_end_month: edu_end_month}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $(".education_edit").slideUp('slow');
+                                    }
+                                    get_education_list();
+                                });
+                                return false;
+                            });
+                            $('div.education_box ul.education_list').on('click', 'li a.del', function() {
+                                if (confirm("确定删除？")) {
+                                    $.get('?act=del_education&pid={#$pid#}&id=' + $(this).attr("data-id"), function(result) {
+                                        alert(result);
+                                        get_education_list();
+                                    })
+                                }
+                            });
+                        </script>
+
+                        <div class="education_add">
+                            <form id="education_add_form">
+                                <div class="item_box">
+                                    <label class="item_name">学校名称：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="school" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">专业名称：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="speciality" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">学历：</label>
+                                    <div class="input_box">
+                                        <div class="select_box" id="edu_education_add">
+                                            <div class="text">
+                                                <span>请选择学历</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                {#qishi_get_classify  set = "类型:QS_education,列表名:c_education"#}
+                                                {#foreach from = $c_education item = list#}
+                                                <li data="{#$list.id#}-{#$list.categoryname#}"><span title="{#$list.categoryname#}">{#$list.categoryname#}</span></li>
+                                                {#/foreach#}
+                                            </ul>
+                                            <input type="hidden" name="edu_education" id="edu_education_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">就读时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="edu_start_year_add">
+                                            <div class="text">
+                                                <span>请选择就读年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list"></ul>
+                                            <input type="hidden" name="edu_start_year" id="edu_start_year_value" value="" />
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                var html_str = ""
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#edu_start_year_add ul.list').html(html_str);
+                                            </script>
+                                        </div>
+                                        <div class="select_box half" id="edu_start_month_add">
+                                            <div class="text">
+                                                <span>请选择就读月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"><span>1</span></li>
+                                                <li data="2"><span>2</span></li>
+                                                <li data="3"><span>3</span></li>
+                                                <li data="4"><span>4</span></li>
+                                                <li data="5"><span>5</span></li>
+                                                <li data="6"><span>6</span></li>
+                                                <li data="7"><span>7</span></li>
+                                                <li data="8"><span>8</span></li>
+                                                <li data="9"><span>9</span></li>
+                                                <li data="10"><span>10</span></li>
+                                                <li data="11"><span>11</span></li>
+                                                <li data="12"><span>12</span></li>
+                                            </ul>
+                                            <input type="hidden" name="edu_start_month" id="edu_start_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">毕业时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="edu_end_year_add">
+                                            <div class="text">
+                                                <span>请选择毕业年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list"></ul>
+                                            <input type="hidden" name="edu_end_year" id="edu_end_year_value" value="" />
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                var html_str = ""
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#edu_end_year_add ul.list').html(html_str);
+                                            </script>
+                                        </div>
+                                        <div class="select_box half" id="edu_end_month_add">
+                                            <div class="text">
+                                                <span>请选择毕业月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"><span>1</span></li>
+                                                <li data="2"><span>2</span></li>
+                                                <li data="3"><span>3</span></li>
+                                                <li data="4"><span>4</span></li>
+                                                <li data="5"><span>5</span></li>
+                                                <li data="6"><span>6</span></li>
+                                                <li data="7"><span>7</span></li>
+                                                <li data="8"><span>8</span></li>
+                                                <li data="9"><span>9</span></li>
+                                                <li data="10"><span>10</span></li>
+                                                <li data="11"><span>11</span></li>
+                                                <li data="12"><span>12</span></li>
+                                            </ul>
+                                            <input type="hidden" name="edu_end_month" id="edu_end_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit_box">
+                                    <input type="submit" class="submit" value="保存" />
+                                    <a class="cancel"  >取消</a>
+                                </div>
+                            </form>
+                            <div class="clear"></div>
+                        </div>
+                        <script>
+                            $('.education_add a.cancel').click(function() {
+                                $('div.education_add').slideUp();
+                                $('div.education_list').show();
+                            })
+                            $('.education_box a.add').click(function() {
+                                $('div.education_list').hide();
+                                $('div.education_add').slideDown();
+                            })
+                            $('#education_add_form').submit(function() {
+                                var pid = "{#$pid#}";
+                                var school = $(this).find("input[name=school]").val();
+                                var speciality = $(this).find("input[name=speciality]").val();
+                                var education_str = $(this).find("input[name=edu_education]").val();
+                                var education_tmp = education_str.split('-');
+                                var education = education_tmp[0];
+                                var education_cn = education_tmp[1];
+                                var edu_start_year = $(this).find("input[name=edu_start_year]").val();
+                                var edu_start_month = $(this).find("input[name=edu_start_month]").val();
+                                var edu_end_year = $(this).find("input[name=edu_end_year]").val();
+                                var edu_end_month = $(this).find("input[name=edu_end_month]").val();
+                                $.post("?act=save_education", {pid: pid, school: school, speciality: speciality, education: education, education_cn: education_cn, edu_start_year: edu_start_year, edu_start_month: edu_start_month, edu_end_year: edu_end_year, edu_end_month: edu_end_month}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $('div.education_add').slideUp();
+                                        $('div.education_list').show();
+                                    }
+                                    get_education_list();
+                                });
+                                return false;
+                            });
+                        </script>
+                    </div>
+
+
+
+
+                    <div id="jobs_box" class="jobs_box">
+                        <div class="box_title">
+                            <p>工作经历</p>
+                            <a class="add"  ></a>
+                        </div>
+                        <ul class="work_list"></ul>
+                        <script>
+                            function get_work_list() {
+                                $.get("?act=ajax_get_work_list&pid={#$pid#}", function(result) {
+                                    if (result !== "") {
+                                        var html_str = "";
+                                        if (result.indexOf('-|-') > 0) {
+                                            var arr = result.split("-|-");
+                                        } else {
+                                            var arr = new Array(result);
+                                        }
+                                        for (var ii = 0; ii < arr.length; ii++) {
+                                            var item = arr[ii].split('||');
+                                            html_str += '<li>';
+                                            html_str += '<p class="time">' + item[2] + '/' + item[3] + '--' + item[4] + '/' + item[5] + '</p>';
+                                            html_str += '<p class="company">' + item[6] + '&nbsp;&nbsp;|&nbsp;&nbsp;' + item[7] + '<a data-id="' + item[1] + '" class="del"  ></a><a class="edit"  ></a></p>';
+                                            html_str += '<p class="des">岗位职责：' + item[8] + '</p>';
+                                            html_str += '<div class="jobs_edit">';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">公司名称：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" class="text" name="companyname" value="' + item[6] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">职位名称：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" class="text" name="jobs" value="' + item[7] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">开始时间：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<div class="select_box half" id="work_start_year' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[2] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 4;
+                                            var ymin = y - 35;
+                                            for (var i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="work_start_year" id="work_start_year_value" value="' + item[2] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class="select_box half" id="work_start_month' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[3] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="work_start_month" id="work_start_month_value" value="' + item[3] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += ' </div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">结束时间：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<div class="select_box half" id="work_end_year' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[4] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 18;
+                                            var ymin = y - 35;
+                                            for (var i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="work_end_year" id="work_end_year_value" value="' + item[4] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class="select_box half" id="work_end_month' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[5] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="work_end_month" id="work_end_month_value" value="' + item[5] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box job_des">';
+                                            html_str += '<label class="item_name">工作职责：</label>';
+                                            html_str += '<div class="clear"></div>';
+                                            html_str += '<textarea name="achievements">' + item[8] + '</textarea>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="submit_box">';
+                                            html_str += '<input type="hidden" name="work_id" id="work_id" value="' + item[1] + '">';
+                                            html_str += '<input id="save_jobs" type="submit" class="submit" value="保存" />';
+                                            html_str += '<a class="cancel"  >取消</a>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="clear"></div>';
+                                            html_str += '</div>';
+                                            html_str += '</li>';
+                                        }
+                                        $('div.jobs_box ul.work_list').html(html_str);
+                                    }
+                                });
+                            }
+                            get_work_list();
+                            $('div.jobs_box ul.work_list').on('click', 'li a.edit', function() {
+                                $(this).parents('li').find('div.jobs_edit').slideDown();
+                            })
+                            $('div.jobs_box ul.work_list').on('click', 'li div.jobs_edit a.cancel', function() {
+                                $(this).parents('.jobs_edit').slideUp();
+                            })
+                            $('#content').on('click', '.jobs_edit #save_jobs', function() {
+                                var box = $(this).parents('.jobs_edit');
+                                var pid = "{#$pid#}";
+                                var id = box.find("input[name=work_id]").val();
+                                var companyname = box.find("input[name=companyname]").val();
+                                var jobs = box.find("input[name=jobs]").val();
+                                var work_start_year = box.find("input[name=work_start_year]").val();
+                                var work_start_month = box.find("input[name=work_start_month]").val();
+                                var work_end_year = box.find("input[name=work_end_year]").val();
+                                var work_end_month = box.find("input[name=work_end_month]").val();
+                                var achievements = box.find("textarea[name=achievements]").val();
+                                $.post("?act=save_work", {id: id, pid: pid, companyname: companyname, jobs: jobs, work_start_year: work_start_year, work_start_month: work_start_month, work_end_year: work_end_year, work_end_month: work_end_month, achievements: achievements}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $(".jobs_edit").slideUp('slow');
+                                    }
+                                    get_work_list();
+                                });
+                                return false;
+                            });
+                            $('div.jobs_box ul.work_list').on('click', 'li a.del', function() {
+                                if (confirm("确定删除？")) {
+                                    $.get('?act=del_work&pid={#$pid#}&id=' + $(this).attr("data-id"), function(result) {
+                                        alert(result);
+                                        get_work_list();
+                                    })
+                                }
+                            });
+                        </script>
+
+                        <div class="jobs_add">
+                            <form id="work_add_form">
+                                <div class="item_box">
+                                    <label class="item_name">公司名称：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="companyname" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">职位名称：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="jobs" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">开始时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="work_start_year_add">
+                                            <div class="text">
+                                                <span>请选择开始年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class = "list"></ul>
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                var html_str = "";
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#work_start_year_add ul.list').html(html_str);
+                                            </script>
+                                            <input type="hidden" name="work_start_year" id="work_start_year_value" value="" />
+                                        </div>
+                                        <div class="select_box half" id="work_start_month_add">
+                                            <div class="text">
+                                                <span>请选择开始月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"> <span> 1 </span></li>
+                                                <li data="2"> <span> 2 </span></li>
+                                                <li data="3"> <span> 3 </span></li>
+                                                <li data="4"> <span> 4 </span></li>
+                                                <li data="5"> <span> 5 </span></li>
+                                                <li data="6"> <span> 6 </span></li>
+                                                <li data="7"> <span> 7 </span></li>
+                                                <li data="8"> <span> 8 </span></li>
+                                                <li data="9"> <span> 9 </span></li>
+                                                <li data="10"> <span> 10 </span></li>
+                                                <li data="11"> <span> 11 </span></li>
+                                                <li data="12"> <span> 12 </span></li>
+                                            </ul>
+                                            <input type="hidden" name="work_start_month" id="work_start_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">结束时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="work_end_year_add">
+                                            <div class="text">
+                                                <span>请选择结束年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class = "list"></ul>
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                var html_str = "";
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#work_end_year_add ul.list').html(html_str);
+                                            </script>
+                                            <input type="hidden" name="work_end_year" id="work_end_year_value" value="" />
+                                        </div>
+                                        <div class="select_box half" id="work_end_month_add">
+                                            <div class="text">
+                                                <span>请选择结束月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"> <span> 1 </span></li>
+                                                <li data="2"> <span> 2 </span></li>
+                                                <li data="3"> <span> 3 </span></li>
+                                                <li data="4"> <span> 4 </span></li>
+                                                <li data="5"> <span> 5 </span></li>
+                                                <li data="6"> <span> 6 </span></li>
+                                                <li data="7"> <span> 7 </span></li>
+                                                <li data="8"> <span> 8 </span></li>
+                                                <li data="9"> <span> 9 </span></li>
+                                                <li data="10"> <span> 10 </span></li>
+                                                <li data="11"> <span> 11 </span></li>
+                                                <li data="12"> <span> 12 </span></li>
+                                            </ul>
+                                            <input type="hidden" name="work_end_month" id="work_end_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box job_des">
+                                    <label class="item_name">工作职责：</label>
+                                    <div class="clear"></div>
+                                    <textarea name="achievements"></textarea>
+                                </div>
+                                <div class="submit_box">
+                                    <input type="submit" class="submit" value="保存" />
+                                    <a class="cancel"  >取消</a>
+                                </div>
+                            </form>
+                            <div class="clear"></div>
+                        </div>
+                        <script>
+                            $('.jobs_add a.cancel').click(function() {
+                                $('div.jobs_add').slideUp();
+                                $('div.work_list').show();
+                            })
+                            $('.jobs_box a.add').click(function() {
+                                $('div.work_list').hide();
+                                $('div.jobs_add').slideDown();
+                            })
+                            $('#work_add_form').submit(function() {
+                                var pid = "{#$pid#}";
+                                var companyname = $(this).find("input[name=companyname]").val();
+                                var jobs = $(this).find("input[name=jobs]").val();
+                                var work_start_year = $(this).find("input[name=work_start_year]").val();
+                                var work_start_month = $(this).find("input[name=work_start_month]").val();
+                                var work_end_year = $(this).find("input[name=work_end_year]").val();
+                                var work_end_month = $(this).find("input[name=work_end_month]").val();
+                                var achievements = $(this).find("textarea[name=achievements]").val();
+                                $.post("?act=save_work", {pid: pid, companyname: companyname, jobs: jobs, work_start_year: work_start_year, work_start_month: work_start_month, work_end_year: work_end_year, work_end_month: work_end_month, achievements: achievements}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $('div.jobs_add').slideUp();
+                                        $('div.work_list').show();
+                                    }
+                                    get_work_list();
+                                });
+                                return false;
+                            });
+                        </script>
+
+                    </div>
+
+
+
+
+
+                    <div id="training_box" class="training_box">
+                        <div class="box_title">
+                            <p>培训经历</p>
+                            <a class="add"  ></a>
+                        </div>
+                        <ul class="training_list"></ul>
+                        <script>
+                            function get_training_list() {
+                                $.get("?act=ajax_get_training_list&pid={#$pid#}", function(result) {
+                                    if (result !== "") {
+                                        var html_str = "";
+                                        if (result.indexOf('-|-') > 0) {
+                                            var arr = result.split("-|-");
+                                        } else {
+                                            var arr = new Array(result);
+                                        }
+                                        for (var ii = 0; ii < arr.length; ii++) {
+                                            var item = arr[ii].split('||');
+                                            html_str += '<li>';
+                                            html_str += '<p class="time">' + item[2] + '/' + item[3] + '--' + item[4] + '/' + item[5] + '</p>';
+                                            html_str += '<p class="school">' + item[6] + '<a data-id="' + item[1] + '" class="del"  ></a><a class="edit"  ></a></p>';
+                                            html_str += '<p class="course"><span>培训课程：</span>' + item[7] + '</p>';
+                                            html_str += '<p class="des"><span>培训内容：</span>' + item[8] + '</p>';
+                                            html_str += '<div class="training_edit">';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">培训机构：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" class="text" name="agency" value="' + item[6] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">培训课程：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<input type="text" name="course" class="text" value="' + item[7] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">开始时间：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<div class="select_box half" id="training_start_year' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[2] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 18;
+                                            var ymin = y - 35;
+                                            for (var i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="training_start_year" id="training_start_year_value" value="' + item[2] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class="select_box half" id="training_start_month' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[3] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="training_start_month" id="training_start_month_value" value="' + item[3] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box">';
+                                            html_str += '<label class="item_name">结束时间：</label>';
+                                            html_str += '<div class="input_box">';
+                                            html_str += '<div class="select_box half" id="training_end_year' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[4] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            var myDate = new Date();
+                                            var y = myDate.getFullYear();
+                                            y = y + 18;
+                                            var ymin = y - 35;
+                                            for (var i = y; i >= ymin; i--) {
+                                                html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                            }
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="training_end_year" id="training_end_year_value" value="' + item[4] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '<div class="select_box half" id="training_end_month' + item[1] + '">';
+                                            html_str += '<div class="text">';
+                                            html_str += '<span>' + item[5] + '</span>';
+                                            html_str += '<i></i>';
+                                            html_str += '</div>';
+                                            html_str += '<ul class = "list">';
+                                            html_str += '<li data="1"> <span> 1 </span></li>';
+                                            html_str += '<li data="2"> <span> 2 </span></li>';
+                                            html_str += '<li data="3"> <span> 3 </span></li>';
+                                            html_str += '<li data="4"> <span> 4 </span></li>';
+                                            html_str += '<li data="5"> <span> 5 </span></li>';
+                                            html_str += '<li data="6"> <span> 6 </span></li>';
+                                            html_str += '<li data="7"> <span> 7 </span></li>';
+                                            html_str += '<li data="8"> <span> 8 </span></li>';
+                                            html_str += '<li data="9"> <span> 9 </span></li>';
+                                            html_str += '<li data="10"> <span> 10 </span></li>';
+                                            html_str += '<li data="11"> <span> 11 </span></li>';
+                                            html_str += '<li data="12"> <span> 12 </span></li>';
+                                            html_str += '</ul>';
+                                            html_str += '<input type="hidden" name="training_end_month" id="training_end_month_value" value="' + item[5] + '" />';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="item_box job_des">';
+                                            html_str += '<label class="item_name">培训内容：</label>';
+                                            html_str += '<div class="clear"></div>';
+                                            html_str += '<textarea name="description">' + item[8] + '</textarea>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="submit_box">';
+                                            html_str += '<input type="hidden" name="training_id" id="training_id" value="' + item[1] + '">';
+                                            html_str += '<input id="save_training" type="submit" class="submit" value="保存" />';
+                                            html_str += '<a class="cancel"  >取消</a>';
+                                            html_str += '</div>';
+                                            html_str += '<div class="clear"></div>';
+                                            html_str += '</div>';
+                                            html_str += '</li>';
+                                        }
+                                        $('div.training_box ul.training_list').html(html_str);
+                                    }
+                                });
+                            }
+                            get_training_list();
+                            $('div.training_box ul.training_list').on('click', 'li a.edit', function() {
+                                $(this).parents('li').find('div.training_edit').slideDown();
+                            })
+                            $('div.training_box ul.training_list').on('click', 'li div.training_edit a.cancel', function() {
+                                $(this).parents('.training_edit').slideUp();
+                            })
+                            $('#content').on('click', '.training_edit #save_training', function() {
+                                var box = $(this).parents('.training_edit');
+                                var pid = "{#$pid#}";
+                                var id = box.find("input[name=work_id]").val();
+                                var agency = box.find("input[name=agency]").val();
+                                var course = box.find("input[name=course]").val();
+                                var training_start_year = box.find("input[name=training_start_year]").val();
+                                var training_start_month = box.find("input[name=training_start_month]").val();
+                                var training_end_year = box.find("input[name=training_end_year]").val();
+                                var training_end_month = box.find("input[name=training_end_month]").val();
+                                var description = box.find("textarea[name=description]").val();
+                                $.post("?act=save_training", {id: id, pid: pid, agency: agency, course: course, training_start_year: training_start_year, training_start_month: training_start_month, training_end_year: training_end_year, training_end_month: training_end_month, description: description}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $(".training_edit").slideUp('slow');
+                                    }
+                                    get_training_list();
+                                });
+                                return false;
+                            });
+                            $('div.training_box ul.training_list').on('click', 'li a.del', function() {
+                                if (confirm("确定删除？")) {
+                                    $.get('?act=del_training&pid={#$pid#}&id=' + $(this).attr("data-id"), function(result) {
+                                        alert(result);
+                                        get_training_list();
+                                    })
+                                }
+                            });
+                        </script>
+
+                        <div class="training_add">
+                            <form id="training_add_form">
+                                <div class="item_box">
+                                    <label class="item_name">培训机构：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="agency" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">培训课程：</label>
+                                    <div class="input_box">
+                                        <input type="text" name="course" class="text" value="" />
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">开始时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="training_start_year_add">
+                                            <div class="text">
+                                                <span>请选择开始年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class = "list"></ul>
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                var html_str = "";
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#training_start_year_add ul.list').html(html_str);
+                                            </script>
+                                            <input type="hidden" name="training_start_year" id="training_start_year_value" value="" />
+                                        </div>
+                                        <div class="select_box half" id="training_start_month_add">
+                                            <div class="text">
+                                                <span>请选择开始月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"> <span> 1 </span></li>
+                                                <li data="2"> <span> 2 </span></li>
+                                                <li data="3"> <span> 3 </span></li>
+                                                <li data="4"> <span> 4 </span></li>
+                                                <li data="5"> <span> 5 </span></li>
+                                                <li data="6"> <span> 6 </span></li>
+                                                <li data="7"> <span> 7 </span></li>
+                                                <li data="8"> <span> 8 </span></li>
+                                                <li data="9"> <span> 9 </span></li>
+                                                <li data="10"> <span> 10 </span></li>
+                                                <li data="11"> <span> 11 </span></li>
+                                                <li data="12"> <span> 12 </span></li>
+                                            </ul>
+                                            <input type="hidden" name="training_start_month" id="training_start_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box">
+                                    <label class="item_name">结束时间：</label>
+                                    <div class="input_box">
+                                        <div class="select_box half" id="training_end_year_add">
+                                            <div class="text">
+                                                <span>请选择结束年份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class = "list"></ul>
+                                            <script>
+                                                var myDate = new Date();
+                                                var y = myDate.getFullYear();
+                                                var html_str = "";
+                                                y = y + 4;
+                                                var ymin = y - 35;
+                                                for (var i = y; i >= ymin; i--) {
+                                                    html_str += '<li data="' + i + '"><span>' + i + '年</span></li>';
+                                                }
+                                                $('#training_end_year_add ul.list').html(html_str);
+                                            </script>
+                                            <input type="hidden" name="training_end_year" id="training_end_year_value" value="" />
+                                        </div>
+                                        <div class="select_box half" id="training_end_month_add">
+                                            <div class="text">
+                                                <span>请选择结束月份</span>
+                                                <i></i>
+                                            </div>
+                                            <ul class="list">
+                                                <li data="1"> <span> 1 </span></li>
+                                                <li data="2"> <span> 2 </span></li>
+                                                <li data="3"> <span> 3 </span></li>
+                                                <li data="4"> <span> 4 </span></li>
+                                                <li data="5"> <span> 5 </span></li>
+                                                <li data="6"> <span> 6 </span></li>
+                                                <li data="7"> <span> 7 </span></li>
+                                                <li data="8"> <span> 8 </span></li>
+                                                <li data="9"> <span> 9 </span></li>
+                                                <li data="10"> <span> 10 </span></li>
+                                                <li data="11"> <span> 11 </span></li>
+                                                <li data="12"> <span> 12 </span></li>
+                                            </ul>
+                                            <input type="hidden" name="training_end_month" id="training_end_month_value" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item_box job_des">
+                                    <label class="item_name">培训内容：</label>
+                                    <div class="clear"></div>
+                                    <textarea name="description"></textarea>
+                                </div>
+                                <div class="submit_box">
+                                    <input type="submit" class="submit" value="保存" />
+                                    <a class="cancel" >取消</a>
+                                </div>
+                            </form>
+                            <div class="clear"></div>
+                        </div>
+                        <script>
+                            $('.training_add a.cancel').click(function() {
+                                $('div.training_add').slideUp();
+                                $('div.training_list').show();
+                            })
+                            $('.training_box a.add').click(function() {
+                                $('div.training_list').hide();
+                                $('div.training_add').slideDown();
+                            })
+                            $('#training_add_form').submit(function() {
+                                var pid = "{#$pid#}";
+                                var agency = $(this).find("input[name=agency]").val();
+                                var course = $(this).find("input[name=course]").val();
+                                var training_start_year = $(this).find("input[name=training_start_year]").val();
+                                var training_start_month = $(this).find("input[name=training_start_month]").val();
+                                var training_end_year = $(this).find("input[name=training_end_year]").val();
+                                var training_end_month = $(this).find("input[name=training_end_month]").val();
+                                var description = $(this).find("textarea[name=description]").val();
+                                $.post("?act=save_training", {pid: pid, agency: agency, course: course, training_start_year: training_start_year, training_start_month: training_start_month, training_end_year: training_end_year, training_end_month: training_end_month, description: description}, function(result) {
+                                    if (result != "success") {
+                                        alert(result);
+                                    } else {
+                                        alert('保存成功');
+                                        $('div.training_add').slideUp();
+                                        $('div.training_list').show();
+                                    }
+                                    get_training_list();
+                                });
+                                return false;
+                            });
+                        </script>
+                    </div>
+
+
+
+                    <div id="certificate_box" class="certificate_box">
+                        <div class="box_title">
+                            <p>资历证书</p>
+                            <span>允许上传的照片格式为jpg,gif,png,bmp，大小不能超过5MB，最多上传五张证书</span>
+                        </div>
+                        <ul>
+                            {#foreach from=$resume_certificate item=r#}
+                            <li id="{#$r.id#}">
+                                <div class="img">
+                                    <img src="{#$QISHI.website_dir#}data/resume_certificate/{#$r.path#}" height="120" />
+                                    <div class="do">
+                                        {#if $r.audit == 0#}
+                                        <span>未审核</span>
+                                        {#elseif $r.audit == 1#}
+                                        <span>已审核</span>
+                                        {#elseif $r.audit == 2#}
+                                        <span>不通过</span>
+                                        {#/if#}
+                                        <a title="删除证书" data-id="{#$r.id#}"  >删除</a>
+                                        <div class="bg"></div>
+                                    </div>
+                                </div>
+                                <p>{#$r.note#}</p>
+                            </li>
+                            {#/foreach#}
+                            <li class="add">
+                                <form id="certificate_form">
+                                    <input id="certificate" name="certificate" class="file" type="file" />
+                                    <img id="certificate_img" src="{#$QISHI.site_template#}images/2017/upload_img.jpg" width="180" height="120" />
+                                    <div class="clear"></div>
+                                    <input id="certificate_path" name="img_path" type="hidden" value="" />
+                                    <input id="pid" name="pid" type="hidden" value="" />
+                                    <input id="certificate_name" class="name" type="text" />
+                                    <div class="clear"></div>
+                                    <input class="submit" type="submit" value="添加" />
+                                </form>
+                            </li>
+                        </ul>
+                        <script>
+                            $('#certificate_box li').mouseover(function() {
+                                $(this).find('div.do').show();
+                            }).mouseleave(function() {
+                                $(this).find('div.do').hide();
+                            })
+                            $('#certificate_box li a').click(function() {
+                                if (confirm("确认删除？")) {
+                                    var id = $(this).attr('data-id');
+                                    $.get('?act=del_certificate&id=' + id, function(data) {
+                                        if (data.indexOf('成功') > -1) {
+                                            location.reload();
+                                        } else {
+                                            alert(data);
+                                        }
+                                    })
+                                }
+                            })
+                            $('form#certificate_form').on('change', '#certificate', function() {
+                                $.ajaxFileUpload({
+                                    url: '?act=make2_certificate_save&pid={#$pid#}&ajax_path=1',
+                                    secureuri: false,
+                                    fileElementId: 'certificate',
+                                    dataType: 'string',
+                                    success: function(data, status) {
+                                        var f = data.substr(0, 1);
+                                        if (f == "-") {
+                                            switch (data) {
+                                                case "-1":
+                                                    alert("上传图片失败：上传目录不存在!");
+                                                    return false;
+                                                    break;
+                                                case "-2":
+                                                    alert("上传图片失败：上传目录无法写入!");
+                                                    return false;
+                                                    break;
+                                                case "-3":
+                                                    alert("上传图片失败：你选择的文件无法上传");
+                                                    return false;
+                                                    break;
+                                                case "-4":
+                                                    alert("上传图片失败：文件大小超过限制，请勿超过2M");
+                                                    return false;
+                                                    break;
+                                                case "-5":
+                                                    alert("上传图片失败：文件类型错误！");
+                                                    return false;
+                                                    break;
+                                                case "-6":
+                                                    alert("上传图片失败：文件上传出错！");
+                                                    return false;
+                                                    break;
+                                                case "-7":
+                                                    alert("参数错误！");
+                                                    return false;
+                                                    break;
+                                                case "-8":
+                                                    alert("请先填写简历基本信息！");
+                                                    return false;
+                                                    break;
+                                                case "-9":
+                                                    alert("最多只能上传5个证书！");
+                                                    return false;
+                                                    break;
+                                                case "-10":
+                                                    alert("请上传图片！");
+                                                    return false;
+                                                    break;
+                                                case "-11":
+                                                    alert("请填写证书名称！");
+                                                    return false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        } else {
+                                            $('img#certificate_img').attr('src', '/data/resume_certificate/' + data);
+                                            $('#certificate_path').val(data)
+                                        }
+                                    }
+                                })
+                            })
+                            $('#certificate_form').submit(function() {
+                                var certificate_name = $('#certificate_name').attr('value');
+                                var certificate_path = $('#certificate_path').attr('value');
+                                if (certificate_name == "") {
+                                    alert("请填写证书名称！");
+                                    return false;
+                                } else if (certificate_path == "") {
+                                    alert("请上传证书！");
+                                    return false;
+                                } else {
+                                    $.get("?act=make2_certificate_save&pid={#$pid#}", {certificate_name: certificate_name, img_path: certificate_path}, function(result) {
+                                        alert("上传成功！");
+                                        window.location.href = "/user/personal/personal_resume.php?act=edit_resume";
+                                    });
+                                    return false;
+                                }
+                            })
+                        </script>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="apply">
+                                <a href="/user/personal/personal_apply.php?act=apply_jobs">
+                                    <i></i>
+                                    <label>{#$count_apply#}</label>
+                                    <div class="clear"></div>
+                                    <span>投递箱</span>
+                                </a>
+                            </li>
+                            <li class="fav">
+                                <a href="/user/personal/personal_apply.php?act=favorites">
+                                    <i></i>
+                                    <label>{#$favorites_total#}</label>
+                                    <div class="clear"></div>
+                                    <span>收藏夹</span>
+                                </a>
+                            </li>
+                            <li class="invitation">
+                                <a href="/user/personal/personal_apply.php?act=interview">
+                                    <i></i>
+                                    <label>{#$count_interview#}</label>
+                                    <div class="clear"></div>
+                                    <span>邀请函</span>
+                                </a>
+                            </li>
+                            <li class="rss">
+                                <a href="/subscribe/">
+                                    <i></i>
+                                    <label></label>
+                                    <div class="clear"></div>
+                                    <span>订阅栏</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item_box">
+                        <a class="refresh_bt" href="javascript:void();"><i></i><span>刷新简历（上次刷新{#$resume_basic.refreshtime|date_format:"%Y/%m/%d"#}）</span></a>
+                        <script>
+                            $(".refresh_bt").live("click", function() {
+                                var pid = "{#$pid#}";
+                                $.get("personal_ajax.php?act=refresh_resume&id=" + pid, function(result) {
+                                    if (result == "1") {
+                                        alert("刷新成功");
+                                        location.reload();
+                                    } else {
+                                        alert(result);
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                    {#if !empty($resume_basic.attachment_resume)#}
+                    <div class="item_box">
+                        <div class="attachment_resume">
+                            <i class="file_icon"></i>
+                            <a class="file_name" href="?act=download_attachment_resume">{#$resume_basic.attachment_resume_name#}</a>
+                            <a class="file_del"></a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <script>
+                        $('.file_del').click(function() {
+                            var msg = "删除后无法不可恢复\n\n确认删除？";
+                            if (confirm(msg) == true) {
+                                $.get("?act=del_attachment_resume", function(result) {
+                                    if (result == "1") {
+                                        alert("删除成功！");
+                                        location.reload();
+                                    } else {
+                                        alert("删除失败！");
+                                    }
+                                })
+                            } else {
+                                return false;
+                            }
+                        })
+                    </script>
+                    {#else#}
+                    <div class="item_box">
+                        <a class="upload_bt"><i></i><span>上传附件</span></a>
+                        <script>
+                            $(".upload_bt").click(function() {
+                                $('div.attachment_box').show();
+                            })
+                        </script>
+                    </div>
+                    {#/if#}
+                    {#if !empty($resume_education) && !empty($resume_work) &&  !empty($resume_basic.attachment_resume)#}
+                    <div class="item_box">
+                        <div class="default_resume">
+                            <i class="default_icon"></i>
+                            <b class="default_txt">默认投递：{#if $resume_basic.default_resume == 0#}在线简历{#else#}附件简历{#/if#}</b>
+                            <i class="default_show"></i>
+                            <ul class="default_list">
+                                <li><p data-id="0">在线简历</p></li>
+                                <li><p data-id="1">附件简历</p></li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <script>
+                        $('.default_resume').click(function() {
+                            $('.default_list').show();
+                        })
+                        $(".default_list p").click(function() {
+                            $.get("?act=set_default_resume&data=" + $(this).attr('data-id'), function(result) {
+                                if (result == "1") {
+                                    location.reload();
+                                } else {
+                                    alert("修改失败！");
+                                }
+                            })
+                        })
+                    </script>
+                    {#/if#}
+                    <div class="item_box">
+                        <div class="info_box">
+                            <div class="top">
+                                <span class="left">简历完整度：{#$resume_basic.complete_percent#}%</span>
+                                <a class="right" href="/ProfileBank/ShowResume.shtml?ID={#$pid#}">预览</a>
+                                <div class="clear"></div>
+                                <div class="progress_box">
+                                    <p style="width: {#$resume_basic.complete_percent#}%"></p>
+                                </div>
+                            </div>
+                            <ul class="bottom">
+                                <li class="up_resume">
+                                    {#if $resume_basic.talent == 1#}
+                                    <a href="?act=talent_save&pid={#$pid#}"><i></i><span>升级简历</span></a>
+                                    {#else#}
+                                    <a onclick="javasirpt:alert('您已是高级简历');"><i></i><span>升级简历</span></a>
+                                    {#/if#}
+                                </li>
+                                <li class="look_resume">
+                                    <a href="/user/personal/personal_apply.php?act=attention_me"><i></i><span>{#$count_attention_me#}</span></a>
+                                </li>
+                                <li class="click_resume">
+                                    <i></i><span>{#$resume_basic.click#}</span>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div class="nav_box">
+                            <ul class="top">
+                                <li class="base">
+                                    <a href="#base_box"><i></i><span>基本信息</span></a>
+                                </li>
+                                <li class="intention">
+                                    <a href="#intention_box"><i></i><span>求职意向</span></a>
+                                </li>
+                                <li class="education">
+                                    <a href="#education_box"><i></i><span>教育经历</span></a>
+                                </li>
+                                <li class="work">
+                                    <a href="#jobs_box"><i></i><span>工作经历</span></a>
+                                </li>
+                                <li class="training">
+                                    <a href="#training_box"><i></i><span>培训经历</span></a>
+                                </li>
+                                <li class="certificate">
+                                    <a href="#certificate_box"><i></i><span>资历证书</span></a>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                            <div class="shielding_box">
+                                <p class="title">屏蔽企业</p>
+                                <ul>
+                                    {#foreach from=$comkeyword item=c#}
+                                    <li><span>{#$c.comkeyword#}</span><a data-id="{#$c.id#}" href="javascript:void();"></a></li>
+                                    {#/foreach#}
+                                </ul>
+                                <form id="shield_company_form">
+                                    <input id="comkeyword" class="key" type="text" value="" />
+                                    <input class="submit" type="submit" value="保存"/>
+                                </form>
+                                <script>
+                                    $('#shield_company_form').submit(function() {
+                                        var pid = "{#$pid#}";
+                                        var comkeyword = $("#comkeyword").val();
+                                        comkeyword = comkeyword.replace(/^\s+|\s+$/g, "");
+                                        if (comkeyword == "") {
+                                            alert("请填写企业关键词！");
+                                            return false;
+                                        } else {
+                                            $.post("personal_ajax.php?act=save_shield_company", {pid: pid, comkeyword: comkeyword}, function(result) {
+                                                if (result == "1") {
+                                                    alert('添加成功！');
+                                                    location.reload();
+                                                } else if (result == "-1") {
+                                                    alert("参数错误！");
+                                                } else {
+                                                    alert("每份简历最多屏蔽 10 个企业关键词！");
+                                                }
+                                            });
+                                        }
+                                        return false;
+                                    })
+                                    $(".shielding_box a").live("click", function() {
+                                        var pid = "{#$pid#}";
+                                        var keyword_id = $(this).attr("data-id");
+                                        $.post("personal_ajax.php?act=del_shield_company", {pid: pid, keyword_id: keyword_id}, function(result) {
+                                            if (result) {
+                                                alert('删除成功！');
+                                                location.reload();
+                                            } else {
+                                                alert('参数错误！');
+                                            }
+
+                                        });
+                                    });
+                                </script>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="label_select_box">
+            <div class="select_box">
+                <div class="top">
+                    <a class="right"  ></a>
+                </div>
+                <div class="middle">
+                    <ul>
+                        {#foreach from=$resume_tag item=t#}
+                        <li id="tag{#$t.c_id#}" data-value="{#$t.c_id#}-{#$t.c_name#}">
+                            <i></i>
+                            <span>{#$t.c_name#}</span>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <a class="right"  >确定</a>
+                </div>
+            </div>
+            <div class="bg"></div>
+        </div>
+        <script>
+
+            var resume_tag = "{#$resume_basic.tag#}";
+
+            if (resume_tag.indexOf('|') > 0) {
+                var resume_tag_arr = resume_tag.split("|");
+            } else {
+                var resume_tag_arr = new Array(resume_tag);
+            }
+            for (var i = 0; i < resume_tag_arr.length; i++) {
+                var item = resume_tag_arr[i].split(",");
+                $('.label_select_box li#tag' + item[0]).addClass('selected');
+            }
+            reset_tag();
+
+            $('.base_edit div.label a.add').click(function() {
+                $('body').css('overflow', 'hidden');
+                $('.label_select_box').show();
+            });
+            $('.label_select_box div.top a').click(function() {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box div.bottom a').click(function() {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box div.bg').click(function() {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box li').click(function() {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    if ($('.label_select_box li.selected').length < 5) {
+                        $(this).addClass('selected');
+                    } else {
+                        alert('标签最多选择5个！');
+                    }
+                }
+                reset_tag();
+            });
+
+            $('.base_edit div.label').on('click', 'p a', function() {
+                var t_id = $(this).parent().attr('id');
+                $('.label_select_box li#' + t_id).removeClass('selected');
+                reset_tag();
+            })
+
+            function reset_tag() {
+                var tag_html = "";
+                var tag_str = "";
+                $('.label_select_box li.selected').each(function() {
+                    var v = $(this).attr('data-value');
+                    var v_arr = v.split('-');
+                    tag_html += '<p id="tag' + v_arr[0] + '">' + v_arr[1] + '<a  ></a></p>';
+                    tag_str += v_arr[0] + ',' + v_arr[1] + '|';
+                })
+                tag_html += '<input type="hidden" value="' + tag_str + '" id="tag" name="tag"/>';
+                tag_html += '<div class="clear"></div>';
+                $('.base_edit div.label div.input_box').html(tag_html);
+            }
+
+        </script>
+        <div class="attachment_box">
+            <div class="content_box">
+                <div class="top">
+                    <span>上传附件简历</span>
+                    <a class="close"></a>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <span>选择上传文件</span>
+                    <input id="attachment_resume" name="attachment_resume" class="attachment_resume" type="file" />
+                    <div class="clear"></div>
+                    <p>文件大小需小于10M</p>
+                    <p>支持word、pdf、ppt、txt、wps格式文件</p>
+                </div>
+            </div>
+            <div class="bg"></div>
+            <script>
+                $('div.attachment_box a.close').click(function() {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box div.bg').click(function() {
+                    $('div.attachment_box').hide();
+                })
+                $('div.attachment_box').on('change', '#attachment_resume', function() {
+                    $.ajaxFileUpload({
+                        url: '?act=upload_attachment_resume',
+                        secureuri: false,
+                        fileElementId: 'attachment_resume',
+                        dataType: 'string',
+                        success: function(data, status) {
+                            var f = data.substr(0, 1);
+                            if (f == "-") {
+                                switch (data) {
+                                    case "-1":
+                                        alert("上传失败：上传目录不存在!");
+                                        return false;
+                                        break;
+                                    case "-2":
+                                        alert("上传失败：上传目录无法写入!");
+                                        return false;
+                                        break;
+                                    case "-3":
+                                        alert("上传失败：你选择的文件无法上传");
+                                        return false;
+                                        break;
+                                    case "-4":
+                                        alert("上传失败：文件大小超过限制");
+                                        return false;
+                                        break;
+                                    case "-5":
+                                        alert("上传失败：文件类型错误！");
+                                        return false;
+                                        break;
+                                    case "-6":
+                                        alert("上传失败：文件上传出错！");
+                                        return false;
+                                        break;
+                                    case "-7":
+                                        alert("参数错误！");
+                                        return false;
+                                        break;
+                                    case "-9":
+                                        alert("最多只能上传1个附件！");
+                                        return false;
+                                        break;
+                                    case "-10":
+                                        alert("请上传文件！");
+                                        return false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                })
+            </script>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>
+
+

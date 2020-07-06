@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+{#qishi_pageinfo set="列表名:page,调用:QS_hunter_list"#}
+<title>{#$page.title#}</title>
+<meta name="description" content="{#$page.description#}">
+<meta name="keywords" content="{#$page.keywords#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/hunter.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+<script src="{#$QISHI.site_template#}js/jquery.hunter-list.js" type='text/javascript'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var getstr = "{#$smarty.get.citycategory#}";
+	allaround('{#$QISHI.website_dir#}',getstr);
+	// 显示地区
+	$("#jobsCity").hover(function() {
+		$("#divCityCate").show();
+		$("#divCityCate li").hover(function() {
+			if($(this).find('.subcate').length > 0) {
+				$(this).addClass('selected');
+				$(this).find('.subcate').show();
+			} else {
+				$(this).find('a').css("color","#f77d40");
+			}
+		}, function() {
+			if($(this).find('.subcate').length > 0) {
+				$(this).removeClass('selected');
+				$(this).find('.subcate').hide();
+			} else {
+				$(this).find('a').css("color","#0180cf");
+			}
+		});
+	}, function() {
+		$("#divCityCate").hide();
+	});
+	$(".hunter_search").click(function(){
+		var key = $("#searckey").val();
+		news_search_location(key);
+	});
+	function news_search_location(key)
+	{
+		$("body").append('<div id="pageloadingbox">页面加载中....</div><div id="pageloadingbg"></div>');
+		$("#pageloadingbg").css("opacity", 0.5);
+		$.get("{#$QISHI.website_dir#}plus/ajax_search_location.php", {"act":"QS_hunter_list","key":key,"citycategory":$("#district_id").val()},
+				function (data,textStatus)
+				 {
+					 window.location.href=data;
+				 }
+			);
+	}
+	var optstr = '{#$smarty.get.citycategory#}';
+	if(optstr) {
+		var citystrarray = optstr.split("|");
+		var pgsnameArr = new Array();
+		var pgsname = '';
+		var cityopthtm = '';
+		$.each(citystrarray, function(index, val) {
+			 var citystr = val.split('.');
+			 var pname = '';
+			 $.each(QS_city_parent, function(vindex, valv) {
+			 	 var vid = valv.split(",");
+			 	 if(citystr[0] == vid[0]) {
+			 	 	pname = vid[1];
+			 	 }
+			 });
+			 var gname = '';
+			 var gns = QS_city[citystr[0]].split("|");
+			 $.each(gns, function(gindex, galv) {
+			 	 var gvid = galv.split(",");
+			 	 if(citystr[1] == gvid[0]) {
+			 	 	gname = gvid[1];
+			 	 }
+			 });
+			 pgsname += pname + "/" + gname; 
+			 cityopthtm += '<a href="javascript:;" class="sx-yx-cnt" id="checked_value_'+citystr[1]+'" gname="'+pgsname+'" gid="'+val+'"><span rel="'+citystr[1]+'">'+gname+'</span><i class="del cls_checked_del" rel="'+citystr[1]+'" id="checked_value_del_'+citystr[1]+'"></i></a>';
+			 if(QS_city[citystr[1]]) {
+			 	var sname = '';
+			 	var sns = QS_city[citystr[1]].split("|");
+				 $.each(sns, function(sindex, salv) {
+				 	 var svid = salv.split(",");
+				 	 if(citystr[2] == svid[0]) {
+				 	 	sname = svid[1];
+				 	 }
+				 });
+				 pgsname += "/" + sname;
+				 cityopthtm += '<a href="javascript:;" class="sx-yx-cnt" id="checked_value_'+citystr[2]+'" gname="'+pgsname+'" gid="'+val+'"><span lid="'+citystr[1]+'" rel="'+citystr[2]+'">'+sname+'</span><i class="del cls_checked_del" rel="'+citystr[2]+'" id="checked_value_del_'+citystr[2]+'"></i></a>';
+			 }
+			 pgsnameArr.push(pgsname);
+		});
+		$("#jobsCity").find("span").html(pgsnameArr.join(","));
+		$("#box_checkedDistrict").html(cityopthtm);
+		chechkcli("#box_checkedDistrict","#sx-nomalDistrict");
+	}
+});
+$(function(){
+	$(".hhunt_info:last").css({"border-bottom":0, "padding-bottom":10});
+})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+	<!-- 当前位置 -->
+	<div class="page_location link_bk">
+		当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;猎头
+	</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="hunt_list_sreach">
+			<div class="line_1 jobmain">
+				<div class="box" id="jobsCity">
+					<div class="itemT">
+						<span id="cityText">请选择地区分类</span><i></i>
+					</div>
+					<div style="display:none;" id="divCityCate" class="divJobCate">
+						<table class="jobcatebox citycatebox">
+							<div class="acquired">
+								<div class="l">已选</div>
+								<div class="c" id="cityAcq"></div>
+								<div class="r">
+									<div class="empty" id="cityEmpty"></div>
+									<div class="sure" id="citySure">确定</div>
+									<div class="container" id="citydropcontent">
+										<div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+										<s><e></e></s>
+									</div>
+								</div>
+							</div>
+							<tbody></tbody> 
+						</table>
+					</div>
+					<input id="district_id" type="hidden" value="{#$smarty.get.citycategory#}" name="district_id">
+					<input id="district_cn" type="hidden" value="" name="district_cn"/>
+				</div>
+				<div class="keybox">
+			 		<input type="text" id="searckey" name="key" value="{#$smarty.get.key|default:请输入关键字#}" />
+			 	</div>
+				<input type="button" value="搜索" class="but130lan hunter_search" style="height:32px;line-height:32px;margin-left:10px;" />
+			</div>
+	<!-- 选择地区弹出框  -->
+	<div id="cityBoxDistrict" class="alert-window" style="width:810px;height:500px;left:50%;margin-left:-405px;top:100px; position:absolute;z-index:10;display:none;">
+		<div class="resume-tc">
+			<div class="resume-tc-head">
+	        <h3><i class="icon-loc"></i>请选择搜索地区</h3>
+	        <a class="close wd_close cm_closeMsg" href="javascript:;"></a>
+	    </div>
+	    <div class="sx-yx">
+	    	<span class="clr-grn fnt-b">已选：</span>
+	    	<span id="box_checkedDistrict"></span>
+	    </div>
+	    <div style="width:810px;height:410px; overflow: auto; overflow-x: hidden; overflow-y: auto; position:relative;" class="sx-cnt">
+	    	<div style="padding-bottom: 0px;" class="sx-rm" id="sx-rmDistrict">
+	    		<ul style="width:760px;" class="cf"></ul>
+	    	</div>
+	    	<div style="padding-bottom:0px;" class="sx-nomal" id="sx-nomalDistrict">
+	    		<ul style="width:760px;" class="cf"></ul>
+	    	</div>
+	    </div>
+		<div class="sx-action">
+	    	<button id="btn_citysave" class="grn" type="button">确定</button> 
+	    	<button id="btn_citycancel" class="gray" type="button">取消</button>
+	    </div>
+		</div>
+	</div>
+	<!-- 选择地区弹出框  end-->		
+			
+		</div>
+		{#qishi_hunter_list set="列表名:hunter,分页显示:1,显示数目:10,猎头名长度:5,擅长行业长度:5,地区分类:GET[citycategory],关键字:GET[key],填补字符:...,排序:rtime>desc"#}
+		<div class="hunt_left">
+			<div class="left_title">
+				<h3>共搜到 <span>{#$total#}</span> 位猎头顾问</h3>
+				<p>第{#$currenpage#}/{#$countpage#}页</p>
+				<div class="clear"></div>
+			</div>
+			{#if $hunter#}
+			<div class="left_hunt_list">
+				<ul>
+					{#foreach from=$hunter item=list#}
+					<li class="hunt_list_item">
+						<div class="hunt_l">
+							<div class="avater"><a href="{#"QS_hunter_show,id:"|cat:$list.id|qishi_url#}"><img src="{#$list.photosrc#}" alt="" /></a></div>
+							<div class="hunt_txt">
+								<p><a href="{#"QS_hunter_show,id:"|cat:$list.id|qishi_url#}">{#$list.huntername#}</a></p>
+								<p>从业年限：{#$list.years#} 年</p>
+								<p>所在地区：{#$list.district_cn#}</p>
+								<p>擅长行业：{#$list.goodtrade_cn#}</p>
+								<p>擅长职能：{#$list.goodcategory_cn#}</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="hunt_r">
+							<p>正在发布的职位：</p>
+							<ul>
+								{#foreach from=$list.jobslist item=jli#}
+								<li>
+									<p><a href="{#$jli.jobs_url#}">{#$jli.jobs_name#}</a></p>
+									<div>{#$jli.refreshtime#}</div>
+								</li>
+								{#/foreach#}
+								<li>
+									<p><a href="{#"QS_hunter_show,id:"|cat:$list.id|qishi_url#}" class="all">查看所有职位>></a></p>
+								</li>
+							</ul>
+						</div>
+						<div class="clear"></div>
+					</li>
+					{#/foreach#}
+				</ul>
+			</div>
+			{#if $page#}
+				<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+			      <tr>
+			        <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+			      </tr>
+			  </table>
+			  {#/if#}
+			  {#else#}
+				<div class="emptytip">抱歉，没有符合此条件的信息！</div>
+			  {#/if#}
+		</div>
+		<div class="hunt_right">
+			<div class="right_box">
+				<div class="title_box">
+					<h5>推荐猎头</h5>
+				</div>
+				<div class="list">
+					{#qishi_hunter_list set="列表名:hunter,分页显示:0,显示数目:4,猎头名长度:5,擅长行业长度:5,填补字符:...,排序:rtime>desc"#}
+					{#foreach from=$hunter item=list#}
+					<div class="hhunt_info">
+						<div class="avatar"><a href="#"><img src="{#$list.photosrc#}" width="68" height="85" alt="" /></a></div>
+						<div class="hhunt_txt">
+							<p>{#$list.huntername#}</p>
+							<p>从业年限：{#$list.years#} 年</p>
+							<p>{#$list.district_cn#}</p>
+						</div>
+						<div class="clear"></div>
+					</div>
+					{#/foreach#}
+				</div>
+			</div>
+
+			<div class="right_box">
+				<div class="title_box">
+					<h5>推荐职位</h5>
+				</div>
+				<div class="list">
+					<ul>
+						{#qishi_hunter_jobs_list set="分页显示:0,列表名:jobslist,显示数目:5,填补字符:...,职位名长度:8,企业名长度:19,推荐:1,排序:rtime"#}
+						{#foreach  from=$jobslist item=list#}
+						<li>
+							<div class="w150"><a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></div>
+							<div class="fl"><span>{#$list.wage_cn#}</span></div>
+							<div class="clear"></div>
+						</li>
+						{#/foreach#}
+						<div class="clear"></div>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+	{#include file="footer.htm"#}
+</body>
+</html>

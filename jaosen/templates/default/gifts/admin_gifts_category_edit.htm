@@ -1,0 +1,99 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+ 
+	//日期
+	$(function() { 
+	$(".date_input").date_input(); 
+	}); 
+	
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="gifts/admin_gifts_nav.htm"#}
+  <div class="clear"></div>
+</div>
+ 
+<div class="toptit">修改分类</div>
+<form id="form1" name="form1" method="post" action="?act=edit_category_save">
+{#$inputtoken#}
+<div id="html_tpl">
+<table width="100%" border="0" cellspacing="6" cellpadding="0"  >
+  <tr>
+    <td width="120" align="right">分类名称:</td>
+    <td><input name="t_name" type="text" class="input_text_400"  value="{#$category.t_name#}"/>
+	<span class="admin_note">如：2012年国庆礼品卡</span>
+	</td>
+  </tr>
+   <tr>
+    <td width="120" align="right">有效期开始时间:</td>
+    <td><input name="t_starttime" type="text" class="input_text_200 date_input"  value="{#$category.t_starttime#}"/>
+	<span class="admin_note">生成礼品卡后，从开始时间起才可以使用此类礼品卡充值，如：2012-05-01，0为不限制</span>
+	</td>
+  </tr>
+  <tr>
+    <td width="120" align="right">有效期截至时间:</td>
+    <td><input name="t_endtime" type="text" class="input_text_200 date_input"   value="{#$category.t_endtime#}"/>
+	<span class="admin_note">到期后此类礼品卡将不能使用，如：2012-05-10，0为不限制</span>
+	</td>
+  </tr>
+  <tr>
+    <td width="120" align="right">叠加次数:</td>
+    <td>
+	   
+	<input name="t_repeat" type="text" class="input_text_200"  value="{#$category.t_repeat#}"/>
+	<span class="admin_note">同会员可用同类礼品卡数，如设为1，每个会员仅能使用一次同类礼品卡，0为不限制，修改此项会影响此分类下的所有礼品卡</span>
+ </td>
+  </tr>
+  <tr>
+    <td width="120" align="right">赠送积分:</td>
+    <td>
+	   
+	<input name="t_amount" type="text" class="input_text_200"  value="{#$category.t_amount#}"/>
+	<span class="admin_note">使用礼品卡后获得的积分，修改此项会影响此分类下的所有礼品卡</span>
+ </td>
+  </tr>
+  <tr>
+    <td width="120" align="right">礼品卡帐号前缀:</td>
+    <td>
+	   
+	<input name="t_pre" type="text" class="input_text_200"  value="{#$category.t_pre#}"/>
+	<span class="admin_note">如：74cms_ 用于区分不同类型的礼品卡</span>
+ </td>
+  </tr>
+  <tr>
+    <td width="120" align="right">可用状态:</td>
+    <td>
+	   
+	  <select name="t_effective">
+	    <option value="1" {#if $category.t_effective=="1"#}selected="selected"{#/if#}>可用</option>
+	    <option value="0" {#if $category.t_effective=="0"#}selected="selected"{#/if#}>不可用</option>
+	    </select>
+	  <span class="admin_note">此类礼品卡是否可用，修改此项会影响此分类下的所有礼品卡</span>
+ </td>
+ 
+</table>
+</div>
+<div id="html"></div>
+<table width="100%" border="0" cellspacing="6" cellpadding="0">
+  <tr>
+    <td width="120"> </td>
+    <td>
+	<input name="id" type="hidden" value="{#$category.t_id#}" />
+	<input type="submit" name="addsave" value="保存" class="admin_submit" />
+ 
+		  <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="window.location='?act=category'"/>
+	
+	</td>
+  </tr>
+</table>
+ </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/bd001/bd_list.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <title>无标题文档</title>
+    </head>
+
+    <body>
+        <form action="" method="post">
+            <div>
+                <span>状态：</span>
+                <a href="?state=-1">全部</a>
+                <a href="?state=0">未处理</a>
+                <a href="?state=1">已处理</a>
+            </div>
+            <table width="80%" border="1" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th width="5%" scope="col"></th>
+                        <th width="20%" scope="col">姓名</th>
+                        <th width="10%" scope="col">手机号</th>
+                        <th width="50%" scope="col">微信号</th>
+                        <th width="15%" scope="col">添加时间</th>
+                    </tr>
+                    {#foreach from=$list item=list#}
+                    <tr class="{#if $list.state == 1#}done{#/if#}">
+                        <td><input type="checkbox" name="item[]" value="{#$list.id#}" /></td>
+                        <td>{#$list.item1#}</td>
+                        <td>{#$list.item2#}</td>
+                        <td>{#$list.item3#}</td>
+                        <td>{#$list.add_time|date_format:"%Y-%m-%d %H:%M:%S"#}</td>
+                    </tr>
+                    {#/foreach#}
+                </tbody>
+            </table>
+            <div class="do_box">
+                <input type="checkbox" title="全选/反选" id="chk"/>
+                <input class="submit" type="submit" value="标记为已处理" />
+            </div>
+        </form>
+        <script>
+            $('#chk').click(function () {
+                if ($(this).attr("checked")) {
+                    $('table input').attr('checked', true)
+                } else {
+                    $('table input').removeAttr('checked')
+                }
+            })
+        </script>
+    </body>
+</html>

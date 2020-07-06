@@ -1,0 +1,87 @@
+<link href="{#$QISHI.site_template#}css/base_c.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="{#$QISHI.site_template#}js/jquery.js"></script>
+<!--<div id="page_header">
+        <div class="main_box">
+        <ul class="nav">
+                <li>
+                <a title="首页" href="{#$QISHI.website_dir#}">首页</a>
+            </li>
+                <li>
+                <a title="学校" href="/company">学校</a>
+            </li>
+                <li>
+                <a title="教师" href="/resume">教师</a>
+            </li>
+                <li>
+                <a title="新闻资讯" href="/news">新闻资讯</a>
+            </li>
+                <li>
+                <a title="会员中心" href="/user/login.php">会员中心</a>
+            </li>
+        </ul>
+        <div class="login_box"></div>
+    </div>
+</div>-->
+
+
+<center id="ad_h001">
+    <!--<a href="/user/company/company_jobs_limit_point.php" target="_blank"><img src="{#$QISHI.site_template#}images/ad_index_top.jpg"/></a>-->
+
+    {#qishi_ad set="调用名称:h001,显示数目:1"#}
+    {#foreach from=$list item=ad#}
+    <a href="/ad_count/index.php?ad_name=h001&img={#$ad.img_path#}&url={#$ad.img_url#}" target="_blank"><img src="{#$ad.img_path#}" width="1000" height="90"/></a>
+    {#/foreach#}
+</center>
+<div id="header">
+    <div class="main_box">
+        <a title="中国教师招聘网" class="logo" href="/index.php"></a>
+        <ul class="nav">
+            <li class="<?php echo $url_str == 'index.php'?'cur':'';?>">
+                <div>
+                    <a title="首页" href="{#$QISHI.main_domain#}">首页</a>
+                </div>
+            </li>
+            <li class="<?php echo $url_str == 'company'?'cur':'';?>">
+                <div>
+                    <a title="学校" href="/company">学校</a>
+                </div>
+            </li>
+            <!--<li class="<?php echo $url_str == 'ProfileBank'?'cur':'';?>">
+                <div>
+                    <a title="教师" href="/ProfileBank">教师</a>
+                </div>
+            </li>-->
+            <li>
+                <div>
+                    <a target="_blank" title="在线题库" href="http://tiku_test.jiaoshizhaopin.net">题库</a>
+                </div>
+            </li>
+            <!--
+    <li>
+    <div>
+            <a target="_blank" title="社区" href="http://wsq.qq.com/reflow/264428597">社区</a>
+    </div>
+</li>
+            -->
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $.get("{#$QISHI.website_dir#}plus/ajax_user_c.php", {"act": "top_loginform", "cur_url": document.URL},
+    function (data, textStatus) {
+        $("#header").html(data);
+    }
+    );
+    $(document).on('mouseover', '.login_box', function () {
+        $(this).find('ul').show();
+    })
+
+    $(document).on('mouseleave', '.login_box', function () {
+        $(this).find('ul').hide();
+    })
+    var explorer = window.navigator.userAgent;
+    if (explorer.indexOf("MSIE 6") >= 0 || explorer.indexOf("MSIE 7") >= 0 || explorer.indexOf("MSIE 87") >= 0) {
+        window.location.href = "/low_browser";
+    }
+</script>

@@ -1,0 +1,123 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+<link href="css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-ui.min.js" type='text/javascript' language="javascript"></script>
+<script>
+    $(document).ready(function () {
+        $.datepicker.regional['zh-CN'] = {
+            clearText: '清除',
+            clearStatus: '清除已选日期',
+            closeText: '关闭',
+            closeStatus: '不改变当前选择',
+            prevText: '<上月',
+            prevStatus: '显示上月',
+            prevBigText: '<<',
+            prevBigStatus: '显示上一年',
+            nextText: '下月>',
+            nextStatus: '显示下月',
+            nextBigText: '>>',
+            nextBigStatus: '显示下一年',
+            currentText: '今天',
+            currentStatus: '显示本月',
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            monthNamesShort: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+            monthStatus: '选择月份',
+            yearStatus: '选择年份',
+            weekHeader: '周',
+            weekStatus: '年内周次',
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+            dayStatus: '设置 DD 为一周起始',
+            dateStatus: '选择 m月 d日, DD',
+            dateFormat: 'yy-mm-dd',
+            firstDay: 1,
+            initStatus: '请选择日期',
+            isRTL: false
+        };
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+        $("#datepicker").datepicker({minDate: -365, maxDate: +365});
+        $("#datepicker2").datepicker({minDate: -365, maxDate: +365});
+    })
+</script>
+
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        <div class="clear"></div>
+    </div>
+    <div class="seltpye_y">
+        <div class="tit link_lan">
+            <strong>广告位数据统计</strong><span></span>
+            <a href="?act=ad_count_list">[返回列表]</a>
+            <div class="pli link_bk"><u>每页显示：</u>
+                <a href="{#"perpage:10"|qishi_parse_url#}" {#if $smarty.get.perpage=="10"#}class="select"{#/if#}>10</a>
+                <a href="{#"perpage:20"|qishi_parse_url#}" {#if $smarty.get.perpage=="20"#}class="select"{#/if#}>20</a>
+                <a href="{#"perpage:30"|qishi_parse_url#}" {#if $smarty.get.perpage=="30"#}class="select"{#/if#}>30</a>
+                <a href="{#"perpage:60"|qishi_parse_url#}" {#if $smarty.get.perpage=="60"#}class="select"{#/if#}>60</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <form action="/jaosen/admin_ad.php" method="get">
+            <input type="hidden" name="ad_name" value="{#$smarty.get.ad_name#}"/>
+            <input type="hidden" name="act" value="ad_count_info"/>
+            <div class="list" style="width: 180px; height: 50px;">
+                <div class="t">开始时间</div>	  
+                <div class="txt link_lan">
+                    <input class="text" value="{#$start_time#}" name="start_time" type="text" id="datepicker" placeholder="请选择开始时间" />
+                </div>
+            </div>
+            <div class="list" style="width: 180px; height: 50px;">
+                <div class="t">结束时间</div>	  
+                <div class="txt link_lan">
+                    <input class="text" value="{#$end_time#}" name="end_time" type="text" id="datepicker2" placeholder="请选择结束时间" />
+                </div>
+            </div>
+            <div class="list" style="width: 180px; height: 50px;">	  
+                <input type="submit" value="搜索" />
+            </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+
+
+    {#if !$count_info#}
+    <div class="admin_list_no_info">没有任何信息！</div>
+    {#else#}
+    <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+        <tr>
+            <td width="20%" class="admin_list_tit admin_list_first">
+                <label id="chkAll">广告位名称</label>
+            </td>
+            <td width="30%"  class="admin_list_tit">广告图片</td>
+            <td width="40%"  class="admin_list_tit">跳转链接</td>
+            <td width="10%"  class="admin_list_tit">点击时间</td>
+        </tr>
+        {#foreach from=$count_info item=li#}
+        <tr>
+            <td   class="admin_list admin_list_first">
+                {#$li.ad_name_cn#}
+            </td>
+            <td  class="admin_list">
+                {#if !empty($li.img)#}
+                <img src="http://www.jiaoshizhaopin.net{#$li.img#}" height="100" />
+                {#/if#}
+            </td>
+            <td  class="admin_list">
+                <a target="_blank" href="{#$li.url#}">{#$li.url#}</a>
+            </td>
+            <td  class="admin_list">
+                {#$li.time#}
+            </td>
+        </tr>
+        {#/foreach#}
+    </table>
+    {#/if#}
+
+    <div class="page link_bk">{#$page#}</div>
+
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

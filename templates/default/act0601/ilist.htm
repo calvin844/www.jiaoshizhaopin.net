@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_作品列表_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+    </head>
+    <body id="ilist">
+        <div id="header">
+            <div class="top">
+                <div class='main_box'>
+                    <a class="logo" href="/" title="中国教师招聘网"></a>
+                    <ul class="fleft">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/company">学校</a></li>
+                        <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                        <li><a href="/morejobs">简章</a></li>
+                        <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                        <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                        <li><a href="/act0601/index.php">我的得意门生</a></li>
+                    </ul>
+                    <ul class="fright">
+                        <?php if(empty($_SESSION['username'])):?>
+                        <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                        <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                        <?php else:?>
+                        <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="top_nav">
+                        <div class="all_type">
+                            <a href="/act0601/ilist.php">全部作品</a>
+                        </div>
+                        <ul class="type_nav">
+                            <li>
+                                <a class="{#if $type==1#}hover{#/if#}" href="?type=1">美术</a>
+                            </li>
+                            <li>
+                                <a class="{#if $type==2#}hover{#/if#}" href="?type=2">音乐</a>
+                            </li>
+                            <li>
+                                <a class="{#if $type==3#}hover{#/if#}" href="?type=3">舞蹈</a>
+                            </li>
+                            <li>
+                                <a class="{#if $type==4#}hover{#/if#}" href="?type=4">创意</a>
+                            </li>
+                            <li>
+                                <a class="{#if $type==5#}hover{#/if#}" href="?type=5">书法</a>
+                            </li>
+                            <li>
+                                <a class="{#if $type==6#}hover{#/if#}" href="?type=6">作文</a>
+                            </li>
+                        </ul>
+                        <div class="order">
+                            <a class="{#if $order==1#}hover{#/if#}" href="?type={#$smarty.get.type#}&order=1">最新</a>
+                            <i></i>
+                            <a class="{#if $order==2#}hover{#/if#}" href="?type={#$smarty.get.type#}&order=2">最热</a>
+                        </div>
+                    </div>
+                    <div class="list">
+                        {#if !empty($data_list)#}
+                        <ul>
+                            {#foreach from=$data_list item=list#}
+                            <li>
+                                <div class="img_box">
+                                    <a href="/act0601/details.php?id={#$list.id#}"><img src="{#$list.thumb#}" width="480" height="270" /></a>
+                                </div>
+                                <div class="info_box">
+                                    <div class="top">
+                                        <a href="/act0601/details.php?id={#$list.id#}">{#$list.title#}</a>
+                                        <p>导师：<span>{#$list.teacher_name#}</span></p>
+                                    </div>
+                                    <div class="bottom">
+                                        <ul>
+                                            <li>人气：{#$list.click#}</li>
+                                            <li class="line"></li>
+                                            <li>爱心：{#$list.love_total#}</li>
+                                            <li class="line"></li>
+                                            <li>评分：{#$list.star_total#}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        {#else#}
+                        <p class="no_item">没有找到相关作品！</p>
+                        {#/if#}
+                    </div>
+
+                    {#if !empty($data_list) && $page_arr.total>1#}
+                    <div class="page">
+                        {#if $page_arr.cur_page > 1#}
+                        <a class="per" href="?type={#$type#}&order={#$order#}&p=1">首页</a>
+                        {#/if#}
+                        {#if $page_arr.cur_page > 3#}
+                        <span>......</span>
+                        {#/if#}
+                        {#foreach from=$page_arr.page_arr item=pa#}
+                        <a class="{#if $page_arr.cur_page == $pa#}hover{#/if#}" href="?type={#$type#}&order={#$order#}&p={#$pa#}">{#$pa#}</a>
+                        {#/foreach#}
+                        {#if $page_arr.cur_page < ($page_arr.total-2)#}
+                        <span>......</span>
+                        {#/if#}
+                        {#if $page_arr.cur_page < $page_arr.total#}
+                        <a class="next" href="?type={#$type#}&order={#$order#}&p={#$page_arr.total#}">尾页</a>
+                        {#/if#}
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <ul>
+                        <li><a href="/act0601/share.php">我的活动中心</a></li>
+                        <li class="hover"><a href="/act0601/ilist.php">更多参赛作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

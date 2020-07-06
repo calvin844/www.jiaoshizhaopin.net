@@ -1,0 +1,175 @@
+{#qishi_curriculum_show set="列表名:show,课程ID:GET[id]"#}
+{#qishi_train_show set="列表名:train,机构ID:"|cat:$show.train_id#}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$show.course_name#} - {#$show.trainname#} - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$show.trainname#} 课程{#$show.course_name#}">
+<meta name="keywords" content="{#$show.course_name#}，{#$show.trainname#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+		var id="{#$show.id#}";
+		var train_id="{#$show.train_id#}";
+		var tsTimeStamp= new Date().getTime();
+		$.get("{#$QISHI.website_dir#}plus/ajax_contact.php", { "id": id,"time":tsTimeStamp,"act":"course_contact"},
+			function (data,textStatus)
+			 {			
+				$(".course_contact").html(data);
+			 }
+		);
+		//申请课程
+		$(".app_course").click(function(){
+		dialog("申请课程","url:{#$QISHI.website_dir#}user/user_apply_course.php?id="+id+"&act=app","500px","auto","");
+		});	
+		$(".app").click(function(){
+		dialog("申请课程","url:{#$QISHI.website_dir#}user/user_apply_course.php?id="+$(this).attr("courseid")+"&act=app","500px","auto","");
+		});	
+
+});
+$(function(){
+	$("input[type='button']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<!-- 当前位置 -->
+<div class="page_location link_bk">
+	当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_train_curriculum"|qishi_url#}">课程信息</a>&nbsp;>&nbsp;<a href="{#$show.train_url#}">{#$show.trainname#}</a>&nbsp;>&nbsp;{#$show.course_name#}
+</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="left_area">
+			<div class="detail_top">
+				<h3>{#$show.course_name#}</h3>
+				<div class="company">
+					<a href="{#$show.train_url#}">{#$show.trainname#}</a>
+					{#if $show.train.audit=="1"#}<span title="企业已认证"></span>{#/if#}
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<span class="data">发布时间：{#$show.addtime|date_format:"%Y-%m-%d"#}</span>
+					<span class="watch">浏览：<em class="times">{#$show.click#}</em>次</span>
+					<span class="delivery">在线申请量：<em class="times">{#$show.countapply#}</em></span>
+					<span class="cour_type">课程班制：{#$show.classtype_cn#}</span>
+				</div>
+				<div class="apply_job">
+					<input type="button" value="申请课程" class="but115cheng app_course" />
+				</div>
+			</div>
+			<div class="detail_info">
+				<h4 class="titleh4">课程详情</h4>
+				<ul>
+					<li>
+						<div class="w248">培训费用：<span>￥{#$show.train_expenses#}</span></div>
+						<div class="w248">课程学时：{#$show.classhour#} 课时</div>
+						<div>课程讲师：{#$show.teacher_cn#}</div>
+					</li>
+					<li>
+						<div class="w248">课程类型：{#$show.category_cn#}</div>
+						<div class="w248">开课时间：{#$show.starttime|date_format:"%Y-%m-%d"#}</div>
+						<div>截止日期：{#$show.deadline|date_format:"%Y-%m-%d"#}</div>
+					</li>
+					<li>
+						<div class="w248">所在地区：{#$show.district_cn#}</div>
+						<div class="w248">颁发证书：{#$show.train_certificate#}</div>
+					</li>
+					<div class="clear"></div>
+					<li>
+						<p>培训对象：{#$show.train_object#}</p>
+					</li>
+				</ul>
+
+			</div>
+			<div class="detail_info t_cour_dateil">
+				<h4 class="titleh4">课程描述</h4>
+				<p>{#$show.contents|nl2br#}</p>
+			</div>
+			<div class="apply">
+				<div class="apply_job fl">
+					<input type="button" value="申请课程" class="but115cheng app_course" />
+				</div>
+				<div class="share">
+					<!-- Baidu Button BEGIN -->
+				    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+				        <a class="bds_qzone"></a>
+				        <a class="bds_tsina"></a>
+				        <a class="bds_tqq"></a>
+				        <a class="bds_renren"></a>
+				        <span class="bds_more">更多</span>
+				    </div>
+				<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=659075" ></script>
+				<script type="text/javascript" id="bdshell_js"></script>
+				<script type="text/javascript">
+					document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+				</script>
+				<div class="clear"></div>	
+				<!-- Baidu Button END -->
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="other_job">
+				<h4 class="titleh4">该机构其他课程</h4>
+				<table>
+					<tbody>
+						{#qishi_curriculum_list set="列表名:course,填补字符:...,课程名长度:18,分页显示:0,显示数目:3,列表页:QS_train_agency_curriculum,会员UID:$show.uid,机构名长度:10"#}
+			  			{#foreach from=$course item=list#}
+						<tr>
+							<td width="150" class="frist"><a href="{#$list.course_url#}">{#$list.course_name#}</a></td>
+							<td width="252" align="center">{#$list.classtype#}</td>
+							<td width="186">{#$list.district_cn#}</td>
+							<td width="94"><input type="button" value="申请课程" class="but80lan app" courseid="{#$show.id#}" /></td>
+						</tr>
+						{#/foreach#}
+					</tbody>
+				</table>
+			<div class="more"><a href="{#"QS_train_curriculum"|qishi_url#}">查看更多>></a></div>
+			</div>
+
+			
+		</div>
+		<!-- 右边内容 -->
+		<div class="right_area">
+			<div class="right_box">
+				<div class="title_box">
+					<h5>机构名片</h5>
+				</div>
+				<div class="list">
+					<ul>
+						<li>机构性质：{#$train.nature_cn#}</li>
+						<li>所在地区：{#$train.district_cn#}</li>
+						<li>成立时间：{#$train.founddate|date_format:"%Y-%m-%d"#}</li>
+						{#if $train.website#}
+						<li>机构网站：<a target="_blank" href="{#$train.website#}">{#$train.website#}</a></li>
+						{#/if#}
+					</ul>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="title_box">
+					<h5>联系方式</h5>
+				</div>
+				<div class="list course_contact">
+				</div>
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+	{#include file="footer.htm"#}
+</body>
+</html>

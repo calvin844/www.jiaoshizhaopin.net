@@ -1,0 +1,7 @@
+body{ background: #f5f5f5; text-align: center; padding: 20px 0px 20px 0px;}
+table{ background: #fff;  margin: 10px auto 0;}
+table tr{ height: 35px; line-height: 35px;}
+table .done *{ color: #ccc;}
+div.do_box{ float: left; margin: 10px 0 0 11%;}
+div.do_box .submit{ -webkit-appearance:none; cursor: pointer; color: #188eee; background: none; border: none;}
+div.do_box .submit:hover{ text-decoration: underline;}

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script>
+$(function(){
+	$(".but95lan").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+<style>
+.ad_desc{height:50px;}
+.ad_desc td{line-height:18px;}
+</style>
+</head>
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 申请广告位</div>
+
+<div class="usermain">
+  <div class="leftmenu  com link_bk">
+  	 {#include file="member_company/left.htm"#}
+  </div>
+
+<div class="rightmain">
+  
+ 	<div class="bbox1 link_bk my_account intrgration" style="padding-top:0;">
+		<div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">申请广告位</div>
+			</div>
+
+			<div class="navs">
+				<a href="?act=adv_list" class="se">购买广告位</a>
+				<a href="?act=adv_order_list">广告订单</a>
+					
+				<div class="clear"></div>
+			</div>
+		</div>
+		<table border="1" bordercolor="#ccc" cellpadding="0" cellspacing="0" width="720" class="package_tab">
+			<tbody>
+				<tr height="45" bgcolor="#0180CF">
+					<th>广告位名称</th>
+					<th>广告位类型</th>
+					<th>价格</th>
+					<th>购买</th>
+				</tr>
+        {#foreach from=$adv_list item=list#}
+			{#if $list.admin_set != 1#}
+				<tr align="center" class="ad_desc">
+					<td>{#$list.categoryname#}</td>
+					<td>{#if $list.type_id=="1"#}文字{#elseif $list.type_id=="2"#}图片{#elseif $list.type_id=="3"#}代码{#else#}Flash{#/if#}</td>
+					<td>
+						{#if !empty($list.expense)#}{#$list.expense#}元/周</br>{#/if#}
+						{#if !empty($list.expense_month)#}{#$list.expense_month#}元/月</br>{#/if#}
+						{#if !empty($list.expense_year)#}{#$list.expense_year#}元/年</br>{#/if#}
+						{#if !empty($list.expense_piece)#}{#$list.expense_piece#}元/条{#/if#}
+					</td>
+					<td><div class="but95lan" onclick="javascript:location.href='?act=adv_order_add&advid={#$list.id#}'">立即购买</div></td>
+				</tr>
+			{#/if#}
+        {#/foreach#}
+			</tbody>
+		</table>
+  	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

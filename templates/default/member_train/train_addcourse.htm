@@ -1,0 +1,587 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/date_input.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type="text/javascript" charset="utf-8"></script>
+<script src="{#$QISHI.site_template#}js/jquery.train.selectlayer.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	allaround('{#$QISHI.site_dir#}');
+	// 显示地区
+ 		$("#jobsCity").hover(function() {
+ 			$("#divCityCate").show();
+ 			$("#divCityCate li").hover(function() {
+ 				if($(this).find('.subcate').length > 0) {
+ 					$(this).addClass('selected');
+ 					$(this).find('.subcate').show();
+ 				} else {
+ 					$(this).find('a').css("color","#f77d40");
+ 				}
+ 			}, function() {
+ 				if($(this).find('.subcate').length > 0) {
+	 				$(this).removeClass('selected');
+	 				$(this).find('.subcate').hide();
+ 				} else {
+ 					$(this).find('a').css("color","#0180cf");
+ 				}
+ 			});
+ 		}, function() {
+ 			$("#divCityCate").hide();
+ 		});
+$(".date_input").date_input(); 
+menuDown("#classtype_menu","#classtype","#classtype_cn","#menu1","218px");
+menuDown("#teacher_menu","#teacher_id","#teacher_cn","#menu2","218px");
+{#if $QISHI.subsite=="1"#}
+menuDown("#subsite_menu","#subsite_id","","#menu3","218px");
+{#/if#}
+menuDown("#category_menu","#category","#category_cn","#menu4","218px");
+function menuDown(menuId,input,input_cn,menuList,width){
+	$(menuId).click(function(){
+		$(menuList).css("width",width);
+		$(menuList).slideDown('fast');
+		//生成背景
+		$(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+		$(".menu_bg_layer").height($(document).height());
+		$(".menu_bg_layer").css({ width: $(document).width(), position: "absolute", left: "0", top: "0" , "z-index": "0", "background-color": "#ffffff"});
+		$(".menu_bg_layer").css("opacity","0");
+		$(".menu_bg_layer").click(function(){
+			$(".menu_bg_layer").remove();
+			$(menuList).slideUp("fast");
+			$(menuId).parent("div").css("position","");
+		});
+	});
+
+	$(menuList+" li").click(function(){
+		var id = $(this).attr("id");
+		var title = $(this).attr("title");
+		$(input).val(id);
+		$(input_cn).val(title);
+		$(menuId).html(title);
+		$(menuList).slideUp('fast');
+		$(".menu_bg_layer").remove();
+	});
+}
+
+$("#Form1").validate({
+	rules:{
+	course_name:{
+    required: true,
+	minlength:2,
+    maxlength:30
+   },
+   days: {
+    required: true,
+	min:"{#$QISHI.course_add_days_min#}"
+   },
+   category: "required",
+   district: "required",
+   classtype: "required",
+   starttime: {
+    required: true
+   },
+   teacher_id: "required",
+   train_object: {
+    required: true,
+	minlength:5
+   },
+    classhour:{
+    required: true,
+	digits:true 
+	},   
+    train_expenses:{
+    required: true,
+	digits:true 
+	},   
+    favour_expenses:{
+    required: true,
+	digits:true 
+	},   
+   contents:{
+    required: true,
+	minlength:30,
+    maxlength:1000
+   },
+   contact:{
+   required: true
+   },
+    qq:{
+	digits:true 
+	},
+	 telephone: "required",
+	  address: "required",
+	   {#if $verify_addcourse=="1"#}
+		postcaptcha:{
+		IScaptchastr: true,
+		required: true,
+		remote:{     
+		url:"{#$QISHI.main_domain#}include/imagecaptcha.php",     
+		type:"post",    
+		data:{"postcaptcha":function (){return $("#postcaptcha").val()},"act":"verify","time":function (){return new Date().getTime()}}     
+		}
+	   },
+	   {#/if#}  
+	   email: {
+	   required:true,
+	   email:true
+	   }
+	},
+    messages: {
+    course_name: {
+    required: "请输入课程名称",
+    minlength: jQuery.format("课程名称不能小于{0}个字符"),
+	maxlength: jQuery.format("课程名称不能大于{0}个字符")
+   },
+   days: {
+    required: "请输入有效期",
+    min: jQuery.format("有效天数不能小于{0}天")
+   },
+    category: {
+    required: jQuery.format("请选择所属分类，精确选择课程类别可以有效提高宣传效果")
+   },
+    district: {
+    required: jQuery.format("请选择工作地区")
+   },
+    classtype: {
+    required: jQuery.format("请选择上课班制")
+   },
+    starttime: {
+    required: jQuery.format("请输入开课时间")
+   },
+  	teacher_id:{
+    required: jQuery.format("请选择主讲人")
+   },
+   train_object:{
+    required: "请填写授课对象",
+    minlength: jQuery.format("授课对象不能小于{0}个字符")
+   },
+   classhour:{
+    required: "请输入总学时(数字格式)",
+    digits: jQuery.format("请填写整数")
+   },
+   train_expenses:{
+    required: "请输入培训费用",
+    digits: jQuery.format("请填写整数")
+   },
+   favour_expenses:{
+    required: "请输入优惠价格",
+    digits: jQuery.format("请填写整数")
+   },
+   contents: {
+    required: jQuery.format("请填写课程描述"),
+	minlength: jQuery.format("课程描述内容不能小于{0}个字符"),
+	maxlength: jQuery.format("课程描述内容不能大于{0}个字符")
+   },
+   contact: {
+    required: jQuery.format("请填写联系人")
+   },
+    qq: {
+    digits: jQuery.format("请正确填写qq号码")
+   },
+   telephone: {
+    required: jQuery.format("请填写联系电话")
+   },
+   address: {
+    required: jQuery.format("请填写授课地址")
+   },
+   {#if $verify_addcourse=="1"#}
+    postcaptcha: {
+    required: "请填写验证码",
+	remote: jQuery.format("验证码错误")	
+   },
+    {#/if#}
+   email: {
+    required: jQuery.format("请填写电子邮箱"),
+	email: jQuery.format("请正确填写电子邮箱")
+   } 
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+    jQuery.validator.addMethod("IScaptchastr", function(value, element) {
+	var str="点击获取验证码";
+	var flag=true;
+	if (str==value)
+	{
+	flag=false;
+	}
+	return  flag || this.optional(element) ;
+	}, "请填写验证码");
+		/////验证码部分
+{#if $verify_addcourse=="1"#}
+function imgcaptcha(inputID,imgdiv)
+{
+	$(inputID).focus(function(){
+		if ($(inputID).val()=="点击获取验证码")
+		{
+		$(inputID).val("");
+		$(inputID).css("color","#333333");
+		}
+		$(inputID).parent("div").css("position","relative");
+		//设置验证码DIV
+		$(imgdiv).css({ position: "absolute", left:  $(inputID).width(), "bottom": "0px" , "z-index": "10", "background-color": "#FFFFFF", "border": "1px #A3C8DC solid","display": "none","margin-left": "15px"});
+		$(imgdiv).show();
+		if ($(imgdiv).html()=='')
+		{
+		$(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+		}
+		$(imgdiv+" img").click(function()
+		{
+			$(imgdiv+" img").attr("src",$(imgdiv+" img").attr("src")+"1");
+			$(inputID).val("");
+			$("#Form1").validate().element("#postcaptcha");	
+		});
+		$(document).unbind().click(function(event)
+		{
+			var clickid=$(event.target).attr("id");
+			if (clickid!="getcode" &&  clickid!="postcaptcha")
+			{
+			$(imgdiv).hide();
+			$(inputID).parent("div").css("position","");
+			$(document).unbind();
+			}			
+		});
+	});
+}
+imgcaptcha("#postcaptcha","#imgdiv");
+//验证码结束
+{#/if#}
+});
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 添加课程</div>
+<div class="usermain">
+  <div class="leftmenu train link_bk">
+  {#include file="member_train/left.htm"#}
+  </div>
+  <div class="rightmain">
+	<div class="bbox1">	
+	  <div class="addjob">
+	    <div class="titleH1">
+	      <div class="h1-title">添加课程</div>
+        </div>
+	    <div class="titleH2"><span>课程信息</span></div>
+		<form id="Form1" name="Form1" method="post" action="?act=addcourse_save" >
+		<input name="addrand" type="hidden"  id="addrand" value="{#$addrand#}" />
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  {#if $QISHI.subsite=="1"#}
+		  <tr>
+			<td align="right">发布到站点：</td>
+			<td>
+				<div style="position:relateve;">
+             	 	<div id="subsite_menu" class="input_text_200_bg">主站</div>	
+             	 	<div class="menu" id="menu3">
+	              		<ul>
+	              			<li id="0" title="主站">主站</li>
+	              			{#foreach from=$subsite item=sub#}
+	              			<li id="{#$sub.s_id#}" title="{#$sub.s_districtname#}">{#$sub.s_districtname#}</li>
+	              			{#/foreach#}
+	              		</ul>
+	              	</div>
+	            </div>	
+	            <input name="subsite_id" type="hidden" id="subsite_id" value="0" />			
+	        </td>
+	        <td></td>
+		  </tr>
+		  {#/if#}
+		  <tr>
+			<td width="125" align="right"><span class="nec">课程标题</span>：</td>
+			<td width="230"><input name="course_name" type="text" class="input_text_200" id="course_name" maxlength="80" value=""/></td>
+			<td></td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">有效时间</span>：</td>
+			<td><input name="days" type="text" class="input_text_200" id="days" maxlength="3" value="{#$QISHI.company_add_days#}"/></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">课程类别</span>：</td>
+			<td>
+			<div style="position:relateve;">
+             	 	<div id="category_menu" class="input_text_200_bg">请选择</div>	
+             	 	<div class="menu" id="menu4">
+	              		<ul>
+	              			{#qishi_get_classify  set="类型:QS_train_category,列表名:c_category"#}
+	              			{#foreach from=$c_category item=list#}
+	              			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+	              			{#/foreach#}
+	              		</ul>
+	              	</div>
+	            </div>				
+             	 <input name="category" type="hidden" id="category" value="" />
+             	 <input name="category_cn" type="hidden" id="category_cn" value="" /></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr class="jobmain">
+			<td align="right"><span class="nec">所在地区</span>：</td>
+			<td id="jobsCity" style="position:relative;">
+              <div class="input_text_200_bg choose_district" id="cityText">请选择</div>	
+              <div style="display:none;left:1px;top:46px;" id="divCityCate" class="divJobCate">
+					<table class="jobcatebox citycatebox"><tbody></tbody></table>
+				</div>		
+              <input id="district" type="hidden" value="" name="district">
+	            <input id="sdistrict" type="hidden" value="" name="sdistrict">
+	            <input id="districtID" type="hidden" value="">
+	            <input name="district_cn" id="district_cn" type="hidden" value="" />			
+	        </td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">上课班制</span>：</td>
+			<td>
+				<div style="position:relateve;">
+             	 	<div id="classtype_menu" class="input_text_200_bg">请选择</div>	
+             	 	<div class="menu" id="menu1">
+	              		<ul>
+	              			{#qishi_get_classify  set="类型:QS_train_classtype,列表名:c_classtype"#}
+	              			{#foreach from=$c_classtype item=list#}
+	              			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+	              			{#/foreach#}
+	              		</ul>
+	              	</div>
+	            </div>				
+             	 <input name="classtype" type="hidden" id="classtype" value="" />
+             	 <input name="classtype_cn" type="hidden" id="classtype_cn" value="" /></td>
+			<td></td>
+		  </tr>
+		  <tr>
+          <td height="30" align="right" ><span style="color:#FF3300; font-weight:bold">*</span> 开课时间：</td>
+          <td  ><input name="starttime" type="text"  class="input_text_200 date_input" id="starttime"  value="" /> 
+            </td>
+        </tr>
+        <tr>
+			<td align="right"><span class="nec">主讲人</span>：</td>
+			<td>
+				<div style="position:relateve;">
+             	 	<div id="teacher_menu" class="input_text_200_bg">请选择</div>	
+             	 	<div class="menu" id="menu2">
+	              		<ul>
+	              			{#foreach from=$teachers item=list#}
+							<li id="{#$list.id#}" title="{#$list.teachername#}">{#$list.teachername#}</li>
+							{#/foreach#}
+	              		</ul>
+	              	</div>
+	            </div>				
+             	 <input name="teacher_id" type="hidden" id="teacher_id" value="" />
+             	 <input name="teacher_cn" type="hidden" id="teacher_cn" value="" /></td>
+			<td></td>
+		  </tr>
+		  <tr>
+          <td height="30" align="right" ><span style="color:#FF3300; font-weight:bold">*</span> 授课对象：</td>
+          <td  ><input name="train_object" type="text"  class="input_text_200" id="train_object"  value=""  style="width:400px"/> 
+           </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" > 可获证书：</td>
+          <td  ><input name="train_certificate" type="text"  class="input_text_200" id="train_certificate"  value=""  style="width:400px"/> 
+            </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" ><span style="color:#FF3300; font-weight:bold">*</span> 总学时：</td>
+          <td  ><input name="classhour" type="text"  class="input_text_200" id="classhour"  value=""  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/> 学时
+           </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" ><span style="color:#FF3300; font-weight:bold">*</span> 培训费用：</td>
+          <td  ><input name="train_expenses" type="text"  class="input_text_200" id="train_expenses"  value=""  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))" /> 元 (数字格式)
+            </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" ><span style="color:#FF3300; font-weight:bold">*</span> 优惠价格：</td>
+          <td  ><input name="favour_expenses" type="text"  class="input_text_200" id="favour_expenses"  value=""  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/> 元 (数字格式)
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top"  >
+		  <span style="color:#FF3300; font-weight:bold">*</span> 课程简介：</td>
+          <td  >
+		  <div><textarea name="contents" class="input_textarea_500" id="contents"></textarea> 
+			</div>
+     		</td>
+        </tr>
+	    </table>
+		<div class="titleH2"><span>联系方式</span></div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		  <tr>
+			<td width="125" align="right"><span class="nec">联系人</span>：</td>
+			<td width="230"><input name="contact" type="text" class="input_text_200" id="contact" maxlength="20"   value="{#$train_profile.contact#}"/></td>
+			<td><label><input name="contact_show" type="checkbox" value="1" checked="checked" />联系人在课程详细页中显示</label></td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">联系电话</span>：</td>
+			<td>
+			
+            <input name="telephone" type="text" class="input_text_200" id="telephone" maxlength="35"   value="{#$train_profile.telephone#}"/></td>
+			<td><label><input name="telephone_show" type="checkbox" value="1" checked="checked" />联系电话在课程详细页中显示</label></td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">联系邮箱</span>：</td>
+			<td>
+			
+             <input name="email" type="text" class="input_text_200" id="email" maxlength="80" value="{#$train_profile.email#}"/>            	</td>
+			<td><label><input name="email_show" type="checkbox" value="1" checked="checked" />联系邮箱在课程详细页中显示</label></td>
+		  </tr>
+		  <tr>
+			<td align="right"><span class="nec">联系QQ</span>：</td>
+			<td>
+			
+             <input name="qq" type="text" class="input_text_200" id="qq" maxlength="80" value="{#$train_profile.qq#}"/>            	</td>
+			<td><label><input name="qq_show" type="checkbox" value="1" checked="checked" />联系qq在课程详细页中显示</label></td>
+		  </tr>
+		  <tr>
+			<td align="right">邮件通知：</td>
+			<td>{#$user.email#}
+            </td>
+			<td>
+				<label><input name="notify" type="checkbox" value="1" {#if $user.email_audit=="1"#}checked="checked"{#/if#}/>接收</label>{#if $user.email_audit=="0"#}<span class="redtip link_lan">你的邮箱未认证，不能接收邮件。<a href="company_user.php?act=user_email">[立即认证]</a></span>
+				{#/if#}          	
+			</td>
+		  </tr>
+	    </table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+		   <tr>
+			<td width="125" align="right"><span class="nec">联系地址</span>：</td>
+			<td ><input name="address" id="address" type="text" class="input_text_500" maxlength="100" value="{#$train_profile.address#}"/>
+		     </td>
+		  </tr>
+		   <tr>
+			<td width="125" align="right"> </td>
+			<td >
+			<label><input name="address_show" type="checkbox" value="1" checked="checked" />联系地址在课程详细页中显示</label>
+		     </td>
+		  </tr>
+		  {#if $verify_addcourse=="1"#}
+		  <tr>
+			<td align="right"><span class="nec">验证码</span>：</td>
+			<td>
+				<div>
+				<div id="imgdiv"></div>
+				<input  class="input_text_200" name="postcaptcha" id="postcaptcha" type="text" value="点击获取验证码" style="color:#999999"/>
+			</div>
+			</td>
+		  </tr>
+		  {#/if#}
+		   <tr>
+			<td width="125" align="right"> </td>
+			<td ><input type="submit" name="submitsave" id="submitsave" value="保存"  class="but180lan"/>
+			</td>
+		  </tr>
+	    </table>
+
+{#if $QISHI.operation_train_mode=="1"#}
+<input name="add_mode" type="hidden" id="add_mode" value="1" />
+<script type="text/javascript">
+$(document).ready(function()
+{
+				//积分默认
+				check_day();
+				total();				
+				$("#days").keyup(function(){
+				check_day();
+				total()
+				});
+	
+				//计算发布天数对应的积分
+				function check_day()
+				{
+					var course_daily = {#$points.course_daily.value#};
+					if (course_daily>0)
+					{
+						var count_days_pon= $("#days").val()*course_daily;
+						if ($("#days").val()<{#$QISHI.course_add_days_min#})
+						{
+							$("#days_info").html("");
+							$("#release_daysa").html(" ");
+						}
+						else
+						{
+						$("#days_info").html("设置有效时间&nbsp;"+$("#days").val()+"&nbsp;天，发布后将扣除&nbsp;<strong><span style=\"color:#FF3300\">"+count_days_pon+"</span></strong>&nbsp;{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}");
+						$("#release_daysa").html(" ☉ 您设置的有效时间&nbsp;&nbsp;"+$("#days").val()+"&nbsp;&nbsp;天，发布后将扣除&nbsp;&nbsp;<strong>"+count_days_pon+"</strong>&nbsp;&nbsp;{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}<br />");
+						}	
+					}
+				}
+				//计算总计积分
+				function total()
+				{
+							var points = {#$points_total#};
+							var course_add = {#$points.course_add.value#};
+							var course_daily = {#$points.course_daily.value#};
+							var input_days=$("#days").val();
+							var day_pointst=input_days*course_daily;
+							var totals=day_pointst+course_add;
+						if (course_add>0)
+						{
+						$("#release_course_add").html(" ☉ 发布本条课程将扣除&nbsp;&nbsp;<strong>"+course_add+"</strong>&nbsp;&nbsp;{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}<br/>");
+						}				
+						$("#total").html("发布本条课程总计扣除&nbsp;<span style=\"font-size:20px; color: #FF0000\" >"+totals+"</span>&nbsp;{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}，你目前共有<strong style=\"color:#0033FF\"> {#$points_total#}  </strong>{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}；<br />");
+						$("#totals").val({#$points_total#}-totals);	
+				}				
+				$("#addsubmit").click(function()
+				{
+					if ($("#totals").val()<0)
+					{
+						{#if $QISHI.operation_train_mode=="2"#}
+						alert("您的积分不足，请申请新的服务或者充值积分！");
+						{#else#}
+						alert("您的积分不足，请充值后再发布！");
+						{#/if#}
+					}
+					else
+					{
+					$("form[name=Form1]").submit();
+					}
+				});
+				
+});
+</script>
+<div style="position:relative;">
+	  <table width="100%" border="0" cellpadding="20" cellspacing="0" class="link_lan" bgcolor="F9F9F9" >
+            <tr>               
+              <td align="center" >
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall"  bgcolor="F9F9F9">
+		   <tr>
+			<td width="360" align="left">
+				<div id="release_course_add"></div>
+	            <div id="release_info"></div>
+				<div id="release_daysa"></div>
+				<div id="total"></div>
+				   <a href="train_service.php?act=account" target="_blank">[积分消费明细]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="train_service.php?act=account" target="_blank">[积分消费规则]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="train_service.php?act=order_add">[充值积分]</a>
+			</td>
+		  </tr>
+	    </table>
+              	</td>
+            </tr>
+      </table>
+</div>
+{#else#}
+<input name="add_mode" type="hidden" id="add_mode" value="2" />
+{#/if#}
+</form> 
+	  </div>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+</body>
+</html>

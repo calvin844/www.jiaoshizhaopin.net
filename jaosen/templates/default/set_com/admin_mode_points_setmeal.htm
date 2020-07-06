@@ -1,0 +1,53 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="set_com/admin_set_com_nav.htm"#}
+  <div class="clear"></div>
+</div>
+	<div class="toptit">积分套餐列表</div>
+ 	
+    <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+        <tr>
+		  <td width="10%" height="26" class="admin_list_tit admin_list_first">名称</td>
+          <td width="10%"  class="admin_list_tit">价格</td>
+          <td width="10%"  class="admin_list_tit">积分</td>
+          <td width="10%"  class="admin_list_tit">有效时长</td>
+          <td width="30%" align="center "class="admin_list_tit">广告活动</td>
+          <td width="15%" align="center"  class="admin_list_tit">操作</td>
+        </tr>
+		{#foreach from=$points_setmeal item=list#}
+        <tr>
+			<td class="admin_list admin_list_first" >
+			{#$list.setmeal_name#}
+			</td>
+			<td class="admin_list"  >{#$list.expense#}</td>
+			<td  class="admin_list" >{#$list.points#}</td>
+			<td  class="admin_list" >{#$list.days#}</td>
+			<td class="admin_list" style="padding:8px 0;">
+				<a href="?act=points_setmeal_activity_add&id={#$list.id#}">添加</a>
+				{#foreach from=$list.activity_list item=activity#}
+				<div style="padding:4px 0;">
+				{#$activity.activity_name#}，{#$activity.expense#}元&nbsp;&nbsp;&nbsp;<a href="?act=points_setmeal_activity_del&id={#$activity.id#}">删除</a>
+				<br/>说明：{#$activity.description#}
+				</div>
+				{#/foreach#}
+			</td>
+			<td align="center"  class="admin_list" ><a href="?act=set_points_setmeal_edit&id={#$list.id#}">设置</a>&nbsp;&nbsp;&nbsp;<a href="?act=set_points_setmeal_del&id={#$list.id#}&{#$urltoken#}" onclick="return confirm('你确定要删除吗？')">删除</a></td>
+        </tr>
+		{#/foreach#}
+  </table>
+  <table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+      <tr>
+        <td>
+<input name="add" type="button" class="admin_submit" id="add"    value="新增"  onclick="window.location='?act=set_points_setmeal_add'"/>
+		</td>
+        <td width="305" align="right">
+		
+	    </td>
+      </tr>
+  </table>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

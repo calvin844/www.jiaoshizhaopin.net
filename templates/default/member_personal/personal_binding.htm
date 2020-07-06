@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>{#$title#}</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+
+    </head>
+
+    <body>
+        {#include file="user/header.htm"#}
+
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 安全助手</div>
+
+        <div class="usermain">
+            <div style="display:inline-block;">
+                <div class="leftmenu personal link_bk">
+                    {#include file="member_personal/left.htm"#}
+                </div>
+                <div class="rightmain">
+
+                    <div class="bbox1">
+
+                        <div class="pwd link_bk">
+
+                            <div class="topnav">
+
+                                <div class="titleH1">
+                                    <div class="h1-title">安全助手</div>
+                                </div>
+                                <div class="navs">
+                                    <a href="?act=userprofile">基本资料</a>
+                                    <a href="?act=password_edit">密码修改</a>
+                                    <a href="?act=authenticate">安全认证</a>
+                                    <a href="?act=avatars">头像</a>
+                                    <a href="?act=pm">消息{#if $total#}<span class="h">({#$total#})</span>{#/if#}</a>
+                                    <a href="?act=login_log">登陆日志</a>
+                                    <a href="?act=binding" class="se">账号绑定</a>
+                                    <div class="clear"></div>
+                                </div>		
+                            </div>
+
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" style="margin-top:15px;">
+                                {#if $QISHI.qq_apiopen=="1"#}
+                                <tr>
+                                    <td width="165" align="right">QQ账号绑定：</td>
+                                    <td width="264">
+                                        {#if $user.qq_openid#}
+                                        已绑定 <a href="/user/connect_qq_client.php?act=del_qq_binding" onclick="return confirm('您确定取消绑定吗?')">[取消绑定]</a>
+                                        {#else#}
+                                        未绑定 <a href="{#$QISHI.main_domain#}user/{#if $QISHI.qq_logintype=='1'#}connect_qq_client.php{#else#}connect_qq_server.php{#/if#}?act=binding">[立即绑定]</a>
+                                        {#/if#}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {#/if#}
+                                {#if $QISHI.wx_login_apiopen=="1"#}
+                                <tr>
+                                    <td width="165" align="right">微信账号绑定：</td>
+                                    <td width="264">
+                                        {#if $user.wx_openid#}
+                                        已绑定 <a href="/user/connect_wechat.php?act=del_wx_binding" onclick="return confirm('您确定取消绑定吗?')">[取消绑定]</a>
+                                        {#else#}
+                                        未绑定 <a href="{#$QISHI.main_domain#}user/connect_wechat.php?act=binding">[立即绑定]</a>
+                                        {#/if#}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {#/if#}
+                                {#if $QISHI.sina_apiopen=="1"#}
+                                <tr>
+                                    <td width="165" align="right">新浪微博绑定登录：</td>
+                                    <td width="264">
+                                        {#if $user.sina_access_token#}
+                                        已绑定 <a href="/user/connect_sina.php?act=del_sina_binding" onclick="return confirm('您确定取消绑定吗?')">[取消绑定]</a>
+                                        {#else#}
+                                        未绑定 <a href="{#$QISHI.main_domain#}user/connect_sina.php">[立即绑定]</a>
+                                        {#/if#}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {#/if#}
+                                {#if $QISHI.taobao_apiopen=="1"#}
+                                <tr>
+                                    <td width="165" align="right">新浪微博绑定登录：</td>
+                                    <td width="264">
+                                        {#if $user.taobao_access_token#}
+                                        已绑定 <a href="/user/connect_taobao.php?act=del_taobao_binding" onclick="return confirm('您确定取消绑定吗?')">[取消绑定]</a>
+                                        {#else#}
+                                        未绑定 <a href="{#$QISHI.main_domain#}user/connect_taobao.php">[立即绑定]</a>
+                                        {#/if#}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {#/if#}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="clear"></div>
+        </div>
+
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

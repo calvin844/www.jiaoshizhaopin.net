@@ -1,0 +1,78 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <form method="post" action="?act=search" >
+        <div>
+            <label>地区：</label>
+            <select name="province_id" id="district" style="height: 30px; border: 1px solid #ccc; margin-right: 10px; padding-left: 10px;">
+                <option selected disabled value ="0">请选择省份</option>
+                {#foreach from=$district item=c#}
+                <option value="{#$c.id#}">{#$c.categoryname#}</option>
+                {#/foreach#}
+            </select>
+            <select class="select" name="city_id" id="city" style="height: 30px; border: 1px solid #ccc; margin-right: 10px; padding-left: 10px;">
+                <option value="0">请选择城市</option>
+            </select>
+            <script>
+                $('select#district').change(function () {
+                    $.get('?act=get_city&pid=' + $('select#district').val(), function (data) {
+                        var data_arr = data.split("||");
+                        var str = "<option value='0'>全部</option>";
+                        for (var i = 0; i < data_arr.length; i++) {
+                            var item = data_arr[i].split("-");
+                            str = str + "<option value='" + item[0] + "'>" + item[1] + "</option>";
+                        }
+                        $('select#city').html(str)
+                    })
+                })
+            </script>
+        </div>
+        <br/>
+        <div>
+            <label>时间：</label>
+            <span>从</span>
+            <input type="text" name="start" />
+            <span>到</span>
+            <input type="text" name="end" />
+            <label>(2010-03-24 08:15:42)</label>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="提交"/>
+        </div>
+    </form>
+    <br/>
+    <br/>
+    <br/>
+    <div>
+        <div>
+            <h1>企业</h1>
+            <br/>
+            <div><label>用户总数：</label><span></span></div>
+            <div><label>新注册用户：</label><span></span></div>
+            <div><label>活跃用户：</label><span></span></div>
+            <div><label>在招职位：</label><span></span></div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+            <h1>个人</h1>
+            <br/>
+            <div><label>用户总数：</label><span></span></div>
+            <div><label>新注册用户：</label><span></span></div>
+            <div><label>活跃用户：</label><span></span></div>
+            <div><label>简历数量：</label><span></span></div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+            <h1>其他</h1>
+            <br/>
+            <div><label>投递次数：</label><span></span></div>
+        </div>
+    </div>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

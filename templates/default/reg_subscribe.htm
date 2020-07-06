@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>系统提示！</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=7">
+            <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+            <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+            <style type="text/css">
+                <!--
+                .shadow {   
+                    -moz-box-shadow: 3px 3px 5px #D9E1EA;   
+                    -webkit-box-shadow: 3px 3px 5px #D9E1EA;   
+                    box-shadow: 3px 3px 5px #D9E1EA;   
+                    /* For IE 8 */   
+                    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#D9E1EA')";   
+                    /* For IE 5.5 - 7 */   
+                    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#D9E1EA');   
+                }
+                -->
+                p.tips_p{ font-size: 20px; font-weight: bold; color:#333; margin: 0px 0px 20px 0px;}
+                a.go_resume{ float: left; background-color: #017fcf; color: #fff; font-family: "microsoft yahei"; font-size: 16px; font-weight: bold; height: 40px; line-height: 40px;text-align: center; width: 150px; display: inline-block; text-decoration: none;}
+                a.go_resume:hover{ opacity: 0.8;}
+                a.go_index{ color: #333; float: left; font-size: 14px; margin: 15px 0 0 20px; text-decoration: none;}
+                a.go_index:hover{ color: #017fcf; text-decoration: underline;}
+
+            </style></head>
+    <body style="background-color:#F5F5F5;background-image:none">
+        <table width="600" border="0" align="center" cellpadding="6" cellspacing="0" style="font-size:14px; margin-top:160px; border:1px #CAE3EB solid; margin-bottom:100px;" class="shadow">
+            <tr>
+                <td bgcolor="#017FCF"><strong style="color:#FFFFFF">订阅成功！</strong></td>
+            </tr>
+            <tr>
+                <td height="22" bgcolor="#FFFFFF"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="20" >
+                        <tr>
+                            <td width="80" align="right" valign="top"> 
+                                {#if $msg_type=="0"#} 
+                                <img src="{#$QISHI.site_template#}images/showmsg/11.gif" /> 
+                                {#elseif $msg_type=="1"#} 
+                                <img src="{#$QISHI.site_template#}images/showmsg/12.gif" /> 
+                                {#else#} 
+                                <img src="{#$QISHI.site_template#}images/showmsg/13.gif" />
+                                {#/if#} 
+                            </td>
+                            <td>
+                                <div style="font-size:12px; margin-top:2px; line-height:200%;">
+                                    <p class="tips_p">马上创建简历，可获得更多的就业机会哦。</p>
+                                    <a class="go_resume" title="" href="/user/personal/personal_resume.php?act=make1" target="_self">去创建简历</a>
+                                    <a class="go_index" title="" href="/" target="_self">进入首页</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table></td>
+            </tr>
+        </table>
+        {#if $auto_redirect#}
+        <script language="JavaScript">
+            <!--
+            var seconds = {#$seconds#};
+            var defaultUrl = "{#$default_url#}";
+
+            onload = function ()
+            {
+                if (defaultUrl == 'javascript:history.go(-1)' && window.history.length == 0)
+                {
+                    document.getElementById('redirectionMsg').innerHTML = '';
+                    return;
+                }
+
+                window.setInterval(redirection, 1000);
+            }
+            function redirection()
+            {
+                if (seconds <= 0)
+                {
+                    window.clearInterval();
+                    return;
+                }
+
+                seconds--;
+                document.getElementById('spanSeconds').innerHTML = seconds;
+
+                if (seconds == 0)
+                {
+                    window.clearInterval();
+                    location.href = defaultUrl;
+                }
+            }
+            //-->
+        </script>
+        {#/if#}
+    </body>
+</html>

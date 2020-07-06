@@ -1,0 +1,34 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+    <tr>
+		<td width="35" align="right"></td>
+		<td>
+			删除后无法恢复，您确认要删除吗
+		</td>
+    </tr>
+    <tr>
+		<td width="35" align="right"></td>
+		<td>
+			<input type="button" name="Submit" id="submit" value="删除"  class="but95cheng"/>
+			<input type="button" name="cancel" value="取消" class="but95cheng DialogClose" style="background-color: #E3E3E3;color:#323232"/>
+		</td>
+    </tr>
+</table>
+<input type="hidden" name="pid" id="pid" value="{#$resumeid#}">
+<input type="hidden" name="id" id="id" value="{#$id#}">
+<script src="{#$site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#submit").click(function(){
+		var id=$("input[name=id]").val();
+		var pid=$("input[name=pid]").val();
+		$.get("personal_resume.php?act=del_education&pid="+pid+"&id="+id,function(result){
+				$(".FloatBox").css("display","none");
+				$(".FloatBg").css("display","none");
+				alert_dialog("success:删除成功！","","","","");
+				$.get("personal_resume.php?act=ajax_get_education_list&pid="+pid, function(result){
+			    $("#education_list_box").html(result);
+			  });
+		});
+	});
+});
+</script>

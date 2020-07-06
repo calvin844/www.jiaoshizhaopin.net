@@ -1,0 +1,211 @@
+<!doctype html>
+{#qishi_company_show set="列表名:company,企业ID:GET[id]"#}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/2017/company-show.css" type="text/css" rel="stylesheet"/>
+        <title>{#$company.companyname#}_{#$company.district_cn#}学校招聘信息_{#$QISHI.site_name#}</title>
+        <meta name="keywords" content="{#$company.companyname#},{#$company.district_cn#}教师招聘,{#$company.companyname#}招聘信息"/>
+        <meta name="description" content="{#if !empty($company.contents)#}{#$company.contents|strip_tags|strip|mb_substr:0:100:'GBK'#}{#else#}{#$company.companyname#}{#/if#}"/>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$user_tpl#}js/simplefoucs.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+        <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+        <SCRIPT TYPE="text/javascript">
+            $(document).ready(function() {
+                var company_id = "{#$company.id#}";
+                $(".check_full_map").click(function() {
+                    dialog("完整地图", "url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&id=" + company_id, "660px", "auto", "", "");
+                });
+            });
+        </SCRIPT>
+        <div id="content">
+            <div class="top_box">
+                <div class="main_box">
+                    <div class="left">
+                        <h2>{#$company.companyname#}</h2>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><b>企业性质：</b><span>{#if $company.audit == 1#}{#$company.nature_cn#}{#else#}--{#/if#}</span></li>
+                            <li><b>所在地区：</b><span>{#if $company.audit == 1#}{#$company.district_cn#}{#else#}--{#/if#}</span></li>
+                            <li><b>注册资金：</b><span>{#if $company.audit == 1#}{#$company.registered#}万元&nbsp;{#$company.currency#}{#else#}--{#/if#}</span></li>
+                            <li><b>企业官网：</b><span>{#if $company.audit == 1#}{#if !empty($company.website)#}{#$company.website#}{#else#}无{#/if#}{#else#}--{#/if#}</span></li>
+                            <li><b>员工人数：</b><span>{#if $company.audit == 1#}{#$company.scale_cn#}{#else#}--{#/if#}</span></li>
+                            <li><b>公司地址：</b><span>{#if $company.audit == 1#}{#$company.address#}{#else#}--{#/if#}</span></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="code_img">
+                        <!--<img src="{#$QISHI.site_dir#}plus/url_qrcode.php?url={#$QISHI.wap_domain#}/company/detail?company_id={#$company.id#}" alt="{#$company.companyname#}" width="82" height="82" />-->
+                        <img src="/data/company_wxapp_img/{#$company.id#}.jpg" alt="{#$company.companyname#}" width="100" height="100" />
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="main_box">
+                <div class="bottom_box">
+                    <div class="left">
+                        {#if $company.audit == 1#}
+                        {#qishi_jobs_list set="列表名:jobs,填补字符:...,职位名长度:10,分页显示:1,显示数目:100,列表页:QS_companyjobs,描述长度:68,会员UID:"|cat:$company.uid#}
+                        {#qishi_company_img_list set="列表名:img,企业ID:GET[id]"#}
+                        <div class="nav_box">
+                            <i class="nav_left"></i>
+                            <ul>
+                                <li class="cur"><i></i><a href="#des_box">公司介绍</a></li>
+                                {#if ($total > 0 && $company.uid>0)#}
+                                <li><i></i><a href="#jobs_box">招聘职位</a></li>
+                                {#/if#}
+                                {#if $img#}
+                                <li><i></i><a href="#img_box">公司风采</a></li>
+                                {#/if#}
+                                {#if $company.map_x > 0#}
+                                <li><i></i><a href="#us_box">联系我们</a></li>
+                                {#/if#}
+                            </ul>
+                            <script>
+                                $('.nav_box li a').click(function() {
+                                    $('.nav_box li').removeClass('cur');
+                                    $(this).parent().addClass('cur');
+                                })
+                            </script>
+                        </div>
+                        <div id="des_box" class="des_box">
+                            <h3 class="item_title">公司介绍</h3>
+                            <div class="item_content">
+                                {#$company.contents|nl2br#}
+                            </div>
+                        </div>
+                        {#if ($total > 0) && $company.uid>0#}
+                        <div id="jobs_box" class="jobs_box">
+                            <h3 class="item_title">招聘职位</h3>
+                            <div class="item_content">
+                                {#if $jobs#}
+                                <ul>
+                                    {#foreach from=$jobs item=list#}
+                                    {#if $list.jobs_name != ''#}
+                                    <li><a title="{#$list.jobs_name_#}" href="/job/{#$list.id#}.html" target="_blank">{#$list.jobs_name#}</a><i></i><span class="wage">{#$list.wage_cn#}</span><i></i><span>地区：{#$list.district_cn#}</span><i></i><span>学历要求：{#$list.education_cn#}</span><i></i><span class="date">{#$list.refreshtime_cn#}</span></li>
+                                    {#/if#}
+                                    {#/foreach#}
+                                </ul>
+                                {#/if#}
+                            </div>
+                        </div>
+                        {#/if#}
+                        {#if $img#}
+                        <div id="img_box" class="img_box">
+                            <h3 class="item_title">公司风采</h3>
+                            <div class="item_content">
+                                <div class="com_img">
+                                    <div id="focus">
+                                        <ul>
+                                            {#foreach from=$img item=li#}
+                                            <li><a href="http://www.jiaoshizhaopin.net/data/companyimg/original/{#$li.img#}" target="_blank"><img src="http://www.jiaoshizhaopin.net/data/companyimg/original/{#$li.img#}" alt="{#$company.companyname#}" /></a></li>
+                                            {#/foreach#}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $('div.com_img ul li img').each(function() {
+                                    var w = $(this).width();
+                                    var h = $(this).height();
+                                    if (w < 715) {
+                                        $(this).attr('height', 288);
+                                        $(this).attr('width', w);
+                                    } else {
+                                        $(this).attr('height', h);
+                                        $(this).attr('width', 715);
+                                    }
+                                })
+                            </script>
+                        </div>
+                        {#/if#}
+                        {#if $company.map_x > 0#}
+                        <div id="us_box" class="us_box">
+                            <h3 class="item_title">联系我们</h3>
+                            <div class="item_content">
+                                <div class="com_map">
+                                    <div id="map"></div>
+                                    <script type="text/javascript">
+                                        var map = new BMap.Map("map");
+                                                var point = new BMap.Point({#$company.map_x#}, {#$company.map_y#});
+                                                map.centerAndZoom(point, {#$company.map_zoom#});
+                                                var opts = {type: BMAP_NAVIGATION_CONTROL_SMALL, anchor: BMAP_ANCHOR_TOP_RIGHT}
+                                        map.addControl(new BMap.NavigationControl(opts)); //添加鱼骨
+                                        map.enableScrollWheelZoom();//启用滚轮放大缩小。
+                                        // 创建标注
+                                        var qs_marker = new BMap.Marker(point);
+                                        map.addOverlay(qs_marker);
+                                        // 创建标注 
+                                        // 打开信息窗口 
+                                        var opts = {
+                                            width: 150, // 信息窗口宽度   
+                                            height: 50, // 信息窗口高度   
+                                            title: "{#$company.companyname#}"  // 信息窗口标题   
+                                        }
+                                        var infoWindow = new BMap.InfoWindow("{#$company.address#}", opts);  // 创建信息窗口对象   
+                                        map.openInfoWindow(infoWindow, point);
+                                        // 打开信息窗口  			
+                                    </script>
+                                    <p class="full_map"><a   class="check_full_map">查看完整地图</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        {#/if#}
+                        <div class="clear"></div>
+                        {#else#}
+                        <div class="empty_box">
+                            <img src="{#$QISHI.site_template#}images/2017/busy_girl.png" width="147" height="171"/>
+                            <p>该公司的资料正在审核中</p>
+                        </div>
+                        <div class="clear"></div>
+                        {#/if#}
+                    </div>
+                    <div class="right">
+                        <div class="item_box">
+                            <img src="{#$company.logo#}" width="240" />
+                            <a titl="{#$company.companyname#}" class="company_name">{#$company.companyname#}</a>
+                            {#if $company.audit == 1#}
+                            <div class="address">
+                                <div class="icon">
+                                    <i></i>
+                                </div>
+                                <div class="text">
+                                    <span>{#$company.address#}</span>
+                                </div>
+                            </div>
+                            <div class="site">
+                                {#if $company.website && $company.website != "http://"#}
+                                <i></i>
+                                <span>{#$company.website#}</span>
+                                {#/if#}
+                            </div>
+                            {#/if#}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <script>
+            $(window).scroll(function() {
+                //获取当前滚动条的高度
+                var h = $(document).scrollTop();
+                if (h > 0 && h < 275) {
+                    $(".nav_box").removeAttr('style');
+                } else if (h >= 275) {
+                    $(".nav_box").css({position: 'fixed', bottom: '0', top: '35px', margin: '0 0 0 -700px'});
+                } else if (h == 275) {
+                    $(".nav_box").removeAttr('style');
+                }
+            })
+        </script>
+        {#include file="/2017/footer_page.htm"#}
+    </body>
+</html>

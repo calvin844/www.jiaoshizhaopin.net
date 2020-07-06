@@ -1,0 +1,10 @@
+body{ background:#f5f5f5}
+.low_browser .p1{ font-size:36px; text-align:center; color:#333; margin:120px 0px 30px 0px; }
+.low_browser .p2{ font-size:36px; text-align:center; color:#696969;}
+.low_browser .p2 span{ color:#f01d1d; font-size:36px;}
+.low_browser ul{ padding:165px 42px 135px 42px; float:left;}
+.low_browser ul li { float:left; margin:0px 52px 0px 52px; height:185px;}
+.low_browser ul li img{ height:125px;}
+.low_browser ul li p{ font-size:20px; text-align:center; color:#333; line-height:50px;}
+.low_browser ul li a{ display:inline-block; height:30px; line-height:30px; text-align:center; width:124px; background:#00aaee; color:#fff; font-size:16px;}
+.low_browser ul li a:hover{ opacity:0.8;}

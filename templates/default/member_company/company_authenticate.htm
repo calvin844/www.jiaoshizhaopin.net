@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_authenticate.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/company/company_index.php">企业中心 </a>&nbsp;>&nbsp;身份认证</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a class="cur" href="/user/company/company_user.php?act=authenticate">邮箱认证</a>
+                        <a href="/user/company/company_info.php?act=company_auth">营业执照认证</a>
+                        <a href="/user/company/company_user.php?act=binding">账号绑定</a>
+                    </div>
+                    <div class="clear"></div>
+                    <p class="tips">温馨提示：认证通过后，您的职位真实度会进一步提升，求职者更信赖认证过的企业。</p>
+                    <div class="email">
+                        <div class="box_content">
+                            {#if $user.email_audit=="1"#}
+                            <p class="pass">您的邮箱：{#$user.email#}<span>已认证</span>，<a class="show_change_email"  >修改邮箱</a></p>
+                            {#else#}
+                            <div class="no_pass">
+                                <i></i>
+                                <p class="top">您的邮箱：{#$user.email#}<span>未认证</span>，<a class="show_new_email"  >立即认证</a></p>
+                                <p>邮箱通过认证后，可以用邮箱直接作为用户名登录。</p>
+                                <p>邮箱通过认证后，如果忘记密码，可以用邮箱找回。</p>
+                                <p>邮箱通过认证后，当收到简历投递时，您可及时收到邮件提醒。</p>
+                            </div>
+                            {#/if#}
+                        </div>
+                        <script>
+                            $('.show_change_email').click(function () {
+                                $('.email_windows').show();
+                                $('.change_email').show();
+                            })
+                            $('.show_new_email').click(function () {
+                                $('.email_windows').show();
+                                $('.new_email').show();
+                            })
+                        </script>
+                    </div>
+
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs&jobtype=1"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company_profile.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="email_windows">
+                <div class="bg"></div>
+                <div class="new_email">
+                    <div class="box_title">
+                        <p>邮箱验证</p>
+                        <a class="close"  ></a>
+                    </div>
+                    <div class="box_centent">
+                        <div>
+                            <p>您的邮箱：{#$user.email#}</p>
+                            <input id="email" type="hidden" value="{#$user.email#}"/>
+                        </div>
+                        <div>
+                            <label>验证码：</label><input id="code" type="text" />
+                        </div>
+                        <a class="send_code" data-change="0">发送验证邮件</a>
+                        <a class="sure" data-change="0">确认</a>
+                        <span>提示：当您的邮箱通过认证后，可以用邮箱直接作为用户名登录，可以用邮箱找回密码，当收到简历投递时，您可及时收到邮件提醒。</span>
+                        <script>
+                        </script>
+                    </div>
+                </div>
+                <div class="change_email">
+                    <div class="box_title">
+                        <p>更改邮箱</p>
+                        <a class="close"  ></a>
+                    </div>
+                    <div class="box_centent">
+                        <div>
+                            <label>您的邮箱：</label><input id="email" type="text" value="{#$user.email#}" />
+                        </div>
+                        <div>
+                            <label>验证码：</label><input id="code" type="text" />
+                        </div>
+                        <a class="send_code" data-change="1">发送验证邮件</a>
+                        <a class="sure" data-change="1">确认</a>
+                        <span>提示：当您的邮箱通过认证后，可以用邮箱直接作为用户名登录，可以用邮箱找回密码，当收到简历投递时，您可及时收到邮件提醒。</span>
+                    </div>
+                    <script>
+                        $('.box_centent a.send_code').click(function () {
+                            var change = $(this).attr('data-change');
+                            if (change == 1) {
+                                var e = $(".change_email #email").val()
+                            } else {
+                                var e = $(".new_email #email").val()
+                            }
+                            $.post("/plus/ajax_verify_email.php", {"email": e, "send_key": "{#$send_key#}", "time": new Date().getTime(), "act": "send_code"}, function (data, textStatus) {
+                                if (data == "success") {
+                                    function SetRemainTime() {
+                                        if (SysSecond > 0) {
+                                            SysSecond--;
+                                            $('.box_centent a.send_code').html('重新发送（' + SysSecond + '）');
+                                            $('.box_centent a.send_code').attr("disabled", "");
+                                            $('.box_centent a.send_code').addClass("disabled");
+                                        } else {
+                                            window.clearInterval(InterValObj);
+                                            $('.box_centent a.send_code').html('发送验证邮件');
+                                            $('.box_centent a.send_code').removeAttr("disabled");
+                                            $('.box_centent a.send_code').removeClass("disabled");
+                                        }
+                                    }
+                                    SysSecond = 60;
+                                    InterValObj = window.setInterval(SetRemainTime, 1000);
+                                } else {
+                                    alert('发送失败：' + data);
+                                    $('.box_centent a.send_code').html('发送验证邮件');
+                                    $('.box_centent a.send_code').removeAttr("disabled");
+                                    $('.box_centent a.send_code').removeClass("disabled");
+                                }
+                            })
+                        })
+                        $('.box_centent a.sure').click(function () {
+                            var change = $(this).attr('data-change');
+                            if (change == 1) {
+                                var code = $(".change_email #code").val()
+                            } else {
+                                var code = $(".new_email #code").val()
+                            }
+                            $.post("/plus/ajax_verify_email.php", {"verifycode": code, "send_key": "{#$send_key#}", "time": new Date().getTime(), "act": "verify_code"}, function (data, textStatus) {
+                                if (data == "success") {
+                                    alert('认证成功');
+                                    location.reload();
+                                } else {
+                                    alert('认证失败：' + data);
+                                    location.reload();
+                                }
+                            })
+                        })
+                    </script>
+                </div>
+                <script>
+                    $('.email_windows div.bg').click(function () {
+                        $('.email_windows').hide();
+                    })
+                    $('.email_windows a.close').click(function () {
+                        $('.email_windows').hide();
+                    })
+                </script>
+            </div>
+
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

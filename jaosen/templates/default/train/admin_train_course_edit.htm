@@ -1,0 +1,274 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+ <script src="js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_dir#}data/cache_train_classify.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  
+	//日期
+	$(function() { 
+	$(".date_input").date_input(); 
+	});
+
+	showmenulayer("#category_cn","#menu1","#category","","",QS_train_category);
+	showmenu("#classtype_cn","#menu2","#classtype","#Form1","#classtype");
+	showmenu("#teacher_cn","#menu4","#teacher_id","#Form1","#teacher_id");
+	showmenulayer("#district_cn","#menu3","#district","#sdistrict","",QS_city);
+	//设置性别中文字段
+	$("input[name='sex']").click(function(){$("#sex_cn").val($(this).attr("title"))	});
+	
+	//设置职位性质中文字段
+	$("input[name='nature']").click(function(){$("#nature_cn").val($(this).attr("title"))	})
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  <div class="clear"></div>
+</div>
+<div class="toptit">修改课程- <span style="color:#0066CC">{#$course.course_name#}</span> </div>
+<form id="Form1" name="Form1" method="post" action="?act=editcourse_save" >
+{#$inputtoken#}
+  <table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF"  >
+<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">所属会员：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+{#$course.user.username#}
+		 </td>
+      </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">所属机构：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed" class="link_lan">
+            <a href="{#$course.train_url#}" target="_blank">{#$course.trainname#}</a>
+			 </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">刷新时间：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed" class="link_lan">
+          {#$course.refreshtime|date_format:"%Y-%m-%d"#}
+			 </td>
+        </tr>
+         {#if $QISHI.subsite=="1"#}
+    <tr>
+          <td height="30" align="right"  > 发布到站点：</td>
+          <td  >
+       <label><input name="subsite_id" class="subsite_id" type="radio" districtid="0" districtcn="{#$li.s_district_cn#}" value="0"{#if $course.subsite_id=="0"#}checked="checked"{#/if#} checked="checked"/>主站</label>&nbsp;&nbsp;&nbsp;
+       {#foreach from=$subsite item=li#}
+       <label><input name="subsite_id" class="subsite_id" districtid="{#$li.s_district#}" districtcn="{#$li.s_district_cn#}" type="radio" value="{#$li.s_id#}" {#if $course.subsite_id==$li.s_id#}checked="checked"{#/if#}/>{#$li.s_districtname#}</label>&nbsp;&nbsp;&nbsp;
+       {#/foreach#}
+       </td>
+        </tr>
+         {#/if#}
+		 <tr>
+          <td width="110" height="30" align="right" bgcolor="#FFFFFF"  style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 课程名称：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="course_name" type="text" class="input_text_200" id="course_name" value="{#$course.course_name#}" maxlength="50" />
+               </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 课程状态：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <label><input name="display"  type="radio" value="1" {#if $course.display eq "1"#}checked="checked"{#/if#} />宣传中</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 <label><input name="display"  type="radio" value="2" {#if $course.display eq "2"#}checked="checked"{#/if#} />暂停宣传</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 审核状态：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		   <label><input name="audit"  type="radio" value="1" {#if $course.audit eq "1"#}checked="checked"{#/if#} />审核通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    <label><input name="audit"  type="radio" value="2" {#if $course.audit eq "2"#}checked="checked"{#/if#} />审核中</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 
+		   <label><input name="audit"  type="radio" value="3" {#if $course.audit eq "3"#}checked="checked"{#/if#} />审核未通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" bgcolor="#FFFFFF"style=" border-bottom:1px #CCCCCC dashed">有效日期：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">发布日期：{#$course.addtime|date_format:"%Y-%m-%d %H:%M"#}，截止日期：{#$course.deadline|date_format:"%Y-%m-%d %H:%M"#}<input name="olddeadline" type="hidden" value="{#$course.deadline#}" /></td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style="border-bottom:1px #CCCCCC dashed; color:#0033CC">延长有效时间：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><input name="days" type="text"  class="input_text_200" id="days" onKeyUp="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" value="0" maxlength="3" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"  style="width:50px;"/> 天&nbsp;&nbsp;(0表示不延长) </td>
+        </tr>
+		 <tr>
+          <td height="30" align="right"  ><span style="color:#FF3300; font-weight:bold">*</span> 课程类别：</td>
+          <td  >
+		   <div>
+		<input type="text" value="{#$course.category_cn|default:"请选择课程分类"#}"  readonly="readonly" name="category_cn" id="category_cn" class="input_text_200 input_text_selsect"/>
+		<input name="category" id="category" type="hidden" value="{#$course.category#}" />
+		<div id="menu1" class="dmenu shadow">
+			<ul>
+			{#qishi_get_classify set="类型:QS_train_category,id:0,列表名:c_category"#}{#foreach from=$c_category item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>	
+		  	  </td>
+          </tr>
+        <tr>
+          <td height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 所在地区：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		   <div>
+		<input type="text" value="{#$course.district_cn|default:"请选择工作地区"#}"  readonly="readonly" name="district_cn" id="district_cn" class="input_text_200 input_text_selsect"/>
+		<input name="district" id="district" type="hidden" value="{#$course.district#}" />
+		<input name="sdistrict" id="sdistrict" type="hidden" value="{#$course.sdistrict#}" />
+		<div id="menu3" class="dmenu shadow">
+			<ul>
+			{#qishi_get_classify set="类型:QS_district,id:0,列表名:c_province"#}{#foreach from=$c_province item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		<div id="menu3_s" class="dmenu shadow" style="display:none"></div>
+		  </div></td>
+        </tr>
+		 <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed" > <span style="color:#FF3300; font-weight:bold">*</span>上课班制：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		   <div>
+		<input type="text" value="{#$course.classtype_cn|default:"请选择班制分类"#}"  readonly="readonly" name="classtype_cn" id="classtype_cn" class="input_text_200 input_text_selsect"/>
+		<input name="classtype" id="classtype" type="hidden" value="{#$course.classtype#}" />
+		<div id="menu2" class="menu">
+			<ul>
+			{#qishi_get_classify set="类型:QS_train_classtype,列表名:c_classtype"#}{#foreach from=$c_classtype item=list#}
+			<li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+			{#/foreach#}
+			</ul>
+		</div>
+		  </div>	
+		  	  </td>
+          </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 开课时间：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="starttime" type="text"  class="input_text_200 date_input" id="starttime"  value="{#$course.starttime|date_format:"%Y-%m-%d"#}" /> 
+            <span style="color: #0099FF" id="days_info"></span><input name="olddeadline" type="hidden" value="{#$course.deadline#}" /></td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 主讲人：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" >
+		   <div>
+			<input type="text" value="{#$course.teacher_cn|default:"请选择主讲人"#}"  readonly="readonly" name="teacher_cn" id="teacher_cn" class="input_text_200 input_text_selsect"/>
+			<input name="teacher_id" id="teacher_id" type="hidden" value="{#$course.teacher_id#}" />
+			<div id="menu4" class="menu">
+				<ul>
+				{#foreach from=$teachers item=list#}
+				<li id="{#$list.id#}" title="{#$list.teachername#}">{#$list.teachername#}</li>
+				{#/foreach#}
+				</ul>
+			</div>
+		  </div>	
+          </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 授课对象：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="train_object" type="text"  class="input_text_200" id="train_object"  value="{#$course.train_object#}"  style="width:400px"/> 
+           </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"> 可获证书：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><input name="train_certificate" type="text"  class="input_text_200" id="train_certificate"  value="{#$course.train_certificate#} "  style="width:400px"/> 
+            </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 总学时：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="classhour" type="text"  class="input_text_200" id="classhour"  value="{#$course.classhour#}"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/> 学时
+           </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 培训费用：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed"><input name="train_expenses" type="text"  class="input_text_200" id="train_expenses"  value="{#$course.train_expenses#}"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))" /> 元 (数字格式)
+            </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 优惠价格：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed" ><input name="favour_expenses" type="text"  class="input_text_200" id="favour_expenses"  value="{#$course.favour_expenses#}"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/> 元 (数字格式)
+          </td>
+        </tr>
+		
+		
+        <tr>
+          <td align="right" valign="top"  style=" border-bottom:1px #CCCCCC dashed">
+		  <span style="color:#FF3300; font-weight:bold">*</span> 课程简介：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <div><textarea name="contents" class="input_text_200_textarea" id="contents" style="width:450px; height:150px;" >{#$course.contents#}</textarea>
+</div>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="F9F9F9" style=" border-bottom:1px #CCCCCC dashed"><strong>邮件通知</strong></td>
+          <td bgcolor="F9F9F9" style=" border-bottom:1px #CCCCCC dashed">(接收邮箱为用户注册邮箱)</td>
+        </tr>
+		<tr>
+          <td height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed">邮件通知：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <label><input name="notify" type="radio" value="1" {#if $course.contact.notify=="1"#}checked="checked"{#/if#}/>接收</label>
+			&nbsp;&nbsp;&nbsp;          
+            <label>
+            <input type="radio" name="notify" value="0" {#if $course.contact.notify=="0"#}checked="checked"{#/if#}/>不接收</label> 
+            <span style="color: #666666"> &nbsp;&nbsp;&nbsp;(有用户申请此课程时，系统会发一份邮件提醒您查看)</span></td>
+        </tr>
+		<tr>
+          <td height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed">接收邮箱：</td>
+          <td style=" border-bottom:1px #CCCCCC dashed"><strong>{#$course.user.email#}</strong>&nbsp;&nbsp;&nbsp;
+		  {#if $course.user.email_audit=="1"#}
+			<a href="train_user.php?act=user_email" style="color:#009900"> [已认证]</a>
+			{#else#}
+			<span style="color:#FF0000"> 未认证 </span>
+			{#/if#}
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#F9F9F9" style=" border-bottom:1px #CCCCCC dashed"><strong>联系方式</strong></td>
+          <td bgcolor="#F9F9F9" style=" border-bottom:1px #CCCCCC dashed">(默认为企业联系方式)</td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联 系 人：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+			<input name="contact" type="text" class="input_text_200" id="contact" value="{#$course.contact.contact#}" maxlength="20" />
+           <label><input name="contact_show"  type="checkbox" value="1" {#if $course.contact.contact_show=="1"#}checked="checked"{#/if#} />联系人在课程详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold"> </span>联系人QQ号：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="qq" type="text" class="input_text_200" id="qq" maxlength="50"  value="{#$course.contact.qq#}"/>
+		  <label><input name="qq_show"  type="checkbox" value="1"  {#if $course.contact.qq_show=="1"#}checked="checked"{#/if#}/>联系qq在课程详细页中显示</label>
+		   </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联系电话：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  <input name="telephone" type="text" class="input_text_200" id="telephone" maxlength="35" value="{#$course.contact.telephone#}" />
+           <label><input name="telephone_show"  type="checkbox" value="1" {#if $course.contact.telephone_show=="1"#}checked="checked"{#/if#} />联系电话在课程详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 授课地址：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed">
+		  	<input name="address" type="text" class="input_text_200" id="address" maxlength="100"  value="{#$course.contact.address#}"/>
+            <label><input name="address_show"  type="checkbox" value="1" {#if $course.contact.address_show=="1"#}checked="checked"{#/if#} />联系地址在课程详细页中显示
+		  </td>
+        </tr>
+		<tr>
+          <td height="30" align="right" bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 联系邮箱：</td>
+          <td bgcolor="#FFFFFF" style=" border-bottom:1px #CCCCCC dashed"><label>
+          <input name="email" type="text" class="input_text_200" id="email" maxlength="80"  value="{#$course.contact.email#}"/>
+          </label>
+           <label><input name="email_show"  type="checkbox" value="1" {#if $course.contact.email_show=="1"#}checked="checked"{#/if#} />联系邮箱在课程详细页中显示
+		  </td>
+		
+		
+		<tr>
+            <td height="30" align="right" bgcolor="#FFFFFF" >&nbsp;</td>
+            <td height="120" bgcolor="#FFFFFF"><span style="font-size:14px;">
+              <input type="hidden" name="id"  value="{#$course.id#}" />
+			  <input type="hidden" name="train_id"  value="{#$course.train_id#}" />			  
+			  <input type="hidden" name="url"  value="{#$url#}" />
+              <input name="submit3" type="submit" class="admin_submit"    value="保存修改"/> 
+              <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="window.location.href='{#$url#}'"/>
+            </span></td>
+          </tr>
+  </table>
+  </form>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

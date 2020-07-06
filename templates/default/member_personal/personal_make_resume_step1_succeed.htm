@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.get("?act=ajax_get_interest_jobs&pid="+$(".recommend").attr("pid"), function(result){
+    $("#interest_jobs_list").append(result);
+  });
+});
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 创建简历</div>
+
+<div class="usermain">
+  <div class="leftmenu link_bk">
+  {#include file="member_personal/left.htm"#}	
+  </div>
+<div class="rightmain">
+  
+	<div class="bbox1">	
+	  <div class="step1succeed">
+		  
+		  
+						<div class="tip">
+						  <div class="left"></div>
+						  <div class="right">
+						  			<div class="h1-title">简历创建成功，太给力了!</div>
+						            <div class="txt">
+									简历完整：<br />
+									您的简历等位为<span>差</span>,为了提高应聘成功率，强烈建议您继续完善简历！
+										<div class="proportion">
+										  	<div class="graph"><div style="width:40%"></div></div>
+											<div class="number">40%</div>
+											<div class="clear"></div>
+										</div>						
+									</div>
+						  </div>
+						  <div class="clear"></div>
+						</div>
+		                <div class="butbox">
+						<input type="button" name="submitsave" id="submitsave" value="继续完善"  class="but180lan" onclick="javascript:location.href='?act=make2&pid={#$pid#}'"/>
+						<input type="button" name="submitsave" id="submitsave" value="管理简历"  class="but180hui" onclick="javascript:location.href='?act=resume_list'"/>
+						<input type="button" name="submitsave" id="submitsave" value="搜索职位"  class="but180hui" onclick="javascript:window.open('{#"QS_jobslist"|qishi_url#}')"/>
+						</div>						
+						
+		                <div class="recommend" id="interest_jobs_list" pid="{#$pid#}">
+						    	 <div class="title"><div class="h2-title">为您推荐的职位</div></div>
+					    </div>
+	  </div>
+	</div>
+</div>
+
+<div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+
+</body>
+</html>

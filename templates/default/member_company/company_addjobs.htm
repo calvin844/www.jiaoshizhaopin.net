@@ -1,0 +1,797 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_addjobs.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+        <title>{#$title#}</title>
+
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery-ui.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $.datepicker.regional['zh-CN'] = {
+                    clearText: '清除',
+                    clearStatus: '清除已选日期',
+                    closeText: '关闭',
+                    closeStatus: '不改变当前选择',
+                    prevText: '<上月',
+                    prevStatus: '显示上月',
+                    prevBigText: '<<',
+                    prevBigStatus: '显示上一年',
+                    nextText: '下月>',
+                    nextStatus: '显示下月',
+                    nextBigText: '>>',
+                    nextBigStatus: '显示下一年',
+                    currentText: '今天',
+                    currentStatus: '显示本月',
+                    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                    monthNamesShort: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+                    monthStatus: '选择月份',
+                    yearStatus: '选择年份',
+                    weekHeader: '周',
+                    weekStatus: '年内周次',
+                    dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+                    dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+                    dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+                    dayStatus: '设置 DD 为一周起始',
+                    dateStatus: '选择 m月 d日, DD',
+                    dateFormat: 'yy-mm-dd',
+                    firstDay: 1,
+                    initStatus: '请选择日期',
+                    isRTL: false
+                };
+                $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+                $("#datepicker").datepicker({minDate: +30, maxDate: +90});
+                function menuDown(menuId) {
+                    $("#content").off('click', "#" + menuId + " div.text");
+                    $("#content").on('click', "#" + menuId + " div.text", function () {
+                        $(".select_box").find('ul.list').slideUp("fast");
+                        $("#" + menuId).find('ul.list').slideDown('fast');
+                        //生成背景
+                        $("#" + menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                        $(".menu_bg_layer").css("opacity", "0");
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").remove();
+                            $("#" + menuId).find('ul.list').slideUp("fast");
+                            $("#" + menuId).parent("div").css("position", "");
+                        });
+                    });
+                    $("#content").off('click', "#" + menuId + " ul.list li");
+                    $("#content").on('click', '#' + menuId + ' ul.list li', function () {
+                        var data = $(this).attr("data");
+                        var text = $(this).find('span').html();
+                        var sdistrict = $('#' + menuId).attr('data-sdistrict');
+                        var job = $('#' + menuId).attr('data-job');
+                        $("#" + menuId).find('input[type="hidden"]').val(data);
+                        $("#" + menuId).find('div.text span').html(text);
+                        $("#" + menuId).find('ul.list').slideUp('fast');
+                        $(".menu_bg_layer").remove();
+                        if (sdistrict == 1) {
+                            var data_arr = data.split('-');
+                            $.get("?act=get_city&id=" + data_arr[0], function (result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.sdistrict ul.list').html(html)
+                                $("#" + menuId).parent().find('.sdistrict .text span').html('全部')
+                                $("#" + menuId).parent().find('.sdistrict input').attr('value', '0-全部')
+                            });
+                        }
+                        if (job == 1) {
+                            var data_arr = data.split('-');
+                            $.get("?act=get_job_type&id=" + data_arr[0], function (result) {
+                                var html = "";
+                                if (result.indexOf('||') > 0) {
+                                    var arr = result.split("||");
+                                } else {
+                                    var arr = new Array(result);
+                                }
+                                for (var i = 0; i < arr.length; i++) {
+                                    var item = arr[i].split("-");
+                                    html += '<li data="' + item[0] + '-' + item[1] + '"><span>' + item[1] + '</span></li>';
+                                }
+                                $("#" + menuId).parent().find('.job_type ul.list').html(html)
+                                $("#" + menuId).parent().find('.job_type .text span').html('请选择分类')
+                                $("#" + menuId).parent().find('.job_type input').attr('value', '')
+                            });
+                        }
+                    });
+                }
+                $('#content').ajaxStop(function () {
+                    $('div.select_box').each(function () {
+                        var did = $(this).attr('id');
+                        menuDown(did);
+                    })
+                })
+
+                $('div.select_box').each(function () {
+                    var did = $(this).attr('id');
+                    menuDown(did);
+                })
+                function imgcaptcha(inputID, imgdiv)
+                {
+                    $(inputID).focus(function () {
+                        if ($(inputID).val() == "点击获取验证码")
+                        {
+                            $(inputID).val("");
+                            $(inputID).css("color", "#333333");
+                        }
+                        $(inputID).parent("div").css("position", "relative");
+                        //设置验证码DIV
+                        $(imgdiv).css({position: "absolute", left: "225px", "bottom": "20px", "z-index": "10", "background-color": "#FFFFFF", "border": "1px #A3C8DC solid", "display": "none", "margin-left": "25px"});
+                        $(imgdiv).show();
+                        if ($(imgdiv).html() == '')
+                        {
+                            $(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function ()
+                        {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                            $(inputID).val("");
+                            $("#Form1").validate().element("#postcaptcha");
+                        });
+                        $(document).unbind().click(function (event)
+                        {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha")
+                            {
+                                $(imgdiv).hide();
+                                $(inputID).parent("div").css("position", "");
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+                $("#Form1").validate({
+                    //debug: true,
+                    // onsubmit:false,
+                    //onfocusout :true,
+                    ignore: [],
+                    rules: {
+                        jobs_name: {
+                            required: true,
+                            minlength: 2,
+                            maxlength: 30
+                        },
+                        amount: {
+                            range: [0, 9999]
+                        },
+                        days: {
+                            required: true
+                        },
+                        job_ptype: "required",
+                        district: "required",
+                        wage: "required",
+                        education: "required",
+                        experience: "required",
+                        contents: {
+                            required: true,
+                            minlength: 30,
+                            maxlength: 5000
+                        },
+                        contact: {
+                            required: true
+                        },
+                        telephone: "required",
+                        address: "required",
+                        postcaptcha: {
+                            IScaptchastr: true,
+                            required: true,
+                            remote: {
+                                url: "/include/imagecaptcha.php",
+                                type: "post",
+                                data: {"postcaptcha": function () {
+                                        return $("#postcaptcha").val()
+                                    }, "act": "verify", "time": function () {
+                                        return new Date().getTime()
+                                    }}
+                            }
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        }
+                    },
+                    messages: {
+                        jobs_name: {
+                            required: "请输入职位名称",
+                            minlength: jQuery.format("职位名称不能小于{0}个字符"),
+                            maxlength: jQuery.format("职位名称不能大于{0}个字符")
+                        },
+                        amount: {
+                            range: jQuery.format("请输入一个介于{0}和{1}之间的值")
+                        },
+                        days: {
+                            required: "请选择截止日期"
+                        },
+                        job_ptype: {
+                            required: jQuery.format("请选择所属职位")
+                        },
+                        district: {
+                            required: jQuery.format("请选择工作地区")
+                        },
+                        wage: {
+                            required: jQuery.format("请选择月薪范围")
+                        },
+                        education: {
+                            required: jQuery.format("请选择学历要求")
+                        },
+                        experience: {
+                            required: jQuery.format("请选择工作经验")
+                        },
+                        contents: {
+                            required: jQuery.format("请填写职位描述"),
+                            minlength: jQuery.format("职位描述内容不能小于{0}个字符"),
+                            maxlength: jQuery.format("职位描述内容不能大于{0}个字符")
+                        },
+                        contact: {
+                            required: jQuery.format("请填写联系人")
+                        },
+                        telephone: {
+                            required: jQuery.format("请填写联系电话")
+                        },
+                        address: {
+                            required: jQuery.format("请填写联系地址")
+                        },
+                        postcaptcha: {
+                            required: "请填写验证码",
+                            remote: jQuery.format("验证码错误")
+                        },
+                        email: {
+                            required: jQuery.format("请填写电子邮箱"),
+                            email: jQuery.format("请正确填写电子邮箱")
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio")) {
+                            error.appendTo(element.parent().next().next());
+                        } else if (element.is(":checkbox")) {
+                            error.appendTo(element.next());
+                        } else {
+                            error.appendTo(element.parents('.item_box'));
+                        }
+                    }
+                });
+                jQuery.validator.addMethod("IScaptchastr", function (value, element) {
+                    var str = "点击获取验证码";
+                    var flag = true;
+                    if (str == value) {
+                        flag = false;
+                    }
+                    return  flag || this.optional(element);
+                }, "请填写验证码");
+            })
+        </script>
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/company/company_index.php">企业中心 </a>&nbsp;>&nbsp;职位管理</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <p>发布职位</p>
+                        <p class="right">您已发布{#$total[2]#}个职位，还可以发布<span>{#$setmeal.jobs_ordinary#}</span>个职位。</p>
+                    </div>
+                    <form id="Form1" name="Form1" method="post" action="?act=addjobs_save" >
+                        <div class="quick_add_box">
+                            <div class="item_box">
+                                <label class="item_name">快速发布：</label>
+                                <div class="input_box">
+                                    <div class="select_box" id="templates">
+                                        <div class="text">
+                                            <span>请选择模版职位</span>
+                                            <i></i>
+                                        </div>
+                                        <ul class="list">
+                                            {#if $jobs_list#}
+                                            {#foreach from=$jobs_list item=ex#}
+                                            <li data-templates="{#if $ex.templates == 1#}1{#else#}0{#/if#}" id="{#$ex.id#}" title="{#$ex.jobs_name_#}" class="choose_job"><span>{#$ex.jobs_name_#}</span></li>
+                                            {#/foreach#}
+                                            {#else#}
+                                            <li>您还没有发布职位</li>
+                                            {#/if#}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>职位名称：</label>
+                            <div class="input_box">
+                                <input type="text" class="text"  name="jobs_name" id="jobs_name" maxlength="80" value="" placeholder="请填写职位名称"/>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">职位性质：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="nature">
+                                    <div class="text">
+                                        <span>全职</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify set="类型:QS_jobs_nature,列表名:c_nature"#}
+                                        {#foreach from=$c_nature item=list#}
+                                        <li data = "{#$list.id#}-{#$list.categoryname#}"> <span>{#$list.categoryname#}</span></li>
+                                        {#/foreach#}		
+                                    </ul>
+                                    <input type="hidden" name="nature" id="nature_value" value="62-全职" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>职位类别：</label>
+                            <div class="input_box">
+                                <div class="select_box half" data-job="1" id="job_ptype">
+                                    <div class="text">
+                                        <span>请选择分类</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$category item=list#}
+                                        {#if $list.parentid == 0 #}
+                                        <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                        {#/if#}
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="job_ptype" id="job_ptype_value" value="" />
+                                </div>
+                                <div class="select_box half job_type" id="job_type">
+                                    <div class="text">
+                                        <span>请选择子类</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list"></ul>
+                                    <input type="hidden" name="job_type" id="job_type_value" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">招聘人数：</label>
+                            <div class="input_box">
+                                <input type="text" class="text"  name="amount" id="amount" maxlength="4" value="" placeholder="0表示若干！" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>截止日期：</label>
+                            <div class="input_box">
+                                <input class="text" value="" name="days" type="text" id="datepicker" placeholder="请选择截止日期" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>学历要求：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="education">
+                                    <div class="text">
+                                        <span>请选择学历要求</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                        {#foreach from=$c_education item=list#}
+                                        <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="education" id="education_value" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>工作经验：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="experience">
+                                    <div class="text">
+                                        <span>不限</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                        {#foreach from=$c_experience item=list#}
+                                        <li data="{#$list.id#}|{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="experience" id="experience_value" value="250|不限" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box age">
+                            <label class="item_name">年龄要求：</label>
+                            <div class="input_box">
+                                <div class="select_box half" id="minage">
+                                    <div class="text">
+                                        <span>请选择最小年龄</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#section name=total loop=66#}
+                                        {#if $smarty.section.total.index > 17#}
+                                        <li data="{#$smarty.section.total.index+1#} "><span>{#$smarty.section.total.index+1#}</span></li>
+                                        {#/if#}
+                                        {#/section#}
+                                    </ul>
+                                    <input type="hidden" name="minage" id="minage_value" value="" />
+                                </div>
+                                <span class="font">至</span>
+                                <div class="select_box half" id="maxage">
+                                    <div class="text">
+                                        <span>请选择最大年龄</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#section name=total loop=66#}
+                                        {#if $smarty.section.total.index > 17#}
+                                        <li data="{#$smarty.section.total.index+1#} "><span>{#$smarty.section.total.index+1#}</span></li>
+                                        {#/if#}
+                                        {#/section#}
+                                    </ul>
+                                    <input type="hidden" name="maxage" id="maxage_value" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">性别要求：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="sex">
+                                    <div class="text">
+                                        <span>不限</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        <li data="3-不限"><span>不限</span></li>
+                                        <li data="1-男"><span>男</span></li>
+                                        <li data="2-女"><span>女</span></li>
+                                    </ul>
+                                    <input type="hidden" name="sex" id="sex_value" value="3-不限" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>工作地区：</label>
+                            <div class="input_box">
+                                <div class="select_box half" data-sdistrict="1" id="district">
+                                    <div class="text">
+                                        <span>请选择省份</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <li data="{#$c.id#}-{#$c.categoryname#}"><span>{#$c.categoryname#}</span></li>
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="district" id="district_value" value="" />
+                                </div>
+                                <div class="select_box half sdistrict" id="sdistrict">
+                                    <div class="text">
+                                        <span>请选择城市</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list"></ul>
+                                    <input type="hidden" name="sdistrict" id="sdistrict_value" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="item_box">
+                            <label class="item_name"><b class="must">*</b>薪资待遇：</label>
+                            <div class="input_box">
+                                <div class="select_box" id="wage">
+                                    <div class="text">
+                                        <span>面议</span>
+                                        <i></i>
+                                    </div>
+                                    <ul class="list">
+                                        {#qishi_get_classify  set="类型:QS_wage,列表名:c_wage"#}
+                                        {#foreach from=$c_wage item=list#}
+                                        <li data="{#$list.id#}-{#$list.categoryname#}"><span>{#$list.categoryname#}</span></li>
+                                        {#/foreach#}
+                                    </ul>
+                                    <input type="hidden" name="wage" id="wage_value" value="55-面议" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_box label">
+                            <label class="item_name">职位亮点：</label>
+                            <a class="add"  ></a>
+                            <div class="input_box">
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box specialty">
+                            <label class="item_name"><b class="must">*</b>职位描述：</label>
+                            <div class="clear"></div>
+                            <textarea name="contents" id="contents"></textarea>
+                        </div>
+                        <hr/>
+                        <div class="item_box">
+                            <label class="item_name">联系人：</label>
+                            <div class="input_box">
+                                <input name="contact" type="text" class="text" id="contact" maxlength="20"   value="{#$company_profile.contact#}"/>
+                                <input name="contact_show" type="hidden" value="0" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">联系电话：</label>
+                            <div class="input_box">
+                                <input name="telephone" type="text" class="text" id="telephone" maxlength="35"   value="{#$company_profile.telephone#}"/>
+                                <input name="telephone_show" type="hidden" value="0" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">接收邮箱：</label>
+                            <div class="input_box">
+                                <input name="email" type="text" class="text" id="email" maxlength="80" value="{#$company_profile.email#}"/> 
+                                <input name="email_show" type="hidden" value="0" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">联系地址：</label>
+                            <div class="input_box">
+                                <input name="address" id="address" type="text" class="text" maxlength="100" value="{#$company_profile.address#}"/>
+                            </div>
+                        </div>
+                        <div class="item_box code" style="position: relative;">
+                            <label class="item_name"><b class="must">*</b>验证码：</label>
+                            <div class="input_box">
+                                <input class="text" name="postcaptcha" id="postcaptcha" type="text" value="点击获取验证码" style="color: rgb(51, 51, 51);">
+                            </div>
+                            <div id="imgdiv"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <input name="add_mode" type="hidden" id="add_mode" value="{#$add_mode#}" />
+                        <input name="addrand" type="hidden"  id="addrand" value="{#$addrand#}" />
+                        <input name="notify" type="hidden" value="1" />
+                        <input class="submit" type="submit" value="发布职位"/>
+                        <input class="save_templates" id="save_templates" type="button" value="存为模板">
+                        <hr/>
+                    </form>
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs&jobtype=1"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company_profile.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="label_select_box">
+            <div class="select_box">
+                <div class="top">
+                    <a class="right"  ></a>
+                </div>
+                <div class="middle">
+                    <ul>
+                        {#qishi_get_classify set="列表名:category,类型:QS_jobtag"#}
+                        <!-- 以下为循环数组category内容  -->
+                        {#foreach from=$category item=t#}
+                        <li id="tag{#$t.id#}" data-value="{#$t.id#}-{#$t.categoryname#}">
+                            <i></i>
+                            <span>{#$t.categoryname#}</span>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <a class="right"  >确定</a>
+                </div>
+            </div>
+            <div class="bg"></div>
+        </div>
+        <script>
+            $("#save_templates").click(function () {
+                var jobs_name = $('input[name=jobs_name]').val();
+                var nature_arr = $('input[name=nature]').val().split('-');
+                var nature = nature_arr[0];
+                var nature_cn = nature_arr[1];
+                var topclass = 0;
+                var job_ptype_arr = $('input[name=job_ptype]').val().split('-');
+                var category = job_ptype_arr[0];
+                if ($('input[name=job_type]').val() != "") {
+                    var job_tpye_value = $('input[name=job_type]').val();
+                } else {
+                    var job_tpye_value = "0-全部";
+                }
+                var job_type_arr = job_tpye_value.split('-');
+                var subclass = job_type_arr[0];
+                var category_cn = job_ptype_arr[1] + "-" + job_type_arr[1];
+
+                var amount = $('input[name=amount]').val();
+
+                var district_arr = $('input[name=district]').val().split('-');
+                var district = district_arr[0];
+                if ($('input[name=sdistrict]').val() != "") {
+                    var sdistrict_value = $('input[name=sdistrict]').val();
+                } else {
+                    var sdistrict_value = "0-全部";
+                }
+                var sdistrict_arr = sdistrict_value.split('-');
+                var sdistrict = sdistrict_arr[0];
+                var district_cn = district_arr[1] + "/" + sdistrict_arr[1];
+                var wage_arr = $('input[name=wage]').val().split('-');
+                var wage = wage_arr[0];
+                var wage_cn = wage_arr[1];
+                var negotiable = 0;
+                var tag = $('input[name=tag]').val();
+                var sex_arr = $('input[name=sex]').val().split('-');
+                var sex = sex_arr[0];
+                var sex_cn = sex_arr[1];
+                var education_arr = $('input[name=education]').val().split('-');
+                var education = education_arr[0];
+                var education_cn = education_arr[1];
+                var experience_arr = $('input[name=experience]').val().split('|');
+                var experience = experience_arr[0];
+                var experience_cn = experience_arr[1];
+                var graduate = 0;
+                var minage = $('input[name=minage]').val();
+                var maxage = $('input[name=maxage]').val();
+                var contents = $("#contents").val();
+                $.post("?act=ajax_save_jobs_templates", {jobs_name: jobs_name, category_cn: category_cn, category: category, subclass: subclass, topclass: topclass, amount: amount, nature: nature, nature_cn: nature_cn, district_cn: district_cn, district: district, sdistrict: sdistrict, graduate: graduate, education_cn: education_cn, education: education, experience_cn: experience_cn, experience: experience, sex_cn: sex_cn, sex: sex, contents: contents, wage: wage, wage_cn: wage_cn, tag: tag, negotiable: negotiable, minage: minage, maxage: maxage}, function (result) {
+                    if (result == "1") {
+                        $("#save_templates").attr("disabled", "disabled");
+                        $("#save_templates").val("已保存");
+                        alert("已经保存到职位模板中，名称为\"" + jobs_name + "\"的模板");
+                        return false;
+                    } else if (result == "-1") {
+                        alert("您有未完善的内容，请检查！");
+                        return false;
+                    } else {
+                        alert("保存失败！");
+                        return false;
+                    }
+                });
+            });
+            $(".choose_job").click(function () {
+                var templates = $(this).attr('data-templates');
+                $.get("?act=copy_job&id=" + $(this).attr("id") + "&templates=" + templates, function (result) {
+                    if (result == "-1") {
+                        return false;
+                    } else {
+                        $('input[name=nature]').parent().find('.text span').html(result.nature_cn);
+                        $('input[name=nature]').val(result.nature + "-" + result.nature_cn);
+                        var category_txt = result.category_cn.split('-');
+                        $('input[name=job_ptype]').val(result.category + "-" + category_txt[0]);
+                        $('input[name=job_ptype]').parent().find('.text span').html(category_txt[0]);
+                        $('input[name=job_type]').val(result.subclass + "-" + category_txt[1]);
+                        $('input[name=job_type]').parent().find('.text span').html(category_txt[1]);
+                        $('input[name=amount]').val(result.amount);
+                        var district_txt = result.district_cn.split('/');
+                        $('input[name=district]').val(result.district + "-" + district_txt[0]);
+                        $('input[name=district]').parent().find('.text span').html(district_txt[0]);
+                        $('input[name=sdistrict]').val(result.sdistrict + "-" + district_txt[1]);
+                        $('input[name=sdistrict]').parent().find('.text span').html(district_txt[1]);
+                        $('input[name=wage]').parent().find('.text span').html(result.wage_cn);
+                        $('input[name=wage]').val(result.wage + "-" + result.wage_cn);
+                        $('input[name=sex]').parent().find('.text span').html(result.sex_cn);
+                        $('input[name=sex]').val(result.sex + "-" + result.sex_cn);
+                        $('input[name=education]').parent().find('.text span').html(result.education_cn);
+                        $('input[name=education]').val(result.education + "-" + result.education_cn);
+                        $('input[name=experience]').parent().find('.text span').html(result.experience_cn);
+                        $('input[name=experience]').val(result.experience + "|" + result.experience_cn);
+                        if (result.age != "") {
+                            var age_txt = result.age.split('-');
+                            $('input[name=minage]').parent().find('.text span').html(age_txt[0]);
+                            $('input[name=minage]').val(age_txt[0]);
+                            $('input[name=maxage]').parent().find('.text span').html(age_txt[1]);
+                            $('input[name=maxage]').val(age_txt[1]);
+                        } else {
+                            $('input[name=minage]').parent().find('.text span').html('请选择最小年龄');
+                            $('input[name=maxage]').parent().find('.text span').html('请选择最大年龄');
+                        }
+
+                        $("#contents").val(result.contents);
+                        var job_tag = result.tag;
+                        if (job_tag.indexOf('|') > 0) {
+                            var job_tag_arr = job_tag.split("|");
+                        } else {
+                            var job_tag_arr = new Array(job_tag);
+                        }
+                        for (var i = 0; i < job_tag_arr.length; i++) {
+                            var item = job_tag_arr[i].split(",");
+                            $('.label_select_box li#tag' + item[0]).addClass('selected');
+                        }
+                        reset_tag();
+                    }
+                }, dataType = "json");
+            });
+            $('div.label a.add').click(function () {
+                $('body').css('overflow', 'hidden');
+                $('.label_select_box').show();
+            });
+            $('.label_select_box div.top a').click(function () {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box div.bottom a').click(function () {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box div.bg').click(function () {
+                $('body').removeAttr('style');
+                $('.label_select_box').hide();
+            });
+            $('.label_select_box li').click(function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    if ($('.label_select_box li.selected').length < 5) {
+                        $(this).addClass('selected');
+                    } else {
+                        alert('标签最多选择5个！');
+                    }
+                }
+                reset_tag();
+            });
+            $('div.label').on('click', 'p a', function () {
+                var t_id = $(this).parent().attr('id');
+                $('.label_select_box li#' + t_id).removeClass('selected');
+                reset_tag();
+            })
+
+            function reset_tag() {
+                var tag_html = "";
+                var tag_str = "";
+                $('.label_select_box li.selected').each(function () {
+                    var v = $(this).attr('data-value');
+                    var v_arr = v.split('-');
+                    tag_html += '<p id="tag' + v_arr[0] + '">' + v_arr[1] + '<a  ></a></p>';
+                    tag_str += v_arr[0] + ',' + v_arr[1] + '|';
+                })
+                tag_html += '<input type="hidden" value="' + tag_str + '" id="tag" name="tag"/>';
+                tag_html += '<div class="clear"></div>';
+                $('div.label div.input_box').html(tag_html);
+            }
+        </script>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

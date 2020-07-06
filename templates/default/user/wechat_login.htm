@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <title>微信扫码登陆_{#$QISHI.site_name#}</title>
+    </head>
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img alt="{#$li.alias#}" src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box reg_index" style="text-align: center;">
+                <p class="title">扫码关注公众号登陆</p>
+                <img src="{#$code_img#}" width="300"/>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <script type="text/javascript">
+            function chlink() {
+                $.getJSON("https://m.qingkao.net/ov2/get_component_login_state_data?sales_id=86&access_token=gSJH9WUQOX8ra8CuXtjeU7Qgn3R1I&login_code={#$login_code#}", function(data) {
+                    if (data.ret_code == 1) {
+                        window.location.href = "/user/connect_wechat.php?act=login_allback&login_code={#$login_code#}";
+                    }
+                })
+            }
+            $(function() {
+                timeID = setInterval('chlink()', 2000); //注意:执行的函数需要加引号,否则会报错的 
+            });
+        </script>
+        <p class="copyright">Copyright {#$smarty.now|date_format:'%Y'#} &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>

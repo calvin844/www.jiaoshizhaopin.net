@@ -1,0 +1,140 @@
+{#include file="sys/admin_header.htm"#}
+
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        <div class="clear"></div>
+    </div>
+    <form method="get" action="">
+        <div class="seltpye_x">
+            <div class="left">记录状态</div>	
+            <div class="right">
+                <select style="margin: 5px 0px 0px 0px;" name="state">
+                    <option {#if $state == 0#}selected{#/if#} value="0">全部</option>
+                    <option {#if $state == 1#}selected{#/if#} value="1">未支付</option>
+                    <option {#if $state == 2#}selected{#/if#} value="2">已支付</option>
+                </select>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="seltpye_x">
+            <div class="left">搜索条件</div>	
+            <div class="right">
+                <span>记录ID：</span><input class="search_value" type="text" name="id" value="{#$id#}" />
+                <span>用户ID：</span><input class="search_value" type="text" name="uid" value="{#$uid#}" />
+                <span>用户类型：</span>
+                <select name="utype">
+                    <option {#if $utype == 0#}selected{#/if#} value="0">全部</option>
+                    <option {#if $utype == 1#}selected{#/if#} value="1">企业</option>
+                    <option {#if $utype == 2#}selected{#/if#} value="2">个人</option>
+                </select>
+                <span>优惠类型：</span>
+                <select name="coupons_type">
+                    <option {#if $coupons_type == 0#}selected{#/if#} value="0">全部</option>
+                    <option {#if $coupons_type == 1#}selected{#/if#} value="1">个人现金</option>
+                    <option {#if $coupons_type == 2#}selected{#/if#} value="2">企业现金</option>
+                    <option {#if $coupons_type == 3#}selected{#/if#} value="3">企业优惠</option>
+                </select>
+                <input class="search_submit" type="submit" value="搜索"/>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+
+    <form id="form1" name="form1" method="post" action="?act=set_state">
+        {#$inputtoken#}
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+            <tr>
+                <td  class="admin_list_tit admin_list_first">
+                    <label id="chkAll"><input type="checkbox" name=" " title="全选/反选" id="chk"/>记录ID</label>
+                </td>
+                <td  width="20%" class="admin_list_tit">用户名（用户ID）</td> 
+                <td  width="30%" class="admin_list_tit">收款码</td> 
+                <td  width="10%" align="center" class="admin_list_tit">用户类型</td>  
+                <td  width="10%" class="admin_list_tit">优惠类型</td> 
+                <td  width="5%" class="admin_list_tit">优惠金额</td>  
+                <td width="10%" align="center" class="admin_list_tit">添加时间</td>
+                <td width="5%" align="center" class="admin_list_tit">支付状态</td>
+            </tr>
+            {#foreach from=$data_list item=list#}
+            <tr>
+                <td class="admin_list admin_list_first" >
+                    <input name="id[]" type="checkbox" id="y_id" value="{#$list.id#}" />
+                    <span  style="{#if $list.state == '2'#}color: red;{#/if#}">{#$list.id#}</span>
+                </td>
+                <td class="admin_list">
+                    {#$list.user.username#}（{#$list.user.uid#}）
+                </td>
+
+                <td  class="admin_list">
+                    <img  style="{#if $list.state == '2'#}border:3px solid red;{#/if#}" src='/data/spring2018_img/{#$list.img.path#}' height="200"  border=0  align=absmiddle/>
+                </td>
+
+                <td align="center" class="admin_list">
+                    {#if $list.utype == 1#}
+                    企业
+                    {#else#}
+                    个人
+                    {#/if#}
+                </td>
+                <td  class="admin_list">
+                    {#if $list.coupons_type == 1#}
+                    个人现金
+                    {#elseif $list.coupons_type == 2#}
+                    企业现金
+                    {#elseif $list.coupons_type == 3#}
+                    企业优惠
+                    {#/if#}
+                </td>
+                <td class="admin_list">
+                    {#$list.coupons_value#}元
+                </td>
+
+                <td align="center" class="admin_list">
+                    {#$list.addtime|date_format:"%Y-%m-%d %H:%M:%S"#}
+                </td>
+
+                <td align="center" class="admin_list">
+                    {#if $list.state == "1"#}未支付{#/if#}
+                    {#if $list.state == "2"#}<span  style="color: red;">已支付</span>{#/if#}
+                </td>
+            </tr>
+            {#/foreach#}
+        </table>
+        <table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+            <tr>
+                <td>
+                    <label>状态</label>
+                    <select name="state">
+                        <option value="1">未支付</option>
+                        <option value="2">已支付</option>
+                    </select>
+                    <input type="submit" value="提交"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="page link_bk">
+        {#if $page_arr.cur_page > 1#}
+        <a class="per" href="?id={#$id#}&uid={#$uid#}&utype={#$utype#}&coupons_type={#$coupons_type#}&state={#$state#}&p={#$page_arr.per_page#}">上一页</a>
+        {#/if#}
+        {#if $page_arr.cur_page > 3#}
+        <i>......</i>
+        {#/if#}
+        {#foreach from=$page_arr.page_arr item=pa#}
+        <a class="page {#if $page_arr.cur_page == $pa#}hover{#/if#}" href="?id={#$id#}&uid={#$uid#}&utype={#$utype#}&coupons_type={#$coupons_type#}&state={#$state#}&p={#$pa#}">{#$pa#}</a>
+        {#/foreach#}
+        {#if $page_arr.cur_page < ($page_arr.total-2)#}
+        <i>......</i>
+        {#/if#}
+        {#if $page_arr.cur_page < $page_arr.total#}
+        <a class="next" href="?id={#$id#}&uid={#$uid#}&utype={#$utype#}&coupons_type={#$coupons_type#}&state={#$state#}&p={#$page_arr.next_page#}">下一页</a>
+        {#/if#}
+    </div>
+</div>
+
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

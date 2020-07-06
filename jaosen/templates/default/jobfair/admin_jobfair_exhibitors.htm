@@ -1,0 +1,195 @@
+{#include file="sys/admin_header.htm"#}
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//点击批量取消	
+	$("#ButDel").click(function(){
+		if (confirm('你确定要删除吗？'))
+		{
+			$("form[name=form1]").attr("action","?act=exhibitors_del");
+			$("form[name=form1]").submit()
+		}
+	});
+	$("#ButAudit").QSdialog({
+	DialogTitle:"请选择",
+	DialogContent:"#OpAuditLayer",
+	DialogContentType:"id",
+	DialogAddObj:"#OpAudit",	
+	DialogAddType:"html"	
+	});
+		
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+ {#include file="jobfair/admin_jobfair_exhibitors_nav.htm"#}
+  <div class="clear"></div>
+</div>
+ 
+ <div class="seltpye_x">
+		<div class="left">预定状态</div>	
+		<div class="right">
+		<a href="{#"audit:"|qishi_parse_url#}" {#if $smarty.get.audit==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"audit:1"|qishi_parse_url#}" {#if $smarty.get.audit=="1"#}class="select"{#/if#}>预定成功</a>
+		<a href="{#"audit:0"|qishi_parse_url#}" {#if $smarty.get.audit=="0"#}class="select"{#/if#}>等待确认</a>
+		
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+  </div>
+  
+ <div class="seltpye_x">
+		<div class="left">预定方式</div>	
+		<div class="right">
+		<a href="{#"etypr:"|qishi_parse_url#}" {#if $smarty.get.etypr==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"etypr:1"|qishi_parse_url#}" {#if $smarty.get.etypr=="1"#}class="select"{#/if#}>在线预定</a>
+		<a href="{#"etypr:2"|qishi_parse_url#}" {#if $smarty.get.etypr=="2"#}class="select"{#/if#}>电话预定</a>
+		<a href="{#"etypr:3"|qishi_parse_url#}" {#if $smarty.get.etypr=="3"#}class="select"{#/if#}>其他方式</a>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+  </div>
+  
+ <div class="seltpye_x">
+		<div class="left">添加时间</div>	
+		<div class="right">
+		<a href="{#"settr:"|qishi_parse_url#}" {#if $smarty.get.settr==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"settr:3"|qishi_parse_url#}" {#if $smarty.get.settr=="3"#}class="select"{#/if#}>三天内</a>
+		<a href="{#"settr:7"|qishi_parse_url#}" {#if $smarty.get.settr=="7"#}class="select"{#/if#}>一周内</a>
+		<a href="{#"settr:30"|qishi_parse_url#}" {#if $smarty.get.settr=="30"#}class="select"{#/if#}>一月内</a>
+		<a href="{#"settr:180"|qishi_parse_url#}" {#if $smarty.get.settr=="180"#}class="select"{#/if#}>半年内</a>
+		<a href="{#"settr:360"|qishi_parse_url#}" {#if $smarty.get.settr=="360"#}class="select"{#/if#}>一年内</a>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+  </div>
+  
+  
+ 
+  
+  <form id="form1" name="form1" method="post" action="?act=exhibitors_audit">
+  {#$inputtoken#}
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="link_lan">
+    <tr>
+      <td height="26" class="admin_list_tit admin_list_first" >
+      <label id="chkAll"><input type="checkbox" name=" " title="全选/反选" id="chk"/>参会企业</label>
+	  </td>
+      <td  class="admin_list_tit">招聘会标题</td>
+      <td   align="center" class="admin_list_tit"> 预定状态 </td>
+      <td    align="center" class="admin_list_tit">预定方式</td>
+      <td   align="center" class="admin_list_tit" >添加日期</td>
+      <td   align="center" class="admin_list_tit" >操作</td>
+    </tr>
+	  {#foreach from=$list item=list#}
+      <tr>
+      <td  class="admin_list admin_list_first">
+        <input name="id[]" type="checkbox" id="id" value="{#$list.id#}"/>    
+		{#if $list.company_url#}  
+		<a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a>
+		{#else#}
+		{#$list.companyname#}
+		{#/if#}	    </td>
+		 <td  class="admin_list" >
+		<a href="{#$list.jobfair_url#}" target="_blank">{#$list.jobfair_title#}</a>
+		 </td>
+        <td align="center"  class="admin_list">
+		{#if $list.audit=="1"#}  
+		<span style="color: #009900">预定成功</span>
+		{#else#}
+		<span style="color: #FF3300">等待确认</span>
+		{#/if#}
+		
+		</td>
+        <td align="center"  class="admin_list">
+		{#if $list.etypr=="1"#}  
+		 <a href="{#"etypr:1"|qishi_parse_url#}">在线预定</a>
+		{#elseif $list.etypr=="2"#}
+		<a href="{#"etypr:2"|qishi_parse_url#}">电话预定</a>
+	 	{#elseif $list.etypr=="3"#}
+		<a href="{#"etypr:3"|qishi_parse_url#}">其他方式</a>
+		{#/if#}
+		</td>
+        <td align="center"  class="admin_list">
+		{#$list.eaddtime|date_format:"%Y-%m-%d"#}
+		</td>
+        <td align="center"  class="admin_list">
+		<a href="?act=exhibitors_edit&id={#$list.id#}">修改</a> &nbsp;&nbsp;
+		<a href="?act=exhibitors_del&id={#$list.id#}&{#$urltoken#}" onclick="return confirm('你确定要删除吗？')">删除</a></td>
+      </tr>
+      {#/foreach#}
+    </table>
+	<span id="OpAudit"></span>
+  </form>
+	{#if !$list#}
+	<div class="admin_list_no_info">没有任何信息！</div>
+	{#/if#}	
+	
+	
+	<!-- -->
+<div style="display:none" id="OpAuditLayer">
+ <table width="100%" border="0" align="center" cellpadding="0" cellspacing="6" >
+    <tr>
+      <td width="20" height="30">&nbsp;</td>
+      <td height="30"><strong  style="color:#0066CC; font-size:14px;">将所选预定状态设置为：</strong></td>
+    </tr>
+	      <tr>
+      <td height="25">&nbsp;</td>
+      <td>
+	  <label >
+                      <input name="audit" type="radio" value="1" checked="checked"  />
+                      成功预定 </label>	  </td>
+    </tr>
+    <tr>
+      <td height="25">&nbsp;</td>
+      <td><label >
+                      <input type="radio" name="audit" value="0"  />
+        等待确认</label></td>
+    </tr>
+    <tr>
+      <td height="25">&nbsp;</td>
+      <td><input type="submit" name="set_audit" value="确定" class="admin_submit"    /></td>
+    </tr>		  
+  </table>
+</div>
+	
+	
+<table width="100%" border="0" cellspacing="10"  class="admin_list_btm">
+<tr>
+        <td>
+        <input name="ButADD" type="button" class="admin_submit" id="ButADD" value="新增"  onclick="window.location='?act=exhibitors_add'"/>
+		<input name="ButAudit" type="button" class="admin_submit" id="ButAudit"  value="设置状态"/>
+		<input name="ButDel" type="button" class="admin_submit" id="ButDel"  value="删除所选"/>
+		</td>
+        <td width="305" align="right">
+		<form id="formseh" name="formseh" method="get" action="?">	
+			<div class="seh">
+			    <div class="keybox"><input name="key" type="text"   value="{#$smarty.get.key#}" /></div>
+			    <div class="selbox">
+					<input name="key_type_cn"  id="key_type_cn" type="text" value="{#$smarty.get.key_type_cn|default:"公司"#}" readonly="true"/>
+						<div>
+								<input name="key_type" id="key_type" type="hidden" value="{#$smarty.get.key_type|default:"1"#}" />
+												<div id="sehmenu" class="seh_menu">
+														<ul>
+														<li id="1" title="公司">公司</li>
+														<li id="2" title="招聘会">招聘会</li>
+														</ul>
+												</div>
+						</div>				
+				</div>
+				<div class="sbtbox">
+				<input name="act" type="hidden" value="exhibitors" />
+				<input type="submit" name="" class="sbt" id="sbt" value="搜索"/>
+				</div>
+				<div class="clear"></div>
+		  </div>
+		  </form>
+		  <script type="text/javascript">$(document).ready(function(){showmenu("#key_type_cn","#sehmenu","#key_type");});	</script>
+	    </td>
+      </tr>
+  </table>
+<div class="page link_bk">{#$page#}</div>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

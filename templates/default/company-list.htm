@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+    <head>
+        {#qishi_company_list  set="分页显示:1,列表名:company,显示数目:20,填补字符:...,企业名长度:30,描述长度:50,省份:GET[parent_py],地区:GET[district],黄页:1,排序:refreshtime>desc,关键字:GET[keyword],职位数:0,性质:GET[nature]"#}
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company-list.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        {#if empty($district)#}
+        <title>{#$smarty.now|date_format:"%Y"#}年中小学教师招聘_教育培训机构招聘_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#$smarty.now|date_format:"%Y"#}年{#$district.categoryname#}学校招聘信息_{#$district.categoryname#}中小学教育机构_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#if empty($district)#}
+        <meta name="keywords" content="中小学教师招聘,私立学校招聘,培训机构招聘,教育机构招聘,中小学教育机构招聘" />
+        {#else#}
+        <meta name="keywords" content="{#$district.categoryname#}学校招聘,{#$district.categoryname#}私立学校招聘,{#$district.categoryname#}培训机构招聘,{#$district.categoryname#}中小学招聘" />
+        {#/if#}
+
+        {#if empty($district)#}
+        <meta name="description" content="教师招聘网是全国中小学、高职院校教师招聘信息发布平台，为全国公办学校、私立学校、教育培训机构及知名院校提供教师招聘信息发布服务。" />
+        {#else#}
+        <meta name="description" content="{#$district.categoryname#}中小学教师招聘信息大全，提供2018年{#$district.categoryname#}教育机构招聘、{#$district.categoryname#}私立学校招聘、{#$district.categoryname#}培训机构招聘等信息。10万家{#$district.categoryname#}学校及教育机构在教师招聘网找到精准教师人才。" />
+        {#/if#}
+        <meta name="author" content="教师招聘网" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <div class="top_box">
+                    <div class="page_title">
+                        {#if empty($district) #}
+                        <h1><a title='教师编制招聘' href="#" target="_self">教师编制招聘</a></h1>
+                        {#else#}
+                        <h1><a title='{#$district.categoryname#}教师招聘网' href="#" target="_self">{#$district.categoryname#}教师招聘网</a></h1>
+                        {#/if#}
+                        <i class="line"></i>
+                        {#if empty($district) #}
+                        <span class="district_name">全国</span>
+                        {#else#}
+                        <span class="district_name">{#$district.categoryname#}</span>
+                        {#/if#}
+                        <a class="district_select" ><span>[切换城市]</span><i></i></a>
+                        <div class="district_list">
+                            <div class="top">
+                                <p class="hot hover">热门城市</p>
+                                <p class="district">省份</p>
+                                <p class="sdistrict">市级</p>
+                            </div>
+                            <div id="show_hot" class="list son">
+                                {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                <!-- 以下为循环数组category内容  -->
+                                {#foreach from=$city item=c#}
+                                <a data-name="district" data-val="{#$c.id#}" href="/company{#if !empty($c.parent_pinyin)#}/{#$c.parent_pinyin#}{#/if#}/{#$c.pinyin#}">{#$c.categoryname#}</a>
+                                {#/foreach#}
+                            </div>
+                            <div id="show_district" class="list">
+                                <a data-name="district" title="全国中小学教师招聘" href="/company">全国</a>
+                                {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                <!-- 以下为循环数组category内容  -->
+                                {#foreach from=$city item=c#}
+                                <a data-name="district" data-val="{#$c.id#}" title="{#$c.categoryname#}中小学教师招聘">{#$c.categoryname#}</a>
+                                {#/foreach#}
+                            </div>
+                            <div id="show_sdistrict" class="list son"></div>
+                        </div>
+                        <script>
+                            $('#content .district_list #show_hot').show();
+                            $('#content .district_select').click(function () {
+                                $('#content .district_list').show();
+                            })
+                            $('#content div.page_title').mouseleave(function () {
+                                $('#content .district_list').hide();
+                            })
+                            $('#content .district_list .top p').click(function () {
+                                $('#content .district_list .list').hide();
+                                $('#content .district_list .top p.sdistrict').hide();
+                                $('#content .district_list .top p').removeClass('hover');
+                                var c = $(this).attr('class');
+                                $(this).addClass('hover');
+                                $('#content #show_' + c).show();
+                            })
+                            $('#content #show_district a').click(function () {
+                                var name = $(this).attr('data-name');
+                                var val = $(this).attr('data-val');
+                                $.get("/plus/ajax_common.php?act=get_city&id=" + val, function (result) {
+                                    var html = '';
+                                    if (result.indexOf('||') > 0) {
+                                        var arr = result.split("||");
+                                    } else {
+                                        var arr = new Array(result);
+                                    }
+
+                                    for (var i = 0; i < arr.length; i++) {
+                                        var item = arr[i].split("-");
+                                        if (item[3] != 0) {
+                                            html += '<a data-name="district" title="' + item[1] + '中小学教师招聘" data-val="' + item[0] + ' " href="/company/' + item[3] + '/' + item[2] + '">' + item[1] + '</a>';
+                                        } else {
+                                            html += '<a data-name="district" title="' + item[4] + '中小学教师招聘" data-val="' + item[0] + ' " href="/company/' + item[2] + '">' + item[1] + '</a>';
+                                        }
+                                    }
+
+                                    $('#content #show_sdistrict').html(html);
+                                    $('#content .district_list .list').hide();
+                                    $('#content .district_list .top p').removeClass('hover');
+                                    $('#content .district_list .top p.sdistrict').addClass('hover');
+                                    $('#content .district_list .top p.sdistrict').show();
+                                    $('#content #show_sdistrict').show();
+                                });
+                            })
+                        </script>
+                    </div>
+                    <div class="search_box">
+                        <a class="search_icon"></a>
+                        <div class="search">
+                            <form method="get" action="">
+                                <input type="text" class="key" name="keyword" placeholder="请输入搜索关键字" value="{#$smarty.get.keyword#}"/>
+                                <input type="hidden" id="nature_value" name="nature" value="{#$smarty.get.nature#}"/>
+                                <input type="submit" class="submit" value="" />
+                            </form>
+                        </div>
+                        <script>
+                            $('a.search_icon').click(function () {
+                                $(this).hide();
+                                $('.search_box .search').show();
+                            })
+                        </script>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <p class="nav">
+                    <a title="教师招聘网" href="/">教师招聘网</a>
+                    &nbsp;>&nbsp;
+                    {#if empty($district) #}
+                    <span>中小学教师招聘</span>
+                    {#else#}
+                    <span>{#$district.categoryname#}教师招聘</span>
+                    {#/if#}
+                </p>
+                <div class="left_box">
+                    <div class="title_box">
+                        <div class="type_tab">
+                            <a class="hover">最新学校</a>
+                        </div>
+                        <div class="page">
+                            {#$pagemin#}
+                        </div>
+                    </div>
+                    <div class="conditions_box">
+                        <ul>
+                            {#qishi_get_classify set="列表名:c_nature,类型:QS_company_type"#}
+                            {#foreach from=$c_nature item=list#}
+                            <li>
+                                <input type="checkbox" data-value="{#$list.id#}" />
+                                <span>{#$list.categoryname#}</span>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        <script>
+                            var checked_str = '{#$smarty.get.nature#}';
+                            var checked_arr = checked_str.split(',');
+                            $('.conditions_box li input').each(function () {
+                                if (in_array($(this).attr('data-value'), checked_arr)) {
+                                    $(this).addClass('checked');
+                                    $(this).attr('checked');
+                                }
+                            })
+                            $('.conditions_box li input').click(function () {
+                                if ($(this).hasClass('checked')) {
+                                    $(this).removeClass('checked');
+                                    $(this).removeAttr('checked');
+                                } else {
+                                    $(this).addClass('checked');
+                                    $(this).attr('checked');
+                                }
+                                var str = "";
+                                $('.conditions_box li input').each(function () {
+                                    if ($(this).hasClass('checked')) {
+                                        str = str + $(this).attr('data-value') + ","
+                                    }
+                                })
+                                $('input#nature_value').attr('value', str);
+                                $('.search_box form').submit();
+                            })
+                            function in_array(search, array) {
+                                for (var i in array) {
+                                    if (array[i] == search) {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+                        </script>
+                    </div>
+                    {#if !empty($company)#}
+                    <ul class="company_list">
+                        {#foreach from=$company item=list#}
+                        <li>
+                            <div class="top">
+                                <div class="left">
+                                    <h2><a title="{#$list.companyname_#}" href="/school/{#$list.id#}.html" target="_blank">{#$list.companyname_#}</a></h2>
+                                </div>
+                                <div class="right">
+                                    <span>地区：{#$list.district_cn#}</span>
+                                    <span>性质：{#$list.nature_cn#}</span>
+                                </div>
+                            </div>
+                            {#if $list.jobs_num>0 && $list.audit==1#}
+                            <div class="bottom">
+                                <div class="num">
+                                    <p>正在招聘<span>{#$list.jobs_num#}</span>个职位：</p>
+                                </div>
+                                <ul class="jobs_list">
+                                    {#foreach from=$list.jobs item=job#}
+                                    <li>
+                                        <a target="_blank" title="{#$list.district_cn#}{#$job.jobs_name#}招聘" href="/job/{#$job.id#}.html">{#$job.jobs_name#}</a>
+                                    </li>
+                                    {#/foreach#}
+                                </ul>
+                                <i class="show_all"></i>
+                            </div>
+                            {#/if#}
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    <script>
+                        $('ul.company_list li i').click(function () {
+                            if ($(this).hasClass('show_all')) {
+                                $(this).parents('.bottom').find('.jobs_list').css('height', 'inherit');
+                                $(this).removeClass('show_all');
+                                $(this).addClass('hide_all');
+                            } else {
+                                $(this).parents('.bottom').find('.jobs_list').css('height', '20px');
+                                $(this).removeClass('hide_all');
+                                $(this).addClass('show_all');
+                            }
+                        })
+                    </script>
+                    <ul class="page_box">
+                        {#$page#}
+                    </ul>
+                    {#else#}
+                    <div class="clear"></div>
+                    <p class="emptytip">抱歉，这里没有符合条件的信息！</p>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    {#jiaoshi_jobs set="地区:$district.id,显示数目:5"#}
+                    {#if !empty($companies)#}
+                    <div class="item_box">
+                        <div class="item_title">
+                            {#if empty($district) #}
+                            <h3><span>中小学</span>教育机构推荐</h3>
+                            {#else#}
+                            <h3><span>{#$district.categoryname#}</span>教育机构推荐</h3>
+                            {#/if#}
+                        </div>
+                        <ul class="company">
+                            {#foreach from=$companies item=company#}
+                            <li>
+                                <a target="_blank" class="company_name" title="{#$district.categoryname#}{#$company.name#}招聘" href="/school/{#$company.id#}.html"><b>{#$company.name#}</b></a>
+                                <div class="clear"></div>
+                                {#if $company.jobs_length>0#}
+                                <div class="job">
+                                    <span>招聘{#$company.jobs_length#}个职位：</span>
+                                    {#foreach from=$company.jobs item=jobs#}
+                                    <a title="{#$district.categoryname#}{#$jobs.jobs_name#}招聘" href="/job/{#$jobs.id#}.html">{#$jobs.jobs_name#}</a>
+                                    {#/foreach#}
+                                </div>       
+                                {#/if#}
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+
+                    {#jiaoshi_jobs set="地区:$district.id,开始位置:0,显示数目:7,单位:job"#}
+                    {#if !empty($jobs)#}
+                    <div class="item_box">
+                        <div class="item_title">
+                            {#if empty($district) #}
+                            <h3 title="中小学最新教师招聘"><span>中小学</span>最新教师招聘</h3>
+                            {#else#}
+                            <h3 title="{#$district.categoryname#}最新教师招聘"><span>{#$district.categoryname#}</span>最新教师招聘</h3>
+                            {#/if#}
+                        </div>
+                        <ul class="job">
+                            {#foreach from=$jobs item=jobs#}
+                            <li>
+                                <a class="job_name" target="_blank" title="{#$district.categoryname#}{#$jobs.jobs_name#}招聘" href="/job/{#$jobs.id#}.html">{#$jobs.jobs_name#}</a>
+                                <div class="clear"></div>
+                                <div class="info">
+                                    <span class="left">{#$jobs.wage_cn#}</span>
+                                    <span class="right">{#$jobs.education_cn#}</span>
+                                </div>                  
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    <a title="订阅职位" class="subscribe" href="/subscribe">订阅职位</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

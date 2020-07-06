@@ -1,0 +1,202 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function()
+{	
+	//指定获取方式
+	var t=$("#gettype :radio[checked]").val();
+	$(".t1,.t2").hide();
+	t=="1"?$(".t1").show():$(".t2").show();
+	$("#gettype :radio").click(function(){
+	var t=$("#gettype  :radio[checked]").val();
+	$(".t1,.t2").hide();
+	t=="1"?$(".t1").show():$(".t2").show();
+	});	
+	//获取企业
+	$("#getuname,#getcomname").keyup(function(){	
+		if($(this).val())
+		{
+			var tsTimeStamp= new Date().getTime();
+		 	$.get("admin_ajax.php", {"act":"get_company","tstime":tsTimeStamp,"key":$(this).val(),"type":$(this).attr("id")},
+			function (data,textStatus)
+			 {	
+			 	if (data)
+				{
+					html="<table width=\"400\" border=\"0\" cellpadding=\"4\" cellspacing=\"0\" style=\"margin-bottom:10px;\" >";
+					html+="<tr>";
+					html+="<td  height=\"28\" bgcolor=\"#EBF7FC\"  >&nbsp;&nbsp;&nbsp;&nbsp;<strong>公司名称<\/strong><\/td>";
+					html+="<td bgcolor=\"#EBF7FC\" width=\"80\" ><strong>添加日期<\/strong><\/td>";
+					html+="<\/tr>";
+					var str=data.split("@@@");
+					var i=1;
+				 	for (x in str)
+					{
+					var val=str[x].split("%%%");
+					html+="<tr>";
+					html+="<td height=\"20\" style=\"border-bottom:1px #B4E0ED dashed\" >&nbsp;";
+					html+="<label>";
+					html+="<input type=\"radio\" name=\"comid\" value=\""+val[0]+"\" \/>";
+					html+="<\/label>";
+					html+="<a href=\""+val[2]+"\" target=\"_blank\">"+val[1]+"<\/a><\/td>";
+					html+="<td  style=\"border-bottom:1px #B4E0ED dashed\">"+val[3]+"<\/td>";
+					html+="<\/tr>";
+					i++;
+					}
+					html+="<\/table>";
+					$("#showhtml").html(html);
+					
+				}
+				else
+				{
+				html="<div style=\" color:#FF0000\">没有找到此公司。</div>";
+				$("#showhtml").html(html);
+				}
+			 })
+		}	
+	});	
+	//
+	//视频
+	$("#save").click(function()
+	{
+	  if ($("#jobfairid").val()==""){
+	  alert ("请选择要预定的招聘会");
+	  $("#jobfairid").focus();
+	   return false;
+	   }
+	   var t=$("#gettype :radio[checked]").val();
+	   if (t=="2")
+	   {
+	   			if ($("#companyname").val()==""){
+				  alert ("请填写企业名称");
+				  $("#companyname").focus();
+				   return false;
+				   }
+	   }
+	   else
+	   {
+	   		if ($("#showhtml :radio").length==0)
+			{
+			alert ("请输入会员名或企业名称，输入后请选择企业");
+			}		  
+			else if ($("#showhtml :radio[checked]").val()=="")
+			{
+				alert ("请选择企业");
+				   return false;
+			}
+				    
+	   }
+	 $("#FormData").submit();
+	});	 
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  {#include file="jobfair/admin_jobfair_exhibitors_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<form action="?act=exhibitors_add_save" method="post"   name="FormData" id="FormData" >
+<div class="toptit">新增参会企业</div>
+
+  {#$inputtoken#}
+    <table width="100%" border="0" cellpadding="3" cellspacing="3"  class="admin_table">
+     
+	   <tr>
+          <td align="right">企业来源：</td>
+          <td  id="gettype">
+		  
+		   <label>
+	        <input type="radio" name="t" value="2" checked="checked"/>
+	        非人才网用户</label>
+			&nbsp;&nbsp;&nbsp;
+	        <label>
+	        <input name="t" type="radio" value="1"  />
+	        人才网用户</label>
+        
+      		</td>
+        </tr>
+		
+		
+		<tr class="t1">
+        <td width="130" align="right"  >请输入会员名：</td>
+        <td align="left" ><input name="uname" type="text"  id="getuname" class="input_text_200" />		</td>
+      </tr>
+	  <tr class="t1">
+        <td width="130" align="right"  >或者企业名称：</td>
+        <td align="left" ><input name="comname" type="text"  id="getcomname" class="input_text_200" />		</td>
+      </tr>
+	  <tr class="t1">
+        <td width="130" align="right"  >请选择企业：</td>
+        <td align="left" >
+		<div id="showhtml" class="link_bk">请在上方输入会员名或企业名称，输入后请选择企业</div>
+		</td>
+      </tr>
+		
+		 <tr class="t2">
+        <td width="130" align="right"  >企业全称：</td>
+        <td align="left" ><input name="companyname" id="companyname" type="text"  class="input_text_400" />		</td>
+      </tr>
+	  
+	  
+	   <tr>
+          <td align="right">预定方式：</td>
+          <td >
+	        <label>
+	        <input name="etypr" type="radio" value="1" checked="checked" />
+	        在线预定</label>
+        
+       <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="etypr" value="2" />
+	        电话预定</label>
+			 <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="etypr" value="3" />
+	        其他方式</label>		   </td>
+        </tr>
+		
+		 <tr>
+          <td align="right">预定状态：</td>
+          <td >
+		  
+		  <label>
+	        <input type="radio" name="audit" value="1" checked="checked" />
+	        成功预定</label>&nbsp;&nbsp;&nbsp;
+	        <label>
+	        <input name="audit" type="radio" value="0" />
+	        等待确认</label>
+        
+       	   </td>
+        </tr>
+		
+		<tr>
+          <td align="right">预定招聘会：</td>
+          <td >
+	         <select name="jobfairid" id="jobfairid">
+		    <option value="">请选择招聘会</option>
+			 {#foreach from=$jobfair item=li#}
+	           <option value="{#$li.id#}">{#$li.title#}</option>
+			   {#/foreach#}
+             </select>	      </td>
+        </tr>
+
+	   
+	   <tr>
+        <td align="right" valign="top" >备注：</td>
+        <td > 
+           <textarea name="note" id="note" style="width:300px; height:50px; font-size:12px; line-height:180%; "></textarea></td>
+      </tr>
+	  <tr>
+        <td align="right" valign="top" > </td>
+        <td height="55" > 
+          
+		   <input type="button"  id="save" value="提交" class="admin_submit"   />
+		  <input name="submit22" type="button" class="admin_submit"    value="返回" onclick="Javascript:window.history.go(-1)"/>	    </td>
+      </tr>
+    </table>
+		
+		 
+		
+		</form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

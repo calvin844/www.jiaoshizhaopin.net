@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/zhaokao/zhaokao_list.css" rel="stylesheet" type="text/css" />
+        <title>{#$smarty.now|date_format:"%Y"#}教师招聘考试指南_备考资料与报名方式_{#$QISHI.site_name#}</title> 
+        <meta name="keywords" content="教师招考指南,教师招聘考试报名,教师招聘备考资料,教师招聘考试成绩查询"/>
+        <meta name="description" content="{#$smarty.now|date_format:'%Y'#}年教师招聘考试指南，即时提供教师招聘考试动态、资格证考试报名信息、教师招聘考试成绩查询等。分享教师招考的试讲、说课稿等备考资料与面试答题技巧。查询教师招聘考试最新动态信息，就上教师招聘网。"/>
+
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <!--
+            <div class="top_ad_box">
+                <a href="#"><img src="images/index_content_tiku_bg.jpg" width="100%"/></a>
+            </div>
+            -->
+            <div class="main_box">
+                <div class="search_box">
+                    <form action="" method="get">
+                        <input type="text" class="key" name="key" placeholder="请输入关键字搜索" value="" />
+                        <input type="submit" class="submit" value="" />
+                    </form>
+                </div>
+                <div class="clear"></div>
+                <p class="nav">
+                    <a href="/">教师招聘网</a>
+                    &nbsp;>&nbsp;
+                    <a href="/zhaokao">教师招考信息</a>
+                    &nbsp;>&nbsp;
+                    <a href="/zhaokao/kaoshi/{#$cur_type.en#}">教师{#$cur_type.name#}</a>
+                </p>
+                <div class="list_box">
+                    <div class="b_title">
+                        <p><a class="{#if $cur_type.id == ''#}hover{#/if#}" href="/zhaokao/kaoshi/">全部</a></p>
+                        <ul>
+                            {#foreach from=$type_list item=t#}
+                            <li><a class="{#if $cur_type.id == $t.id#}hover{#/if#}" href="/zhaokao/kaoshi/{#$t.en#}">{#$t.name#}</a></li>
+                            {#/foreach#}
+                        </ul>
+                        <div class="right">
+                            <a class="{#if $smarty.get.order == 1#}hover{#elseif $smarty.get.order == ''#}hover{#/if#}" href="/zhaokao/kaoshi/{#$cur_type.en#}?order=1">综合</a>
+                            <a class="{#if $smarty.get.order == 2#}hover{#elseif $smarty.get.order == 3#}hover{#/if#}" href="/zhaokao/kaoshi/{#$cur_type.en#}?order={#if $smarty.get.order == 2#}3{#else#}2{#/if#}">价格<i class="{#if $smarty.get.order == 2#}price_down{#elseif $smarty.get.order == 3#}price_up{#else#}price{#/if#}"></i></a>
+                            <a class="{#if $smarty.get.order == 4#}hover{#elseif $smarty.get.order == 5#}hover{#/if#}" href="/zhaokao/kaoshi/{#$cur_type.en#}?order={#if $smarty.get.order == 4#}5{#else#}4{#/if#}">人气<i class="{#if $smarty.get.order == 4#}people_down{#elseif $smarty.get.order == 5#}people_up{#else#}people{#/if#}"></i></a>
+                        </div>
+                    </div>
+                    <ul class="course_list">
+                        {#foreach from=$course_list item=c#}
+                        <li>
+                            <a href="/zhaokao/kaoshi/{#$c.id#}.htm"><img src="{#$c.thumb#}" width="224" height="136" /></a>
+                            <div class="info">
+                                <h2><a class="title" href="/zhaokao/kaoshi/{#$c.id#}.htm">{#$c.title#}</a></h2>
+                                <p class="school_name"><i></i>{#$c.school#}</p>
+                                <div class="bottom">
+                                    {#if $c.price>0#}
+                                    <span class="price">￥{#$c.price#}</span>
+                                    {#else#}
+                                    <span class="free">免费</span>
+                                    {#/if#}
+                                    <span class="people"><i></i>{#$c.people_num#}</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="page_box">
+                        <a href="/zhaokao/kaoshi/{#$cur_type.en#}?order={#$smarty.get.order#}">首页</a>
+                        {#if $page_arr.cur_page >3#}
+                        <a class="dot">...</a>
+                        {#/if#}
+                        {#foreach from=$page_arr.page_arr item=p#}
+                        <a class="{#if $page_arr.cur_page == $p#}hover{#/if#}" href="/zhaokao/kaoshi/{#$cur_type.en#}?page={#$p#}&order={#$smarty.get.order#}">{#$p#}</a>
+                        {#/foreach#}
+                        {#if $page_arr.cur_page < $page_arr.total-2#}
+                        <a class="dot">...</a>
+                        {#/if#}
+                        <a href="/zhaokao/kaoshi/{#$cur_type.en#}?page={#$page_arr.total#}&order={#$smarty.get.order#}">尾页</a>
+                    </div>
+                </div>
+                <div class="ad_box"></div>
+                <!--
+                <div class="side_box">
+                    <div class="back_top"><a href="#"><i></i></a></div>
+                    <ul>
+                        <li class="wechat"><a href="#"><i></i><br/>微信</a></li>
+                        <li class="weibo"><a href="#"><i></i><br/>微博</a></li>
+                        <li class="service"><a href="#"><i></i><br/>咨询</a></li>
+                        <li class="package"><a href="#"><i></i><br/>套餐</a></li>
+                    </ul>
+                    <div class="hide"><a href="#"><i></i></a></div>
+                </div>
+                -->
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>
+
+

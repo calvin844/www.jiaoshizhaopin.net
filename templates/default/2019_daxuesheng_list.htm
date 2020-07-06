@@ -1,0 +1,407 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2019/base.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/2019/jobs_list.css" type="text/css" rel="stylesheet"/>
+        <script src="{#$QISHI.site_template#}js/2019/jq-1.11.1.js" type="text/javascript" language="javascript"></script>
+        <title>{#$smarty.now|date_format:"%Y"#}年{#$type_cn#}教师招聘兼职大全_{#$QISHI.site_name#}</title>
+        <meta name="keywords" content="{#$type_cn#}教师兼职,{#$type_cn#}兼职教师招聘，{#$type_cn#}兼职老师招聘"/>
+        <meta name="description" content="{#$smarty.now|date_format:'%Y'#}年{#$type_cn#}教师兼职信息，包含全国各省市最新的{#$type_cn#}兼职教师招聘，涵盖知名教育机构{#$type_cn#}兼职招聘、著名私立学校{#$type_cn#}兼职招聘等，丰富的{#$type_cn#}教师兼职任你选择。"/>
+        <meta name="Author" content="教师招聘网" />
+    </head>
+
+    <body id="jobs_type_list">
+        <div id="header">
+            <div class="main_box">
+                <div class="left">
+                    <a title="教师招聘网" class="logo" href="/"></a>
+                    <div class="type_box">
+                        <h1 class="type_name">{#$type_cn#}教师招聘网</h1>
+                    </div>
+                    <div class="menu_box">
+                        <a title="教师招聘网" href="/">首页</a>
+                        <a class="{#if $smarty.get.type == 'youer'#}hover{#/if#}" title="幼儿教师招聘网" href="/youer">幼儿</a>
+                        <a class="{#if $smarty.get.type == 'zhongxiaoxue'#}hover{#/if#}" title="中小学教师招聘网" href="/zhongxiaoxue">中小学</a>
+                        <a class="{#if $smarty.get.type == 'peixunjigou'#}hover{#/if#}" title="培训机构教师招聘网" href="/peixunjigou">培训机构</a>
+                        <a class="{#if $smarty.get.type == 'daxuesheng'#}hover{#/if#}" title="大学生兼职网" href="/daxuesheng">大学生</a>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="other_box">
+                        <a class="code_img">公众号</a>
+                        <i class="line"></i>
+                        <a class="service show_window">咨询</a>
+                        <i class="line"></i>
+                        <a class="package" href="/charge.htm" target="_blank">套餐</a>
+                        <div class="code_img_box">
+                            <img src="{#$QISHI.site_template#}images/2019/wechat.jpg" />
+                        </div>
+                        <script>
+                            $('.other_box .code_img').mouseover(function() {
+                                $('.code_img_box').show()
+                            }).mouseleave(function() {
+                                $('.code_img_box').hide()
+                            })
+                            $('.show_window').click(function() {
+                                $('div.window_box').show();
+                                $('div.window_box div.window').show();
+                                $('div.window_box div.bg').show();
+                            })
+                            $('.window_box a.close').click(function() {
+                                $('.window_box').hide();
+                            })
+                            $('div.window_box div.bg').click(function() {
+                                $('.window_box').hide();
+                            })
+                        </script>
+                    </div>
+                    <div class="login_box">
+                        <a title="登陆" class="login" href="/user/login.php">登陆</a>
+                        <a title="注册" class="reg" href="/user/user_reg.php">注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="top_box">
+                    <div class="sdistrict_box">
+                        <label>城市快捷入口</label>
+                        <div class="clear"></div>
+                        <ul class="city_list">
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city item=c#}
+                            <li><a href="{#if !empty($c.parent_pinyin)#}/{#$c.parent_pinyin#}{#/if#}/{#$c.pinyin#}" title="{#$c.categoryname#}教师招聘网" target="_blank">{#$c.categoryname#}</a></li>
+                            {#/foreach#}
+                            <li class="more_bt"><a id="city_more">更多</a></li>
+                            <li class="hide_line"></li>
+                        </ul>
+                        <ul class="city_more">
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city_more item=c#}
+                            <li><a href="{#if !empty($c.parent_pinyin)#}/{#$c.parent_pinyin#}{#/if#}/{#$c.pinyin#}" title="{#$c.categoryname#}教师招聘网" target="_blank">{#$c.categoryname#}</a></li>
+                            {#/foreach#}
+                            <li class="more_bt"><a id="city_list">关闭</a></li>
+                            <li class="hide_line"></li>
+                        </ul>
+                        <script>
+                            $('a#city_more').click(function() {
+                                $('.city_list').hide();
+                                $('.city_more').show();
+                            })
+                            $('a#city_list').click(function() {
+                                $('.city_list').show();
+                                $('.city_more').hide();
+                            })
+                        </script>
+                    </div>
+                    <div class="search_box">
+                        <div class="search">
+                            <form id="search_jobs_form" action="/jobs/jobs-list.php" method="get">
+                                <input type="hidden" name="nature" value="63" />
+                                <input class="keyword" type="text" name="key" placeholder="请输入职位关键字" value="" />
+                                <div class="right">
+                                    <b></b>
+                                    <button class="city_bt">全国&nbsp;&nbsp;+</button>
+                                    <input type="hidden" id="district_id" name="district_id" value="" />
+                                    <input class="submit" type="submit" value="" />
+                                </div>
+                            </form>
+                            <div class="district_list">
+                                <div class="top">
+                                    <p class="hot hover">热门城市</p>
+                                    <p class="district">省份</p>
+                                    <p class="sdistrict">市级</p>
+                                </div>
+                                <div id="show_hot" class="list son">
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$hot_city item=c#}
+                                    <a title="{#$c.categoryname#}教师招聘网" data-name="district" data-val="{#$c.parentid#}.{#$c.id#}">{#$c.categoryname#}</a>
+                                    {#/foreach#}
+                                </div>
+                                <div id="show_district" class="list">
+                                    <a data-name="district" data-val="" title="全国教师招聘">全国</a>
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$city_more item=c#}
+                                    <a data-name="district" data-data="{#$c.id#}" data-val="{#$c.parentid#}.{#$c.id#}" title="{#$c.categoryname#}教师招聘">{#$c.categoryname#}</a>
+                                    {#/foreach#}
+                                </div>
+                                <div id="show_sdistrict" class="list son"></div>
+                            </div>
+                            <script>
+                                $('.search_box .district_list #show_hot').show();
+                                $('.search_box .city_bt').click(function() {
+                                    $('.search_box .district_list').show();
+                                    return false;
+                                })
+                                $('div.search_box').mouseleave(function() {
+                                    $('.search_box .district_list').hide();
+                                })
+                                $('.search_box .district_list .top p').click(function() {
+                                    $('.search_box .district_list .list').hide();
+                                    $('.search_box .district_list .top p.sdistrict').hide();
+                                    $('.search_box .district_list .top p').removeClass('hover');
+                                    var c = $(this).attr('class');
+                                    $(this).addClass('hover');
+                                    $('.search_box #show_' + c).show();
+                                })
+                                $('.search_box #show_district a').click(function() {
+                                    var name = $(this).attr('data-name');
+                                    var val = $(this).attr('data-data');
+                                    $.get("/plus/ajax_common.php?act=get_city&id=" + val, function(result) {
+                                        var html = '';
+                                        if (result.indexOf('||') > 0) {
+                                            var arr = result.split("||");
+                                        } else {
+                                            var arr = new Array(result);
+                                        }
+
+                                        for (var i = 0; i < arr.length; i++) {
+                                            var item = arr[i].split("-");
+                                            if (item[3] != 0) {
+                                                html += '<a data-name="district" title="' + item[1] + '中小学教师招聘" data-val="' + item[4] + '.' + item[0] + '" >' + item[1] + '</a>';
+                                            } else {
+                                                html += '<a data-name="district" title="' + item[4] + '中小学教师招聘" data-val="' + item[0] + '.' + item[5] + '" >' + item[1] + '</a>';
+                                            }
+                                        }
+
+                                        $('.search_box #show_sdistrict').html(html);
+                                        $('.search_box .district_list .list').hide();
+                                        $('.search_box .district_list .top p').removeClass('hover');
+                                        $('.search_box .district_list .top p.sdistrict').addClass('hover');
+                                        $('.search_box .district_list .top p.sdistrict').show();
+                                        $('.search_box #show_sdistrict').show();
+                                    });
+
+                                })
+                                $('.search_box .district_list .son').on('click', 'a', function() {
+                                    $('.search_box input#district_id').attr('value', $(this).attr('data-val'));
+                                    $('.search_box .city_bt').html($(this).html() + '&nbsp;&nbsp;+');
+                                    $('.search_box .district_list').hide();
+                                });
+                            </script>
+                        </div>
+                        <ul>
+                            <li><span>热搜职位：</span></li>
+                            <li><a target="_blank" title="幼儿英语教师招聘" href="/jobs/jobs-list.php?jobs_id=59&index_search=1">幼儿英语 </a></li>
+                            <li><a target="_blank" title="幼儿美术教师招聘" href="/jobs/jobs-list.php?jobs_id=62&index_search=1">幼儿美术 </a></li>
+                            <li><a target="_blank" title="小学语文教师招聘" href="/jobs/jobs-list.php?jobs_id=8&index_search=1">小学语文 </a></li>
+                            <li><a target="_blank" title="初中英语教师招聘" href="/jobs/jobs-list.php?jobs_id=234&index_search=1">初中英语 </a></li>
+                            <li><a target="_blank" title="初中数学教师招聘" href="/jobs/jobs-list.php?jobs_id=233&index_search=1">初中数学 </a></li>
+                            <li><a target="_blank" title="高中英语教师招聘" href="/jobs/jobs-list.php?jobs_id=259&index_search=1">高中英语 </a></li>
+                            <li><a target="_blank" title="高中数学教师招聘" href="/jobs/jobs-list.php?jobs_id=258&index_search=1">高中数学 </a></li>
+                            <li><a target="_blank" title="职业教育/培训教师招聘" href="/jobs/jobs-list.php?jobs_id=4&index_search=1">职业教育/培训 </a></li>
+                            <li><a target="_blank" title="钢琴老师教师招聘" href="/jobs/jobs-list.php?jobs_id=212&index_search=1">钢琴老师 </a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="top_ad_box">
+                    <div class="top">
+                        <div class="left">
+                            <!-- height:(190-(n-1)*10)/n;  width:595 -->
+                            {#section name=loop loop=$ad.list_404#} 
+                            {#if $smarty.section.loop.iteration<100#}
+                            <a title="{#$ad.list_404[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_404&img={#$ad.list_404[loop].img_path#}&url={#$ad.list_404[loop].img_url#}"><img src="{#$ad.list_404[loop].img_path#}"  /></a>
+                            {#/if#}
+                            {#/section#} 
+                        </div>
+                        <div class="right">
+                            <!-- height:(190-(n-1)*10)/n;  width:595 -->                   
+                            {#section name=loop loop=$ad.list_405#} 
+                            {#if $smarty.section.loop.iteration<100#}
+                            <a title="{#$ad.list_405[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_405&img={#$ad.list_405[loop].img_path#}&url={#$ad.list_405[loop].img_url#}"><img src="{#$ad.list_405[loop].img_path#}"  /></a>
+                            {#/if#}
+                            {#/section#} 
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="box">
+                            <!-- height:90;  width:(1200-(n-1)*10)/n -->                            
+                            {#section name=loop loop=$ad.list_406#} 
+                            {#if $smarty.section.loop.iteration<100#}
+                            <a title="{#$ad.list_406[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_406&img={#$ad.list_406[loop].img_path#}&url={#$ad.list_406[loop].img_url#}"><img src="{#$ad.list_406[loop].img_path#}"  /></a>
+                            {#/if#}
+                            {#/section#} 
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="recommend_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <a title="热门教师兼职职位推荐" class="hot_bt hover" href="/jobs/jobs-list.php?nature=63">热门兼职</a>
+                            <a title="应届毕业生职位推荐" class="graduates_bt" href="/jobs/jobs-list.php?experience=74">应届毕业生</a>
+                        </div>
+                    </div>
+                    <div id="hot_bt_box" class="box_list" style=" display:block;">
+                        <ul>
+                            {#foreach from=$hot item=list#}
+                            {#if $list.jobs_name != ''#}
+                            <li>
+                                <div class="top">
+                                    <a class="name" href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name#}兼职招聘" target="_blank">{#$list.jobs_name#}</a>
+                                    <span class="wage">{#$list.wage_cn#}</span>
+                                    <div class="clear"></div>
+                                    <p class="info">{#$list.d_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                </div>
+                                <div class="bottom">
+                                    <span class="company">{#$list.companyname#}</span>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <a href="/jobs/jobs-list.php?nature=63" class="more_list">查看更多</a>
+                    </div>
+                    <div id="graduates_bt_box" class="box_list">
+                        <ul>
+                            {#foreach from=$graduates item=list#}
+                            {#if $list.jobs_name != ''#}
+                            <li>
+                                <div class="top">
+                                    <a class="name" href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                    <span class="wage">{#$list.wage_cn#}</span>
+                                    <div class="clear"></div>
+                                    <p class="info">{#$list.d_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                </div>
+                                <div class="bottom">
+                                    <span class="company">{#$list.companyname#}</span>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <a href="/jobs/jobs-list.php?experience=74" class="more_list">查看更多</a>
+                    </div>
+                    <script>
+                        $('.recommend_box .box_title a').mouseover(function() {
+                            $('.recommend_box .box_title a').removeClass('hover');
+                            var str = $(this).attr('class')
+                            $(this).addClass('hover');
+                            $('.recommend_box .box_list').hide();
+                            $('.recommend_box #' + str + '_box').show();
+                        })
+                    </script>
+                </div>
+                <div class="right_ad_box">
+                    <!-- height:(488-(n-1)*10)/n;  width:292.5 -->
+                    {#section name=loop loop=$ad.list_407#} 
+                    {#if $smarty.section.loop.iteration<3#}
+                    <a title="{#$ad.list_407[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_407&img={#$ad.list_407[loop].img_path#}&url={#$ad.list_407[loop].img_url#}"><img src="{#$ad.list_407[loop].img_path#}"  /></a>
+                    {#/if#}
+                    {#/section#} 
+                </div>
+                <div class="clear"></div>
+                <div class="bottom_ad_box">
+                    <div class="box">
+                        <!-- height:90;  width:(1200-(n-1)*10)/n -->
+                        {#section name=loop loop=$ad.list_408#} 
+                        {#if $smarty.section.loop.iteration<100#}
+                        <a title="{#$ad.list_408[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_408&img={#$ad.list_408[loop].img_path#}&url={#$ad.list_408[loop].img_url#}"><img src="{#$ad.list_408[loop].img_path#}"  /></a>
+                        {#/if#}
+                        {#/section#} 
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="news_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <span>最新事业单位实习信息</span>
+                        </div>
+                    </div>
+                    {#if !empty($article_list)#}
+                    <ul>
+                        {#foreach from=$article_list item=list#}
+                        <li>
+                            <div class="left">
+                                <div class="location">
+                                    <i></i>
+                                    {#if $list.parent_pinyin!='' #}
+                                    <a target="_blank" title="{#$list.district_cn#}教师招聘网" href="/{#$list.parent_pinyin#}/{#$list.district_pinyin#}" >{#$list.district_cn#}</a>
+                                    {#else#}
+                                    <a target="_blank" title="{#$list.district_cn#}教师招聘网" href="/{#$list.district_pinyin#}">{#$list.district_cn#}</a>
+                                    {#/if#}
+                                </div>
+                                <div class="title">
+                                    <h2><a class="title" href="{#$list.url#}" target="_blank" title="{#$list.title_#}">{#$list.title#}</a></h2>
+                                </div>
+                            </div>
+                            <div class="date">
+                                <span>{#$list.refreshtime#}</span>
+                                {#if $list.top_flag ==1#}<span class="top">顶</span>{#else#}<span class="no_top"></span>{#/if#}
+                            </div>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    {#/if#}
+                    <a href="/internship" class="more_list">查看更多</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="window_box">
+            <div class="window">
+                <a class="close"></a>
+                <div class="clear"></div>
+                <ul>
+                    <li>
+                        <img src="{#$QISHI.site_template#}images/2019/li_code_img.jpg" width="120" height="120" />
+                        <p>顾问：李经理</p>
+                        <p>020-37277119</p>
+                        <p>6210210</p>
+                        <p>18565230815</p>
+                    </li>
+                    <li>
+                        <img src="{#$QISHI.site_template#}images/2019/vv_code_img.jpg" width="120" height="120" />
+                        <p>运营：小李</p>
+                        <p>020-37277119</p>
+                        <p>969078455</p>
+                        <p>18565230815</p>
+                    </li>
+                    <li>
+                        <img src="{#$QISHI.site_template#}images/2019/fan_code_img.jpg" width="120" height="120" />
+                        <p>客服：帆帆</p>
+                        <p>020-37277119</p>
+                        <p>3571928718</p>
+                        <p>15322099258</p>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="bg"></div>
+            <script>
+                $('.window_box .close').click(function() {
+                    $('.window_box').hide();
+                })
+                $('.window_box .bg').click(function() {
+                    $('.window_box').hide();
+                })
+            </script>
+        </div>
+        <div class="clear"></div>
+
+        {#section name=loop loop=$ad.list_409#} 
+        {#if $smarty.section.loop.iteration<2#}
+        <div class="side_fix_ad_box">
+            <a title="{#$ad.list_409[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_409&img={#$ad.list_409[loop].img_path#}&url={#$ad.list_409[loop].img_url#}"><img src="{#$ad.list_409[loop].img_path#}"  /></a>
+        </div>
+        {#/if#}
+        {#/section#} 
+
+
+        {#section name=loop loop=$ad.list_410#} 
+        {#if $smarty.section.loop.iteration<2#}
+        <div class="bottom_fix_ad_box">
+            <a class="close"></a>
+            <a title="{#$ad.list_410[loop].img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_410&img={#$ad.list_410[loop].img_path#}&url={#$ad.list_410[loop].img_url#}"><img src="{#$ad.list_410[loop].img_path#}"  /></a>
+        </div>
+        {#/if#}
+        {#/section#} 
+
+        {#include file="/2019/footer_list.htm"#}
+    </body>
+</html>

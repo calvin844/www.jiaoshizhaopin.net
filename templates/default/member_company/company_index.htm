@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_index.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body style="position: relative;">
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;企业中心</p>
+                <div class="left_box">
+                    <p class="welcome">{#$user.username#}，欢迎您回来！</p>
+                    <p class="massage">消息：<a href="company_user.php?act=pm">未读<span>（{#$msg_total2#}）</span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="company_user.php?act=pm">已读（{#$msg_total1#}）</a></p>
+                    <div class="clear"></div>
+
+                    <!-- 2018红包活动 -->
+                    <!--
+                    <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+                    <div class="clear"></div>
+                    <div style="text-align: center; background: #ecf5fd; margin: 0px 0px 20px 0px; padding: 10px 5px 10px 5px;">
+                        <p style="display: inline-block;color:#808080;font-size: 14px;">优惠卷：<span style="color:red;font-size: 14px;">{#if $spring2018_total2.total>0 #}{#$spring2018_total2.total#}{#else#}0{#/if#}</span>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;红包：<span style="color:red;font-size: 14px;">{#if $spring2018_total1.total>0 #}{#$spring2018_total1.total#}{#else#}0{#/if#}</span>&nbsp;元</p>
+                        {#if !$spring2018_img.path#}
+                        <p style="display: inline-block; margin: 0px 0px 0px 20px;font-size: 14px;"><span style="color:#188eee;font-size: 14px; margin: 0px 10px 0px 0px;">上传微信收款码，用于收红包</span><input style='width: 68px;' id="wechat_img" class="wechat_img" type="file" name="wechat_img" /></p>
+                        {#else#}
+                        <p style="display: inline-block; margin: 0px 0px 0px 20px;"><span style="color:#808080;font-size: 14px;">收款码已上传</span><i style="display: inline-block; width: 19px; height: 19px; margin: 0 0 0 10px; background: url('{#$QISHI.site_template#}images/2017/act_spring2018.png')"></i></p>
+                        {#/if#}
+                    </div>
+                    <div class="clear"></div>
+                    <script>
+                        $('div.left_box').on('change', '#wechat_img', function () {
+                            $.ajaxFileUpload({
+                                url: '?act=spring2018_save',
+                                secureuri: false,
+                                fileElementId: 'wechat_img',
+                                dataType: 'string',
+                                success: function (data, status) {
+                                    var f = data.substr(0, 1);
+                                    if (f == "-") {
+                                        switch (data) {
+                                            case "-1":
+                                                alert("上传图片失败：上传目录不存在!");
+                                                return false;
+                                                break;
+                                            case "-2":
+                                                alert("上传图片失败：上传目录无法写入!");
+                                                return false;
+                                                break;
+                                            case "-3":
+                                                alert("上传图片失败：你选择的文件无法上传");
+                                                return false;
+                                                break;
+                                            case "-4":
+                                                alert("上传图片失败：文件大小超过限制");
+                                                return false;
+                                                break;
+                                            case "-5":
+                                                alert("上传图片失败：文件类型错误！");
+                                                return false;
+                                                break;
+                                            case "-6":
+                                                alert("上传图片失败：文件上传出错！");
+                                                return false;
+                                                break;
+                                            case "-7":
+                                                alert("参数错误！");
+                                                return false;
+                                                break;
+                                            case "-8":
+                                                alert("请先填写简历基本信息！");
+                                                return false;
+                                                break;
+                                            case "-9":
+                                                alert("最多只能上传5个证书！");
+                                                return false;
+                                                break;
+                                            case "-10":
+                                                alert("请上传图片！");
+                                                return false;
+                                                break;
+                                            case "-11":
+                                                alert("请填写证书名称！");
+                                                return false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    } else {
+                                        $('img#spring2018_img').attr('src', '/data/spring2018_img/' + data);
+                                        $('img#spring2018_img').show();
+                                        $('input#wechat_img').hide();
+                                    }
+                                }
+                            })
+                        })
+                    </script>
+                    <div class="clear"></div>
+                    -->
+                    <!-- 2018红包活动 -->
+                    <!--
+                    <div class="vip_tips">
+                        <i></i>
+                        <span class="left">招聘任务重，时间紧，提升招聘效果，立即使用职位推广增值服务。</span>
+                        <a class="del"  ></a>
+                        <a class="right" href="/user/company/company_jobs.php?act=jobs&jobtype=1">职位推广</a>
+                        <script>
+                            $('div.vip_tips a.del').click(function () {
+                                $('div.vip_tips').hide();
+                            })
+                        </script>
+                    </div>
+                    -->
+                    <div class="clear"></div>
+                    <div class="member_box">
+                        <p>类型：{#$setmeal.setmeal_name#}</p>
+                        <p>时间：{#$setmeal.starttime|date_format:"%Y-%m-%d"#} 至 {#if $setmeal.endtime=="0"#}无限期{#else#}{#$setmeal.endtime|date_format:"%Y-%m-%d"#}{#/if#}</p>
+                        <p>状态：{#if $meal_min_remind=="无限期"#}无限期{#elseif $meal_min_remind=="已经到期"#}已经到期{#else#}还有{#$meal_min_remind#}到期{#/if#}&nbsp;&nbsp;<a href="company_service.php?act=setmeal_list">升级/续期</a></p>
+                        <p><a href="company_service.php?act=setmeal_list">会员特权</a></p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="data_box">
+                        <table width="250" border="1" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th colspan="2" scope="col">职位</th>
+                            </tr>
+                            <tr>
+                                <td class="name">发布中的职位</td>
+                                <td class="data"><a href="company_jobs.php?act=jobs&jobtype=1">{#$total_audit_jobs#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">审核中的职位</td>
+                                <td class="data"><a href="company_jobs.php?act=jobs&jobtype=3">{#$total_noaudit_jobs#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">未通过的职位</td>
+                                <td class="data"><a href="company_jobs.php?act=jobs&jobtype=4">{#$total_nopass_jobs#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">已暂停的职位</td>
+                                <td class="data"><a href="company_jobs.php?act=jobs&jobtype=2">{#$total_stop_jobs#}</a></td>
+                            </tr>
+                        </table>
+                        <table width="250" border="1" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th colspan="2" scope="col">简历</th>
+                            </tr>
+                            <tr>
+                                <td class="name">待查看简历</td>
+                                <td class="data"><a href="company_recruitment.php?act=apply_jobs">{#$total_nolook_resume#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">已下载简历</td>
+                                <td class="data"><a href="company_recruitment.php?act=down_resume_list">{#$total_down_resume#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">已收藏简历</td>
+                                <td class="data"><a href="company_recruitment.php?act=favorites_list">{#$total_favorites_resume#}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="name">浏览过简历</td>
+                                <td class="data"><a href="company_recruitment.php?act=my_attention">{#$total_view_resume#}</a></td>
+                            </tr>
+                        </table>
+                        <table width="250" border="1" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th colspan="2" scope="col">面试</th>
+                            </tr>
+                            <tr>
+                                <td class="name">面试邀请</td>
+                                <td class="data"><a href="company_recruitment.php?act=interview_list">{#$total_interview#}</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    {#qishi_resume_list set="列表名:resumelist,显示数目:5,意向职位长度:30,填补字符:...,排序:rtime>desc,职位大类:"|cat:$concern_id#}
+                    {#if !$resumelist#}
+                    {#qishi_resume_list set="列表名:resumelist,显示数目:5,意向职位长度:30,填补字符:...,排序:rtime>desc"#}
+                    {#/if#}
+                    {#if $resumelist#}
+                    <div class="clear"></div>
+                    <div class="list_box">
+                        <div class="box_title">
+                            <p>为您推荐的人才</p>
+                        </div>
+                        <ul>
+                            {#foreach from=$resumelist item=list#}
+                            <li>
+                                <div class="top">
+                                    <p class="name"><a title="{#$list.fullname#}" target="_blank" class="name" href="{#$list.resume_url#}">{#$list.fullname#}</a></p>
+                                    <p class="info">
+                                        {#if !empty($list.district_cn) && !empty($list.education_cn)#}
+                                        {#$list.district_cn#} | 
+                                        {#/if#}
+                                        {#if !empty($list.district_cn) && empty($list.education_cn)#}
+                                        {#$list.district_cn#}
+                                        {#/if#}
+                                        {#if !empty($list.education_cn)#}
+                                        {#$list.education_cn#} | 
+                                        {#/if#}
+                                        {#if $list.birthdate>0 && !empty($list.experience_cn)#}
+                                        {#$list.age#}岁 | 
+                                        {#/if#}
+                                        {#if $list.birthdate>0 && empty($list.experience_cn)#}
+                                        {#$list.age#}岁
+                                        {#/if#}
+                                        {#$list.experience_cn#}</p>
+                                    <p class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</p>
+                                </div>
+                                <div class="bottom">
+                                    <p class="job">{#$list.intention_jobs#}</p>
+                                    <a title="{#$list.fullname#}" target="_blank" class="show" href="{#$list.resume_url#}">预览简历</a>
+                                </div>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        <div class="more">
+                            <a href="/resume/resume-list.php">查看更多人才</a>
+                        </div>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="company_box">
+                        {#if $company.logo==""#}
+                        <img name="" src="{#$QISHI.site_template#}images/no_logo.gif"   alt="" style="cursor:pointer" onclick="javascript:location.href = 'company_info.php?act=company_profile'" width="240" />
+                        {#else#}
+                        <img name="" src="{#$QISHI.main_domain#}data/logo/{#$company.logo#}?rand={#$rand#}"   alt="" style="cursor:pointer" onclick="javascript:location.href = 'company_info.php?act=company_profile'" width="240" />
+                        {#/if#}
+                        <p class="company_name">{#if $company#}{#$company.companyname#}{#else#}未完善企业资料{#/if#}</p>
+                        <div class="do">
+                            {#if $user.email_audit=="1"#}
+                            <a href="company_user.php?act=authenticate"><i class="email_pass"></i></a>
+                            {#else#}
+                            <a href="company_user.php?act=authenticate"><i class="email_nopass"></i></a>
+                            {#/if#}
+                            <p class="edit"><a title="编辑企业资料" href="company_info.php?act=company_profile"><i></i><span>编辑企业资料</span></a></p>
+                        </div>
+                        <div class="clear"></div>
+                        <p class="login">最近登录：{#if $loginlog#}{#$loginlog.log_addtime|date_format:"%Y-%m-%d %H:%M"#}{#else#}从未登录{#/if#}</p>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs&jobtype=1"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    {#qishi_ad set="调用名称:home_601,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="home_601">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=home_601&img={#$li.img_path#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+
+
+        <!-- 2018红包活动 -->
+        <!--
+        {#if $spring2018_total2.total>0 #}
+        <div id="spring2018_box" style='position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 5;'>
+            <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 5; background: #000; opacity: 0.6;"></div>
+            <div style="position: absolute; width: 448px; height: 347px; background: url('{#$QISHI.site_template#}images/2017/act_spring2018_bg.png'); top: 30%; left: 50%; z-index: 6; margin: 0 0 0 -224px;">
+                <p style="font-size: 14px; color: #880606; margin: 200px 0 0 0px; width: 405px; text-align: center;">恭喜你获得{#$spring2018_total2.total#}元现金劵</p>
+                <p style="font-size: 16px; color: #ffde6e; margin: 15px 0 0 125px;">可用于购买招聘套餐哦</p>
+                <a id="spring2018_go" style="font-size: 12px; color: #df022e; margin: 20px 0 0 137px; display: inline-block; padding: 6px 43px 5px 43px; cursor: pointer;">立即查看</a>
+            </div>
+            <a id="spring2018_close" style="position: absolute; width: 21px; height: 21px; background: url('{#$QISHI.site_template#}images/2017/close2.png'); top: 25%; right: 35%; z-index: 6; margin: 0 0 0 0; cursor: pointer;"></a>
+        </div>
+        <script>
+            $('#spring2018_close').click(function () {
+                $('#spring2018_box').hide();
+            })
+            $('#spring2018_go').click(function () {
+                $('#spring2018_box').hide();
+            })
+        </script>
+        {#/if#}
+        -->
+        <!-- 2018红包活动 -->
+    </body>
+</html>

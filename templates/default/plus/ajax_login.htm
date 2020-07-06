@@ -1,0 +1,197 @@
+<link href="{#$QISHI.site_template#}css/login.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+//
+$("#ajax_username").focus(function(){
+	if ($("#ajax_username").val()=="用户名/邮箱/手机号")
+	{
+	$("#ajax_username").val('');
+	$("#ajax_username").css("color","");
+	}  
+});
+$("#ajax_passwordtxt").focus(function(){
+	$("#ajax_passwordtxt").hide();
+	$("#ajax_password").show();
+	$('#ajax_password').trigger("focus");
+});
+//
+$(".but80").hover(function(){$(this).addClass("but80_hover")},function(){$(this).removeClass("but80_hover")});
+//验证
+$("form[id=Formlogin]").submit(function(e) {
+e.preventDefault();
+	if ($("#ajax_username").val()=="" || $("#ajax_username").val()=="用户名/邮箱/手机号")
+	{			
+		$(".ajax_login_err").html("请填写：用户名 / 邮箱 / 手机号");	
+		$(".ajax_login_err").show();
+	}
+	else if($("#ajax_password").val()=="")
+	{	
+	$(".ajax_login_err").html("请填写密码！");
+	$(".ajax_login_err").show();
+	}
+	{#if $verify_userlogin=="1"#}
+	else if($("#postcaptcha").val()=="" || $("#postcaptcha").val()=="点击获取验证码")
+	{	
+	$(".ajax_login_err").html("请填写验证码！");
+	$(".ajax_login_err").show();
+	}
+	{#/if#}
+	else
+	{
+		$("#login").val("正在登录");
+		$("#login").attr("disabled","disabled");
+		 if($("#expire").is (":checked"))
+		 {
+		 var expire=$("#expire").val();
+		 }
+		 else
+		 {
+		 var expire="";
+		 }
+                 
+                 var type = "";
+                 var back_url = window.location.href;
+		 if($('#wxopenid').attr('value') != "")
+		 {
+                    type = "wx";
+                    back_url = "/user/login.php";
+		 }else if($('#qqopenid').attr('value') != ""){
+                    type = "qq";
+                    back_url = "/user/login.php";
+                 }else if($('#weiboopenid').attr('value') != ""){
+                    type = "weibo";
+                    back_url = "/user/login.php";
+                 }
+		$.post("{#$QISHI.website_dir#}plus/ajax_user.php", {"username": $("#ajax_username").val(),"password": $("#ajax_password").val(),"expire":expire,"type":type,"url":back_url,"postcaptcha":$("#postcaptcha").val(),"time": new Date().getTime(),"act":"do_login"},
+	 	function (data,textStatus)
+	 	 {
+			if (data=="err" || data=="errcaptcha")
+			{			
+				$("#login").val("登录");
+				$("#login").attr("disabled","");
+				$("#ajax_password").attr("value","");
+				$(".ajax_login_err").show();
+				if (data=="err")
+				{
+				errinfo="帐号或者密码错误";
+				}
+				else if(data=="errcaptcha")
+				{
+				$("#imgdiv img").attr("src",$("#imgdiv img").attr("src")+"1");
+				errinfo="验证码错误";
+				}
+				$(".ajax_login_err").html(errinfo);
+			}
+			else if(data.indexOf('冻结') != '-1')
+			{
+                            alert(data);
+				$("#login").val("登录");
+				$("#login").attr("disabled","");
+				$("#ajax_password").attr("value","");
+			}
+			else
+			{
+				$("body").append(data);
+			}
+	 	 })		
+	}
+	return false;
+});
+//
+//验证码部分
+{#if $verify_userlogin=="1"#}
+function imgcaptcha(inputID,imgdiv)
+{
+	$(inputID).focus(function(){
+		if ($(inputID).val()=="点击获取验证码")
+		{
+		$(inputID).val("");
+		$(inputID).css("color","#333333");
+		}
+		$(inputID).parent("div").css("position","relative");
+		//设置验证码DIV
+		$(imgdiv).css({ position: "absolute", right: "-34px", "top": "68px" , "z-index": "10", "background-color": "#FFFFFF", "border": "1px #A3C8DC solid","display": "none","margin-left": "15px"});
+		$(imgdiv).show();
+		if ($(imgdiv).html()=='')
+		{
+		$(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+		}
+		$(imgdiv+" img").click(function()
+		{
+			$(imgdiv+" img").attr("src",$(imgdiv+" img").attr("src")+"1");
+		});
+		$(document).click(function(event)
+		{
+			var clickid=$(event.target).attr("id");
+			if (clickid!="getcode" &&  clickid!="postcaptcha")
+			{
+			$(imgdiv).hide();
+			$(inputID).parent("div").css("position","");
+			}			
+		});
+	});
+}
+imgcaptcha("#postcaptcha","#imgdiv");
+//验证码结束
+{#/if#}
+//
+});
+</script>
+<div class="login_pop_box">
+	<h2>快速登录</h2>
+	<div class="ajax_login_err"></div>
+	<form id="Formlogin" name="Formlogin" method="post" action="">
+	<div class="content_box">
+		<div class="login_err"></div>
+		<div class="list">
+			<input type="text" name="username" id="ajax_username" class="input_text_login_user" value="用户名/邮箱" maxlength="30" style="color:#999999;" />
+			<input type="text" name="passwordtxt" id="ajax_passwordtxt" class="input_text_login_pwd" value="密码"  maxlength="30" style="color:#999999;"/>
+			<input type="password" name="password" id="ajax_password" class="input_text_login_pwd" value=""  maxlength="30" style="display:none"/>
+			{#if $verify_userlogin=="1"#}
+			<div class="postcaptcha">
+			<div id="imgdiv"></div>
+			<input  class="txtinput" name="postcaptcha" id="postcaptcha" type="text" value="点击获取验证码" style="color:#999999;"/>
+			</div>
+			{#/if#}
+		</div>
+		<div class="auto">
+			<div><input type="checkbox" name="autologin" id="expire" name="expire" value="7" /><span>一周内自动登录</span></div>
+			<a href="{#$QISHI.site_dir#}user/user_getpass.php">忘记密码？</a>
+			<a href="{#$QISHI.main_domain#}user/user_reg.php">免费注册</a>
+			<div class="clear"></div>
+		</div>
+		<div class="input-box-waiting" id="waiting">
+			正在登录中...
+		</div>
+		<div class="clear"></div>
+                <input type="hidden" id="wxopenid" value="{#$wxopenid#}" />
+                <input type="hidden" id="qqopenid" value="{#$qqopenid#}" />
+                <input type="hidden" id="weiboopenid" value="{#$weiboopenid#}" />
+		<div class="button"><input type="submit" name="submitlogin" id="login" value="立即登录" class="but_login_335" /></div>
+		{#if $QISHI.qq_apiopen=="1" || $QISHI.sina_apiopen=="1"  || $QISHI.taobao_apiopen=="1"#}
+                {#if $wxopenid == "" && $qqopenid == "" && $weiboopenid == "" #}
+		<p>使用合作网站账号登录：</p>
+		<ul>
+			{#if $QISHI.qq_apiopen=="1"#}
+			<li><a href="{#$QISHI.site_dir#}user/{#if $QISHI.qq_logintype=='1'#}connect_qq_client.php{#else#}connect_qq_server.php{#/if#}"class="qq">QQ</a></li>
+			{#/if#}
+			{#if $QISHI.sina_apiopen=="1"#}
+			<li><a href="{#$QISHI.site_dir#}user/connect_sina.php" class="weibo">weibo</a></li>
+			{#/if#}
+			{#if $QISHI.taobao_apiopen=="1"#}
+			<li><a href="{#$QISHI.site_dir#}user/connect_taobao.php" class="taobao">taobao</a></li>
+			{#/if#}
+                        {#if $QISHI.wx_login_apiopen=="1"#}
+                        <li class="weixin">
+                            <a href="{#$QISHI.main_domain#}user/connect_wechat.php" class="weixin">weixin</a>
+                            <div id="login_container" data="0"></div>
+                        </li>                                
+                        {#/if#}
+		</ul>
+		{#/if#}
+		{#/if#}
+	</div>
+	</form>
+</div>

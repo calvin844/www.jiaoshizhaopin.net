@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />{#qishi_pageinfo set="列表名:page,调用:QS_resume"#}
+        <title>{#$page.title#}</title>
+        <meta name="description" content="{#$page.description#}"/>
+        <meta name="keywords" content="{#$page.keywords#}"/>
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/middle_page.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+        <script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.resume-search.js" type='text/javascript'></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                allaround('{#$QISHI.website_dir#}', "");
+                // 显示行业
+                $("#jobsTrad").hover(function () {
+                    $("#divTradCate").show();
+                }, function () {
+                    $("#divTradCate").hide();
+                });
+                // 显示职位
+                $("#jobsSort").hover(function () {
+                    $("#divJobCate").show();
+                    $("#divJobCate li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divJobCate").hide();
+                });
+                // 显示地区
+                $("#jobsCity").hover(function () {
+                    $("#divCityCate").show();
+                    $("#divCityCate li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divCityCate").hide();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        {#include file="header.htm"#}
+
+        <div id="searckeybox" class="jobsearch" style="margin-top:20px;">
+            <!--
+                 <div class="jobnav">
+                        <span>搜索方式 : </span>
+                        <a href="{#"QS_resumelist"|qishi_url#}" class="select">全能搜索</a>
+                        <a href="{#"QS_resumetag"|qishi_url#}" >按标签搜索</a>
+                 </div>
+            -->
+            <div class="search_type" id="district_id" cn="district_cn">
+                <p class="flag" id="city">请选择地区分类 <i></i></p>
+                <div class="type_box">
+                    <p class="title">
+                        <span>选择城市</span>
+                        <a title="不选" class="no_select"  >不选</a>
+                    </p>
+                    <div class="hot">
+                        <p>热门城市</p>
+                        <ul>
+                            {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city item=c#}
+                            <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    <ul class="selected">
+                        <li id="select_bt" class="selected">请选择省份</li>
+                        <li id="selected_bt" style="display:none;"></li>
+                    </ul>
+                    <ul id='city_box' class="select_box">
+                        {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                        <!-- 以下为循环数组category内容  -->
+                        {#foreach from=$city item=c#}
+                        <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+            </div>
+            <input id="district_id" type="hidden" value="" name="district_id">
+                <input id="district_cn" type="hidden" value="" name="district_cn"/>
+
+
+                <div class="search_type" id="jobs_id" cn="jobs_cn">
+                    <p class="flag" id="job_type">请选择职位类别<i></i></p>
+                    <div class="job_type_box">
+                        <p class="title">
+                            <span>选择职位类别</span>
+                            <a title="不选" class="no_select"  >不选</a>
+                        </p>
+                        <ul class="job_ptype_ul">
+                            {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$category item=list#}
+                            {#if $list.parentid == 0 #}
+                            <li val="{#$list.id#}">
+                                <span>{#$list.categoryname#}</span>
+                                <u>></u>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <ul class="job_type_ul">
+                        </ul>
+                    </div>
+                </div>
+                <input name="jobs_cn" id="jobs_cn" type="hidden" value="" />
+                <input name="jobs_id" id="jobs_id" type="hidden" value="" />
+                <div class="keybox">
+                    <input type="text" id="searckey" name="key" value="请输入关键字" />
+                    <input type="hidden" value="" name="education">
+                        <input type="hidden" value="" name="experience">
+                            <input type="hidden" value="" name="photo">
+                                <input type="hidden" value="" name="talent">
+                                    <input type="hidden" value="" name="sort">
+                                        <input type="hidden" value="1" name="page">
+                                            </div>
+                                            <div class="btnsearch" id="btnsearch" ty="QS_resumelist">搜 索</div>
+                                            <a class="more" id="showmoreoption" href="javascript:;"><span>更多条件</span><i></i></a>
+                                            </div>
+
+                                            <script>
+
+
+
+                                            </script>
+
+                                            <div class="clear"></div>
+                                            </div>
+                                            </div>
+                                            <!-- 选择行业弹出框 -->
+                                            <div id="intentionTradBox" class="alert-window" style="display:none;width:810px;height:450px;left:50%;top:200px; margin-left:-405px;position:absolute;z-index:100001;">
+                                                <div style="width: 810px;" class="resume-tc">
+                                                    <div class="resume-tc-head">
+                                                        <h3><i class="icon-loc"></i> 请选择搜索行业（最多选择5个）</h3>
+                                                        <a class="close wd_close cm_closeMsg" href="javascript:;"></a> 
+                                                    </div>
+                                                    <div class="sx-yx">
+                                                        <span class="clr-grn fnt-b">已选：</span>
+                                                        <span id="box_checkedTrad"></span>
+                                                    </div>
+                                                    <div id="showTradType" style="width:810px; height: 360px; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative;">
+
+                                                    </div>
+                                                    <div class="sx-action">
+                                                        <button id="btn_tradsave" class="grn" type="button">确定</button> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 选择行业弹出框 end-->
+                                            <!-- 选择职位选择框 -->
+                                            <div id="intentionJobsBox" class="alert-window" style="display:none;width: 810px; height: 450px; left: 50%; top: 200px; margin-left: -405px; position: absolute; z-index: 100001;">
+                                                <div style="width: 810px;" class="resume-tc">
+                                                    <div class="resume-tc-head">
+                                                        <h3><i class="icon-loc"></i> 请选择搜索职能（最多选择5个）</h3>
+                                                        <a class="close wd_close cm_closeMsg" href="javascript:;"></a> 
+                                                    </div>
+                                                    <div class="sx-yx">
+                                                        <span class="clr-grn fnt-b">已选：</span>
+                                                        <span id="box_checkedJobs"></span>
+                                                    </div>
+                                                    <div id="showJobsType" style="width:810px; height: 360px; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative;">
+
+                                                    </div>
+                                                    <div class="sx-action">
+                                                        <button id="savechecked" class="grn" type="button">确定</button> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 选择职位选择框 end-->
+                                            <!-- 选择地区弹出框  -->
+                                            <div id="cityBoxDistrict" class="alert-window" style="width:810px;height:500px;left:50%;margin-left:-405px;top:100px; position:absolute;z-index:10;display:none;">
+                                                <div class="resume-tc">
+                                                    <div class="resume-tc-head">
+                                                        <h3><i class="icon-loc"></i>请选择搜索地区</h3>
+                                                        <a class="close wd_close cm_closeMsg" href="javascript:;"></a>
+                                                    </div>
+                                                    <div class="sx-yx">
+                                                        <span class="clr-grn fnt-b">已选：</span>
+                                                        <span id="box_checkedDistrict"></span>
+                                                    </div>
+                                                    <div style="width:810px;height:410px; overflow: auto; overflow-x: hidden; overflow-y: auto; position:relative;" class="sx-cnt">
+                                                        <div style="padding-bottom: 0px;" class="sx-rm" id="sx-rmDistrict">
+                                                            <ul style="width:760px;" class="cf"></ul>
+                                                        </div>
+                                                        <div style="padding-bottom:0px;" class="sx-nomal" id="sx-nomalDistrict">
+                                                            <ul style="width:760px;" class="cf"></ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sx-action">
+                                                        <button id="btn_citysave" class="grn" type="button">确定</button> 
+                                                        <button id="btn_citycancel" class="gray" type="button">取消</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 选择地区弹出框  end-->
+                                            <div class="searoptions" id="searoptions" style="height:130px;display: none;">
+
+                                                <div class="list"><div class="tit">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</div><div class="option" id="resumeducation"></div></div>
+                                                <div class="list"><div class="tit">经&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验：</div><div class="option" id="resumexperience"></div></div>
+                                                <div class="list">
+                                                    <div class="tit">照&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片：</div>
+                                                    <div class="option" id="resumephoto">
+                                                        <a   class="opt" id="photo-1">有</a>
+                                                        <a   class="opt" id="photo-0">无</a>
+                                                    </div>
+                                                </div>
+                                                <div class="list">
+                                                    <div class="tit">等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</div>
+                                                    <div class="option" id="resumetalent">
+                                                        <a   class="opt" id="talent-1">普通</a>
+                                                        <a   class="opt" id="talent-2">高级</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="main" style="margin-top:20px;">
+                                                {#qishi_resume_list set="列表名:resume,显示数目:24,照片:0,意向职位长度:18,填补字符:...,排序:rtime>desc,总数量:1,显示学校:1"#}
+                                                <div class="middle_page_box">
+                                                    <div class="left resume_box_left">
+                                                        <div class="head_tips">当前在线教师：<span class="special_content">{#$resume_num#}</span>人</div>
+                                                        <div class="head">
+                                                            <div class="h1">姓名</div>
+                                                            <div class="h2">期望地区</div>
+                                                            <div class="h3">期望职位</div>
+                                                            <div class="h4">学历</div>
+                                                            <div class="h5">工作经验</div>
+                                                            <div class="h6">毕业学校</div>
+                                                            <div class="h7">查阅</div>
+                                                        </div>
+                                                        {#foreach from=$resume item=list#}
+                                                        <div class="resume">
+                                                            <div class="h1"><a href="/ProfileBank/ShowResume.shtml?ID={#$list.id#}" target="blank" style="font-family: '微软雅黑','宋体',Arial,Helvetica,sans-serif;">{#$list.fullname#}({#$list.sex_cn#})</a></div>
+                                                            <div class="h2">{#if !empty($list.district_cn)#}{#$list.district_cn#}{#else#}&nbsp;{#/if#}</div>
+                                                            <div class="h3">{#if !empty($list.intention_jobs_first)#}{#$list.intention_jobs_first#}{#else#}&nbsp;{#/if#}</div>
+                                                            <div class="h4">{#if !empty($list.education_cn)#}{#$list.education_cn#}{#else#}&nbsp;{#/if#}</div>
+                                                            <div class="h5">{#if !empty($list.experience_cn)#}{#$list.experience_cn#}{#else#}&nbsp;{#/if#}</div>
+                                                            <div class="h6">{#if !empty($list.school)#}{#$list.school#}{#else#}&nbsp;{#/if#}</div>
+                                                            <div class="h7">{#if !empty($list.click)#}{#$list.click#}{#else#}&nbsp;{#/if#}</div>
+                                                        </div>
+                                                        {#/foreach#}
+                                                    </div>
+                                                    <div class="right">
+                                                        {#qishi_resume_list  set="列表名:hot_resume,显示数目:5,照片:0,热门教师:1,填补字符:...,排序:rtime>desc"#}
+                                                        <div class="middle_page_header">
+                                                            <i></i>
+                                                            <div class="text">本周最受欢迎教师</div>
+                                                        </div>
+                                                        <ul class="resume_box_right">
+                                                            {#foreach from=$hot_resume item=list#}
+                                                            <li class="resume">
+                                                                <a target="blank" href="/ProfileBank/ShowResume.shtml?ID={#$list.id#}" class="list_item_title">{#$list.fullname#}</a>
+                                                                <p class="middle_text">
+                                                                    {#$list.district_cn#}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{#$list.education_cn#}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{#$list.experience_cn#}
+                                                                </p>
+                                                                {#if $list.index == 0 #}
+                                                                <img src="{#$QISHI.site_template#}images/top1.png" style="position:absolute;right:-1px;top:-1px;"/>
+                                                                {#/if#}
+                                                                {#if $list.index == 1 #}
+                                                                <img src="{#$QISHI.site_template#}images/top2.png" style="position:absolute;right:-1px;top:-1px;"/>
+                                                                {#/if#}
+                                                                {#if $list.index == 2 #}
+                                                                <img src="{#$QISHI.site_template#}images/top3.png" style="position:absolute;right:-1px;top:-1px;"/>
+                                                                {#/if#}
+                                                            </li>
+                                                            {#/foreach#}
+                                                        </ul>
+                                                        {#qishi_resume_list  set="列表名:recommend_resume,筛选数目:3,照片:1,填补字符:...,排序:rtime>desc"#}
+                                                        {#if !empty($recommend_resume)#}
+                                                        <div class="middle_page_header">
+                                                            <i></i>
+                                                            <div class="text">推荐教师 	</div>
+                                                        </div>
+                                                        <ul class="image_resume_box">
+                                                            {#foreach from=$recommend_resume item=list#}
+                                                            <li class="image_resume">
+                                                                <img src="{#$list.photosrc#}"/>
+                                                                <div class="right">
+                                                                    <div class="name"><a href="/ProfileBank/ShowResume.shtml?ID={#$list.id#}" target="blank">{#$list.fullname#}</a></div>
+                                                                    <div class="content">所在地：<span>{#$list.district_cn#}</span></div>
+                                                                    <div class="content">经验：<span>{#$list.experience_cn#}</span></div>
+                                                                    <div class="content">学历：<span>{#$list.education_cn#}</span></div>
+                                                                    <div class="content">意向：<span>{#$list.intention_jobs#}</span></div>
+                                                                </div>
+                                                            </li>
+                                                            {#/foreach#}
+                                                        </ul>
+                                                        {#/if#}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            </div>
+
+                                            {#include file="footer.htm"#}
+                                            </body>
+                                            </html>

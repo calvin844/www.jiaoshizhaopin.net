@@ -1,0 +1,19 @@
+*{ margin:0; padding:0; list-style:none; text-decoration:none; font-size:12px; font-family:"Microsoft YaHei"; border:none; border-radius: 0; font-weight: initial; -webkit-appearance:none; outline:none}
+a{ cursor: pointer;}
+
+.clear{ clear:both;}
+.left{ float:left;}
+.right{ float:right;}
+.nopadding{ padding:0 !important;}
+.nomargin{ margin:0 !important;}
+.main_box{ width:1200px; margin:0 auto;}
+
+
+body{ background: url(../../images/bd002/bd_from_bg.jpg) repeat top; background-size: 100% auto;text-align: center;}
+div.box_bg{ width:90%; height: 80%; background: #fff; margin: 0 auto; opacity: 0.6; top: 10%; left: 50%; margin: 0 0 0 -45%; position: fixed; z-index: 1;}
+div.box{ height: 500px; position: fixed; z-index: 2; text-align: center; width: 100%; top: 60%; margin: -250px 0 0 0;}
+div.box p{ width: 100%; text-align: center; color: #333; font-size: 18px; margin: 0 0 50px 0;}
+div.box input{ width: 70%; border-radius: 20px; height: 40px; line-height: 40px; padding: 0px 20px 0px 20px; margin: 0 0 20px 0; font-size: 14px; color: #333;}
+div.box input.submit{ width: 80%; background: #f3711a; margin: 20px 0 0 0; font-size: 18px; color: #fff;}
+div.box ul{ display: block; width: 100%; height: 18px; overflow: hidden;}
+div.box label.error{ font-size: 14px; color: red; width: 100%; text-align: center;}

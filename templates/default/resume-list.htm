@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/resume-list.css" type="text/css" rel="stylesheet"/> 
+        {#if empty($smarty.get.key)#}
+        <title>中国教师人才库_教师简历列表_{#$QISHI.site_name#}</title>
+        {#else#}
+        <title>{#$smarty.get.key#}_教师简历列表_{#$QISHI.site_name#}</title>
+        {#/if#}
+
+        {#if empty($smarty.get.key)#}
+        <meta name="keywords" content="教师人才,教师人才网,教师简历,中小学教师人才"/>
+        {#else#}
+        <meta name="keywords" content="{#$smarty.get.key#}教师"/>
+        {#/if#}
+
+        {#if empty($smarty.get.key)#}
+        <meta name="description" content="教师招聘网拥有百万优秀教师人才资源，其中学教师人才、小学教师人才及幼儿教师人才占70%，职业培训教师、高校教师及兴趣类教师占30%，拥有最专业的教师人才简历库。找教师，就上教师招聘网。"/>
+        {#else#}
+        <meta name="description" content="中国教师人才简历库，找教师人才，就上教师招聘网。"/>
+        {#/if#}
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery.resume-search.js" type='text/javascript'></script>
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;人才搜索</p>
+                <div class="left_box">
+                    <div class="search_box">
+                        <form id="form1" action="" method="get">
+                            <input type="text" class="keyword" id="key_value" name="key" placeholder="请输入关键字" value="{#$smarty.get.key#}" />
+                            <input type="hidden" id="district_value" value="{#$smarty.get.district#}" name="district"/>
+                            <input type="hidden" id="type_value" value="{#$smarty.get.type#}" name="type"/>
+                            <input type="hidden" id="education_value" value="{#$smarty.get.education#}" name="education"/>
+                            <input type="hidden" id="experience_value" value="{#$smarty.get.experience#}" name="experience"/>
+                            <input type="hidden" id="photo_value" value="{#$smarty.get.photo#}" name="photo"/>
+                            <input type="hidden" id="talent_value" value="{#$smarty.get.talent#}" name="talent"/>
+                            <!--<input type="hidden" value="{#$smarty.get.sort#}" name="sort"/>-->
+                            <input type="hidden" id="page_value" value="{#$smarty.get.page#}" name="page"/>
+                            <input type="submit" class="submit" id="btnsearch" value="搜索" />
+                        </form>
+                    </div>
+                    <div class="conditions_show">
+                        <ul class="top">
+                            <li class="district">
+                                <b>工作地区：</b>
+                                <span id="district_text"></span>
+                                <script>
+                                    var district_text = "{#$select_district#}"
+                                    if (district_text != "") {
+                                        var district_arr = district_text.split('|');
+                                        $('#district_text').html(district_arr[1]);
+                                    } else {
+                                        $('#district_text').html('不限');
+                                    }
+                                </script>
+                                <a id="show_district_list"  >选择</a>
+                                <div class="district_list">
+                                    <div class="top">
+                                        <p class="hot hover">热门城市</p>
+                                        <p class="district">省份</p>
+                                        <p class="sdistrict">市级</p>
+                                    </div>
+                                    <div id="show_hot" class="list son">
+                                        {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <a data-name="district" data-val="{#$c.id#}">{#$c.categoryname#}</a>
+                                        {#/foreach#}
+                                    </div>
+                                    <div id="show_district" class="list">
+                                        {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                        <!-- 以下为循环数组category内容  -->
+                                        {#foreach from=$city item=c#}
+                                        <a data-name="district" data-val="{#$c.id#}">{#$c.categoryname#}</a>
+                                        {#/foreach#}
+                                    </div>
+                                    <div id="show_sdistrict" class="list son"></div>
+                                </div>
+                                <script>
+                                    $('.district_list #show_hot').show();
+                                    $('#show_district_list').click(function() {
+                                        $('.district_list').show();
+                                    })
+                                    $('li.district').mouseleave(function() {
+                                        $('.district_list').hide();
+                                    })
+                                    $('.district_list .top p').click(function() {
+                                        $('.district_list .list').hide();
+                                        $('.district_list .top p.sdistrict').hide();
+                                        $('.district_list .top p').removeClass('hover');
+                                        var c = $(this).attr('class');
+                                        $(this).addClass('hover');
+                                        $('#show_' + c).show();
+                                    })
+                                    $('#show_district a').click(function() {
+                                        var name = $(this).attr('data-name');
+                                        var val = $(this).attr('data-val');
+                                        $.get("?act=get_city&id=" + val, function(result) {
+                                            var html = '';
+                                            if (result.indexOf('||') > 0) {
+                                                var arr = result.split("||");
+                                            } else {
+                                                var arr = new Array(result);
+                                            }
+                                            for (var i = 0; i < arr.length; i++) {
+                                                var item = arr[i].split("-");
+                                                html += '<a data-name="district" data-val="' + item[0] + '">' + item[1] + '</a>';
+                                            }
+                                            $('#show_sdistrict').html(html);
+                                            $('.district_list .list').hide();
+                                            $('.district_list .top p').removeClass('hover');
+                                            $('.district_list .top p.sdistrict').addClass('hover');
+                                            $('.district_list .top p.sdistrict').show();
+                                            $('#show_sdistrict').show();
+                                        });
+                                    })
+                                    $('.district_list').on('click', '.son a', function() {
+                                        $('.district_list').hide();
+                                        var val = $(this).attr('data-val');
+                                        $('#district_value').val(val);
+                                        $('#page_value').val(1);
+                                        $('#form1').submit();
+                                    })
+                                </script>
+                            </li>
+                            <li class="type">
+                                <b>执教类型：</b>
+                                <ul class="type_list">
+                                    {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$category item=list#}
+                                    {#if $list.parentid == 0 #}
+                                    <li>
+                                        <a class="parent_type" data-id="{#$list.id#}">{#$list.categoryname#}</a>
+                                        <div class="type_list_b">
+                                            <a data-name="type" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                            {#foreach from=$category item=list2#}
+                                            {#if $list2.parentid == $list.id #}
+                                            <a data-name="type" data-val="{#$list2.id#}">{#$list2.categoryname#}</a>
+                                            {#/if#}
+                                            {#/foreach#}
+                                        </div>
+                                    </li>
+                                    {#/if#}
+                                    {#/foreach#}
+                                </ul>
+                                <script>
+                                    $('ul.type_list a').mouseover(function() {
+                                        $(this).parent().find('.type_list_b').show();
+                                    })
+                                    $('ul.type_list li').mouseleave(function() {
+                                        $(this).find('.type_list_b').hide();
+                                    })
+                                    $('div.type_list_b a').click(function() {
+                                        $(this).parent().find('.type_list_b').show();
+                                        $('div.type_list_b').hide();
+                                        var val = $(this).attr('data-val');
+                                        $('#type_value').val(val);
+                                        $('#page_value').val(1);
+                                        $('#form1').submit();
+                                    })
+                                    var parent_type_text = "{#$select_parent_type#}"
+                                    var get_type = "{#$smarty.get.type#}"
+                                    if (parent_type_text != "") {
+                                        var type_text = "{#$select_type#}"
+                                        var type_arr = type_text.split('|');
+                                        var parent_type_arr = parent_type_text.split('|');
+                                        $('ul.type_list a.parent_type').removeClass('hover');
+                                        $('ul.type_list a.parent_type').each(function() {
+                                            if ($(this).attr('data-id') == parent_type_arr[1] || $(this).attr('data-id') == get_type) {
+                                                $(this).addClass('hover');
+                                                $(this).html($(this).html() + "（" + type_arr[1] + "）")
+                                            }
+                                        })
+                                    } else {
+                                        $('ul.type_list').prepend("<li><a class='parent_type hover'>不限</a></li>");
+                                    }
+                                </script>
+                            </li>
+                            <li class="education">
+                                <b>最高学历：</b>
+                                {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                {#foreach from=$c_education item=list#}
+                                <a data-name="education" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                {#/foreach#}
+                                <script>
+                                    var education_id = "{#$smarty.get.education#}";
+                                    if (education_id != "") {
+                                        $('li.education a').each(function() {
+                                            if ($(this).attr('data-val') == education_id) {
+                                                $(this).addClass('hover');
+                                            }
+                                        })
+                                    } else {
+                                        $('li.education b').after("<a class='education hover'>不限</a>");
+                                    }
+                                    $('li.education a').click(function() {
+                                        var val = $(this).attr('data-val');
+                                        $('#education_value').val(val);
+                                        $('#page_value').val(1);
+                                        $('#form1').submit();
+                                    })
+                                </script>
+                            </li>
+                            <li class="experience">
+                                <b>工作经验：</b>
+                                {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                {#foreach from=$c_experience item=list#}
+                                <a data-name="experience" data-val="{#$list.id#}">{#$list.categoryname#}</a>
+                                {#/foreach#}
+                                <script>
+                                    var experience_id = "{#$smarty.get.experience#}";
+                                    if (experience_id != "") {
+                                        $('li.experience a').each(function() {
+                                            if ($(this).attr('data-val') == experience_id) {
+                                                $(this).addClass('hover');
+                                            }
+                                        })
+                                    } else {
+                                        $('li.experience b').after("<a class='experience hover'>不限</a>");
+                                    }
+                                    $('li.experience a').click(function() {
+                                        var val = $(this).attr('data-val');
+                                        $('#experience_value').val(val);
+                                        $('#page_value').val(1);
+                                        $('#form1').submit();
+                                    })
+                                </script>
+                            </li>
+                            <li class="resume">
+                                <b>简历类型：</b>
+                                <a id="photo_a" data-name="photo" data-val="1">照片</a>
+                                <a id="talent_a" data-name="talent" data-val="1">高级</a>
+                            </li>
+                        </ul>
+                        <script>
+                            var talent_id = "{#$smarty.get.talent#}";
+                            if (talent_id == 1) {
+                                $('li.resume a#talent_a').addClass('hover');
+                            }
+                            var photo = "{#$smarty.get.photo#}";
+                            if (photo == 1) {
+                                $('li.resume a#photo_a').addClass('hover');
+                            }
+                            if (talent_id != 1 && photo != 1) {
+                                $('li.resume b').after("<a class='hover'>不限</a>");
+                            }
+                            $('li.resume a').click(function() {
+                                var n = $(this).attr('data-name');
+                                var val = $(this).attr('data-val');
+                                $('#' + n + '_value').val(val);
+                                $('#page_value').val(1);
+                                $('#form1').submit();
+                            })
+                        </script>
+                        <p class="more"><a id="conditions_hide"><span>收起</span>&nbsp;&nbsp;<i></i></a></p>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="conditions_hide"><a id="conditions_show"><span>更多选项</span>&nbsp;&nbsp;<i></i></a></div>
+                    <script>
+                        $('#conditions_hide').click(function() {
+                            $('div.conditions_show').hide();
+                            $('div.conditions_hide').show();
+                        })
+                        $('#conditions_show').click(function() {
+                            $('div.conditions_show').show();
+                            $('div.conditions_hide').hide();
+                        })
+                    </script>
+                    <div class="conditions_select">
+                        <b class="left">已经选择：</b>
+                        <div class="select_item">
+                            {#if !empty($smarty.get.key)#}
+                            <a data-name="key"><span>{#$smarty.get.key#}</span><i></i></a>
+                            {#/if#}
+                            {#if !empty($select_district)#}
+                            <a id="select_district" data-name="district"><span></span><i></i></a>
+                            <script>
+                                var district_text = "{#$select_district#}"
+                                var district_arr = district_text.split('|');
+                                $('#select_district span').html(district_arr[1]);
+                            </script>
+                            {#/if#}
+                            {#if !empty($select_type)#}
+                            <a id="select_type" data-name="type"><span></span><i></i></a>
+                            <script>
+                                var type_text = "{#$select_type#}"
+                                var type_arr = type_text.split('|');
+                                $('#select_type span').html(type_arr[1]);
+                            </script>
+                            {#/if#}
+                            {#if !empty($select_education)#}
+                            <a id="select_education" data-name="education"><span></span><i></i></a>
+                            <script>
+                                var education_text = "{#$select_education#}"
+                                var education_arr = education_text.split('|');
+                                $('#select_education span').html(education_arr[1]);
+                            </script>
+                            {#/if#}
+                            {#if !empty($select_experience)#}
+                            <a id="select_experience" data-name="experience"><span></span><i></i></a>
+                            <script>
+                                var experience_text = "{#$select_experience#}"
+                                var experience_arr = experience_text.split('|');
+                                $('#select_experience span').html(experience_arr[1]);
+                            </script>
+                            {#/if#}
+                            {#if $smarty.get.talent == 1#}
+                            <a id="select_talent" data-name="talent"><span>高级简历</span><i></i></a>
+                            {#/if#}
+                            {#if $smarty.get.photo == 1#}
+                            <a id="select_photo" data-name="photo"><span>照片简历</span><i></i></a>
+                            {#/if#}
+                            <script>
+                                $('.select_item a').click(function() {
+                                    var name = $(this).attr('data-name');
+                                    $('#' + name + '_value').val('');
+                                    $('#form1').submit();
+                                })
+                            </script>
+                        </div>
+                        <a id="clear_select" class="left">清空</a>
+                        <script>
+                            $('#clear_select').click(function() {
+                                $('#form1 input').each(function() {
+                                    if ($(this).attr('type') != 'submit') {
+                                        $(this).val('');
+                                    }
+                                })
+                                $('#form1').submit();
+                            })
+                        </script>
+                    </div>
+                    <div class="resume_list">
+                        {#if $resume#}
+                        <div class="top">
+                            <div class="right">
+                                <ul>{#$pagemin#}</ul>
+                            </div>
+                        </div>
+                        <form action="?act=add_fav" method="post">
+                            <ul class="list_box">
+                                {#foreach from=$resume item=list#}
+                                {#if !empty($list.fullname)#}
+                                <li>
+                                    <div class="select">
+                                        <input name="yid[]" type="checkbox" value="{#$list.id#}"/>
+                                    </div>
+                                    <div class="resume">
+                                        <div class="data_top">
+                                            <p class="name"><a  target="_blank" class="name {#if $list.checked#}checked{#/if#}" href="{#$list.resume_url#}">{#$list.fullname#}</a>{#if $list.talent==2#}<i>V</i>{#/if#}</p>
+                                            <p class="info">
+                                                {#if !empty($list.district_cn) && !empty($list.education_cn)#}
+                                                {#$list.district_cn#} | 
+                                                {#/if#}
+                                                {#if !empty($list.district_cn) && empty($list.education_cn)#}
+                                                {#$list.district_cn#}
+                                                {#/if#}
+                                                {#if !empty($list.education_cn)#}
+                                                {#$list.education_cn#} | 
+                                                {#/if#}
+                                                {#if $list.birthdate>0 && !empty($list.experience_cn)#}
+                                                {#$list.age#}岁 | 
+                                                {#/if#}
+                                                {#if $list.birthdate>0 && empty($list.experience_cn)#}
+                                                {#$list.age#}岁
+                                                {#/if#}
+                                                {#$list.experience_cn#}
+                                            </p>
+                                            <p class="date">{#$list.refreshtime_cn#}</p>
+                                        </div>
+                                        <div class="data_bottom">
+                                            <p class="job">{#$list.intention_jobs#}</p>
+                                            <a class="add" href="?act=add_fav&yid={#$list.id#}">收藏</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {#/if#}
+                                {#/foreach#}
+                            </ul>
+                            <div class="clear"></div>
+                            <div class="do_box">
+                                <input type="checkbox" class="check_all_input"/>
+                                <span class="check_all_span">全选</span>
+                                <span class="check_all_span" id="check_total">已选择0个简历</span>
+                                <input type="submit" id="fav_save" value="收藏" />
+                            </div>
+                            <script>
+                                function check_total() {
+                                    var total = 0;
+                                    $('.list_box input').each(function() {
+                                        if ($(this).is(':checked')) {
+                                            total = total + 1;
+                                        }
+                                    })
+                                    var str = "已选择" + total + "个简历";
+                                    $('span#check_total').html(str)
+                                }
+                                check_total()
+                                $('.list_box input').click(function() {
+                                    if ($(this).hasClass('checked')) {
+                                        $(this).removeClass('checked');
+                                        $(this).removeAttr('checked');
+                                    } else {
+                                        $(this).addClass('checked');
+                                        $(this).attr('checked');
+                                    }
+                                    check_total();
+                                })
+                                $('.check_all_input').click(function() {
+                                    if ($('.check_all_input').hasClass('checked')) {
+                                        $('.check_all_input').removeClass('checked');
+                                        $('.list_box input').removeClass('checked');
+                                        $('.list_box input').removeAttr('checked');
+                                    } else {
+                                        $('.check_all_input').addClass('checked');
+                                        $('.list_box input').addClass('checked');
+                                        $('.list_box input').attr('checked', 'checked');
+                                    }
+                                    check_total();
+                                })
+                            </script>
+                        </form>
+                        <div class="clear"></div>
+                        <div class="page_box">{#$page#}</div>
+                        {#else#}
+                        <div class="empty_box">
+                            <i></i>
+                            <div class="clear"></div>
+                            <p>没有找到符合条件的人才，感觉对不起你，换个条件重新搜索吧。</p>
+                        </div>
+                        {#/if#}
+                    </div>
+                </div>
+                <div class="right_box">
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$smarty.session.uid#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    {#qishi_ad set="调用名称:list_501,列表名:list,显示数目:1"#}
+                    {#if !empty($list)#}
+                    <div id="list_501">
+                        {#foreach from=$list item=li#}
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=list_501&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        {#/foreach#}
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

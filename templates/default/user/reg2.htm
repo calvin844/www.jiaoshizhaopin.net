@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+        <title>注册_{#$QISHI.site_name#}</title>
+        <script type="text/javascript">
+            //验证
+            $(document).ready(function() {
+                $("#Form1").validate({
+                    submitHandler: function(form) {
+                        $.post("/plus/ajax_user.php", {
+                            "username": $("#username").val(),
+                            "password": $("#password").val(),
+                            "email": $("#email").val(),
+                            "member_type": $("#member_type").val(),
+                            "url": "{#$smarty.get.url#}",
+                            "act_url": "{#$smarty.get.act_url#}",
+                            "tiku_key": "{#$smarty.get.tiku_key#}",
+                            "tiku_index": "{#$smarty.get.tiku_index#}",
+                            "act": "do_reg2"},
+                        function(data, textStatus) {
+                            if (data == "err") {
+                                $("#username").attr("value", "");
+                                $("#password").attr("value", "");
+                                $("#email").attr("value", "");
+                                alert("注册失败");
+                            } else {
+                                var m_type = $("#member_type").val();
+                                var go_back = "<?php echo $_SESSION['go_back']; ?>";
+                                if (m_type == 2) {
+                                    var url = "/user/user_make_info.php";
+                                } else if (go_back != "") {
+                                    var url = go_back;
+                                } else {
+                                    var url = "/user/company_make_info.php";
+                                }
+                                window.location.href = url;
+                            }
+                        })
+                        //$(form).ajaxSubmit();
+                    },
+                    rules: {
+                        username: {
+                            required: true,
+                            userName: true,
+                            nomobile: true,
+                            byteRangeLength: [3, 18],
+                            remote: {
+                                url: "/plus/ajax_user.php",
+                                type: "post",
+                                data: {"usname": function() {
+                                        return $("#username").val()
+                                    }, "act": "check_usname"}
+                            }
+                        },
+                        password: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 18
+                        },
+                        email: {
+                            required: true,
+                            email: true,
+                            remote: {
+                                url: "/plus/ajax_user.php",
+                                type: "post",
+                                data: {"email": function() {
+                                        return $("#email").val()
+                                    }, "act": "check_email"}
+                            }
+                        }
+                    },
+                    messages: {
+                        username: {
+                            required: "请填写用户名",
+                            remote: jQuery.format("用户名已经存在或者包含中文字")
+                        },
+                        password: {
+                            required: "请填写密码",
+                            minlength: jQuery.format("填写不能小于{0}个字符"),
+                            maxlength: jQuery.format("填写不能大于{0}个字符")
+                        },
+                        email: {
+                            required: "请填写电子邮箱",
+                            email: jQuery.format("电子邮箱格式错误"),
+                            remote: jQuery.format("email已经存在")
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parent().parent());
+                    }
+                });
+                //中文字两个字节
+                jQuery.validator.addMethod("byteRangeLength", function(value, element, param) {
+                    var length = value.length;
+                    for (var i = 0; i < value.length; i++) {
+                        if (value.charCodeAt(i) > 127) {
+                            length++;
+                        }
+                    }
+                    return this.optional(element) || (length >= param[0] && length <= param[1]);
+                }, "确保的值在3-18个字节之间");
+                //字符验证
+                jQuery.validator.addMethod("userName", function(value, element) {
+                    return this.optional(element) || /^[\w]+$/.test(value);
+                }, "用户名只能有英文、数字和下划线");
+                jQuery.validator.addMethod("nomobile", function(value, element) {
+                    var tel = /^(1)\d{10}$/;
+                    var $cstr = true;
+                    if (tel.test(value))
+                        $cstr = false;
+                    return $cstr || this.optional(element);
+                }, "用户名不能是手机号");
+                /////验证码部分
+                function imgcaptcha(inputID, imgdiv)
+                {
+                    $(inputID).focus(function() {
+                        if ($(inputID).val() == "点击获取验证码")
+                        {
+                            $(inputID).val("");
+                            $(inputID).css("color", "#333333");
+                        }
+                        //设置验证码DIV
+                        $(imgdiv).show();
+                        if ($(imgdiv).html() == '')
+                        {
+                            $(imgdiv).append("<img src=\"/include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function()
+                        {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                            $(inputID).val("");
+                            $("#Form1").validate().element("#postcaptcha");
+                        });
+                        $(document).unbind().click(function(event)
+                        {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha")
+                            {
+                                $(imgdiv).hide();
+                                $(inputID).parent("div").css("position", "");
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+                //验证码结束
+                //
+                $(".but-reg").hover(function() {
+                    $(this).addClass("but-reg-hover")
+                }, function() {
+                    $(this).removeClass("but-reg-hover")
+                });
+                $(".but-reg-login").hover(function() {
+                    $(this).addClass("but-reg-login-hover")
+                }, function() {
+                    $(this).removeClass("but-reg-login-hover")
+                });
+                //
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box reg">
+                <div class="left">
+                    <p class="box_title">绑定邮箱账号</p>
+                    <form id="Form1" name="Form1" method="post" action="?sd">
+                        <div class="item_box username">
+                            <div class="input_box">
+                                <input type="text" class="text" name="username" id="username" placeholder="用户名由3-18位英文、数字和下划线组成" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box email">
+                            <div class="input_box">
+                                <input type="text" class="text" name="email" id="email" placeholder="请输入常用邮箱" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box password">
+                            <div class="input_box">
+                                <input type="text" class="text" name="password" id="password" placeholder="请输入6-20位密码" value="" />
+                            </div>
+                        </div>
+                        <input name="member_type" type="hidden" id="member_type" value="{#$smarty.get.type|default:2#}" />
+                        <input type="submit" class="submit" value="注册" />                    
+                        <p class="agreement">注册代表已同意<a href="/agreement">《教师招聘网用户服务协议》</a></p>
+                    </form>
+                </div>
+                <div class="right">
+                    {#if $smarty.get.type=="2"#}
+                    <a class="to_company" href="?type=1">我要招聘&nbsp;></a>
+                    {#else#}
+                    <a class="to_company" href="?type=2">我要找工作&nbsp;></a>
+                    {#/if#}
+                    <div class="clear"></div>
+                    <p class="to_login">已有账号，直接<a href="/user/login.php">登录</a></p>
+                    <div class="clear"></div>
+                    {#if $QISHI.qq_apiopen=="1" || $QISHI.sina_apiopen=="1"  || $QISHI.taobao_apiopen=="1"#}
+                    <div class="other_login">
+                        <p>快捷登录方式：</p>
+                        <ul>
+                            {#if $QISHI.qq_apiopen=="1"#}
+                            <li><a class="weibo" href="/user/connect_sina.php?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}"></a></li>
+                            {#/if#}
+                            {#if $QISHI.wx_login_apiopen=="1"#}
+                            <li>
+                                <a class="wechat" href="/user/connect_wechat.php?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}"></a>
+                                <div id="login_container" data="0"></div>
+                            </li>    
+                            {#/if#}
+                            {#if $QISHI.qq_apiopen=="1"#}
+                            <li><a class="qq" href="/user/{#if $QISHI.qq_logintype=='1'#}connect_qq_client.php{#else#}connect_qq_server.php{#/if#}?tiku_key={#$smarty.get.tiku_key#}&tiku_index={#$smarty.get.tiku_index#}"></a></li>
+                            {#/if#}
+                        </ul>
+                    </div>
+                    {#/if#}
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>

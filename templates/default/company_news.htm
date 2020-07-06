@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>发布简章</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/company_news.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{#$QISHI.site_template#}kindeditor/themes/default/default.css" />
+        <link href="{#$QISHI.site_template#}css/date_input.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        {#include file="header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.metadata.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+        <script src="{#$QISHI.site_template#}js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+        <script charset="utf-8" src="{#$QISHI.site_template#}kindeditor/kindeditor-min.js"></script>
+        <script charset="utf-8" src="{#$QISHI.site_template#}kindeditor/lang/zh_CN.js"></script>
+        <script type="text/javascript">
+            //验证
+            $().ready(function () {
+                //查看联系方式
+                $("a.login").live('click', function () {
+                    dialog("登录", "url:{#$QISHI.website_dir#}user/login.php?act=check_online&type=ajax_login", "500px", "auto", "", "");
+                });
+
+                $.get("{#$QISHI.website_dir#}user/login.php", {"act": "check_online"}, function (data) {
+                    var p_str = "";
+                    if (data == "no_login") {
+                        p_str = '<a class="login"  >登录</a>并认证资质，可快速通过审核。';
+                    } else {
+                        datas = data.split("-");
+                        if (datas[1] == 1) {
+                            p_str = datas[0] + '，欢迎您，您的资质已认证。';
+                        } else {
+                            p_str = datas[0] + '，欢迎您，您的资质未认证，<a target="_blank" href="/user/company/company_info.php?act=company_auth">马上认证</a>，可快速通过审核！';
+                        }
+                    }
+                    $('p.login_tip').html(p_str);
+                })
+
+
+                showmenu("#type_id_cn", "#menu1", "#type_id");
+                $(".date_input").date_input();
+                //模拟select
+                function showmenu(menuID, showID, inputname) {
+                    $(menuID).click(function () {
+                        $(menuID).blur();
+                        $(menuID).parent("div").css("position", "relative");
+                        $(showID).slideToggle("fast");
+                        //生成背景
+                        $(menuID).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                        $(".menu_bg_layer").height($(document).height());
+                        $(".menu_bg_layer").css({width: "100%", position: "absolute", left: "0", top: "0", "z-index": "0"});
+                        //生成背景结束
+                        $(showID + " li").click(function () {
+                            $(menuID).val($(this).attr("title"));
+                            $(inputname).val($(this).attr("id"));
+                            $(".menu_bg_layer").hide();
+                            $(showID).hide();
+                            $(menuID).parent("div").css("position", "");
+                            $(this).css("background-color", "");
+                            //$("#Form1").validate().element(inputname); //验证表单中的一个需要验证的表单元素。 			
+                        });
+
+                        $(".menu_bg_layer").click(function () {
+                            $(".menu_bg_layer").hide();
+                            $(showID).hide();
+                            $(menuID).parent("div").css("position", "");
+                        });
+                        $(showID + " li").hover(
+                                function ()
+                                {
+                                    $(this).css("background-color", "#DAECF5");
+                                },
+                                function ()
+                                {
+                                    $(this).css("background-color", "");
+
+                                }
+                        );
+                    });
+                }
+
+
+                $("#Form1").validate({
+                    // debug: true,
+                    // onsubmit:false,
+                    //onfocusout :true,
+                    ignore: "",
+                    rules: {
+                        title: {
+                            required: true,
+                            minlength: 1,
+                            maxlength: 150
+                        },
+                        type_id: {
+                            required: true
+                        },
+                        district: {
+                            required: true,
+                            min: 1
+                        },
+                        sdistrict: {
+                            required: true,
+                            min: -1
+                        },
+                        endtime: {
+                            required: true
+                        },
+                        content: {
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        contact: {
+                            required: true
+                        },
+                        phone: {
+                            required: true,
+                            digits: true,
+                            maxlength: 11
+                        },
+                        postcaptcha: {
+                            IScaptchastr: true,
+                            required: true,
+                            remote: {
+                                url: "{#$QISHI.main_domain#}include/imagecaptcha.php",
+                                type: "post",
+                                data: {"postcaptcha": function () {
+                                        return $("#postcaptcha").val()
+                                    }, "act": "verify", "time": function () {
+                                        return new Date().getTime()
+                                    }}
+                            }
+                        }
+                    },
+                    messages: {
+                        title: {
+                            required: "请输入标题",
+                            minlength: jQuery.format("内容不能小于{0}个字符"),
+                            maxlength: jQuery.format("内容不能大于{0}个字符")
+                        },
+                        type_id: {
+                            required: "请选择分类"
+                        },
+                        district: {
+                            required: "请选择省份",
+                            min: "请选择省份"
+                        },
+                        sdistrict: {
+                            required: "请选择城市",
+                            min: "请选择城市"
+                        },
+                        content: {
+                            required: "请填写正文内容"
+                        },
+                        endtime: {
+                            required: "请选择结束时间"
+                        },
+                        email: {
+                            required: "请填写EMAIL",
+                            email: "email格式错误"
+                        },
+                        contact: {
+                            required: "请填写联系人"
+                        },
+                        phone: {
+                            required: "请填写联系电话",
+                            digits: "联系电话错误",
+                            maxlength: "联系电话错误"
+                        },
+                        postcaptcha: {
+                            required: "请填写验证码",
+                            remote: jQuery.format("验证码错误")
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.next());
+                        else
+                            error.appendTo(element.parent());
+                    }
+                });
+                jQuery.validator.addMethod("IScaptchastr", function (value, element) {
+                    var str = "点击获取验证码";
+                    var flag = true;
+                    if (str == value)
+                    {
+                        flag = false;
+                    }
+                    return  flag || this.optional(element);
+                }, "请填写验证码");
+                function imgcaptcha(inputID, imgdiv)
+                {
+                    $(inputID).focus(function () {
+                        if ($(inputID).val() == "点击获取验证码")
+                        {
+                            $(inputID).val("");
+                            $(inputID).css("color", "#333333");
+                        }
+                        $(inputID).parent("div").css("position", "relative");
+                        //设置验证码DIV
+                        $(imgdiv).css({position: "absolute", left: $(inputID).width(), "bottom": "0px", "z-index": "10", "background-color": "#FFFFFF", "border": "1px #A3C8DC solid", "display": "none", "margin-left": "15px"});
+                        $(imgdiv).show();
+                        if ($(imgdiv).html() == '')
+                        {
+                            $(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function ()
+                        {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                            $(inputID).val("");
+                            $("#Form1").validate().element("#postcaptcha");
+                        });
+                        $(document).unbind().click(function (event)
+                        {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha")
+                            {
+                                $(imgdiv).hide();
+                                $(inputID).parent("div").css("position", "");
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+            });
+
+
+
+            function changeProvince() {
+                get_cities($("#district").val());
+            }
+            ;
+            function get_cities(provinceId) {
+                $.get("/plus/ajax_index_c.php", {"act": "get_cities", "id": provinceId},
+                function (data) {
+                    $("#sdistrict").html(data);
+                }
+                );
+            }
+
+        </script>
+        <!-- 当前位置 -->
+        <div class="page_location link_bk">
+            当前位置：<a href="{#$QISHI.website_dir#}">首页</a>>发布简章
+        </div>
+        <!-- 主体内容 -->
+        <div class="container link_bk">
+            <div class="about_left">
+                {#qishi_explain_list set="列表名:explain,分类ID:1"#}
+                <ul>
+                    {#foreach from=$explain item=list#}
+                    <li><a href="{#$list.url#}">{#$list.title#}</a></li>
+                    {#/foreach#}
+                    <li><a href="{#'QS_suggest'|qishi_url#}">意见反馈</a></li>
+                    <li class="active"><a href="{#'jiaoshi_company_news'|qishi_url#}">发布简章</a></li>
+                </ul>
+            </div>
+            <div class="about_right">
+                <div class="about_r_tit">
+                    发布简章<span>（简章发布后，工作人员会在24小时内审核，注意：简章只限<b>事业单位</b>发布。）</span>
+                </div>
+                <p class="login_tip"><a class="login"  >登录</a>并认证资质，可快速通过审核。</p>
+                <form action="news_submit.php" method="post" id="Form1" >
+                    <div class="about_r_content">
+                        <table>
+                            <tbody>
+                                <tr height="50">
+                                    <td class="item_name">标题：</td>
+                                    <td><input type="text" name="title" id="title" class="input_text_500" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="item_name" valign="middle">分类：</td>
+                                    <td>
+                                        <div>		
+                                            <input type="text" value="请选择"  readonly="readonly" id="type_id_cn" name="type_id_cn" class="input_text_200 input_text_selsect"/>
+                                            <input name="type_id" id="type_id" type="hidden" value="{#$smarty.get.type_id#}" />
+                                            <div id="menu1" class="menu">
+                                                <ul>	
+                                                    {#qishi_news_category set="列表名:category"#}
+                                                    {#foreach from=$category item=list#}
+                                                    {#if $list.parentid == 0#}
+                                                    <li id="{#$list.id#}" title="{#$list.categoryname#}" >{#$list.categoryname#}</li>
+                                                    {#/if#}
+                                                    {#/foreach#}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr
+                                <tr>
+                                    <td class="item_name" valign="middle">地区：</td>
+                                    <td style="width:200px;">
+                                        <select name="district" id="district" onchange="javascript:changeProvince();" class="input_text_100">
+                                            <option disabled selected>请选省份</option>
+                                            {#jiaoshi_districts set="列表名:city,热度排序:desc,后台排序:desc,是否显示不限:0,类别:省份,不显示:国外|香港|台湾|澳门"#}
+                                            <!-- 以下为循环数组category内容  -->
+                                            {#foreach from=$city item=c#}
+                                            <option value="{#$c.id#}">{#$c.categoryname#}</option>
+                                            {#/foreach#}
+                                        </select>
+                                        <select name="sdistrict" id="sdistrict" class="input_text_100">
+                                            <option disabled>请选城市</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="item_name" valign="top">内容：</td>
+                                    <td colspan="2" >	
+                                        <textarea id="content" name="content" style="width:700px;height:300px;visibility:hidden;"></textarea>
+                                        <script>
+                                            var editor;
+                                            KindEditor.ready(function (K) {
+                                                editor = K.create('textarea[name="content"]', {
+                                                    afterBlur: function () {
+                                                        this.sync();
+                                                    }
+                                                });
+
+                                                K('input[name=Submit]').click(function (e) {
+                                                    this.sync();
+                                                    editor.html('');
+                                                });
+                                            });
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr height="50">
+                                    <td>结束日期：</td>
+                                    <td><input type="text" name="endtime" id="endtime" class="input_text_100 date_input"  /></td>
+                                </tr>
+                                <tr height="50">
+                                    <td class="item_name">邮箱：</td>
+                                    <td><input type="text" name="email" id="email" class="input_text_200" /></td>
+                                </tr>
+                                <tr height="50">
+                                    <td class="item_name">联系人：</td>
+                                    <td><input type="text" name="contact" id="contact" class="input_text_200" /></td>
+                                </tr>
+                                <tr height="50">
+                                    <td class="item_name">电话：</td>
+                                    <td><input type="text" name="phone" id="phone" class="input_text_200" /></td>
+                                </tr>
+                                <tr height="50">
+                                    <td class="item_name">验证码：</td>
+                                    <td>
+                                        <div>
+                                            <div id="imgdiv"></div>
+                                            <input  class="input_text_200" name="postcaptcha" id="postcaptcha" type="text" value="点击获取验证码" style="color:#999999"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr height="50">
+                                    <td>&nbsp;</td>
+                                    <td><input type="submit" name="Submit" value="提交" class="but150cheng" /></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- 主体内容 结束 -->
+        {#include file="footer.htm"#}	
+    </body>
+</html>

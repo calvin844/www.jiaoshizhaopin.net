@@ -1,0 +1,96 @@
+
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:30px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 10px 0px;}
+#content .left_box div.box_title p{ padding:0px 10px 0px 0px; height:40px; line-height:40px; border-bottom:1px solid #f3711a; font-size:16px; color:#333; display:inline-block;}
+#content .left_box div.box_title span{ padding:0px 10px 0px 0px; height:40px; line-height:40px; font-size:12px; color:#ccc; display:inline-block;}
+#content .left_box div.nav_box{ float:left; padding:15px 0px 15px 0px; background:#f5f5f5; width:100%;}
+#content .left_box div.nav_box a{ float:left; font-size:14px; color:#808080; margin:0px 20px 0px 20px; line-height:20px;}
+#content .left_box div.nav_box a:hover{ color:#f3711a;}
+#content .left_box div.nav_box a.hover{ color:#f3711a;}
+#content .left_box div.nav_box b{ float:left; display:inline-block; width:1px; height:15px; background:#ccc; margin:3px 0px 0px 0px;}
+#content .left_box ul.list{ }
+#content .left_box ul.list li{ float:left; width:100%; border-bottom:1px dotted #dcdcdc; padding:30px 0px 30px 0px;}
+#content .left_box ul.list li input.left{ margin:15px 0px 0px 0px; display:inline-block; width:16px; height:16px; background: url(../../images/2017/checkbox.png); background-size:16px 16px; -webkit-appearance:none;}
+#content .left_box ul.list li input.checked{ background: url(../../images/2017/checkbox_h_16-16.png);}
+#content .left_box ul.list li div.item_info{ float:right; width:815px;}
+#content .left_box ul.list li div.item_info div.title{ margin:0px 0px 10px 0px; float:left; width:100%;}
+#content .left_box ul.list li div.item_info div.title a.job_name{ float:left; font-size:16px; color:#188eee;}
+#content .left_box ul.list li div.item_info div.title a.job_name:hover{ text-decoration:underline;}
+#content .left_box ul.list li div.item_info div.title p.resume_name{ float:right; color:#808080;}
+#content .left_box ul.list li div.item_info div.info p.left{ font-size:14px; color:#808080;}
+#content .left_box ul.list li div.item_info div.info p.left span{ font-size:14px; color:#fa7c5c;}
+#content .left_box ul.list li div.item_info div.info div.right i.eye{ float: left; display:inline-block; width:19px; height:14px; background:url(../../images/2017/eye_icon.png); margin:0px 5px 0px 20px;}
+#content .left_box ul.list li div.item_info div.info div.right i.no_eye{ float: left; display:inline-block; width:19px; height:16px; background:url(../../images/2017/no_eye.png); margin:0px 5px 0px 20px;}
+#content .left_box ul.list li div.item_info div.info div.right i.time{ float: left; display:inline-block; width:14px; height:14px; background:url(../../images/2017/clock_icon.png); margin:0px 5px 0px 20px;}
+#content .left_box ul.list li div.item_info div.info div.right span{ float: left; color:#808080;}
+#content .left_box ul.list li p.no_tips{ color:#188eee; font-size:16px; margin:10px 0 0 10px; float:left;}
+#content .left_box div.do_box{ float:left; width:100%; margin:30px 0px 50px 0px; width:100%;}
+#content .left_box div.do_box input.check_all_input{ float:left; display:inline-block; width:16px; height:16px; background: url(../../images/2017/checkbox.png); background-size:16px 16px; -webkit-appearance:none; margin:2px 10px 0px 0px;}
+#content .left_box div.do_box input.checked{ background: url(../../images/2017/checkbox_h_16-16.png);}
+#content .left_box div.do_box span.check_all_span{ float:left; margin:0px 15px 0px 0px; font-size:14px; color:#808080;}
+#content .left_box div.do_box input#submitsave{ float:left; margin:0px 15px 0px 0px; font-size:14px; color:#188eee; background:none; cursor:pointer;}
+#content .left_box div.do_box input#submitsave:hover{ text-decoration:underline;}
+#content .left_box div.page_box { text-align:center;}
+#content .left_box div.page_box li{ display:inline-block;}
+#content .left_box div.page_box a{ display:inline-block; height:30px; line-height:30px; border-radius:5px; padding:0px 10px 0px 10px; background:#f5f5f5; margin:0px 5px 0px 5px; color:#666666; font-size:16px;}
+#content .left_box div.page_box a:hover{ color:#fff; background:#3275b1;}
+#content .left_box div.page_box a.select{ color:#fff; background:#3275b1;}
+#content .left_box div.page_box span{ display:inline-block; height:30px; line-height:30px; margin:0px 5px 0px 5px; color:#4c4c4c; font-size:14px;}
+#content .left_box div.empty_box{ text-align:center; margin:30px 0px 0px 0px;}
+#content .left_box div.empty_box i{ display:inline-block; width:54px; height:53px; background:url(../../images/2017/big_box.png);}
+#content .left_box div.empty_box p{ text-align:center; font-size:14px; color:#cccccc; margin:10px 0px 0px 0px;}
+
+
+
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px; height:65px; overflow:hidden;}
+#content .right_box .function_box ul{ width:290px;}
+#content .right_box .function_box ul li{ width:65px; height:65px; margin:0px 7px 0px 0px; float:left; background:#fff;}
+#content .right_box .function_box ul li i{ display:inline-block;}
+#content .right_box .function_box ul li label{ display:none; width:100%; color:#fff; margin:10px 0px 2px 0px; text-align:center; line-height:27px; font-size:16px;}
+#content .right_box .function_box ul li span{ display:inline-block; width:100%; text-align:center; color:#188eee;}
+#content .right_box .function_box ul li.apply i{ width:28px; height:27px; background:url(../../images/2017/apply_box_icon.png); margin:10px 0px 0px 20px;}
+#content .right_box .function_box ul li.fav i{ width:26px; height:25px; background:url(../../images/2017/star_icon.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box ul li.invitation i{ width:25px; height:25px; background:url(../../images/2017/invitation_icon.png); margin:12px 0px 0px 18px;}
+#content .right_box .function_box ul li.rss i{ width:25px; height:25px; background:url(../../images/2017/rss_icon.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box ul li.rss label{ width:25px; height:25px; background:url(../../images/2017/rss_icon_h.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box a{ display:block; width:65px; height:65px;}
+#content .right_box .function_box a:hover i{ display:none;}
+#content .right_box .function_box a:hover label{ display: inline-block;}
+#content .right_box .function_box a:hover span{ color:#fff;}
+#content .right_box .function_box ul li.apply a:hover{ background:#10b643;}
+#content .right_box .function_box ul li.fav a:hover{ background:#9a0909;}
+#content .right_box .function_box ul li.invitation a:hover{ background:#188eee;}
+#content .right_box .function_box ul li.rss a:hover{ background:#f37118;}
+
+#content .right_box .item_box{ margin:10px 0px 0px 0px; background:#fff; padding:20px 0px 20px 0px; float:left; width:100%;}
+#content .right_box .item_box .b_title{ float:left; margin:0px 0px 0px 10px;}
+#content .right_box .item_box .b_title b{ float: left; display: inline-block; width: 5px; height: 18px; margin: 3px 5px 0px 0px; background: #f56540;}
+#content .right_box .item_box .b_title span{ font-size:16px; color:#333;}
+#content .right_box .item_box ul{ float:left; width:100%; margin:10px 0px 0px 0px;}
+#content .right_box .item_box ul li{ float:left; width:260px; border-bottom:1px dotted #dcdcdc; padding:20px 10px 20px 10px;}
+#content .right_box .item_box ul li:hover{ background:#f5f5f5;}
+#content .right_box .item_box ul li div.title{ float:left; width:100%; margin:0px 0px 10px 0px;}
+#content .right_box .item_box ul li div.title p{ font-size:12px; color:#333;}
+#content .right_box .item_box ul li a.name{ font-size:14px; color:#3275b1; margin:0px 5px 0px 0px;}
+#content .right_box .item_box ul li a.name:hover{ text-decoration:underline;}
+#content .right_box .item_box ul li a.del{ float:right; display:inline-block; width:11px; height:12px; background:url(../../images/2017/del_icon.png); background-size:11px 12px;}
+#content .right_box .item_box ul li a.del:hover{ background:url(../../images/2017/del_icon_h.png); background-size:11px 12px;}
+#content .right_box .item_box ul li div.info{ float:left; width:100%;}
+#content .right_box .item_box ul li div.info span.left{ font-size:14px; color:#fa7c5c;}
+#content .right_box .item_box ul li div.info span.right{ color:#3275b1; margin:5px 0px 0px 0px;}
+
+
+
+	
+
+

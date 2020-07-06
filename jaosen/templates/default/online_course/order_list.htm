@@ -1,0 +1,96 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-订单列表</div>
+        <div class="clear"></div>
+    </div>
+
+    <form id="form1" name="form1" method="post" action="?act=order_del">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+            <tr>
+                <td   width="5%" class="admin_list_tit admin_list_first">
+                    <label id="chkAll"><input type="checkbox" name="" title="全选/反选" id="chk"/>订单编号</label>
+                </td>
+                <td width="5%" class="admin_list_tit">用户ID</td> 
+                <td width="8%" class="admin_list_tit">用户名</td> 
+                <td width="11%" class="admin_list_tit">课程名</td> 
+                <td width="5%" class="admin_list_tit">价格</td> 
+                <td width="5%" class="admin_list_tit">订单状态</td> 
+                <td width="20%" class="admin_list_tit">订单备注</td> 
+                <td width="8%" class="admin_list_tit">添加时间</td>  
+                <td width="8%" align="center" class="admin_list_tit">操作</td>
+            </tr>
+            {#foreach from=$clist item=list#}
+            <tr >
+                <td class="admin_list admin_list_first" >
+                    <input name="id[]" type="checkbox" id="id" value="{#$list.id#}" />
+                    {#$list.id#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.uid#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.user.username#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.course.title#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.price#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.state_cn#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.note#}
+                </td>
+                <td class="admin_list">
+                    {#$list.addtime|date_format:'%Y-%m-%d'#}
+                </td>
+                <td width="15%" align="center" class="admin_list">
+                    <a href="?act=order_edit&id={#$list.id#}">修改订单</a>
+                    <a href="?act=order_del&id={#$list.id#}">删除</a>
+                </td>
+            </tr>
+            {#/foreach#}
+        </table>
+        {#if !$clist#}
+        <div class="admin_list_no_info">没有任何信息！</div>
+        {#/if#}
+
+        <table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+            <tr>
+                <td>
+                    <input type="submit" name="" value="删除订单" class="admin_submit" />
+                    <select name="set_state">
+                        <option value="1">未支付</option>
+                        <option value="2">已支付</option>
+                        <option value="3">订单异常</option>
+                    </select>
+                    <input  type="button" name="" value="修改订单状态" class="admin_submit"  id="ButAudit" />
+                </td>
+                <td width="305" align="right">
+
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        $('#chk').click(function () {
+            if ($(this).attr("checked")) {
+                $('table input').attr('checked', true)
+            } else {
+                $('table input').removeAttr('checked')
+            }
+        })
+        $('#ButAudit').click(function () {
+            $('form').attr('action', '?act=set_state');
+            $('form').submit();
+        })
+    </script>
+    <div class="page link_bk">{#$page#}</div>
+</div>
+<!-- -->
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

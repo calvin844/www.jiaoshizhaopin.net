@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_attention_me.css" type="text/css" rel="stylesheet" />
+        <title>{#$title#}</title>
+    </head>
+
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;谁关注我</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a href="?act=attention_me&settr="{#if $smarty.get.settr==""#} class="hover"{#/if#}>所有</a>
+                        <a href="?act=attention_me&settr=7"{#if $smarty.get.settr=="7"#} class="hover"{#/if#}>最近一周</a>
+                        <a href="?act=attention_me&settr=14"{#if $smarty.get.settr=="14"#} class="hover"{#/if#}>最近两周</a>
+                    </div>
+                    {#if $view_list#}
+                    <div class="top_box">
+                        <p class="left">公司名称</p><b></b>
+                        <p class="middle">查看时间</p><b></b>
+                        <p class="right">是否下载简历</p>
+                    </div>
+                    <form action="?act=del_view_resume" id="form1" name="form1" method="post">
+                        <ul class="list">
+                            {#foreach from=$view_list item=list#}
+                            {#if $list.companyname#}
+                            <li>
+                                <p class="left"><input class="left"  name="y_id[]" id="y_id" type="checkbox" value="{#$list.id#}" /><a target="_blank" href="{#$list.company_url#}">{#$list.companyname#}</a></p>
+                                <p class="middle">{#$list.addtime|date_format:"%Y-%m-%d"#}</p>
+                                <p class="right">{#if $list.hasdown=="1"#}[已下载]{#else#}[未下载]{#/if#}</p>
+                            </li>
+                            {#else#}
+                            <li>
+                                <p class="no_tips"><input class="left"  name="y_id[]" id="y_id" type="checkbox" value="{#$list.id#}" />该企业可能已经被删除，您可以删除本条信息！</p>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="do_box">
+                            <input type="checkbox" class="check_all_input"/>
+                            <span class="check_all_span">全选</span>
+                            <span id="check_total" class="check_all_span"></span>
+                            <input type="submit" name="delete" id="submitsave" value="删除所选"  onClick="return confirm('您确定删除吗?')"/>
+                        </div>
+                        <script>
+                            function check_total() {
+                                var total = 0;
+                                $('ul.list li input.left').each(function () {
+                                    if ($(this).is(':checked')) {
+                                        total = total + 1;
+                                    }
+                                })
+                                var str = "已选择" + total + "条记录";
+                                $('span#check_total').html(str)
+                            }
+                            check_total()
+                            $('ul.list li input.left').click(function () {
+                                if ($(this).hasClass('checked')) {
+                                    $(this).removeClass('checked');
+                                    $(this).removeAttr('checked');
+                                } else {
+                                    $(this).addClass('checked');
+                                    $(this).attr('checked');
+                                }
+                                check_total();
+                            })
+                            $('.check_all_input').click(function () {
+                                if ($('.check_all_input').hasClass('checked')) {
+                                    $('.check_all_input').removeClass('checked');
+                                    $('ul.list li input.left').removeClass('checked');
+                                    $('ul.list li input.left').removeAttr('checked');
+                                } else {
+                                    $('.check_all_input').addClass('checked');
+                                    $('ul.list li input.left').addClass('checked');
+                                    $('ul.list li input.left').attr('checked', 'checked');
+                                }
+                                check_total();
+                            })
+                        </script>
+                    </form>
+                    <div class="clear"></div>
+                    {#if $page#}
+                    <div class="page_box">{#$page#}</div>
+                    <div class="clear"></div>
+                    {#/if#}
+                    {#else#}
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>您暂时还没有关注记录！</p>
+                    </div>
+                    {#/if#}
+                    <div class="tips_box">
+                        <p class="left"><i></i>小贴士：如果很多公司都查看了您的简历但并未下载您的简历，出现这个问题通常是因为您的简历完整度不高，没有充分体现您的各项技能！强烈建议您认真完善您的简历！</p>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="profile">
+                                <a href="/user/personal/personal_user.php?act=userprofile"><i></i><span>个人资料</span></a>
+                            </li>
+                            <li class="pm">
+                                <a href="/user/personal/personal_user.php?act=pm"><i></i><span>我的消息</span></a>
+                            </li>
+                            <!--
+                            <li class="online_course">
+                                <a href="/user/personal/personal_user.php?act=online_course"><i></i><span>招考中心</span></a>
+                            </li>
+                            -->
+                            <li class="password_edit">
+                                <a href="/user/personal/personal_user.php?act=password_edit"><i></i><span>密码安全</span></a>
+                            </li>
+                            <li class="login_log">
+                                <a href="/user/personal/personal_user.php?act=login_log"><i></i><span>登录日志</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item_box">
+                        <a class="my_resume" href="/user/personal/personal_resume.php?act=edit_resume"><i></i><span>我的简历</span></a>
+                    </div>
+                    <!--
+                    <div class="item_box">
+                        <a class="zhaokao_qq" href="#"><i></i><span>招考客服QQ</span></a>
+                    </div>
+                    <div class="ad_box">
+                        <a href="#">
+                            <img src="images/2017/login_bg.jpg" width="280" height="280" />
+                        </a>
+                    </div>
+                    -->
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

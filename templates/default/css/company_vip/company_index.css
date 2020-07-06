@@ -1,0 +1,57 @@
+.main_box{ width:1200px; margin:0 auto;}
+p,div{ text-align:left;}
+
+#header{ border:none; background:none; height:800px; width:100%; background:url(../../images/company_vip/company_index_header_bg.jpg) center no-repeat; position:relative;}
+#header .top_nav{ width:100%; height:45px; position:relative;}
+#header .top_nav .bg{ width:100%; height:45px; position: absolute; left:0; top:0; background:#333; opacity:0.6; z-index:1;}
+#header .top_nav a.logo{ background: url(../../images/header_logo.png) no-repeat; display: block; height: 30px; width:110px; background-size:auto 30px; margin: 5px 30px 0px 10px; float: left; position:relative; z-index:2;}
+#header .top_nav ul.left li{ float:left; margin:0px 20px 0px 0px; height:45px; line-height:45px;}
+#header .top_nav ul.left li a{ color:#fff; font-size:16px; position:relative; z-index:2;}
+#header .top_nav ul.left li a:hover{ color:#d59e26;}
+#header .top_nav ul.left li a.hover{ color:#d59e26;}
+#header .top_nav div.right{ height:45px; line-height:45px;}
+#header .top_nav div.right a{ color:#d59e26; font-size:16px; float:left; margin:0 10px 0 10px;position:relative; z-index:2;}
+#header .top_nav div.right a:hover{ text-decoration:underline;}
+#header .company_logo{ text-align:center; margin:270px 0px 10px 0px;}
+#header .company_logo img{ width:80px; height:80px; overflow:hidden; border-radius:50px; border:1px solid #c9c9c9;}
+#header .company_name{ text-align:center;}
+#header .company_name p{ text-align:center; color:#333; font-size:20px; margin:0px 0px 20px 0px;}
+#header .company_name p.info{ text-align:center; color:#666; font-size:16px;}
+#header .company_name p.info span{  color:#3275b1; font-size:16px;}
+#header .header_nav{ position:absolute; text-align:center; width:1200px; bottom:-60px;}
+#header .header_nav li{ display:inline-block; width:115px; height:115px; margin:0px 45px 0px 45px; border-radius:60px; overflow:hidden;}
+#header .header_nav li a{ display:inline-block; width:115px; height:115px; text-align:center; line-height:115px; color:#fff; background:#0b90e4; opacity:0.8; border-radius:60px; overflow:hidden; font-size:16px;}
+#header .header_nav li a:hover{ background:#d59e26;}
+
+#content { margin:30px 0px 100px 0px;}
+#content .item_box{ margin:120px 0px 0px 0px; text-align:center;}
+#content .item_box .title_box{ margin:0px 0px 30px 0px;text-align: center;}
+#content .item_box .title_box p.cn{display: inline-block; width:165px; height:65px; line-height:65px; text-align:center; font-size:30px; color:#333; border-bottom:4px solid #0b90e4; margin:0px 0px 10px 0px;}
+#content .item_box .title_box p.en{display: inline-block; width:100%; text-align:center; font-size:14px; color:#333;}
+#content .item_box .content_box p{ font-size: 16px; color: #666; line-height: 45px; text-align: center;}
+#content .item_box .info_box{ width:100%; height:350px; background:url(../../images/company_vip/company_index_company_info_bg.jpg) center; margin:20px 0px 0px 0px;}
+#content .item_box .info_box ul{ margin:135px 0px 0px 300px; float:left;}
+#content .item_box .info_box ul li{ float:left; width:280px; margin:0px 40px 15px 0px;}
+#content .item_box .info_box ul li p{ font-size:16px; color:#fff; line-height: 25px;}
+#content .item_box .info_box ul li a{ font-size:16px; color:#fff; line-height: 25px;}
+#content .item_box .info_box ul li a:hover{ text-decoration: underline;}
+#content .item_box .job_box .job_num{ font-size:20px; color:#333; }
+#content .item_box .job_box ul { margin:10px 0px 0px 0px;}
+#content .item_box .job_box ul li{ width:100%; border-bottom:1px dotted #dcdcdc; padding:20px 0px 20px 0px; float:left;}
+#content .item_box .job_box ul li:hover{ background:#f8f8f8;}
+#content .item_box .job_box ul li .title { margin:0px 0px 15px 0px; float:left;}
+#content .item_box .job_box ul li .title a{ font-size:20px; color:#3275b1; float:left;}
+#content .item_box .job_box ul li .title a:hover{ color:#ec3800; text-decoration:underline;}
+#content .item_box .job_box ul li .title span{ font-size:12px; color:#b61717; float:left; margin:5px 0px 0px 20px;}
+#content .item_box .job_box ul li .info p{ float:left; width:298px; display:inline-block; text-align:center; font-size:16px; color:#666;}
+#content .item_box .job_box ul li .info b{ float:left; width:2px; display:inline-block; background:#f2f2f2; height:15px;}
+#content .item_box .job_box ul li .info p:first-child{ text-align:left; color:#f6b160;}
+#content .item_box .img_box { width: 1200px; height: 525px; border: 1px solid #ccc;  margin: 0px 0px 20px 0px;}
+#content .item_box .img_box #focus { width: 1200px; height: 525px; clear: both; position: relative; float: left; }
+#content .item_box .img_box .focus_box { width: 1200px; height: 525px; overflow: hidden; clear: both; position: relative; float: left; }
+#content .item_box .img_box #focus ul { width: 1200px; height: 525px; float: left; position: absolute; clear: both; padding: 0px; margin: 0px; }
+#content .item_box .img_box #focus ul li { float: left; width: 1200px; height: 525px; overflow: hidden; position: relative; padding: 0px; margin: 0px; text-align: center;}
+#content .item_box .img_box #focus .preNext { width: 63px; height: 63px; position: absolute; top: 0px; cursor: pointer; }
+#content .item_box .img_box #focus .pre { right: 0; background: url(../../images/company_vip/company_index_sprite.png) no-repeat left center; }
+#content .item_box .img_box #focus .next { right: -63px; background: url(../../images/company_vip/company_index_sprite1.png) no-repeat right center; }
+#content .item_box .map_box #map { width:1200px; height:565px; margin: 0 auto;}

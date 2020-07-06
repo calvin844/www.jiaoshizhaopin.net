@@ -1,0 +1,388 @@
+/*¹«Ë¾ÏêÇéÒ³*/
+div#company_show_box{background:#fff; border: 1px solid #8abbf8; position: relative; margin: 20px auto 0px auto; width: 1000px;}
+div#company_show_box div.left_area {width:755px;float:left; background: #fff; border-right: 1px solid  #8abbf8; min-height: 470px;}
+div#company_show_box div.left_area div.com_title div.code_img{ float:left; height:82px; padding:20px 0px 0px 15px;}
+div#company_show_box div.left_area div.com_title {padding: 5px 0 0; background: #fff;}
+div#company_show_box div.left_area div.com_title .logo_img{float:left;margin:20px 0px 0px 20px;height: 82px; overflow: hidden;}
+div#company_show_box div.left_area div.com_title .title_txt{ float: left;}
+div#company_show_box div.left_area div.com_title .title_txt h2{font-size:26px;font-weight:normal;line-height:40px;margin-bottom:6px; font-family: "Î¢ÈíÑÅºÚ"; height: 120px; line-height: 120px; padding:0px 0px 0px 20px;}
+div#company_show_box div.left_area div.com_info{padding-left:20px;padding-right:20px;}
+div#company_show_box div.left_area div.com_info table.company_info{ border-bottom: 1px dashed #ccc;padding-bottom: 12px;}
+div#company_show_box div.left_area div.com_info p.info_title{ border-left:4px #FA7C5C  solid; height:20px; line-height:20px; font-size:18px; color:#333; padding:0px 0px 0px 10px; margin: 15px 0px; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info table.company_info tr td{ margin-bottom:8px;font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;line-height: 15px; float:left; word-break: break-all;}
+div#company_show_box div.left_area div.com_info table.company_info tr td a{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;color: #666;}
+
+div#company_show_box div.left_area div.com_info div.com_container{ border-bottom: 1px solid #ccc; margin: 0px 0px 20px 0px;}
+div#company_show_box div.left_area div.com_info div.com_container .com_txt{width:690px;padding-left: 1px;padding-right: 1px; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info div.com_container .com_txt p{text-indent:2em;font-size:14px;font-family:"microsoft yahei";line-height:25px;margin-bottom:10px;word-wrap:break-word;color:#666;}
+div#company_show_box div.left_area div.com_info div.com_container .com_txt p a{color:#0180cf;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs{font-size:14px;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs table tr{height:40px;overflow:hidden;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs table tr .frist{text-indent:15px;text-align: left;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs table tr td{height:40px;overflow:hidden;white-space:nowrap;text-align: center;}
+div#company_show_box div.left_area div.com_info div.com_img { width: 700px; height: 280px; border: 1px solid #ccc;  margin: 0px 0px 20px 0px;}
+div#company_show_box div.left_area div.com_info div.com_img #focus { width: 700px; height: 280px; clear: both; overflow: hidden; position: relative; float: left; }
+div#company_show_box div.left_area div.com_info div.com_img #focus ul { width: 700px; height: 280px; float: left; position: absolute; clear: both; padding: 0px; margin: 0px; }
+div#company_show_box div.left_area div.com_info div.com_img #focus ul li { float: left; width: 700px; height: 280px; overflow: hidden; position: relative; padding: 0px; margin: 0px; text-align: center;}
+div#company_show_box div.left_area div.com_info div.com_img #focus .preNext { width: 150px; height: 280px; position: absolute; top: 0px; cursor: pointer; }
+div#company_show_box div.left_area div.com_info div.com_img #focus .pre { left: 0; background: url(../images/sprite.png) no-repeat left center; }
+div#company_show_box div.left_area div.com_info div.com_img #focus .next { right: 0; background: url(../images/sprite1.png) no-repeat right center; }
+div#company_show_box div.left_area div.com_info div.com_map { width: 700px;  margin: 0px 0px 20px 0px;}
+div#company_show_box div.left_area div.com_info div.com_map div#map{ width: 700px; height: 280px; border: 1px solid #ccc;}
+div#company_show_box div.left_area div.com_info div.com_map p.full_map{ height: 25px; line-height: 25px; text-align: center;}
+
+
+div#company_show_box div.right_area{ float: right; width:244px; right:50%;}
+div#company_show_box div.right_area div.box{ border-bottom:1px dashed #ccc;background:#FFF; padding:15px; margin:0px 0px 10px 0px; overflow: hidden;}
+div#company_show_box div.right_area div.box center{margin-top:14px;font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#company_show_box div.right_area div.box center a{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#company_show_box div.right_area div.box p.box_title{ border-left:2px #8abbf8 solid; height:20px; line-height:20px; font-size:14px; font-weight: bold; color:#333; padding:0px 0px 0px 5px;}
+div#company_show_box div.right_area div.box div.progress_box{ background-color: #f5f5f5; border-radius: 4px;  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset; height: 20px; overflow: hidden; margin:10px 0px 10px 0px;}
+div#company_show_box div.right_area div.box div.progress_box p.progress{ background-color: #428bca; box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset; color: #fff; float: left; font-size: 12px; height: 100%; line-height: 20px; text-align: right;min-width: 20px;  transition: width 0.6s ease 0s;}
+div#company_show_box div.right_area div.box div.button_box{ padding:20px 0px 10px 0px; }
+div#company_show_box div.right_area div.box div.button_box a{ float:left; margin:12px 0 0 20px; color:#333;}
+div#company_show_box div.right_area div.box div.button_box a:hover{ text-decoration: underline;}
+div#company_show_box div.right_area div.box div.button_box a.apply_bt{ padding:10px 40px 10px 40px; font-size:14px; font-weight: bold; border-radius: 5px; border:1px solid #e59319; background:#ff9900; color:#fff; display: inline-block; margin:0;}
+div#company_show_box div.right_area div.box div.button_box a.apply_bt:hover{ opacity: 0.8; text-decoration: none;}
+div#company_show_box div.right_area div.box div.button_box a.favorite1{display: inline-block;line-height: 14px;font-size: 14px;color: #3D8FE5;padding-left: 18px;background: url(/templates/tpl_company/default/images/18.gif)0px -138px no-repeat;margin-top:10px;}
+
+div#company_show_box div.right_area div.box p.company_name{ text-align: center; margin: 0px 0px 15px 0px; line-height: 20px;}
+div#company_show_box div.right_area div.box p.company_name a{font-size: 16px; font-weight: bold; color: #333; line-height: 25px;}
+div#company_show_box div.right_area div.box p.company_name a:hover{ text-decoration: none;color: #666;}
+div#company_show_box div.right_area div.box p.company_info{margin: 0px 0px 10px 0px; line-height: 20px;}
+#comment_ul{padding:4px;}
+div#company_show_box div.right_area div.code_img_r{ height:auto;background:#ececec;border:1px solid #ccc;margin: 30px;width: 180px;}
+div#company_show_box div.right_area div.code_img_r img{ margin:0;background:#fff;}
+div#company_show_box div.right_area div.code_img_r p{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;text-align: center; padding:5px 0px 5px 0px; font-size: 14px;color: #333;margin:8px;}
+div#company_show_box div.right_area div.comment_box {padding:5px;overflow: hidden;}
+div#company_show_box div.right_area div.comment_box p{ margin-bottom:8px;font-size:14px; color:#333;font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#company_show_box div.right_area div.comment_box p span{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;font-size:16px;color:#F84500;}
+div#company_show_box div.right_area div.comment_box img.comment_img{ border-radius:100px; float:left; margin:10px 4px 0px 4px;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul { width:230px;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul li{ border-bottom:1px #999 dotted; padding:15px 0px 15px 0px; float:left; }
+div#company_show_box div.right_area div.comment_box div.comment_div ul li img{ border-radius:100px; float:left; margin:0px 10px 0px 0px;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul li span.comment_name{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;float:left;color:#333; font-size:15px;font-weight: bold; line-height:13px; height:14px; max-width:65px;  overflow: hidden;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul li span.comment_time{ float:right;color:#999;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul li p{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;float:left; margin:8px 0px 0px 0px; line-height:15px;}
+div#company_show_box div.right_area div.comment_box div.comment_div ul li div.left{ width:165px; border:none;padding:6px 0;}
+div#company_show_box div.right_area div.comment_box div.comment_div a.comment_more{ padding:10px 75px 10px 75px; font-size:14px; font-weight: bold; border-radius: 5px; background:#8abbf8; color:#fff; display: inline-block; margin:20px 0px 0px 0px;}
+div#company_show_box div.right_area div.comment_box div.comment_div a.comment_more:hover{ opacity: 0.8;}
+div#company_show_box div.right_area div.comment_box div.comment_div p.left{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;text-align: center; line-height:20px; margin:10px 0px;width: 100%;}
+div#company_show_box div.right_area div.comment_box div.comment_div p.left span{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;color:#F84500;font-size:16px;}
+/*
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs .job_tit{padding-bottom:15px; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs input{margin-bottom:24px;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs ul{margin-bottom:29px;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li{padding-bottom:20px;padding-top:14px;background:url(../images/11.jpg) repeat-x bottom;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li .j_name{float: left;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li .j_name a{font-size:16px;color:#017FCF; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li .ji{float: left; display:block;width:15px;height:14px;background:url(../images/06.gif) top left no-repeat;margin-left: 10px;margin-top: 5px;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li .time_r{text-align:right; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li em{font-style:normal;font-size:14px;color:#FF9900;font-weight:bold;}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li p{font-size:12px;line-height:14px;margin-top:5px; font-family: "Î¢ÈíÑÅºÚ";}
+div#company_show_box div.left_area div.com_info div.com_container .com_jobs li p span{font-size:12px;line-height:14px;margin-top:5px; font-family: "Î¢ÈíÑÅºÚ";}
+/*
+div#company_show_box div.left_area div.com_info .com_nav{margin-bottom:15px;border-bottom:3px solid #ccc;}
+div#company_show_box div.left_area div.com_info .com_nav ul{zoom:1;}
+div#company_show_box div.left_area div.com_info .com_nav li{float:left;_margin-bottom:-3px;}
+div#company_show_box div.left_area div.com_info .com_nav li a{display:block;padding-left:23px;padding-right:23px;padding-bottom:12px;margin-bottom:-3px;font-size:16px;color:#0180cf; border-bottom: 3px solid #ccc;}
+div#company_show_box div.left_area div.com_info .com_nav li a:hover{text-decoration:none;border-bottom:3px solid #0180CF;}
+div#company_show_box div.left_area div.com_info .com_nav li.active a{border-bottom:3px solid #0180CF;color:#018FCF;}
+
+
+
+
+.com_container .news{font-size: 12px;padding-bottom: 15px;}
+.com_container .news ul{margin-bottom: 29px;}
+.com_container .news li{background:url(../images/11.jpg) repeat-x bottom;}
+.com_container .news li .new_tit{font-size: 16px;margin-bottom: 10px;padding-top: 10px;}
+.com_container .news li .new_tit a{color:#017FCF;}
+.com_container .news li p{font-family: "microsoft yahei";padding-bottom: 10px;}
+.com_container .news li p a{color:#017FCF;}
+.com_container .news input{margin-bottom: 24px;}
+
+.com_container .news_dateil{font-family: "microsoft yahei";border-bottom: 1px solid #ccc;padding-bottom: 5px;margin-bottom: 20px;}
+.com_container .news_dateil .title{text-align: center;font-size: 16px;font-weight: bold;color:#656565;}
+.com_container .news_dateil .w260{float: left;width:260px;margin-left: 20px;margin-top: 20px;}
+.com_container .news_dateil .retrun{float: left;margin-top: 20px;padding-left: 19px;background: url(../images/07.gif) 0px 2px no-repeat;}
+.com_container .news_dateil .retrun a{color:#017FCF;font-weight: bold;}
+.com_container .news_txt p{text-indent:2em;font-size:14px;font-family:"microsoft yahei";line-height:25px;margin-bottom:10px;}
+.com_container .news_txt .share{margin-bottom: 20px;float: right;}
+*/
+
+/*è½????·å?*/
+/*
+.carousel{position:relative;padding-top:23px;padding-bottom:23px;border-bottom:1px solid #ccc;_width:730px;_height:309px;_overflow:hidden;}
+.carousel img{border:0;display:block;}
+.swipe{width:620px; height: 125px; margin:0 auto;visibility:hidden;position:relative;}
+.swipe-wrap{position:relative;}
+.swipe-wrap>div{float:left;width:100%;position:relative;}
+.car_img { position:relative;}
+.car_img li{display:block;float:left;padding:5px;border:1px solid #ccc;margin-right:20px; z-index:0; position:relative;width: 190px; height: 120px;}
+.car_img li.last{margin-right:0;}
+.car_img li .in{ position: absolute; left: 10px; top:5px;width: 180px; z-index: 6;}
+.car_img li .in p{ display: none; text-align: left;}
+.car_img li.on{ z-index:99;}
+.car_img li.on .in{ padding: 5px; border: 1px solid #ccc; position:absolute;z-index:100; width:auto; text-align: center; top:-40px;  background: #fff;}
+.car_img li.on .in p{ position:relative; display:block;}
+.car_img li.on img{ height: auto; margin-bottom: 8px; z-index: 6; position:relative;}
+.carousel button{width:16px;height:24px;cursor:pointer;background-color:#ccc;border:0;}
+.carousel button:focus{outline:none;}
+.carousel button.left{position:absolute;top:45%;left:20px;background:url(../images/04.gif) 0px 0px no-repeat;}
+.carousel button.left:hover{background:url(../images/04.gif) 0px -65px no-repeat;}
+.carousel button.right{position:absolute;top:45%;right:20px;background:url(../images/04.gif) 0px -28px no-repeat; z-index: 1;}
+.carousel button.right:hover{background:url(../images/04.gif) 0px -96px no-repeat;}
+*/
+
+
+
+/*--------è¯?è®?------*/
+/*
+.commentbox{width:700px;border:1px solid #E4E4E4; margin: 8px auto 20px auto;}
+.commentbox .commenttopbox{width:700px; height:140px; background-color:#F5F5F5; border-bottom:1px #E4E4E4 solid; position:relative}
+.commentbox .commenttopbox .loginbox{ width:700px; height:80px; text-align:center; padding-top:60px; position:absolute; left:0px; top:0px; background-color: #FFFFFF;background:url(../images/bg.png);color:#000000; z-index:0}
+.commentbox .commenttopbox .titbox{width:700px;}
+.commentbox .commenttopbox .titbox .tleft{width:200px;font-family:"microsoft yahei","microsoft yahei"; font-size:14px; padding-left:15px; height:35px; line-height:35px; float:left; color:#000000}
+.commentbox .commenttopbox .titbox .tright{width:465px;font-size:12px; float:left; text-align:right;height:35px; line-height:35px; color:#000000}
+.commentbox .commenttopbox .titbox .tright span{ font-weight:bold; padding:3px; font-size:14px; color:#FF3300}
+.commentbox .commenttopbox .textareabox{width:670px; padding-left:15px;}
+.commentbox .commenttopbox .textareabox textarea{ width:660px; height:50px; border:1px #CCCCCC solid; background-color:#FFFFFF; padding:3px; color:#666666; line-height:150%; font-size:12px;}
+.commentbox .commenttopbox .buttonbox{width:700px; padding-top:10px;}
+.commentbox .commenttopbox .buttonbox .bleft{width:185px; float:left; padding-left:15px;}
+.commentbox .commenttopbox .buttonbox .bleft input{ width:100px; height:18px; line-height:18px; font-size:12px; border:1px #CCCCCC solid; background-color:#FFFFFF; padding:2px;}
+.commentbox .commenttopbox .buttonbox .bcenter{ width:400px; float:left;text-align:right; color:#FF0000; padding-top:7px;}
+.commentbox .commenttopbox .buttonbox .bright{width:82px; float:left;text-align:right;float:right;margin-right:18px;}
+.commentbox .commenttopbox .buttonbox .bright .button{background:url(../images/43.gif) no-repeat; width:68px; height:28px; border:0px; font-size:14px; color:#FFFFFF; text-align:center}
+.commentbox .noinfo{ height:50px; line-height:50px; text-align:center; font-size:12px; color:#000000}
+.commentbox .listbox{width:700px; border-bottom:1px #E4E4E4 solid; margin-top:10px; padding-bottom:10px;}
+.commentbox .listbox .leftimgbox{ width:55px; float:left; padding-left:15px;}
+.commentbox .listbox .txtbox{width:610px; float:left; line-height:180%;word-break:break-all;word-wrap:break-word;}
+.commentbox .listbox .txtbox span{ padding-left:15px; color:#999999}
+.commentbox .comment_more{ width:100%; height:25px; line-height:25px; text-align:center; background-color:#F5F5F5;}
+.commentbox .comment_more span{ cursor:pointer}
+*/
+
+/*Ö°Î»ÏêÇéÒ³*/
+div#jobs_show_box{background:#fff; border: 1px solid #ececec; position: relative; margin: 20px auto 0px auto; width: 1000px;}
+div#jobs_show_box div.left_area {width:755px;float:left;border-right:1px solid #ececec; background: #fff;}
+div#jobs_show_box div.left_area div.detail_top {border-bottom:1px solid #ececec;}
+div#jobs_show_box div.left_area div.detail_top div.main_title {display:inline-block;width:100%;padding:5px 0 15px 0;}
+div#jobs_show_box div.left_area div.detail_top div.code_img{ float:left; width:82px; height:82px; padding:10px 0px 0px 15px;}
+div#jobs_show_box div.left_area div.detail_top div.jobs_title_box{ float:left; width:635px;}
+div#jobs_show_box div.left_area div.detail_top p.jobs_title {padding: 24px 8px 8px 8px;text-align: center;line-height: 32px;}
+div#jobs_show_box div.left_area div.detail_top p.jobs_title span{font-size:24px;font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;color:#333;}
+div#jobs_show_box div.left_area div.detail_top center.sub_title{padding: 10px 0 10px;}
+div#jobs_show_box div.left_area div.detail_top center.sub_title em{text-decoration: none; color: red;}
+div#jobs_show_box div.left_area div.detail_info{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;border-bottom:1px dashed #ececec;}
+div#jobs_show_box div.left_area div.noborder {border: none;}
+div#jobs_show_box div.left_area div.detail_info .titleh4{font-weight:normal;font-size:18px;font-family:"microsoft yahei";color:#333;margin-bottom: 20px;}
+div#jobs_show_box div.left_area div.detail_info ul{margin-top:10px;padding-left:10px;font-family:"microsoft yahei";font-size:14px;color:#666;}
+div#jobs_show_box div.left_area div.detail_info ul li{margin-bottom:25px;zoom:1;}
+div#jobs_show_box div.left_area div.detail_info ul li .check_f_map{_float: left;display:inline-block;_zoom:1;}
+div#jobs_show_box div.left_area div.detail_info ul li a.map{color:#017FCF;}
+div#jobs_show_box div.left_area div.detail_info ul li span{font-weight:bold;color:#ff9900;}
+div#jobs_show_box div.left_area div.detail_info ul li span a{font-weight:bold;color:#ff9900;}
+div#jobs_show_box div.left_area div.detail_info ul li div{_float:left;+float:left;}
+div#jobs_show_box div.left_area div.detail_info .w248{width:248px;float:left;}
+div#jobs_show_box div.left_area div.detail_info .des{font-family:"microsoft yahei";margin-top:15px;padding-left:10px;color:#666;}
+div#jobs_show_box div.left_area div.detail_info .des p{line-height:28px;font-size:14px;}
+div#jobs_show_box div.left_area div.detail_info .des ol{margin:0;padding-left:5px;}
+div#jobs_show_box div.left_area div.detail_info .des ol li{line-height:28px;}
+
+div#jobs_show_box div.left_area div.detail_info div.button_box{ padding:30px 0px 0px 0px; height: 65px;}
+div#jobs_show_box div.left_area div.detail_info div.button_box p.contact_box{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;  margin:12px 0 10px 0px; font-size: 14px; text-align: center; }
+div#jobs_show_box div.left_area div.detail_info div.button_box a{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; float:left; margin:12px 0 0 20px; color:#333;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a:hover{ text-decoration: underline;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a.show_contact{ margin:0px 305px;  font-weight: normal;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a.make_resume{ margin:0px;  color: #226cd6; float: none; font-size: 14px; font-weight: bold;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a.apply_bt{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; padding:10px 40px 10px 40px; font-size:14px; border-radius: 2px; border:1px solid #e59319; background:#ff9900; color:#fff; display: inline-block; margin:0 288px;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a.apply_bt:hover{ opacity: 0.8; text-decoration: none;}
+div#jobs_show_box div.left_area div.detail_info div.button_box a.favorite1{display: inline-block;line-height: 14px;font-size: 14px;color: #3D8FE5;padding-left: 18px;background: url(/templates/tpl_company/default/images/18.gif)0px -138px no-repeat;margin-top:10px;}
+
+
+div#jobs_show_box div.left_area div.other_job{padding:20px;border-top:1px solid #ececec;}
+div#jobs_show_box div.left_area div.other_job .titleh4{font-weight:normal;font-size:18px;font-family:"microsoft yahei";color:#333;margin-bottom: 20px;}
+div#jobs_show_box div.left_area div.other_job table{margin-top:15px;font-size:14px;}
+div#jobs_show_box div.left_area div.other_job table tr{height:40px;/*background:url(../images/11.jpg) repeat-x bottom;*/overflow:hidden;}
+div#jobs_show_box div.left_area div.other_job table tr .frist{text-indent:15px;}
+div#jobs_show_box div.left_area div.other_job table tr td{height:40px;overflow:hidden;white-space:nowrap;border-bottom:1px dashed #ececec;}
+div#jobs_show_box div.left_area div.other_job .more{margin-top:10px;font-size:14px;text-align:right;}
+div#jobs_show_box div.left_area div.other_job .more a{color:#017FCF;}
+
+#main{width: 1000px;margin: 0 auto;position: relative;}
+div#main div.district a:hover, div.district span{text-decoration:none;background:#FA7C5C; color:#FFF;}
+.city{color:#2348a9;font-size: 14px;font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;margin: 0px 5px 0px 0px;}
+.page_title{padding-bottom:9px;float:left;font-size: 24px;font-family: 'Î¢ÈíÑÅºÚ','ËÎÌå',Arial,Helvetica,sans-serif;color: #333;font-weight: normal;margin-top:27px;}
+.page_title a{float:left;font-size: 24px;font-family: 'Î¢ÈíÑÅºÚ','ËÎÌå',Arial,Helvetica,sans-serif;color: #333;font-weight: normal;}
+.page_title a:hover{text-decoration:underline}
+.search_form{float:right;margin-top: 20px;border: 1px solid #ececec;border-radius: 20px;}
+.search_input{width:200px;border-radius: 20px 0px 0px 20px;background-color:#fff;outline:none;font-size:14px;height: 38px;padding: 0 10px;}
+.search_submit{margin-left:-8px;border-radius: 0px 20px 20px 0px;color:#fff;background-color:#5a8bc8;outline:none;font-size:14px;height: 38px;padding: 0 10px;-webkit-appearance: none;}
+.district_box{border:1px solid #ececec;margin-bottom:0;display: inline-block;width: 100%;background: #fff;border-radius: 2px;margin: 20px 0 0 0;}
+.district_box .text{float:left;width: 40px;font-family: 'Î¢ÈíÑÅºÚ','ËÎÌå',Arial,Helvetica,sans-serif;color: #C3C3C3;padding: 13px 0px 0 10px;font-size: 14px;text-align: center;}
+.district_box .content{width:950px;float:left;padding-bottom:10px;}
+.top_box{margin:12px auto;background:#fff;display:inline-block;width:100%;padding:0 0 12px 0;}
+.district {float:left;padding:5px 5px 0 0;margin: 8px -6px 0 8px;height: 18px;}
+.district a, .district span{padding:3px 6px 3px 6px; font-size:14px; font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; color:#333;}
+div#main div.district a:hover, div.district span{text-decoration:none;background:#FA7C5C; color:#FFF;}
+.city{color:#2348a9;font-size: 14px;font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;margin: 0px 5px 0px 0px;}
+
+
+div#jobs_show_box div.right_area{ float: right; width:244px; right:50%;padding-bottom:10px;}
+div#jobs_show_box div.right_area div.box{ padding:15px; margin:0px 0px 10px 0px; overflow: hidden;border-bottom: 1px solid #ececec;}
+div#jobs_show_box div.right_area div.box span{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#jobs_show_box div.right_area div.box p.box_title{  border-left:4px #FA7C5C solid;margin-bottom:16px; height:20px; line-height:20px; font-size:18px; color:#333; padding:0px 0px 0px 8px;font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#jobs_show_box div.right_area div.box p.box_overdue{  border-left:4px #FA7C5C solid;margin-bottom:16px; height:20px; line-height:20px; font-size:18px; color:#333; padding:0px 0px 0px 8px;font-family:"Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; color:red;}
+div#jobs_show_box div.right_area div.box div.progress_box{ background-color: #f5f5f5; border-radius: 4px;  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset; height: 20px; overflow: hidden; margin:10px 0px 10px 0px;}
+div#jobs_show_box div.right_area div.box div.progress_box p.progress{ background-color: #428bca; box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset; color: #fff; float: left; font-size: 12px; height: 100%; line-height: 20px; text-align: right;min-width: 20px;  transition: width 0.6s ease 0s;}
+div#jobs_show_box div.right_area div.box div.button_box{ padding:20px 0px 10px 0px; }
+div#jobs_show_box div.right_area div.box div.button_box a{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; float:left; margin:12px 0 0 20px; color:#333;}
+div#jobs_show_box div.right_area div.box div.button_box a:hover{ text-decoration: underline;}
+div#jobs_show_box div.right_area div.box div.button_box a.apply_bt{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif; padding:10px 40px 10px 40px; font-size:14px; border-radius: 2px; border:1px solid #e59319; background:#ff9900; color:#fff; display: inline-block; margin:0;}
+div#jobs_show_box div.right_area div.box div.button_box a.apply_bt:hover{ opacity: 0.8; text-decoration: none;}
+div#jobs_show_box div.right_area div.box div.button_box a.favorite1{display: inline-block;line-height: 14px;font-size: 14px;color: #3D8FE5;padding-left: 18px;background: url(/templates/tpl_company/default/images/18.gif)0px -138px no-repeat;margin-top:10px;}
+div#jobs_show_box div.right_area div.box table.company_info tr td{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;line-height: 20px; float:left; word-break: break-all; padding: 0px 0px 10px 0px;}
+div#jobs_show_box div.right_area div.box table.company_info tr td a{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;color: #666;}
+div#jobs_show_box div.right_area div.box p.company_name{ text-align: center; margin: 0px 0px 8px 0px; line-height: 20px;}
+div#jobs_show_box div.right_area div.box p.company_name a{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;font-size: 16px; font-weight: bold; color: #333; line-height: 25px;}
+div#jobs_show_box div.right_area div.box p.company_name a:hover{ text-decoration: none;color: #666;}
+div#jobs_show_box div.right_area div.box p.company_info{margin: 0px 0px 5px 0px; font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;line-height: 20px;}
+div#jobs_show_box div.right_area div.code_img_r{ float:left; height:290px; background:#fff; margin:0px 0px 10px 0px; width: 244px;}
+div#jobs_show_box div.right_area div.code_img_r img{ margin:0px 7px 0px 7px;}
+div#jobs_show_box div.right_area div.code_img_r p{ text-align: center; padding:5px 0px 5px 0px; font-size: 16px; font-weight: bold; color: #999;}
+
+#comment_ul{padding:4px;}
+div#jobs_show_box div.right_area div.code_img_r{ height:auto;background:#ececec;border:1px solid #ccc;margin: 30px;width: 180px;}
+div#jobs_show_box div.right_area div.code_img_r img{ margin:0;background:#fff;}
+div#jobs_show_box div.right_area div.code_img_r p{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;text-align: center; padding:5px 0px 5px 0px; font-size: 14px;color: #333;margin:8px;}
+div#jobs_show_box div.right_area div.comment_box {padding:5px;overflow: hidden;}
+div#jobs_show_box div.right_area div.comment_box p{ margin-bottom:8px;font-size:14px; color:#333;font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;}
+div#jobs_show_box div.right_area div.comment_box p span{font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;font-size:16px;color:#F84500;}
+div#jobs_show_box div.right_area div.comment_box img.comment_img{ border-radius:100px; float:left; margin:10px 4px 0px 4px;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul { width:230px;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li{ border-bottom:1px #999 dotted; padding:15px 0px 15px 0px; float:left; }
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li img{ border-radius:100px; float:left; margin:0px 10px 0px 0px;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li span.comment_name{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;float:left;color:#333; font-size:15px;font-weight: bold; line-height:13px; height:14px; max-width:65px;  overflow: hidden;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li span.comment_time{ float:right;color:#999;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li p{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;float:left; margin:8px 0px 0px 0px; line-height:15px;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div ul li div.left{ width:165px; border:none;padding:6px 0;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div a.comment_more{ padding:10px 75px 10px 75px; font-size:14px; font-weight: bold; border-radius: 5px; background:#8abbf8; color:#fff; display: inline-block; margin:20px 0px 0px 0px;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div a.comment_more:hover{ opacity: 0.8;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div p.left{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;text-align: center; line-height:20px; margin:10px 0px 0px 0px;width: 100%;}
+div#jobs_show_box div.right_area div.comment_box div.comment_div p.left span{ font-family: "Î¢ÈíÑÅºÚ","ËÎÌå",Arial,Helvetica,sans-serif;color:#F84500;font-size:16px;}
+
+/*
+.detail_top .de_tit{float: left;height:50px;}
+.detail_top .de_tit h3{float: left; padding-bottom:16px;font-size:20px;font-weight:normal;font-family:"microsoft yahei";color:#323232;}
+.detail_top .de_tit .job_type{float:left;margin-left: 10px; padding:5px;display:block;font-size:12px;background-color:#FF9900;cursor: default;}
+.detail_top .de_tit .job_type a{color:#fff;}
+.detail_top .company{font-size:14px;}
+.detail_top .company a{float:left;color:#0180CF;}
+.detail_top .company span.audit{float:left;margin-left:10px;margin-top:1px;display:block;width:18px;height:15px;background:url(../images/07.jpg)no-repeat 0px -180px;+background-image:url(../images/07.jpg);+background-position:0px -180px;}
+.detail_top .company span.unaudit{float:left;margin-left:10px;margin-top:1px;display:block;width:18px;height:15px;background:url(../images/07.jpg)no-repeat 0px -215px;+background-image:url(../images/07.jpg);+background-position:0px -215px;}
+@-moz-document url-prefix() { .detail_top .company span.unaudit{ position:relative;top:2px; } }
+.detail_top .company a:hover{text-decoration:underline;color:#0180CF;}
+.detail_top .info{padding-top:16px;}
+.detail_top .info span{display:inline-block;height:18px;color:#A9A9A9;margin-right:15px;}
+.detail_top .info .data{padding-left:20px;background:url(../images/18.gif) 0px 0px no-repeat;}
+.detail_top .info .watch{padding-left:20px;background:url(../images/18.gif) 0px -25px no-repeat;}
+.detail_top .info .delivery{padding-left:20px;background:url(../images/18.gif) 0px -50px no-repeat;}
+.detail_top .info .times{font-style:normal;color:#FF7300;}
+.detail_top .welfare{padding-top:15px;}
+.detail_top .welfare li{display:block;float:left;padding:6px 7px;margin-right:8px;background-color:#F2F4F7;border:1px solid #D6D6D7;-webkit-border-radius:3px;-moz- border-radius:3px;-ms- border-radius:3px;-o- border-radius:3px;border-radius:3px;}
+.detail_top .welfare li p{line-height:17px;padding-left:18px;color:#656565;background:url(../images/18.gif) 0px -82px no-repeat;}
+.detail_top .apply_job{position:absolute;top:30px;right:20px;}
+.apply_job a{display:inline-block;line-height:14px;margin-left:15px;font-size:14px;color:#3D8FE5;padding-left:18px;background:url(../images/18.gif)0px -138px no-repeat;+background-image:url(../images/18.gif);+background-position:0px -138px;+background-repeat:no-repeat;}
+.apply_job a.collect{background:url(../images/18.gif) 0px -109px no-repeat;+background-image:url(../images/18.gif);+background-position:0 -109px;+background-repeat:no-repeat;}
+.apply_job a:hover{text-decoration:none;}
+*/
+/*
+.contact{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;border-bottom:1px dashed #ccc;}
+.contact .contact_con{margin-top:15px;font-family:"microsoft yahei";font-size:14px;color:#666;}
+.contact .contact_con p{padding-left:15px;line-height:28px;}
+.contact .contact_con .tip{margin-top:15px;padding-top:15px;padding-bottom:15px;background-color:#FFF5E6;}
+.contact .contact_con .tip div{text-align:center;color:#FF9900;}
+.contact .log_box{margin-top:15px;font-family:"microsoft yahei";font-size:14px;}
+.contact .log_box .log_tip{margin-top:15px;padding-top:15px;padding-bottom:15px;background-color:#FFF5E6;}
+.contact .log_box .log_tip div{text-align:center;color:#656565;}
+.contact .log_box .log_tip div a{color:#017FCF;}
+.apply{margin-left:20px;margin-right:20px;padding-top:20px;padding-bottom:20px;}
+.apply .fl{float:left;}
+.apply .share{float:right;_width:140px;}
+.apply .share .report{text-align:right;padding-right:5px;line-height:20px;margin-bottom:5px;}
+.apply .share .report a{color:#017FCF;}
+.apply .share span{height:16px;display:inline-block;margin-right:6px;}
+.apply .share span a{display:block;width:16px;height:16px;margin-top:3px;}
+.apply .share span a.sina{background:url(../images/index/19.gif) 0px 0px no-repeat;}
+.apply .share span a.qq{background:url(../images/index/19.gif) 0px -21px no-repeat;}
+.apply .share span a.renren{background:url(../images/index/19.gif) 0px -42px no-repeat;}
+.apply .share span a.qzone{background:url(../images/index/19.gif) 0px -64px no-repeat;}
+*/
+
+
+/*
+.right_area{width:250px;float:right;}
+.company_info{border:1px solid #ccc;margin-bottom:10px; background: #fff;}
+.company_info .logo{padding:20px 20px 0px 20px;border-bottom:1px solid #ccc;}
+.company_info .logo .logo_box{margin:0 auto;margin-bottom:10px;}
+.company_info .logo .name{color:#656565;font-size:14px;text-align:center;padding-bottom:15px;}
+.company_info .logo .name a{color:#0180CF;}
+.company_info .info_txt{padding:10px 0 10px 20px;}
+.company_info .info_txt p{line-height:28px;}
+.company_info .info_txt p a{color:#017FCF;display: inline-block; overflow: hidden; width: 225px;}
+.right_box{margin-bottom:10px;border:1px solid #ccc; background: #fff;}
+.right_box .title_box{padding-top:14px;padding-bottom:14px;padding-left:15px;border-bottom:1px solid #ccc; background: #fff;}
+.right_box .title_box h5{margin:0;font-size:14px;font-family:"microsoft yahei";font-weight:bold;}
+.right_box .list li{font-family:"microsoft yahei";margin-bottom:0px;width:218px;line-height:30px;height:30px;overflow:hidden;}
+.right_box .list li .j a{font-size:14px;color:#017FCF;}
+.right_box .list li .c{color:#656565;}
+.right_box .list li .w163{font-size:14px;width:140px;float:left;}
+.right_box .list li .fl{font-size:14px;float:left;}
+
+.right_box .list .watch_job li{position:relative; height:auto;margin-bottom:10px;padding-bottom:7px;border-bottom:1px dashed #ccc;}
+.right_box .list .watch_job li .j{height:27px;width:140px; line-height:27px;overflow:hidden;padding-left:6px;background-image:url(../images/33.jpg);background-repeat:no-repeat;background-position:0 center;}
+.right_box .list .watch_job li .watch_job_but{cursor:pointer; position:absolute;top:6px;right:0;width:70px;height:25px;border:0;background-color:#FF9900;font-family:"microsoft yahei";color:#fff;font-size:12px;border-radius:3px;display:none;}
+.right_box .list .watch_job li .watch_job_but.hover{background-color:#FF7700;}
+.right_box .list .watch_job li .c{font-size:12px;color:#666;line-height:20px;padding-left:6px;}
+.right_box .list .inter_job li{height:auto;margin-top:12px;padding-bottom:12px;border-bottom:1px dashed #ccc;}
+.right_box .list .inter_job li .j{line-height:16px;}
+.right_box .list .inter_job li .j i{color:#666;font-style:normal;margin-left:5px;} 
+.right_box .list .inter_job li .claim{font-size:12px;color:#666;}
+.right_box .list .inter_job li .claim span{margin:0 5px;}
+.right_box .list .inter_job li .claim span em{font-style:normal;color:#FF9900;}
+.right_box .list .inter_job li .c{font-size:12px;color:#666;line-height:16px;}
+*/
+
+/*????ç»?è®¡æ?·å?*/
+/*
+.left_area .salary{width:696px;height:248px;background-color:#F5F5F5;border:1px solid #ccc;border-radius:3px;margin:0 auto;margin-bottom:20px;}
+.left_area .salary .salary_box{padding:15px;}
+.left_area .salary .salary_box h3{font-size:16px;color:#333333;font-weight:normal;margin-bottom:10px;font-family:"microsoft yahei";}
+.left_area .salary .salary_box .s_content{width:657px;height:147px;background-color:#fff;border:1px solid #fff;}
+.left_area .salary .salary_box .s_content .salary_left{float:left;padding:15px;padding-top:20px;width:181px;font-size:16px;font-family:"microsoft yahei";}
+.left_area .salary .salary_box .s_content .salary_left div{color:#0180CF;line-height:25px;margin-bottom:15px;}
+.left_area .salary .salary_box .s_content .salary_left p{font-size:14px;color:#666666;line-height:30px;}
+.left_area .salary .salary_box .s_content .salary_left p span{color:#0180CF;}
+.left_area .salary .salary_box .s_content .salary_right{position:relative;float:left;width:446px;height:147px;background:url(../images/salary.jpg)no-repeat;+background-image:url(../images/salary.jpg);_background-image:url(../images/salary.jpg);}
+.left_area .salary .salary_box .s_content .salary_right .value{position:absolute;left:0;top:40%;}
+.left_area .salary .salary_box .s_content .salary_right .value .blue_bar{float:left;margin-right:5px;background-color:#0180CF;height:35px;}
+.left_area .salary .salary_box .s_content .salary_right .value .number{float:left;height:35px;line-height:35px;font-size:16px;color:#0180CF;}
+.left_area .salary .salary_box .salary_bot{font-size:12px;color:#999999;font-family:"microsoft yahei";margin-top:10px;}
+.left_area .salary .salary_box .salary_bot .tip{font-family:"microsoft yahei";float:left;}
+.left_area .salary .salary_box .salary_bot .data{font-family:"microsoft yahei";float:right;padding-right:5px;}
+*/
+
+
+div#ad_a001{ margin: 10px auto; width: 715px;}
+div#ad_a002{ margin: 10px auto; width: 715px;}
+div#ad_a003{ margin: 10px; }
+
+div#ad_a004{ width:220px; height:300px; margin:10px; background:#333; position:relative; overflow:hidden;}
+div#ad_a004 .oUlplay { width:99999px; position:absolute; left:0; top:0; margin: 0 !important; padding: 0 !important;}
+div#ad_a004 .oUlplay li{ float:left;}
+div#ad_a004 .pre{ width:45px; height:45px; position:absolute; top:0px; left:10px; z-index:10;}
+div#ad_a004 .next{ width:45px; height:45px; position:absolute; top:0px; right:10px; z-index:10;}
+div#ad_a004 .smalltitle {width:100px; height:10px; position:absolute; bottom:10px; right:10px; z-index:10}
+div#ad_a004 .smalltitle ul{ width:120px; margin:0 auto;}
+div#ad_a004 .smalltitle ul li{ width:10px; height:10px; margin:0 5px; border-radius:10px; background:#ffffff; float:left; overflow:hidden;*display:inline;*zoom:1;}
+div#ad_a004 .smalltitle .thistitle{ background:#69aaec;}

@@ -1,0 +1,183 @@
+{#qishi_company_show set="列表名:company,企业ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$company.companyname#} - 公司评论 - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$company.description#}}">
+<meta name="keywords" content="{#$company.companyname#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
+<SCRIPT TYPE="text/javascript">
+$(document).ready(function(){
+	$(".check_full_map").click(function(){
+		var map_x = $(this).attr("map_x");
+		var map_y = $(this).attr("map_y"); 
+		var map_zoom = $(this).attr("map_zoom"); 
+		var companyname = $(this).attr("companyname"); 
+		var address = $(this).attr("address"); 
+		dialog("完整地图","url:{#$QISHI.website_dir#}plus/ajax_com_map.php?act=company_map&map_x="+map_x+"&map_y="+map_y+"&map_zoom="+map_zoom+"&companyname="+companyname+"&address="+address,"660px","auto","","");
+	});
+	var company_id="{#$company.id#}";
+	var tsTimeStamp= new Date().getTime();
+	$.get("{#$QISHI.website_dir#}plus/ajax_contact.php", { "id": company_id,"time":tsTimeStamp,"act":"company_contact"},
+		function (data,textStatus)
+		 {			
+			$("#company_contact").html(data);
+		 }
+	);
+	{#if $QISHI.open_comment=='1'#}
+		$.get("{#$QISHI.website_dir#}plus/ajax_comment.php", { "companyid": company_id,"time":tsTimeStamp},
+			function (data,textStatus)
+			 {			
+				$("#pl").html(data);
+			 }
+		);
+	{#/if#}
+});
+</SCRIPT>
+</head>
+<body>
+{#include file="header.htm"#}
+	<!-- 当前位置 -->
+	<div class="page_location link_bk">
+		当前位置：<a href="{#$QISHI.website_dir#}">首页</a>><a href="{#"QS_jobs"|qishi_url#}">招聘信息</a>>{#$company.companyname#}
+	</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="left_area">
+			<div class="com_title">
+				<div class="logo_img"><img src="{#$company.logo#}" width="200" height="70" /></div>
+				<div class="title_txt">
+					<h2>{#$company.companyname#}</h2>
+					<p>{#$company.address#}</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			{#qishi_company_img_list set="列表名:img,企业ID:GET[id]"#}
+			{#if $img#}
+			<div class="carousel">
+				<div class="swipe" id="slider">
+					<div class="swipe-wrap">
+						{#foreach from=$img item=li#}
+						<div>
+							<ul class="car_img">
+								{#section name=sub_li loop=$li.group#}
+								<li {#if $smarty.section.sub_li.index==2#}class="last"{#/if#}><a target="_blank" href="{#$QISHI.site_dir#}data/companyimg/original/{#$li.group[sub_li].img#}"><img width="180" height="119" src="{#$QISHI.site_dir#}data/companyimg/thumb/{#$li.group[sub_li].img#}" alt=""></a></li>
+								{#/section#}
+							</ul>
+						</div>
+						{#/foreach#}
+					</div>
+				</div>
+				<div class="slider-control">
+  					<button class="left" onclick="mySwipe.prev()"></button>
+  					<button class="right" onclick="mySwipe.next()"></button>
+  				</div>
+			</div>
+			{#/if#}
+			<div class="com_info">
+				<div class="com_nav">
+					<ul>
+						<li><a href="{#"QS_companyshow,id:"|cat:$company.id|qishi_url#}">公司介绍</a></li>
+						<li><a href="{#"QS_companyjobs,id:"|cat:$company.id|qishi_url#}">招聘职位</a></li>
+						<li><a href="{#"QS_companynews,id:"|cat:$company.id|qishi_url#}">新闻动态</a></li>
+						<li class="active"><a href="{#"QS_companycomment,id:"|cat:$company.id|qishi_url#}">评论</a></li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+
+				<div class="com_container">
+					<!-- 企业点评 -->
+					<div class="type" id="pl">
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+		<!-- 右边内容 -->
+		<div class="right_area">
+			
+			<div class="right_box">
+				<div class="title_box">
+					<h5>企业名片</h5>
+				</div>
+				<div class="list">
+					<ul>
+						<li>公司性质：{#$company.nature_cn#}</li>
+						<li>所属行业：{#$company.trade_cn#}</li>
+						<li>公司规模：{#$company.scale_cn#}</li>
+						<li>所在地区：{#$company.district_cn#}</li>
+						{#if $company.website#}
+						<li>公司网站：<a target="_blank" href="{#$company.website#}">{#$company.website#}</a></li>
+						{#/if#}
+					</ul>
+				</div>
+			</div>
+			{#if $company.map_open=="1" && $company.map_x && $company.map_y#}
+			<div class="right_box">
+				<div class="title_box">
+					<h5>公司地址</h5>
+				</div>
+				<div class="list">
+					<div class="map">
+						{#if $company.address#}
+						<p>{#$company.address#}</p>
+						{#/if#}
+						
+						  <div style="width:100%;height:200px;border:1px #CCCCCC solid; margin:0 auto;" id="map"></div>
+							<script type="text/javascript">
+							var map = new BMap.Map("map");   
+							var point = new BMap.Point({#$company.map_x#}, {#$company.map_y#});   
+							map.centerAndZoom(point, {#$company.map_zoom#});
+							var opts = {type: BMAP_NAVIGATION_CONTROL_SMALL,anchor: BMAP_ANCHOR_TOP_RIGHT}
+							map.addControl(new BMap.NavigationControl(opts)); //添加鱼骨
+							//map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用。
+							// 创建标注
+							var qs_marker = new BMap.Marker(point);           
+							map.addOverlay(qs_marker); 
+							// 创建标注 
+							// 打开信息窗口 
+							var opts = {   
+							  width : 150,     // 信息窗口宽度   
+							  height: 50,     // 信息窗口高度   
+							  title : "{#$company.companyname#}"  // 信息窗口标题   
+							}   
+							var infoWindow = new BMap.InfoWindow("{#$company.address#}", opts);  // 创建信息窗口对象   
+							map.openInfoWindow(infoWindow, point);
+							// 打开信息窗口  			
+							</script>
+						<p class="full_map"><a   class="check_full_map" map_x="{#$company.map_x#}" map_y="{#$company.map_y#}" map_zoom="{#$company.map_zoom#}" companyname="{#$company.companyname#}" address="{#$company.address#}">查看完整地图</a></p>
+					</div>
+					
+				</div>
+			</div>
+			{#/if#}
+			<div class="right_box">
+				<div class="title_box">
+					<h5>联系方式</h5>
+				</div>
+				<div class="list" id="company_contact">
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+<script src="{#$QISHI.site_template#}js/swipe.js"></script>
+<script>
+	window.mySwipe = Swipe(document.getElementById('slider'), {
+		auto:3000,
+		speed:400,
+		continuous: true
+	});
+</script>
+{#include file="footer.htm"#}
+</body>
+</html>

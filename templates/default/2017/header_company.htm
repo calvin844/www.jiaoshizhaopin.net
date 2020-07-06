@@ -1,0 +1,59 @@
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet"/>
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+
+{#qishi_ad set="调用名称:home_701,显示数目:1"#}
+{#if !empty($list)#}
+<div id="home_701">
+    {#foreach from=$list item=ad#}
+    <a target="_blank" href="/ad_count/index.php?ad_name=home_701&img={#$ad.img_path#}&url={#$ad.img_url#}"><img src="{#$ad.img_path#}" width="100%"/></a>
+    {#/foreach#}
+    <a class="close"  ></a>
+</div>
+<script>
+    $('#home_701 a.close').click(function () {
+        $('#home_701').hide();
+    })
+</script>
+{#/if#}
+<div class="clear"></div>
+<div id="header_company">
+    <div class="main_box">
+        <div class="left">
+            <a class="logo" href="/"></a>
+            <b class="line"></b>
+            <a href="/user/company/company_index.php" class="channel_name">企业中心</a>
+            <ul>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/index.php'#}hover{#/if#}" title='教师招聘网' href="/">首页</a></li>
+                <li><a title='人才' href="/resume/resume-list.php">人才</a></li>
+                <li><a class="{#if $smarty.server.PHP_SELF == '/user/company/company_service.php'#}hover{#/if#}" title='VIP服务' href="/user/company/company_service.php?act=setmeal_list">VIP服务</a></li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="user_box">
+                <i class="user_icon"></i>
+                <span>{#$smarty.session.username#}</span>
+                <!--
+                <i class="down_icon"></i>
+                <ul class="user_menu">
+                    <li><a href="/user/company/company_jobs.php?act=addjobs">发布职位</a></li>
+                    <li><a href="/user/company/company_recruitment.php?act=apply_jobs">管理简历</a></li>
+                    <li><a href="/user/company/company_info.php?act=company_profile">企业资料</a></li>
+                    <li><a href="/user/company/company_service.php?act=setmeal_list">会员服务</a></li>
+                    <li><a href="/user/login.php?act=logout">退出</a></li>
+                </ul>
+                -->
+            </div>
+            <!--
+            <script>
+                $('#header div.user_box').mouseover(function () {
+                    $(this).find('.user_menu').show();
+                }).mouseleave(function () {
+                    $(this).find('.user_menu').hide();
+                })
+            </script>
+            -->
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

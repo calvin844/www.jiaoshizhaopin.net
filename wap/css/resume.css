@@ -1,0 +1,26 @@
+/*¼òÀúËÑË÷Ò³*/
+.resume_so{width:92%;margin:0 auto; margin-top:12px;border:1px #CACACA solid;background-color:#FFFFFF;height:40px; position:relative}
+.resume_so .keyinput{height:25px; padding-top:6px; border:1px #FFFFFF solid; padding-left:10px; width:80%; font-size:16px; color:#333333}
+.resume_so .clearkey{ position:absolute; top:10px; right:70px;}
+.resume_so .clearkey img{ width:20px;}
+.resume_so .so_sub{position:absolute; top:0px; right:0px; width:50px; height:40px; background-color:#F6F6F6; border-left:1px #CACACA solid;}
+.resume_so .so_sub img{ margin-top:8px; margin-left:3px;}
+/*¼òÀúËÑË÷Ò³_¸ü¶àËÑË÷Ñ¡Ïî*/
+.resume_so_menu{border-top:1px #CACACA solid;border-bottom:1px #CACACA solid;margin-top:12px; background-color:#FFFFFF;height:40px;width:100%;}
+.resume_so_menu .menulistbox{ width:25%; float:left; height:40px;background:url(../images/20.jpg) no-repeat right center; line-height:40px; text-align:center; font-size:14px;}
+.resume_so_menu .menulistbox.last{background:url(../images/21.jpg) no-repeat right center;}
+.resume_list {padding-top:2px;width:92%;margin:0 auto;}
+.resume_list .list{ width:100%; border-bottom:1px #CACACA solid; padding-top:8px; font-size:12px; height:80px; line-height:200%; background:url(../images/14.jpg) no-repeat right center}
+.resume_list .list span{ font-size:14px; color: #0066CC}
+.resume_list .list span a{ text-decoration: none; color: #0066CC}
+.resume_list .more{ width:50%;margin:0 auto; height:23px; padding-top:8px; text-align:center;border:1px #CACACA solid; background-color:#FFFFFF;margin-top:12px;}
+/*¼òÀúÏêÏ¸Ò³*/
+.resume_show_box{width:92%;margin:0 auto; margin-top:12px;border:1px #CACACA solid;background-color:#FFFFFF;position:relative}
+.resume_show_box .title{ width:100%; height:35px; line-height:35px; background-color:#F6F6F6;}
+.resume_show_box .title h2{ padding-left:13px; font-size:14px; color:#333333; font-weight:normal}
+.resume_show_box .txt{ padding-left:13px; padding-top:10px; padding-bottom:13px; font-size:12px; line-height:180%; color:#666666; padding-right:13px;}
+.resume_show_box .txt .l{ float:left; width:50%;}
+.resume_show_box .txt.telbox{ width:70%;height:60px;}
+.resume_show_box .telimg{ width:60px; height:60px; position:absolute; right:15px; top:45px;}
+
+ 

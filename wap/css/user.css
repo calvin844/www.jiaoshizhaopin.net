@@ -1,0 +1,53 @@
+/*用户登录*/
+.user_login_box{margin:0 auto;height:40px;width:92%;border:1px #CACACA solid; margin-top:12px; background-color:#FFFFFF;position:relative}
+.user_login_box .txtinput{height:25px; padding-top:6px; border:1px #FFFFFF solid; padding-left:10px; width:90%; font-size:16px; color:#333333}
+.user_login_box .more{ position:absolute; top:10px; right:10px;}
+.user_login_box .more img{ width:21px;}
+/*用户登录 验证码*/
+.user_login_box_code{margin:0 auto;margin-top:12px;width:92%;}
+.user_login_box_code .left{ width:35%; float:left;height:40px;border:1px #CACACA solid; background-color:#FFFFFF}
+.user_login_box_code .left .txtinput{height:25px; padding-top:6px; border:1px #FFFFFF solid; padding-left:10px; width:90%; font-size:16px; color:#333333}
+.user_login_box_code .right{ width:60%;float:left; font-size:14px;}
+.user_login_box_code .right img{ margin-left:20px; margin-right:20px; }
+/*用户登录 登陆按钮*/
+.user_login_but{margin:0 auto;height:40px;width:92%;border:1px #0180CF solid; margin-top:12px; background-color:#0180CF; font-size:16px; line-height:40px; color:#FFFFFF; text-align:center;letter-spacing:20px; font-weight:bold}
+/*用户登录 忘记密码*/
+.user_login_getpws{margin:0 auto;height:40px;width:92%; margin-top:12px;font-size:16px;line-height:40px;}
+.user_login_getpws .left{ float:left;}
+.user_login_getpws .right{ float:right;}
+/*用户登录 其他登陆方式标题*/
+.user_login_open{margin:0 auto;height:40px;width:92%; height:10px; margin-top:12px;border-bottom:1px #CACACA solid;position:relative}
+.user_login_open .title{ position:absolute;  width:100%; text-align:center; }
+.user_login_open .title span{margin:0 auto; padding-left:10px; padding-right:10px;font-size:12px; background-color:#F2F2F2}
+/*用户登录 其他登陆方式*/
+.user_login_open_img{margin:0 auto;width:65%;margin-top:22px; padding-bottom:15px;}
+.user_login_open_img .imglist{ width:32%; float:left}
+/*用户注册 选择注册类型*/
+.reg_sel {padding-top:12px; width:96%;margin:0 auto; font-size:14px;}
+.reg_sel .list{width:50%; float:left;}
+.reg_sel .list .box{width:91%;margin:0 auto;border:1px #CACACA solid;background-color:#FFFFFF; text-align:center; padding-top:15px; padding-bottom:15px;}
+.reg_sel .list .box img{ margin-bottom:8px; width:54px;}
+.reg_sel_tip{margin:0 auto;margin-top:20px;width:92%;font-size:16px; padding-bottom:20px;}
+/*用户注册 填写注册信息*/
+.user_type_s{margin:0 auto;margin-top:12px;width:93%; font-size:14px;}
+.user_type_s .list{float:left;width:50%;}
+.user_type_s .list .titlet{ height:40px;background-color:#CCCCCC; line-height:40px; text-align:center; cursor:pointer}
+.user_type_s .list .btip{ height:7px;}
+.user_type_s .list.h .titlet{ height:40px;background-color:#FF9900; line-height:40px; text-align:center; color:#FFFFFF}
+.user_type_s .list.h .btip{ height:7px; background:url(../images/30.gif) no-repeat center}
+/*用户注册 注册协议*/
+.user_reg_agr{margin:0 auto;height:40px;width:92%; margin-top:12px;font-size:14px;}
+/*企业会员中心*/
+.com_user_main_tip{margin:0 auto;height:40px;width:92%; margin-top:5px;font-size:16px;line-height:40px;}
+.com_user_main_tip span{ color:#0066CC}
+.com_user_main_li{margin:0 auto;height:35px;width:92%;border:1px #CACACA solid;border-bottom:0px; background-color:#FFFFFF; font-size:14px; line-height:35px;}
+.com_user_main_li .t{ padding-left:15px;  background:url(../images/24.jpg) no-repeat right 8px;}
+.com_user_main_li .t a{text-decoration: none;color:#333333;}
+.com_user_main_li.last{border-bottom:1px #CACACA solid; margin-bottom:12px;}
+.com_user_main_loginout{margin:0 auto;height:38px;width:92%;border:1px #CC0000 solid; margin-top:12px; background-color: #CC0000; font-size:16px; line-height:38px; color:#FFFFFF; text-align:center;letter-spacing:20px; font-weight:bold}
+.com_user_main_loginout a{text-decoration: none;color:#fff;}
+
+.error{margin:0 auto;height:40px;width:92%; margin-top:12px; position:relative;font-size:16px; color:#ff0000}
+
+.user_reg_box{margin:0 auto;height:40px;width:92%; margin-top:12px;position:relative}
+.user_reg_but{margin:0 auto;height:40px;width:100%;border:1px #0180CF solid; margin-top:12px; background-color:#0180CF; font-size:16px; line-height:40px; color:#FFFFFF; text-align:center;letter-spacing:20px; font-weight:bold}

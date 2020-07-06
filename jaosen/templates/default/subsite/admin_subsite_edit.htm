@@ -1,0 +1,89 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="subsite/admin_subsite_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+<h2>提示：</h2>
+<p>
+新增分站后，需要将分站域名解析至主站，同时分站目录需绑定此的分站域名；
+</p>
+</div>  
+ <div class="toptit">修改分站 - {#$subsite.s_sitename#}</div>
+ 
+    <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="?act=edit_save" >
+	{#$inputtoken#}
+  <table width="100%" border="0" cellpadding="4" cellspacing="0"   >
+    <tr>
+      <td width="120" height="30" align="right"  >分站名称：</td>
+      <td  ><input name="s_sitename" type="text" class="input_text_200"   maxlength="100" value="{#$subsite.s_sitename#}"/>
+      <span class="admin_note">如：太原人才网</span></td>
+    </tr>
+	    <tr>
+      <td height="30" align="right"  >分站状态：</td>
+      <td   >
+	   <label><input name="s_effective" type="radio"   value="1" {#if $subsite.s_effective=="1"#}checked="checked"{#/if#}/>可用</label>
+       &nbsp;&nbsp;&nbsp;&nbsp; 
+	   <label ><input type="radio" name="s_effective" value="0" {#if $subsite.s_effective=="0"#}checked="checked"{#/if#} />禁用</label>
+	  </td>
+    </tr>
+
+	    <tr>
+      <td height="30" align="right"  >地区名称：</td>
+      <td   ><input name="s_districtname" type="text" class="input_text_200"  maxlength="100" value="{#$subsite.s_districtname#}"/>
+      <span class="admin_note">如：太原</span></td>
+    </tr>
+    <tr>
+      <td height="30" align="right"  >域名绑定：</td>
+      <td   ><input name="s_domain" type="text" class="input_text_200"    value="{#$subsite.s_domain#}"/>
+      <span class="admin_note">输入独立域名或者二级域名，不带http://，如：0351.rencai.com</span></td>
+    </tr>
+    <tr>
+      <td height="30" align="right"  >文件所在目录名：</td>
+      <td   ><input name="s_dir" type="text" class="input_text_200" value="{#$subsite.s_dir#}"/>
+      <span class="admin_note">只能是数字或字母</span></td>
+    </tr>
+    <tr>
+      <td height="30" align="right"  >风格模版：</td>
+      <td ><input name="s_tpl" type="text" class="input_text_200"  value="{#$subsite.s_tpl#}"/>
+	  <span class="admin_note">如不填写则为默认模版</span>
+	  </td>
+    </tr>
+	
+    <tr>
+        <td width="120" align="right" >分站排序：</td>
+        <td ><input name="s_order" type="text"  class="input_text_150" id="s_order" style="width:50px;" value="{#$subsite.s_order#}" maxlength="8" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;数字越大越靠前</span></td>
+    </tr>
+	<tr>
+      <td height="30" align="right"  >分站LOGO：</td>
+      <td ><input name="s_logo" type="file"   style="width:273px; font-size:12px; padding:3px;" onKeyDown="alert('请点击右侧“浏览”选择您电脑上的图片！');return false"/> 
+	  &nbsp;&nbsp;&nbsp;
+	  {#if $subsite.s_logo#}
+	   <input type="button" name="Submit" value="查看Logo" class="vtip" title="<img src={#$upfiles_dir#}{#$subsite.s_logo#}?t={#$rand#}  border=0  align=absmiddle>"  style=" font-size:12px;"/>
+	   {#/if#}
+	  
+	  </td>
+    </tr>
+	  
+	  
+	
+ 
+	
+	
+	   <tr>
+      <td height="30" align="right"  >&nbsp;</td>
+      <td height="50"  > 
+	  <input name="s_id" type="hidden" value="{#$subsite.s_id#}" />
+            <input name="submit3" type="submit" class="admin_submit"    value="保存"/>
+        <input name="submit22" type="button" class="admin_submit"    value="返回列表"  onclick="window.location='?act=list'"/>
+       </td>
+    </tr>
+  </table>
+    </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

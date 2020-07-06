@@ -1,0 +1,52 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  <div class="clear"></div>
+</div>
+<div class="toptit">修改机构新闻</div>
+<form id="Form1" name="Form1" method="post" action="?act=train_news_save" >
+{#$inputtoken#}
+<table width="100%" border="0" cellpadding="4" cellspacing="0"   >
+        <tr>
+          <td height="30" align="right"  style=" border-bottom:1px #CCCCCC dashed"> 认证状态：</td>
+          <td  style=" border-bottom:1px #CCCCCC dashed">
+		  <label><input name="audit"  type="radio" value="1" {#if $news.audit eq "1"#}checked="checked"{#/if#} />认证通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 <label><input name="audit"  type="radio" value="2" {#if $news.audit eq "2"#}checked="checked"{#/if#} />等待认证</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <label><input name="audit"  type="radio" value="3" {#if $news.audit eq "3"#}checked="checked"{#/if#} />认证未通过</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 </td>
+        </tr>
+		
+  <tr>
+    <td width="110" height="30" align="right"   style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span>新闻标题：</td>
+    <td  style=" border-bottom:1px #CCCCCC dashed"><input name="title" type="text" class="input_text_200" id="title" maxlength="30"  style="width:350px;" value="{#$news.title#}" /></td>
+  </tr>
+  <tr>
+    <td width="110" height="30" align="right"   style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold"></span>排序：</td>
+    <td  style=" border-bottom:1px #CCCCCC dashed"><input name="order" type="text" class="input_text_200" id="order" maxlength="30"  style="width:80px;" value="{#$news.order#}" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/></td>
+  </tr>
+  <tr>
+  <tr>
+    <td width="110" height="30" align="right"   style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold"></span>点击数：</td>
+    <td  style=" border-bottom:1px #CCCCCC dashed"><input name="click" type="text" class="input_text_200" id="click" maxlength="30"  style="width:80px;" value="{#$news.click#}" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))" /></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top"  style=" border-bottom:1px #CCCCCC dashed"><span style="color:#FF3300; font-weight:bold">*</span> 新闻内容：</td>
+    <td  style=" border-bottom:1px #CCCCCC dashed"><textarea name="content" class="train_mb_textarea" id="content" style="width:450px; height:150px;"onpropertychange="if(this.value.length&gt;1000){this.value=this.value.slice(0,1000)}">{#$news.content#}</textarea>
+        <br />
+        <div style="line-height:30px; height:30px;"> <span style="color:#333333">请将字数控制在1000字以内进行填写</span></div></td>
+  </tr>
+  
+            <td height="30" align="right"   >&nbsp;</td>
+            <td height="120"   >
+              <input type="hidden" name="id"  value="{#$news.id#}" />
+              <input name="submit3" type="submit" class="admin_submit"    value="保存修改"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="window.location.href='{#$url#}'"/>
+            </span></td>
+          </tr>
+  </table>
+  </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,120 @@
+<script type="text/javascript">
+$(document).ready(function()
+{
+    
+    
+    $.get("personal_ajax.php?act=ajax_check_resume", function(result){
+        if(result == 1){
+            $('#add_resume_li').hide();
+        }
+      });
+//会员中心顶部搜索职位简历切换 
+$("#usertopselectbox").hover(
+  function () {
+  $(this).find(".#selmenu").show();
+  },
+  function () {
+    $(this).find("#selmenu").hide();
+  }
+);
+$(".leftmenu .meunbox li[class!='h']").hover(
+  function () {
+      $(this).css("background-color","#F5F5F5");
+  },
+  function () {
+     $(this).css("background-color","#FFFFFF");
+  }
+);
+//会员中心顶部搜索职位简历切换 点击选择触发事件
+$("#usertopselectbox .selmenu").click(function(){
+
+		var txt=$(this).text();
+		
+		if (txt=="简历")
+		{
+		$("#topsotype").val('2');
+		$("#seltxt").text('简历');
+		$("#selmenu").text('职位');
+		$("#selmenu").hide();
+		}
+		else
+		{
+		$("#topsotype").val('1');
+		$("#seltxt").text('职位');
+		$("#selmenu").text('简历');
+		$("#selmenu").hide();
+		}
+});
+//所有提交按钮效果
+$("input[type='submit'],input[type='button']").hover(
+  function () {
+    $(this).addClass("hover");
+  },
+  function () {
+    $(this).removeClass("hover");
+  }
+);
+//所有多选按钮效果
+$(".input_checkbox,.input_checkbox_add").hover(
+  function () {
+    $(this).addClass("h");
+  },
+  function () {
+    $(this).removeClass("h");
+  }
+);
+//多选
+$('#chk').click(function(){
+	$(this).parents("form").find("input[type=checkbox]").attr('checked',$("#chk").attr('checked'))
+});
+//信息列表背景变色
+$(".userliststyle").hover(
+  function () {
+    $(this).css('background-color','#FCFCFC');
+  },
+  function () {
+    $(this).css('background-color','#FFFFFF');
+  }
+);
+});
+</script>
+
+<div class="meun1">
+  	<div class="meun2">
+		<div class="meunbox">
+		  <div class="tit"><div class="t i1">简历管理</div></div>
+		  	<div class="linktxt">
+				<ul>
+				<li id="add_resume_li"{#if $smarty.get.act=="make1"#} class="h"{#/if#}><a href="personal_resume.php?act=make1">创建简历</a></li>
+				<li id="edit_resume_li"{#if $smarty.get.act=="resume_list"#} class="h"{#/if#}><a href="personal_resume.php?act=resume_list">我的简历</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="meunbox">
+		  <div class="tit"><div class="t i2">求职管理</div></div>
+		  	<div class="linktxt">
+				<ul>
+				<li{#if $smarty.get.act=="interview"#} class="h"{#/if#}><a href="personal_apply.php?act=interview">面试邀请</a></li>
+				<li{#if $smarty.get.act=="favorites"#} class="h"{#/if#}><a href="personal_apply.php?act=favorites">收藏夹</a></li>
+				<li{#if $smarty.get.act=="apply_jobs"#} class="h"{#/if#}><a href="personal_apply.php?act=apply_jobs">已申请的职位</a></li>
+				<li{#if $smarty.get.act=="attention_me"#} class="h"{#/if#}><a href="personal_apply.php?act=attention_me">谁在关注我</a></li>
+				<li{#if $smarty.get.act=="my_attention"#} class="h"{#/if#}><a href="personal_apply.php?act=my_attention">浏览过的职位</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="meunbox last">
+		  <div class="tit"><div class="t i3">账号管理</div></div>
+		  	<div class="linktxt">
+				<ul>
+				<li{#if $smarty.get.act=="userprofile"#} class="h"{#/if#}><a href="personal_user.php?act=userprofile">基本资料</a></li>
+				<li{#if $smarty.get.act=="password_edit"#} class="h"{#/if#}><a href="personal_user.php?act=password_edit">密码修改</a></li>
+				<li{#if $smarty.get.act=="authenticate"#} class="h"{#/if#}><a href="personal_user.php?act=authenticate">安全认证</a></li>
+				<li{#if $smarty.get.act=="pm"#} class="h"{#/if#}><a href="personal_user.php?act=pm">我的消息</a></li>
+				<li{#if $smarty.get.act=="online_course"#} class="h"{#/if#}><a href="personal_user.php?act=online_course">我的课程</a></li>
+				<li{#if $smarty.get.act=="online_course_fav"#} class="h"{#/if#}><a href="personal_user.php?act=online_course_fav">我收藏的课程</a></li>
+				<li><a href="{#"QS_login"|qishi_url#}?act=logout">安全退出</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

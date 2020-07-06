@@ -1,0 +1,190 @@
+{#qishi_ad set="调用名称:home_702,显示数目:1"#}
+{#if !empty($list)#}
+<div id="home_702">
+    <div class="main_box">
+        {#foreach from=$list item=ad#}
+        <a target="_blank" href="/ad_count/index.php?ad_name=home_702&img={#$ad.img_path#}&url={#$ad.img_url#}"><img src="{#$ad.img_path#}"/></a>
+        {#/foreach#}
+    </div>
+</div>
+{#/if#}
+
+<div id="footer_page">
+    <div class="main_box">
+        <div class="left">
+            <a target="_blank" title="关于我们" href="/aboutus.htm">关于我们</a>
+            <a target="_blank" title="服务协议" href="/explain/explain-show.php?id=13">服务协议</a>
+            <a target="_blank" title="联系我们" href="/contactus.htm">联系我们</a>
+            <a target="_blank" title="招聘套餐" href="/charge.htm">招聘套餐</a>
+            <a target="_blank" title="帮助中心" href="/suggest/index.php">帮助中心</a>
+        </div>
+        <p class="right">Copyright 2007-{#$smarty.now|date_format:'%Y'#} &copy; 教师招聘网 广州千钜网络科技有限公司 版权所有, <a target="_blank" href="http://www.beian.miit.gov.cn/">粤ICP备10085786号</a> 粤B2-20090053&nbsp;&nbsp;<a target="_blank" title="XML地图" href="/data/xml.xml">XML地图</a>&nbsp;&nbsp;<a target="_blank" title="网站地图" href="/map">网站地图</a></p>
+        <div class="clear"></div>
+    </div>
+</div>
+
+{#qishi_ad set="调用名称:home_703,列表名:list,显示数目:1"#}
+<!--   以下为循环读取 -->
+{#if !empty($list)#}
+<div id="ad_home_703">
+    {#foreach from=$list item=li#}
+    <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=home_703&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" height="120" /></a>
+    {#/foreach#}
+    <a class="close" href="javascript:void();"></a>
+    <script>
+        $('#ad_home_703 a.close').click(function() {
+            $('#ad_home_703').hide();
+        })
+    </script>
+</div>
+{#/if#}
+
+<!--
+{#if $smarty.session.utype != 1#}
+{#if $smarty.session.kdls_window != 1#}
+<div class="all_kdls_window" data-utype="{#$smarty.session.utype#}" data-kdls_window="{#$smarty.session.kdls_window#}">
+    <div class="box">
+        <p>微信搜索“jiaoshi00201”</p>
+        <a class="close" href="#"></a>
+        <img src="{#$QISHI.site_template#}images/2017/jiaoshi00201.jpg" width="90" />
+    </div>
+    <div class="bg"></div>
+</div>
+<script>
+    $('.all_kdls_window .close').click(function() {
+        $.get('/user/click_kdls.php', function() {
+            $('.all_kdls_window').hide();
+        })
+    })
+</script>
+{#/if#}
+{#/if#}
+-->
+
+<div style="display: none;">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?648a75efe5a9e70d4505cb9e020fe654";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=511743&web_id=511743"></script>
+</div>
+
+<div id="side_box" class="side_box">
+    <div class="side">
+        <div class="back_top"><a class="back_to_top"  ><i></i></a></div>
+        <ul>
+            <li class="wechat">
+                <a  ><i></i><br/>微信</a>
+                <div class="wechat_window">
+                    <div class="left">
+                        <img src="{#$QISHI.site_template#}images/side/side_wechat.png" width="80" height="80" />
+                        <p>公众号</p>
+                    </div>
+                    <div class="right">
+                        <img src="{#$QISHI.site_template#}images/2017/service_code_img.jpg" width="80" height="80" />
+                        <p>教师小助</p>
+                    </div>
+                    <i></i>
+                </div>
+            </li>
+            <li class="subscribe"><a href="/subscribe"><i></i><br/>订阅</a></li>
+            <li class="service"><a class="show_window"  ><i></i><br/>咨询</a></li>
+            <li class="package"><a href="/charge.htm"><i></i><br/>套餐</a></li>
+        </ul>
+        <div class="hide"><a  ><i></i></a></div>
+    </div>
+
+    <div class="window_box">
+        <div class="window">
+            <a class="close"></a>
+            <div class="clear"></div>
+            <ul>
+                <li>
+                    <img src="{#$QISHI.site_template#}images/side/li_code_img.jpg" width="120" height="120" />
+                    <p>顾问：李经理</p>
+                    <p>020-37277119</p>
+                    <p>6210210</p>
+                    <p>18565230815</p>
+                </li>
+                <li>
+                    <img src="{#$QISHI.site_template#}images/side/vv_code_img.jpg" width="120" height="120" />
+                    <p>运营：小李</p>
+                    <p>020-37277119</p>
+                    <p>969078455</p>
+                    <p>18565230815</p>
+                </li>
+                <li>
+                    <img src="{#$QISHI.site_template#}images/side/fan_code_img.jpg" width="120" height="120" />
+                    <p>客服：帆帆</p>
+                    <p>020-37277119</p>
+                    <p>3571928718</p>
+                    <p>15322099258</p>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="bg"></div>
+    </div>
+    <script>
+        $('.show_window').click(function() {
+            $('div.window_box').show();
+            $('div.window_box div.window').show();
+            $('div.window_box div.bg').show();
+        })
+        $('.window_box a.close').click(function() {
+            $('.window_box').hide();
+        })
+        $('div.window_box div.bg').click(function() {
+            $('.window_box').hide();
+        })
+        var h = $('#header').height() + $('#ad_h001').height() + 5;
+        if ($(window).scrollTop() < h) {
+            $("#side_box .line_bg").css('top', h - $(window).scrollTop());
+        } else {
+            $("#side_box .line_bg").removeAttr('style');
+        }
+        $(window).scroll(function() {
+            var h = $('#header').height() + $('#ad_h001').height() + 5;
+            if ($(window).scrollTop() < h) {
+                $("#side_box .line_bg").css('top', h - $(window).scrollTop());
+            } else {
+                $("#side_box .line_bg").removeAttr('style');
+            }
+        })
+
+        //设置滚回顶部方法
+        $("#side_box a.back_to_top").click(function() {
+            $("body,html").animate({scrollTop: 0}, 500);
+            return false;
+        })
+        //设置隐藏菜单
+        $("#side_box div.hide a").click(function() {
+            if ($(this).hasClass("up")) {
+                $(this).removeClass('up');
+                $('#side_box .side ul').slideDown();
+            } else {
+                $(this).addClass('up');
+                $('#side_box .side ul').slideUp();
+            }
+        })
+        //侧边栏显示微信二维码
+        $("#side_box li.wechat").mouseover(function() {
+            $(this).find('.wechat_window').show()
+        }).mouseleave(function() {
+            $(this).find('.wechat_window').hide()
+        })
+        //底部显示微信二维码
+        $("#footer div.concern_box li.wechat a").mouseover(function() {
+            $(this).parent().find('img').show()
+        }).mouseleave(function() {
+            $(this).parent().find('img').hide()
+        })
+
+    </script>
+</div>
+

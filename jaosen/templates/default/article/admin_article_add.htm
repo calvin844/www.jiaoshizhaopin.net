@@ -1,0 +1,322 @@
+{#include file="sys/admin_header.htm"#}
+<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+<script src="js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        showmenu("#type_id_cn", "#menu1", "#type_id");
+        $(".date_input").date_input();
+
+//验证
+        $("#FormData").validate({
+            //debug: true,
+// onsubmit:false,
+//onfocusout :true,
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 150
+                },
+                type_id: {
+                    required: true
+                },
+                province: {
+                    required: true,
+                    min: 1
+                },
+                city: {
+                    required: true,
+                    min: -1
+                },
+                endtime: {
+                    required: true
+                },
+                content: {
+                    required: true
+                },
+                email: {
+                    email: true
+                }
+            },
+            messages:
+                    {
+                        title: {
+                            required: "请输入标题",
+                            minlength: jQuery.format("内容不能小于{0}个字符"),
+                            maxlength: jQuery.format("内容不能大于{0}个字符")
+                        },
+                        type_id: {
+                            required: "请选择分类"
+                        },
+                        province: {
+                            required: "请选择省份",
+                            min: "请选择省份"
+                        },
+                        city: {
+                            required: "请选择城市",
+                            min: "请选择城市"
+                        },
+                        content: {
+                            required: "请填写正文内容"
+                        },
+                        endtime: {
+                            required: "请选择结束时间"
+                        },
+                        email: {
+                            email: "email格式错误"
+                        }
+                    },
+            errorPlacement: function (error, element) {
+                if (element.is(":radio"))
+                    error.appendTo(element.parent().next().next());
+                else if (element.is(":checkbox"))
+                    error.appendTo(element.next());
+                else
+                    error.appendTo(element.parent());
+            }
+        });
+    })
+
+    function changeProvince() {
+        get_cities($("#province").val());
+    }
+    ;
+    function get_cities(provinceId) {
+        $.get("/plus/ajax_index_c.php", {"act": "get_cities", "id": provinceId},
+        function (data) {
+            $("#city").html(data);
+        }
+        );
+    }
+
+    $('select#big_category_job').live('change', function () {
+        var c_num = $(this).attr('num');
+        get_jobcategory($(this).val(), c_num);
+    })
+    function get_jobcategory(parentId, cum) {
+        $.get("", {"act": "ajax_job_category", "id": parentId},
+        function (data) {
+            $("#category_job" + cum).html(data);
+            var val = $("#category_job" + cum).find("option:first-child").text();
+            $('input#jobs_name' + cum).attr('value', val);
+        }
+        );
+    }
+    $('select.job_categorys').live('change', function () {
+        var c_num = $(this).attr('num');
+        var val = $(this).find("option:selected").text();
+        $('input#jobs_name' + c_num).attr('value', val);
+    })
+</script>
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> {#$pageheader#}</div>
+        {#include file="article/admin_article_nav.htm"#}
+        <div class="clear"></div>
+    </div>
+    <div class="toptit">新增新闻</div>
+    <form action="?act=addsave" method="post" enctype="multipart/form-data" name="FormData" id="FormData" >
+        {#$inputtoken#}
+        <table width="100%" border="0" cellpadding="5" cellspacing="0"  class="admin_table">
+            <tr>
+                <td width="70" align="right"  style=" border-top:0px">新闻标题：</td>
+                <td width="500" style=" border-top:0px"><input id="title" name="title" type="text"  class="input_text_400" /></td>
+                <td style=" border-top:0px">
+                    <div class="color_layer">	
+                        <div id="color_box" onclick="color_box_display()" ></div><input type="hidden" name="tit_color" id="tit_color" >
+                        {#include file="sys/admin_select_color.htm"#}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >新闻分类：</td>
+                <td colspan="2" >		
+                    <div>		
+                        <input type="text" value="{#$smarty.get.type_id_cn|default:"请选择"#}"  readonly="readonly" name="type_id_cn" id="type_id_cn" class="input_text_200 input_text_selsect"/>
+                        <input name="type_id" id="type_id" type="hidden" value="{#$smarty.get.type_id#}" />
+                        <div id="menu1" class="menu">
+                            <ul>	
+                                {#foreach from=$article_category item=list#}		
+                                <li id="{#$list.id#}" title="{#$list.categoryname#}" >{#$list.categoryname#}</li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >新闻正文：</td>
+                <td colspan="2" >	
+                    <textarea id="content" name="content" style="width:700px;height:300px;visibility:hidden;"></textarea>
+                    <script>
+                        var editor;
+                        KindEditor.ready(function (K) {
+                            editor = K.create('textarea[name="content"]', {
+                                allowFileManager: true,
+                                afterBlur: function () {
+                                    this.sync();
+                                    var r = $('#content').val().match(/([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9])+/ig);
+                                    if (r) {
+                                        $('#email').val(r[0]);
+                                    }
+                                },
+                                afterUpload: function (url) {
+                                    $('#attachment_ul').append('<li>附件地址：<input class="attachment_info" type="text" name="attachment[]" value=' + url + ' />，附件说明：<input class="attachment_info" type="text" name="attachment[]" /><a href="javascript:void();" class="del_attachment">&nbsp;删除</a></li>');
+                                }
+                            });
+
+                            K('input[name=Submit2]').click(function (e) {
+                                editor.html('');
+                                this.sync();
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >附件：</td>
+                <td>
+                    <ul id="attachment_ul"></ul>
+                    <script>
+                        $('#attachment_ul a.del_attachment').live('click', function () {
+                            $(this).parent().remove();
+                        })
+                        $('input.attachment_info').live('blur', function () {
+                            $(this).rules('add', {required: true, messages: {required: '请填写完整信息'}});
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >地区：</td>
+                <td style="width:200px;">
+                    <select name="province" id="province" onchange="javascript:changeProvince();">
+                        <option disabled selected>请选省份</option>
+                        {#foreach from=$provinces item=province#}
+                        <option value="{#$province.id#}">{#$province.categoryname#}</option>
+                        {#/foreach#}
+                    </select>
+                    <select name="city" id="city">
+                        <option disabled>请选城市</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="120" align="right" >是否显示：</td>
+                <td width="100" >
+                    <label><input name="is_display" type="radio" value="1" checked="checked" />显示</label>
+                    <label><input type="radio" name="is_display" value="0" /> 不显示</label></td>
+            </tr>
+            <tr>
+                <td align="right">结束时间：</td>
+                <td>
+                    <input name="endtime" type="text" class="input_text_150 date_input" id="endtime" maxlength="10" value="{#$smarty.now|date_format:'%Y-%m-%d'#}"  /> </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">文章职位信息：</td>
+                <td>
+                    <ul id="jobs_ul">
+                    </ul>
+                    <a href="javascript:void();" id="add_jobs">添加</a>
+                </td>
+            <script>
+                $('#add_jobs').click(function () {
+                    var li_num = $('ul#jobs_ul li').length;
+                    var str = "";
+                    str += '<li style="margin-bottom:10px">职位类别：';
+                    str += '<select num="' + li_num + '" name="jobs[' + li_num + '][]" id="big_category_job">';
+                    str += '{#foreach from=$job_category key=k item=j#}';
+                    str += '<option {#if $k == 0#}selected{#/if#} value="{#$j.id#}">{#$j.categoryname#}</option>';
+                    str += '{#/foreach#}';
+                    str += '</select>';
+                    str += '<select num="' + li_num + '" class="job_categorys" name="jobs[' + li_num + '][]" id="category_job' + li_num + '" >';
+                    str += '{#foreach from=$job_categorys key=k item=j#}';
+                    str += '<option {#if $k == 0#}selected{#/if#} value="{#$j.id#}">{#$j.categoryname#}</option>';
+                    str += '{#/foreach#}';
+                    str += '</select>';
+                    str += '<br/>职位名称：<input class="jobs_info" id="jobs_name' + li_num + '" type="text" name="jobs[' + li_num + '][]" value="" />，';
+                    str += '招聘人数：<input class="jobs_info" type="text" name="jobs[' + li_num + '][]" value="1" />';
+                    str += '<a href="javascript:void(0);" class="del_jobs">&nbsp;删除</a></li>';
+                    $('#jobs_ul').append(str);
+                    var name = $('select#category_job' + li_num + ' option:first-child').html();
+                    $("input#jobs_name" + li_num).attr('value', name);
+                })
+
+                $('#jobs_ul a.del_jobs').live('click', function () {
+                    $(this).parent().remove();
+                })
+                $('input.jobs_info').live('blur', function () {
+                    $(this).rules('add', {required: true, messages: {required: '请填写完整信息'}});
+                });
+            </script>
+            </tr>
+            <tr>
+                <td align="right">相关邮箱：</td>
+                <td>
+                    <input name="email" type="text" class="input_text_150" id="email"  /> </td>
+            </tr>
+            <tr>
+                <td align="right" >外部链接：</td>
+                <td ><input name="is_url" type="text" class="input_text_150" id="is_url" value="" maxlength="100"/></td>
+                <!---->
+            </tr>
+            <tr>
+                <td align="right" >标题加粗：</td>
+                <td ><input name="tit_b" type="checkbox" id="tit_b" value="1" />
+                    加粗</td>
+                <td >&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right" >文章排序：</td>
+                <td ><input name="article_order" type="text"  class="input_text_150" id="article_order" style="width:50px;" maxlength="8" onkeyup="if (event.keyCode != 37 && event.keyCode != 39)
+                            value = value.replace(/\D/g, '');"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/\D/g,''))"/>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;数字越大越靠前</span></td>
+            </tr>
+            <!--
+            
+          <tr>
+                  <td align="right" >作者：</td>
+                  <td ><input name="author" type="text" class="input_text_150" id="author" value="中国教师招聘网" maxlength="20"/></td>
+          </td>
+        </tr>
+            <tr>
+          <td align="right" >来源：</td>
+          <td ><input name="source" type="text" class="input_text_150" id="source" maxlength="50" value="中国教师招聘网"/></td>
+                  </tr>
+            <tr>
+          <td align="right" >文章属性：</td>
+          <td colspan="4" >
+                  {#qishi_news_property set="列表名:property"#}
+                  {#foreach from=$property item=list#}
+                  <label><input name="focos" type="radio" value="{#$list.id#}" {#if $property.0.id==$list.id#}checked="checked" {#/if#}/>
+                  {#$list.categoryname#}  </label>&nbsp;&nbsp;&nbsp; 
+                  {#/foreach#}
+                  </td>
+        </tr>
+            <tr>
+          <td align="right" >页面关键字：</td>
+          <td colspan="4" ><input name="seo_keywords" type="text" class="input_text_400" id="keywords" value="" maxlength="30"   /></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top" >页面描述：</td>
+          <td colspan="4" ><textarea name="seo_description" class="input_textarea_400" id="description"></textarea></td>
+        </tr>
+            -->
+            <tr>
+                <td align="right" >&nbsp;</td>
+                <td height="50" align="center" ><input type="submit" name="Submit" value="确定提交" class="admin_submit"   />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="reset" name="Submit2" value="重置表单" class="admin_submit"   /></td>
+            </tr>
+        </table>
+
+    </form>
+
+
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="{#$QISHI.site_template#}css/base_20170628.css" type="text/css" rel="stylesheet">
+        <link href="{#$QISHI.site_template#}css/2017/reg.css" type="text/css" rel="stylesheet">
+        <title>完善资料_{#$QISHI.site_name#}</title>
+    </head>
+
+    <body>
+        <div class="bg_box">
+            {#qishi_ad set="调用名称:home_202,列表名:list,显示数目:1"#}
+            <!--   以下为循环读取 -->
+            {#if !empty($list)#}
+            {#foreach from=$list item=li#}
+            <img src="{#$li.img_path#}"/>
+            {#/foreach#}
+            {#/if#}
+        </div>
+        <div class="main_box">
+            <div class="bg"></div>
+            <a title="教师招聘网" class="logo" href="/"></a>
+            <div class="form_box company_make_info3">
+                <div class="top">
+                    <p class="cur"><span>1</span>企业资料</p>
+                    <hr class="cur"/>
+                    <p class="cur"><span>2</span>企业认证</p>
+                    <hr class="cur"/>
+                    <p class="cur"><span>3</span>发布职位</p>
+                </div>
+                <div class="clear"></div>
+                <div class="box">
+                    <img src="{#$QISHI.site_template#}images/2017/ok.png" width="70" height="70" />
+                    <p>您当前还没有发布职位</p>
+                    <p>快速发布职位，获取精准人才信息</p>
+                    <a href="/user/company/company_jobs.php?act=addjobs">一键发布</a>
+                </div>
+            </div>
+            <p class="login_tip">已有账号，请<a href="/user/login.php">登录</a></p>
+        </div>
+        <p class="copyright">Copyright 2017 &copy; 教师招聘网 粤ICP备 10085786号</p>
+    </body>
+</html>

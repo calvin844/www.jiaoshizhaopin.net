@@ -1,0 +1,68 @@
+*{font-family: "Î¢ÈíÑÅºÚ"}
+#login_index .main_box{ width:1200px; margin:0 auto;}
+#login_index .header{ height:55px; padding:10px 0px 0px 0px; background:#fff;}
+#login_index .header .right{ margin:10px 0px 0px 0px;}
+#login_index .header .right ul li{ float:left; margin:0px 0px 0px 32px;}
+#login_index .header .right ul li a{ display:inline-block;}
+#login_index .header .right ul li.weibo a{ width:34px; height:34px; background:url(../images/login_index_header_weibo.png) no-repeat;}
+#login_index .header .right ul li.qq a{ width:35px; height:34px; background:url(../images/login_index_header_qq.png) no-repeat;}
+#login_index .header .right ul li.wechat a{ width:34px; height:34px; background:url(../images/login_index_header_wechat.png) no-repeat;}
+#login_index .header .right ul li.weibo a:hover{ width:34px; height:34px; background:url(../images/login_index_header_weibo2.png) no-repeat;}
+#login_index .header .right ul li.qq a:hover{ width:35px; height:34px; background:url(../images/login_index_header_qq2.png) no-repeat;}
+#login_index .header .right ul li.wechat a:hover{ width:34px; height:34px; background:url(../images/login_index_header_wechat2.png) no-repeat;}
+#login_index .header .right ul li.wechat{ position:relative;}
+#login_index .header .right ul li.wechat div.code_img{ position: absolute; width:80px; height:80px; padding:22px 11px 10px 11px; background:url(../images/login_index_header_wechat_bg.png) no-repeat; right:0px; display:none; z-index: 5;}
+#login_index .content{ height:600px; width:100%; background:url(../images/login_index_content_bg.jpg) center repeat-x; float:left;}
+#login_index .content .main_box{ margin:50px auto 60px; height:490px; overflow:hidden;}
+#login_index .content .main_box .left{ width:840px; height:490px; overflow:hidden;}
+#login_index .content .main_box .left li{ float:left; margin:0px 10px 10px 0px; background: #fff;}
+#login_index .content .main_box .left li a{ display:block; background:#fff; opacity:0.6; width:100%; height:100%;}
+#login_index .content .main_box .left li a:hover{ opacity:1;}
+#login_index .content .main_box .left li:nth-child(1){ width: 228px; height: 120px;}
+#login_index .content .main_box .left li:nth-child(2){ width: 228px; height: 120px;}
+#login_index .content .main_box .left li:nth-child(3){ width: 176px; height: 120px;}
+#login_index .content .main_box .left li:nth-child(4){ width: 167px; height: 120px;}
+#login_index .content .main_box .left li:nth-child(5){ width: 466px; height: 210px;}
+#login_index .content .main_box .left li:nth-child(6){ width: 353px; height: 100px;}
+#login_index .content .main_box .left li:nth-child(7){ width: 353px; height: 100px;}
+#login_index .content .main_box .left li:nth-child(8){ width: 270px; height: 140px;}
+#login_index .content .main_box .left li:nth-child(9){ width: 270px; height: 140px;}
+#login_index .content .main_box .left li:nth-child(10){ width: 270px; height: 140px;}
+#login_index .content .main_box .right{ width:260px; height:490px; overflow:hidden; background:#fff; padding:0px 50px 0px 50px;}
+#login_index .content .main_box .right p.tip{ width:100%; text-align:center; font-size:16px; color:#1a1a1a; margin:15px 0px 20px 0px;}
+#login_index .content .main_box .right li{ height:55px; width:100%; overflow:hidden; margin:0px 0px 10px 0px; position:relative;}
+#login_index .content .main_box .right li input{ height:35px; line-height:35px; color:#a6a6a6; font-size:14px; border-bottom:1px solid #e5e5e5; width:100%;}
+#login_index .content .main_box .right li input.error{ border:none; border-bottom:1px solid #FF6600;}
+#login_index .content .main_box .right li.code{ width:60%; float:left;}
+#login_index .content .main_box .right li.code_img{ width:40%; float:left;}
+#login_index .content .main_box .right li.code_img img{ width:100%; height:66%;}
+#login_index .content .main_box .right li i{ display:inline-block; width:19px; height:19px; background:url(../images/login_index_pass_icon.png) no-repeat; position:absolute; right:5px; top:10px; display:none;}
+#login_index .content .main_box .right li label{ color:red; margin:5px 0px 0px 0px; float:left;}
+#login_index .content .main_box .right div.agreement{ margin:15px 0px 0px 0px; float:left;}
+#login_index .content .main_box .right div.agreement input{ float:left; margin:0px 5px 0px 0px;}
+#login_index .content .main_box .right div.agreement span{ float:left;}
+#login_index .content .main_box .right div.agreement span a{ color:#3876b2;}
+#login_index .content .main_box .right div.agreement span a:hover{ text-decoration:underline;}
+#login_index .content .main_box .right div.submit{ width:260px; height:40px; margin:15px 0px 0px 0px; float:left;}
+#login_index .content .main_box .right div.submit input{ width:260px; height:40px; display:inline-block; background:#3876b2; color:#fff; text-align:center; line-height:40px; font-size:24px; cursor:pointer;}
+#login_index .content .main_box .right div.submit input:hover{ background:#245f99;}
+#login_index .content .main_box .right p.login{ width:260px; text-align:center; margin:10px 0px 15px 0px;}
+#login_index .content .main_box .right p.login a{ font-size:14px; color:#0a71d2;}
+#login_index .content .main_box .right p.login a:hover{ text-decoration:underline;}
+#login_index .content .main_box .right div.qc_login{ text-align:center;}
+#login_index .content .main_box .right div.qc_login a{ display:inline-block; width:40px; height:40px;}
+#login_index .content .main_box .right div.qc_login a.weibo{ background: url(../images/login_index_content_weibo.png) no-repeat;}
+#login_index .content .main_box .right div.qc_login a.qq{ background: url(../images/login_index_content_qq.png) no-repeat; margin:0px 40px 0px 40px;}
+#login_index .content .main_box .right div.qc_login a.wechat{ background: url(../images/login_index_content_wechat.png) no-repeat;}
+#login_index .content .main_box .right div.qc_login a.weibo:hover{ background: url(../images/login_index_content_weibo2.png) no-repeat;}
+#login_index .content .main_box .right div.qc_login a.qq:hover{ background: url(../images/login_index_content_qq2.png) no-repeat;}
+#login_index .content .main_box .right div.qc_login a.wechat:hover{ background: url(../images/login_index_content_wechat2.png) no-repeat;}
+#login_index .footer{ width:100%; height:265px; background:#fff; overflow:hidden;}
+#login_index .footer .main_box { overflow:hidden;}
+#login_index .footer .main_box ul{ width:1270px; margin:30px 0px 0px 0px;}
+#login_index .footer .main_box ul li{ width:245px; float:left; margin:0px 70px 0px 0px; height:80px;}
+#login_index .footer .main_box ul li div.left{ width:80px; height:80px;}
+#login_index .footer .main_box ul li div.right{ width:165px; height:80px;}
+#login_index .footer .main_box ul li div.right p{ font-size:18px; color:#1a1a1a; height:42px; line-height:42px; margin:0px 0px 0px 10px;}
+#login_index .footer .main_box ul li div.right span{ font-size:14px; color:#929292; margin:0px 0px 0px 10px; display:inline-block; line-height:17px;}
+#login_index .footer .main_box p.copyright{ font-size:12px; color:#808080; text-align: center; margin:75px 0px 0px 0px;}

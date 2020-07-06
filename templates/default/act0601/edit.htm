@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_修改作品_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}ueditor/ueditor.config.js" type='text/javascript' language="javascript"></script>
+        <script src="{#$QISHI.site_template#}ueditor/ueditor.all.min.js" type='text/javascript' language="javascript"></script>
+    </head>
+    <body id="upload">
+        <script>
+            $(document).ready(function () {
+                $("#Form1").validate({
+                    ignore: "",
+                    rules: {
+                        uid: {
+                            required: true
+                        },
+                        student_name: {
+                            required: true
+                        },
+                        student_age: {
+                            digits: true,
+                            range: [6, 14],
+                            required: true
+                        },
+                        item_type: {
+                            required: true
+                        },
+                        title: {
+                            required: true
+                        },
+                        content: {
+                            required: true
+                        },
+                        teacher_name: {
+                            required: true
+                        },
+                        thumb: {
+                            required: true
+                        },
+                        teacher_photo: {
+                            required: true
+                        },
+                        agreement: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        uid: {
+                            required: "请登录后再上传"
+                        },
+                        student_name: {
+                            required: "请填写学生姓名"
+                        },
+                        student_age: {
+                            digits: "学生年龄需为正整数",
+                            range: "学生年龄为6到14岁",
+                            required: "请填写学生年龄"
+                        },
+                        item_type: {
+                            required: "请选择作品类型"
+                        },
+                        title: {
+                            required: "请填写标题"
+                        },
+                        content: {
+                            required: "请填写正文"
+                        },
+                        teacher_name: {
+                            required: "请填写老师姓名"
+                        },
+                        thumb: {
+                            required: "请上传缩略图"
+                        },
+                        teacher_photo: {
+                            required: "请在右侧上传教师照片"
+                        },
+                        agreement: {
+                            required: "请同意协议"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.is(":radio"))
+                            error.appendTo(element.parent().next().next());
+                        else if (element.is(":checkbox"))
+                            error.appendTo(element.parent());
+                        else
+                            error.appendTo(element.parent());
+                    }
+                });
+
+            });
+        </script>
+        <div id="header">
+            <div class="top">
+                <div class='main_box'>
+                    <a class="logo" href="/" title="中国教师招聘网"></a>
+                    <ul class="fleft">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/company">学校</a></li>
+                        <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                        <li><a href="/morejobs">简章</a></li>
+                        <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                        <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                        <li><a href="/act0601/index.php">我的得意门生</a></li>
+                    </ul>
+                    <ul class="fright">
+                        <?php if(empty($_SESSION['username'])):?>
+                        <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                        <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                        <?php else:?>
+                        <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <p class="title">感谢您分享“我的得意门生”，每位老师仅可上传1名学生的作品：</p>
+                    <div class="clear"></div>
+                    <form id="Form1" action="?act=save" method="post">
+                        <input type="hidden" name="uid" value="<?= $_SESSION['uid']?>" /> 
+                        <input type="hidden" name="id" value="{#$item.id#}" /> 
+                        <ul class="fleft">
+                            <li><label class="i_title">*学生姓名</label><input name="student_name" class="w300" type="text" value="{#$item.student_name#}" /></li>
+                            <li><label class="i_title">*学生年龄</label><input name="student_age" class="w300" type="text" value="{#$item.student_age#}" /></li>
+                            <li><label class="i_title">*辅导老师</label><input name="teacher_name" class="w300" type="text" value="{#$leader_resume.fullname#}" /></li>
+                        </ul>
+                        <img class="fright" id="thumb_show" src="{#$item.thumb#}" width="480" height="270" />
+                        <div class="clear"></div>
+                        <p class="title">学生作品信息</p>
+                        <ul>
+                            <li>
+                                <label class="i_title">*作品类型</label>
+                                <div class="item_type">
+                                    <input class="{#if ($item.item_type == 1)#}hover{#/if#}" type_id="1" type="button" value="美术" />
+                                    <input class="{#if ($item.item_type == 2)#}hover{#/if#}" type_id="2" type="button" value="音乐" />
+                                    <input class="{#if ($item.item_type == 3)#}hover{#/if#}" type_id="3" type="button" value="舞蹈" />
+                                    <input class="{#if ($item.item_type == 4)#}hover{#/if#}" type_id="4" type="button" value="创意" />
+                                    <input class="{#if ($item.item_type == 5)#}hover{#/if#}" type_id="5" type="button" value="书法" />
+                                    <input class="{#if ($item.item_type == 6)#}hover{#/if#}" type_id="6" type="button" value="作文" />
+                                </div>
+                                <input id="item_type_id" name="item_type" type="hidden" value="{#$item.item_type#}" />
+                                <script>
+                                    $('.item_type input').click(function () {
+                                        $('.item_type input').removeClass('hover');
+                                        $(this).addClass('hover');
+                                        var d_id = $(this).attr('type_id');
+                                        $('#item_type_id').val(d_id)
+                                    })
+                                </script>
+                                <div class="clear"></div>
+                            </li>
+                            <li>
+                                <label class="i_title">*标题</label>
+                                <input name="title" class="w820" type="text" value="{#$item.title#}"/>
+                            </li>
+                            <li>
+                                <label class="i_title">*缩略图</label>
+                                <input name="thumb_file" id="thumb_file" class="file_input" type="file" onchange ="uploadFile_thumb()"/>
+                                <span class="tip">图片最大不超过5MB</span>
+                                <input name="thumb" id="thumb_value" type="hidden" value="{#$item.thumb#}"/>
+                                <script>
+                                    function uploadFile_thumb() {
+                                        $.ajaxFileUpload({
+                                            url: '?act=uploadthumb',
+                                            secureuri: false,
+                                            fileElementId: 'thumb_file',
+                                            dataType: 'STRING',
+                                            success: function (data, status) {
+                                                var f = data.substr(0, 1);
+                                                if (f == "-") {
+                                                    switch (data) {
+                                                        case "-1":
+                                                            alert("上传图片失败：上传目录不存在!");
+                                                            return false;
+                                                            break;
+                                                        case "-2":
+                                                            alert("上传图片失败：上传目录无法写入!");
+                                                            return false;
+                                                            break;
+                                                        case "-3":
+                                                            alert("上传图片失败：你选择的文件无法上传");
+                                                            return false;
+                                                            break;
+                                                        case "-4":
+                                                            alert("上传图片失败：文件大小超过限制");
+                                                            return false;
+                                                            break;
+                                                        case "-5":
+                                                            alert("上传图片失败：文件类型错误！");
+                                                            return false;
+                                                            break;
+                                                        case "-6":
+                                                            alert("上传图片失败：文件上传出错！");
+                                                            return false;
+                                                            break;
+                                                        case "-7":
+                                                            alert("请刷新页面后再试！");
+                                                            return false;
+                                                            break;
+                                                        case "-8":
+                                                            alert("请上传图片！");
+                                                            return false;
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                } else {
+                                                    $('#thumb_show').attr('src', data);
+                                                    $('#thumb_value').attr('value', data);
+                                                    $('#thumb').attr('value', data);
+                                                }
+                                            }
+                                        })
+                                    }
+                                </script>
+                            </li>
+                            <li class="content_li">
+                                <textarea id="container" name="content" type="text/plain" style="height: 300px;">{#$item.content#}</textarea>
+                                <!-- 实例化编辑器 -->
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('container');
+                                </script>
+                            </li>
+                            <div class="clear"></div>
+                            <li>
+                                <div class="fleft">
+                                    <input type="checkbox" checked="checked" name="agreement" /><span class="agreement_tip">承诺原创作品，并授权教师招聘网（jiaoshizhaopin.net）用于非商业宣传</span>
+                                </div>
+                                <div class="fright">
+                                    <input type="hidden" name="teacher_photo" id="photo_value" value="{#$item.teacher_photo#}" />
+                                    <input class="submit" type="submit" value="提交" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="right_box">
+                    <div class="teacher_photo">
+                        <input style="display: none;" type="file" name="photo" id="photo" class="up_photo" onchange ="uploadFile()" />
+                        <img src="/data/photo/{#$item.teacher_photo#}" id="photo_show" width='180' height="180"/>
+                        <script>
+                            function uploadFile() {
+                                $.ajaxFileUpload({
+                                    url: '?act=uploadphoto',
+                                    secureuri: false,
+                                    fileElementId: 'photo',
+                                    dataType: 'STRING',
+                                    success: function (data, status) {
+                                        var f = data.substr(0, 1);
+                                        if (f == "-") {
+                                            switch (data) {
+                                                case "-1":
+                                                    alert("上传图片失败：上传目录不存在!");
+                                                    return false;
+                                                    break;
+                                                case "-2":
+                                                    alert("上传图片失败：上传目录无法写入!");
+                                                    return false;
+                                                    break;
+                                                case "-3":
+                                                    alert("上传图片失败：你选择的文件无法上传");
+                                                    return false;
+                                                    break;
+                                                case "-4":
+                                                    alert("上传图片失败：文件大小超过限制");
+                                                    return false;
+                                                    break;
+                                                case "-5":
+                                                    alert("上传图片失败：文件类型错误！");
+                                                    return false;
+                                                    break;
+                                                case "-6":
+                                                    alert("上传图片失败：文件上传出错！");
+                                                    return false;
+                                                    break;
+                                                case "-7":
+                                                    alert("请刷新页面后再试！");
+                                                    return false;
+                                                    break;
+                                                case "-8":
+                                                    alert("请上传图片！");
+                                                    return false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        } else {
+                                            $('#photo').hide();
+                                            $('#photo_show').show();
+                                            $('#photo_show').attr('src', "/data/photo/" + data);
+                                            $('#photo_value').attr('value', data);
+                                        }
+                                    }
+                                })
+                            }
+                        </script>
+                    </div>
+                    <ul>
+                        <li><a href="/act0601/share.php">我的活动中心</a></li>
+                        {#if empty($item)#}
+                        <li><a class="hover" href="/act0601/upload.php">我的学生作品</a></li>
+                        {#else#}
+                        <li class="hover"><a href="/act0601/details.php?id={#$item.id#}">我的学生作品</a></li>
+                        {#/if#}
+                        <li><a href="/act0601/user.php?act=make_info">完善个人资料</a></li>
+                        <li><a href="/act0601/ilist.php">更多参赛作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

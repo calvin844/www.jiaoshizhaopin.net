@@ -1,0 +1,171 @@
+{#include file="sys/admin_header.htm"#}
+<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+<script src="js/jquery.date_input.js" type='text/javascript' language="javascript"></script>
+<script>
+    $(document).ready(function () {
+        $(".date_input").date_input();
+        $("#FormData").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 150
+                },
+                des: {
+                    required: true,
+                    minlength: 1
+                },
+                start_ime: {
+                    required: true
+                },
+                end_time: {
+                    required: true
+                }
+            },
+            messages:
+                    {
+                        title: {
+                            required: "请输入标题",
+                            minlength: jQuery.format("内容不能小于{0}个字符"),
+                            maxlength: jQuery.format("内容不能大于{0}个字符")
+                        },
+                        des: {
+                            required: "请填写正文内容",
+                            minlength: jQuery.format("内容不能小于{0}个字符")
+                        },
+                        start_time: {
+                            required: "请选择开始时间"
+                        },
+                        end_time: {
+                            required: "请选择结束时间"
+                        }
+                    },
+            errorPlacement: function (error, element) {
+                if (element.is(":radio"))
+                    error.appendTo(element.parent().next().next());
+                else if (element.is(":checkbox"))
+                    error.appendTo(element.next());
+                else
+                    error.appendTo(element.parent());
+            }
+        });
+    })
+
+</script>
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-修改课程</div>
+        <div class="clear"></div>
+    </div>
+    <div class="toptit">修改课程</div>
+    <form id="FormData" name="form1" method="post" action="?act=edit_save"  enctype="multipart/form-data">
+        {#$inputtoken#}
+        <input type="hidden" name="id" value="{#$info.id#}"  />
+        <table width="100%" border="0" cellpadding="4" cellspacing="0"  >
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">所属机构：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" >
+                    <select name="school_id">
+                        <option value="0">不属于机构</option>
+                        {#foreach from=$school item=s#}
+                        <option {#if $s.id == $info.school_id#}selected{#/if#} value="{#$s.id#}">{#$s.name#}</option>
+                        {#/foreach#}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">讲师：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" >
+                    <select name="teacher_id">
+                        <option value="0">匿名讲师</option>
+                        {#foreach from=$teacher item=t#}
+                        <option {#if $t.id == $info.teacher_id#}selected{#/if#} value="{#$t.id#}">{#$t.name#}</option>
+                        {#/foreach#}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">课程类型：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" >
+                    <select name="type_id">
+                        {#foreach from=$type item=t#}
+                        <option {#if $t.id == $info.type_id#}selected{#/if#} value="{#$t.id#}">{#$t.name#}</option>
+                        {#/foreach#}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">标题：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="title" type="text" class="input_text_400" id="title" maxlength="25" value="{#$info.title#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">正文：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> 
+                    <textarea id="des" name="des" style="width:700px;height:300px;visibility:hidden;">{#$info.des#}</textarea>
+                    <script>
+                        var editor;
+                        KindEditor.ready(function (K) {
+                            editor = K.create('textarea[name="des"]', {
+                                allowFileManager: true,
+                                afterBlur: function () {
+                                    this.sync();
+                                }
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">缩略图：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" ><input name="thumb" type="file" id="thumb" /></td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">价格：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="price" type="text" class="input_text_200" id="price" maxlength="25" value="{#$info.price#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">市场价：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="old_price" type="text" class="input_text_200" id="old_price" maxlength="25" value="{#$info.old_price#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">报名上限：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="people_limit" type="text" class="input_text_200" id="people_limit" maxlength="25" value="{#$info.people_limit#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">已报名人数：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="people_num" type="text" class="input_text_200" id="people_num" maxlength="25" value="{#$info.people_num#}"/> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">开始时间：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed">
+                    <input name="start_time" type="text" class="input_text_150 date_input" id="start_time" value="{#$info.start_time|date_format:'%Y-%m-%d'#}"  /> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">结束时间：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed">
+                    <input name="end_time" type="text" class="input_text_150 date_input" id="end_time" value="{#if $info.end_time != 0#}{#$info.end_time|date_format:'%Y-%m-%d'#}{#else#}0{#/if#}"  /> </td>
+            </tr>
+            <tr>
+                <td width="120" height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">QQ群号：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed"> <input name="qq" type="text" class="input_text_200" id="qq" maxlength="25" value="{#$info.qq#}"/> </td>
+            </tr>
+            <tr>
+                <td height="30" align="right" style=" border-bottom:1px #CCCCCC dashed">推广二维码：</td>
+                <td style=" border-bottom:1px #CCCCCC dashed" ><input name="wechat_img" type="file" id="wechat_img" /></td>
+            </tr>
+            <tr>
+                <td height="30" align="right" >&nbsp;</td>
+                <td   >
+                    <input name="submit3" type="submit" class="admin_submit"    value="保存"/>
+                    <input name="submit22" type="button" class="admin_submit" value="返 回" onclick="window.location.href = '/jaosen/admin_online_course_info.php'"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,35 @@
+<div class="content link_lan resume_model">
+	<h5>简历名称： {#$title#}</h5>
+	<input type="hidden" name="tpl_pid" id="tpl_pid" value="{#$resumeid#}">
+	<input type="hidden" name="tpl_dir" id="tpl_dir" value="{#$resume_tpl#}">
+	<div class="resume_bbox">
+		{#tpl_list#}
+	</div>
+	
+</div>
+<div class="but_box">
+		<input type="button" value="保存设置" class="but130cheng" id="save" />
+		<input type="button" value="简历管理" class="but130hui" onclick="javascript:location.href='personal_resume.php?act=resume_list'"/>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".set_tpl").click(function(){
+		$(".set_tpl").attr("checked","");
+		$(this).attr("checked","checked");
+		$("#tpl_dir").val($(this).val());
+	});
+	var tpl_pid = $("#tpl_pid").val();
+	$("#save").click(function(){
+		var tpl_dir = $("#tpl_dir").val();
+		$.post("personal_ajax.php?act=save_tpl",{tpl_pid:tpl_pid,tpl_dir:tpl_dir},function(result){
+			if(result=="1"){
+				$(".FloatBg").hide();
+				$(".FloatBox").hide();
+			}else{
+				alert("参数错误！");
+			}
+				
+		});
+	});
+});
+</script>

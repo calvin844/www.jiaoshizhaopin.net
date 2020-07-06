@@ -1,0 +1,290 @@
+@charset "gb2312";
+*{ margin:0; padding:0; list-style:none; text-decoration:none; font-size:12px; font-family:"Microsoft YaHei"; border:none; border-radius: 0; font-weight: initial;}
+input[type="submit"]{-webkit-appearance:none;}
+*{outline:none} 
+a{ cursor: pointer;}
+
+body{ min-width: 1200px;}
+.clear{ clear:both;}
+.left{ float:left;}
+.right{ float:right;}
+.nopadding{ padding:0 !important;}
+.nomargin{ margin:0 !important;}
+.main_box{ width:1200px; margin:0 auto;}
+
+#header_login{ height:50px; width:100%; background:#5182d0;}
+#header_login .left .logo{ display:inline-block; width:105px; height:28px; background:url(../images/2017/header_logo.png) no-repeat; float:left; margin:10px 0px 0px 5px;}
+#header_login .left .line{ display:inline-block; width:1px; height:20px; background:#fff; float:left; margin:15px 10px 0px 10px;}
+#header_login .left .channel_name{ font-family:"simsun"; color:#fff; font-size:14px; float:left; margin:17px 0px 0px 0px;}
+#header_login .left .district_box { float:left; margin: 15px 0px 0px 0px; position: relative; }
+#header_login .left .district_box span.district_name{ font-size:18px; color:#fff; float:left;}
+#header_login .left .district_box i.to_down{ display: inline-block; float: left; width: 14px; height: 8px; background: url(../images/2017/select_down.png) no-repeat; background-size: 14px 8px; margin: 10px 0px 0px 5px;}
+
+#header_login .left .district_box div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top: 28px; right: -660px; z-index: 3; min-width: 680px; min-height: 150px; display: none;}
+#header_login .left .district_box div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#header_login .left .district_box div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#header_login .left .district_box div.district_list div.top p:nth-child(2){ left:70px;}
+#header_login .left .district_box div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#header_login .left .district_box div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#header_login .left .district_box div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#header_login .left .district_box div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none; width: 680px;}
+#header_login .left .district_box div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#header_login .left .district_box div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+#header_login .left ul{ float:left; margin:0px 0px 0px 60px;}
+#header_login .left ul li{ display:inline-block; float:left; height:50px;}
+#header_login .left ul li a{ display:block; padding:0px 20px 0px 20px; height:50px; font-family:"simsun"; line-height:50px; text-align:center; color:#fff; font-size: 14px;}
+#header_login .left ul li a:hover{ background:#1e51a1;}
+#header_login .left ul li a.hover{ background:#1e51a1;}
+#header_login .right .user_box{ position:relative; float:left; height:50px; margin:0px 0px 0px 20px;}
+#header_login .right .user_box i.user_icon{ float:left; display:inline-block; width:17px; height:16px; background:url(../images/2017/header_user_icon.png) no-repeat; margin:18px 10px 0px 0px;}
+#header_login .right .user_box span{ float:left; font-size:14px; color:#fff; margin:18px 10px 0px 0px;}
+#header_login .right .user_box i.down_icon{ float:left; display:inline-block; width:9px; height:5px; background:url(../images/2017/header_down_icon.png) no-repeat; margin:25px 0px 0px 0px;}
+#header_login .right .user_box ul.user_menu{ position:absolute; right:0px; top:50px; display:none; z-index: 99;}
+#header_login .right .user_box ul.user_menu li a{ display:inline-block; width:90px; height:30px; line-height:30px; color:#fff; text-align:center; background:#5182d0;}
+#header_login .right .user_box ul.user_menu li a:hover{ color:#fff; background:#1e51a1;}
+
+#header{ height:50px; width:100%; background:#fff;}
+#header .left .logo{ display:inline-block; width:105px; height:28px; background:url(../images/2017/header_logo2.png) no-repeat; float:left; margin:10px 0px 0px 5px;}
+#header .left .line{ display:inline-block; width:1px; height:20px; background:#ccc; float:left; margin:15px 10px 0px 10px;}
+#header .left .channel_name{ font-family:"simsun"; color:#808080; font-size:14px; float:left; margin:17px 0px 0px 0px;}
+
+#header .left .district_box { float:left; margin: 15px 0px 0px 0px; position: relative; }
+#header .left .district_box span.district_name{ font-size:18px; color:#808080; float:left;}
+#header .left .district_box i.to_down{ display: inline-block; float: left; width: 14px; height: 8px; background: url(../images/2017/select_down.png) no-repeat; background-size: 14px 8px; margin: 10px 0px 0px 5px;}
+
+#header .left .district_box div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top: 28px; right: -660px; z-index: 3; min-width: 680px; min-height: 150px; display: none;}
+#header .left .district_box div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#header .left .district_box div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#header .left .district_box div.district_list div.top p:nth-child(2){ left:70px;}
+#header .left .district_box div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#header .left .district_box div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#header .left .district_box div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#header .left .district_box div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none; width: 680px;}
+#header .left .district_box div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#header .left .district_box div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+
+#header .left ul{ float:left; margin:0px 0px 0px 60px;}
+#header .left ul li{ display:inline-block; float:left; height:50px;}
+#header .left ul li a{ display:block; padding:0px 20px 0px 20px; height:47px; font-family:"simsun"; line-height:50px; text-align:center; color:#808080; font-size: 14px; border-bottom:3px solid #fff;}
+#header .left ul li a:hover{ color:#188eee; border-bottom:3px solid #188eee;}
+#header .left ul li a.hover{ color:#188eee; border-bottom:3px solid #188eee;}
+#header .right .resume{ font-family:"simsun"; color:#b2b2b2; float:left; margin:20px 0px 0px 0px;}
+#header .right .resume:hover{ color:#188eee;}
+#header .right .line{ display:inline-block; width:1px; height:12px; background:#ccc; margin:20px 10px 0px 10px; float:left;}
+#header .right .job{ font-family:"simsun"; color:#b2b2b2; float:left; margin:20px 30px 0px 0px;}
+#header .right .job:hover{ color:#188eee;}
+#header .right .login{ font-family:"simsun"; display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:10px 0 0 10px;}
+#header .right .login:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+#header .right .reg{ font-family:"simsun"; display:inline-block; padding:0px 20px 0px 20px; height:30px; line-height:30px; text-align:center; font-size:14px; color:#188eee; border:1px solid #188eee; border-radius:5px; overflow:hidden; margin:10px 0 0 10px;}
+#header .right .reg:hover{ background:#188eee; border:1px solid #188eee; color:#fff;}
+
+#header_company{ height:50px; width:100%; background:#080d16;}
+#header_company .left .logo{ display:inline-block; width:105px; height:28px; background:url(../images/2017/header_logo.png) no-repeat; float:left; margin:10px 0px 0px 5px;}
+#header_company .left .line{ display:inline-block; width:1px; height:20px; background:#999; float:left; margin:15px 10px 0px 10px;}
+#header_company .left .channel_name{ font-family:"simsun"; color:#b2b2b2; font-size:14px; float:left; margin:17px 0px 0px 0px;}
+#header_company .left ul{ float:left; margin:0px 0px 0px 60px;}
+#header_company .left ul li{ display:inline-block; float:left; height:50px;}
+#header_company .left ul li a{ display:block; padding:0px 20px 0px 20px; height:50px; font-family:"simsun"; line-height:50px; text-align:center; color:#b2b2b2; font-size: 14px;}
+#header_company .left ul li a:hover{ background:#3a517b; color:#fff;}
+#header_company .left ul li a.hover{ background:#3a517b; color:#fff;}
+#header_company .right .user_box{ position:relative; float:left; height:50px; margin:0px 0px 0px 20px;}
+#header_company .right .user_box i.user_icon{ float:left; display:inline-block; width:17px; height:16px; background:url(../images/2017/header_user_icon.png) no-repeat; margin:18px 10px 0px 0px;}
+#header_company .right .user_box a.username{ float:left; font-size:14px; color:#b2b2b2; margin:18px 10px 0px 0px;}
+#header_company .right .user_box .logout{ color:#808080; font-size:12px; margin:20px 0px 0px 0px; float:left;}
+#header_company .right .user_box .logout:hover{ text-decoration:underline;}
+#header_company .right .user_box i.down_icon{ float:left; display:inline-block; width:9px; height:5px; background:url(../images/2017/header_down_icon.png) no-repeat; margin:25px 0px 0px 0px;}
+#header_company .right .user_box ul.user_menu{ position:absolute; right:0px; top:50px; display:none;}
+#header_company .right .user_box ul.user_menu li a{ display:inline-block; width:90px; height:30px; line-height:30px; color:#b2b2b2; text-align:center; background:#080d16;}
+#header_company .right .user_box ul.user_menu li a:hover{ color:#fff; background:#3a517b;}
+
+
+
+
+#footer{ padding:50px 0px 30px 0px; background:#222f47;}
+#footer p.box_title{ font-size:16px; color:#fff; margin:0px 0px 30px 0px;}
+#footer i.line{ display:inline-block; width:1px; height:126px; background:url(../images/2017/footer_line.png) no-repeat;}
+#footer div.top{ padding:0px 0px 50px 0px; border-bottom:1px solid #394458; float:left;}
+#footer div.top div.about_box{ width:215px; float:left;}
+#footer div.top div.about_box ul{ width:200px; float:left; margin:0px 10px 0px 0px;}
+#footer div.top div.about_box ul li{ float:left; width:100px; overflow:hidden; margin:0px 0px 15px 0px;}
+#footer div.top div.about_box ul li a{ color:#b2b2b2;}
+#footer div.top div.about_box ul li a:hover{ color:#ccc; text-decoration:underline;}
+#footer div.top div.channel_box{ width:265px; float:left; margin:0px 0px 0px 60px;}
+#footer div.top div.channel_box ul{ width:200px; margin:0px 60px 0px 0px; float:left;}
+#footer div.top div.channel_box ul li{ float:left; width:100px; overflow:hidden; margin:0px 0px 15px 0px;}
+#footer div.top div.channel_box ul li a{ color:#b2b2b2;}
+#footer div.top div.channel_box ul li a:hover{ color:#ccc; text-decoration:underline;}
+#footer div.top div.concern_box{ width:65px; float:left; margin:0px 60px 0px 60px;}
+#footer div.top div.concern_box ul{ width:65px; float:left;}
+#footer div.top div.concern_box ul li{ margin:0px 0px 15px 0px;}
+#footer div.top div.concern_box ul li a{ display:inline-block; width:32px; height:32px; background-size:32px 32px;}
+#footer div.top div.concern_box ul li.weibo a{ background-image:url(../images/2017/weibo_logo.png);}
+#footer div.top div.concern_box ul li.weibo a:hover{ background-image:url(../images/2017/weibo_logo_h.png);}
+#footer div.top div.concern_box ul li.rss a{ background-image:url(../images/2017/rss_logo.png);}
+#footer div.top div.concern_box ul li.rss a:hover{ background-image:url(../images/2017/rss_logo_h.png);}
+#footer div.top div.concern_box ul li.wechat{ position:relative;}
+#footer div.top div.concern_box ul li.wechat a{ background-image:url(../images/2017/wechat_logo.png);}
+#footer div.top div.concern_box ul li.wechat a:hover{ background-image:url(../images/2017/wechat_logo_h.png);}
+#footer div.top div.concern_box ul li.wechat .wechat_window{ display: none; width: 175px; height: 110px; position:absolute; left: 50px; top: -25px; padding: 10px 10px 0px 10px; background: #fff; border: 1px solid #ccc; }
+#footer div.top div.concern_box ul li.wechat .wechat_window div p{ font-size: 14px; color: #333; text-align: center;}
+#footer div.top div.concern_box ul li.wechat .wechat_window i{ display: inline-block; width: 12px; height: 13px; background: url(../images/2017/left.png) no-repeat; position: absolute; top: 60px; right: -12px;}
+#footer div.top div.concern_box ul li.wechat .wechat_window i{ display: inline-block; width: 12px; height: 13px; background: url(../images/2017/left.png) no-repeat; position: absolute; top: 35px; left: -12px;}
+#footer div.top div.service_box{ width:158px; float:left;}
+#footer div.top div.service_box ul li{ width:165px; margin:0px 0px 25px 0px;}
+#footer div.top div.service_box ul li i.tel_logo{ display:inline-block; width:25px; height:20px; background:url(../images/2017/tel_logo.png) no-repeat; float:left; margin:0px 10px 0px 0px;}
+#footer div.top div.service_box ul li i.qq_logo{ display:inline-block; width:17px; height:20px; background:url(../images/2017/qq_logo2.png) no-repeat; float:left; margin:0px 15px 0px 3px;}
+#footer div.top div.service_box ul li span{ color:#b2b2b2;}
+#footer div.top div.code_img_box{ float:right; margin:50px 0px 0px 0px;}
+#footer div.top div.code_img_box ul li{ float:left; margin:0px 0px 0px 50px;}
+#footer div.top div.code_img_box ul li p{ text-align:center; color:#b2b2b2; margin:10px 0px 0px 0px;}
+#footer div.bottom{ padding:40px 0px 0px 0px;}
+#footer div.bottom div.box{ width: 835px; height: 75px;  margin: 0 auto;}
+#footer div.bottom div.box a.logo{ display:inline-block; float:left; width:156px; height:63px; background:url(../images/2017/logo2.png) no-repeat;}
+#footer div.bottom div.box div.copyright_box{ float:right; width:640px;}
+#footer div.bottom div.box div.copyright_box p{ color:#b2b2b2; margin:0px 0px 20px 0px;}
+#footer div.bottom div.box div.copyright_box p a{ color:#b2b2b2;}
+#footer div.bottom div.box div.copyright_box p a:hover{ text-decoration: underline;}
+#footer div.bottom div.box div.copyright_box div.gov_line a{ margin:0px 13px 0px 13px;}
+#footer div.bottom div.box div.copyright_box div.gov_line a img{ border:1px solid #424c5f;}
+
+
+#footer_list{ text-align:center; padding:30px 0px 20px 0px; background:#222f47;}
+#footer_list a{ margin:0px 12px 0px 12px; font-size:14px; color:#808080;}
+#footer_list a:hover{ color:#b2b2b2;}
+#footer_list p{ color:#535a68; margin:10px 0px 0px 0px;}
+#footer_list p a{ color:#535a68; margin:0;}
+#footer_list p a:hover{ color:#b2b2b2;}
+
+#footer_page{ text-align:center; padding:20px 0px 15px 0px; border-top:1px solid #ebebeb;}
+#footer_page a{ margin:0px 0px 0px 20px; color:#b2b2b2;}
+#footer_page a:hover{ color:#808080;}
+#footer_page p{ color:#b2b2b2;}
+#footer_page p a{ margin:0;}
+
+
+.quick_login_bg{ height: 100px; width: 100%; position: fixed; bottom: 0px; left: 0px; background: #6498e2;}
+.quick_login_bg a.close{ position: absolute; right: 0px; top: 0px; display: block; height: 20px; width: 20px; background: url(../images/quick_login_close.png);}
+.quick_login_box{ width: 1200px; height: 100px; position: absolute; left: 50%; top: 0px; margin: 0px 0px 0px -600px;}
+.quick_login_box div.text{ float: left;}
+.quick_login_box div.text span{ line-height: 100px; color: #fff; font-size: 22px; font-family:"Î¢ÈíÑÅºÚ"}
+.quick_login_box div.text span.num{ font-size: 26px; color: #ffcd92; margin: 0px 5px;}
+.quick_login_box div.text span.i{ margin: 0px 0px 0px 30px;}
+.quick_login_box div.login{ float: left; padding: 30px 0px 0px 35px;}
+.quick_login_box div.login input.username{ color: #b3b3b3; width: 170px; height: 44px; background: url(../images/quick_login_text_bg.png); line-height: 44px; padding: 0px 15px 0px 15px; overflow: hidden; float: left; font-size: 16px;}
+.quick_login_box div.login input.password{ color: #b3b3b3; width: 170px; height: 44px; background: url(../images/quick_login_text_bg.png); line-height: 44px; padding: 0px 15px 0px 15px; overflow: hidden; float: left; font-size: 16px; margin: 0px 0px 0px 10px;}
+.quick_login_box div.login input#q_password{ color: #333; display: none;}
+.quick_login_box div.login input.login_bt{ width: 90px; height: 44px; background: url(../images/quick_login_gray.png); color: #fff; text-align: center; line-height: 44px; font-size: 16px; cursor: pointer; margin: 0px 0px 0px 10px; font-weight: bold;}
+.quick_login_box div.login input.reg_bt{ width: 121px; height: 44px; background: url(../images/quick_login_orange.png); color: #fff; text-align: center; line-height: 44px; font-size: 16px; cursor: pointer; margin: 0px 0px 0px 10px; font-weight: bold;}
+
+
+#side_box div.side{ position: fixed; bottom: 100px;  right: 2%; border: 1px solid #f1f1f1; border-radius: 10px; background: #fff;-webkit-box-shadow:0 0 10px 0 rgba(96,96,96,.8);-moz-box-shadow:0 0 10px 0 rgba(96,96,96,.8);box-shadow:0 0 10px 0 rgba(96,96,96,.8)}
+#side_box div.side div.back_top {  border-radius:10px 10px 0 0; overflow: hidden;}
+#side_box div.side div.back_top a{ display:inline-block; width:48px; height:44px; text-align:center; line-height:44px; background:#fff; border-bottom:1px solid #f1f1f1; border-radius: 5px 5px 0px 0px; overflow: hidden;}
+#side_box div.side div.back_top a i{ display:inline-block; width:12px; height:16px; background:url(../images/side/side_back_to_top_icon.png) no-repeat; margin:15px 0px 0px 0px;}
+#side_box div.side div.back_top a:hover{ background:#2064ca;}
+#side_box div.side div.back_top a:hover i{ background:url(../images/side/side_back_to_top_icon_h.png) no-repeat;}
+#side_box div.side li.wechat{ position: relative;}
+#side_box div.side li.wechat a{ display:inline-block; width:48px; height:55px; text-align:center; line-height:44px; background:#fff; line-height:20px; color:#b2b2b2; margin:30px 0px 0px 0px;}
+#side_box div.side li.wechat a i{ display:inline-block; width:25px; height:25px; background:url(../images/side/side_wechat_icon.png) no-repeat;}
+#side_box div.side li.wechat a:hover{ color:#0f7a30;}
+#side_box div.side li.wechat a:hover i{ background:url(../images/side/side_wechat_icon_h.png) no-repeat;}
+#side_box div.side li.wechat .wechat_window{ display: inline-block; width: 175px; height: 110px; position:absolute; left: -215px; top: -25px; padding: 10px 10px 0px 10px; background: #fff; border: 1px solid #ccc; display: none;}
+#side_box div.side li.wechat .wechat_window div p{ font-size: 14px; color: #333; text-align: center;}
+#side_box div.side li.wechat .wechat_window i{ display: inline-block; width: 12px; height: 13px; background: url(../images/side/san.png) no-repeat; position: absolute; top: 60px; right: -12px;}
+#side_box div.side li.weibo a{ display:inline-block; width:48px; height:55px; text-align:center; line-height:44px; background:#fff; line-height:20px; color:#b2b2b2; }
+#side_box div.side li.weibo a i{ display:inline-block; width:25px; height:25px; background:url(../images/side/side_weibo_icon.png) no-repeat;}
+#side_box div.side li.weibo a:hover{ color:#9a0909;}
+#side_box div.side li.weibo a:hover i{ background:url(../images/side/side_weibo_icon_h.png) no-repeat;}
+
+#side_box div.side li.subscribe a{ display:inline-block; width:48px; height:55px; text-align:center; line-height:44px; background:#fff; line-height:20px; color:#b2b2b2; }
+#side_box div.side li.subscribe a i{ display:inline-block; width:25px; height:25px; background:url(../images/side/side_subscribe_icon.png) no-repeat;}
+#side_box div.side li.subscribe a:hover{ color:#188eee;}
+#side_box div.side li.subscribe a:hover i{ background:url(../images/side/side_subscribe_icon_h.png) no-repeat;}
+
+#side_box div.side li.service a{ display:inline-block; width:48px; height:55px; text-align:center; line-height:44px; background:#fff; line-height:20px; color:#b2b2b2; }
+#side_box div.side li.service a i{ display:inline-block; width:25px; height:25px; background:url(../images/side/side_service_icon.png) no-repeat;}
+#side_box div.side li.service a:hover{ color:#d59e26;}
+#side_box div.side li.service a:hover i{ background:url(../images/side/side_service_icon_h.png) no-repeat;}
+#side_box div.side li.package a{ display:inline-block; width:48px; height:55px; text-align:center; line-height:44px; background:#fff; line-height:20px; color:#b2b2b2; }
+#side_box div.side li.package a i{ display:inline-block; width:25px; height:25px; background:url(../images/side/side_package_icon.png) no-repeat;}
+#side_box div.side li.package a:hover{ color:#f95eff;}
+#side_box div.side li.package a:hover i{ background:url(../images/side/side_package_icon_h.png) no-repeat;}
+#side_box div.side div.hide{ border-radius:0 0 10px 10px; overflow: hidden;}
+#side_box div.side div.hide a{ display:inline-block; width:48px; height:44px; text-align:center; line-height:44px; background:#fff; border-top:1px solid #f1f1f1; border-radius: 0px 0px 5px 5px; overflow: hidden;}
+#side_box div.side div.hide a i{ display:inline-block; width:16px; height:11px; background:url(../images/side/side_hide_icon.png) no-repeat; margin:15px 0px 0px 0px;}
+#side_box div.side div.hide a.up i{ background:url(../images/side/side_hide_up_icon.png) no-repeat;}
+#side_box div.side div.hide a:hover{ background:#2064ca;}
+#side_box div.side div.hide a:hover i{ background:url(../images/side/side_hide_icon_h.png) no-repeat;}
+#side_box div.side div.hide a.up:hover i{ background:url(../images/side/side_hide_up_icon_h.png) no-repeat;}
+
+
+
+
+#side_box div.window_box { display: none;}
+#side_box div.window_box div.bg{ position: fixed; left: 0px; top: 0; width: 100%; height: 100%; background: #333; opacity: 0.8; z-index: 4}
+#side_box div.window_box div.window{ position: fixed; left: 50%; top: 50%; margin: -332px 0px 0px -402px; width: 804px; height: 665px; background: url(../images/side/windows_bg.png) no-repeat; z-index: 5}
+#side_box div.window_box div.window a.close{ display: inline-block; width: 33px; height: 33px; background: url(../images/side/close.png) no-repeat; float: right; margin: 30px -100px 0px 0px; cursor: pointer;}
+#side_box div.window_box div.window ul{ float: left; margin: 140px 0px 0px 95px;}
+#side_box div.window_box div.window ul li{ float: left; width: 130px; height: 285px; overflow: hidden;}
+#side_box div.window_box div.window ul li img{ border:3px solid #fff; border-radius:5px; overflow:hidden;}
+#side_box div.window_box div.window ul li p{ font-size:14px; color:#fff; margin:5px 0px 15px 30px;}
+#side_box div.window_box div.window ul li:nth-child(1){ margin:0px 110px 0px 0px;}
+#side_box div.window_box div.window ul li:nth-child(2){ margin:0px 115px 0px 0px;}
+
+
+.select_box{ position:relative; width:165px; display:inline-block; margin:0px 10px 0px 0px;}
+.select_box div.text { height:20px;}
+.select_box div.text span{ float:left; font-size:14px; color:#808080; display:inline-block; width:80% !important; height: 20px; overflow: hidden;}
+.select_box div.text i{ display:inline-block; width:12px; height:8px; background:url(../images/2017/select_down.png); float: right; margin:5px 0px 0px 5px;}
+.select_box ul.list{ position:absolute; top:20px; left:0; max-height:180px; background:#fff; width:100%; overflow-y:scroll; overflow-x: hidden; display:none; z-index:88;}
+.select_box ul.list li{ height:30px; line-height:30px; color:#808080; padding:0px 5px 0px 5px; cursor:pointer;}
+.select_box ul.list li span{  font-size:12px !important; float:none !important; color:#808080 !important; width:100% !important;}
+.select_box ul.list li:hover{ background:#188eee;}
+.select_box ul.list li:hover span{ color:#ffffff !important;}
+
+
+
+//¹ã¸æÎ»
+#home_101 #solid{width:100%; height:380px; clear:both; position:relative;}
+#home_101 #solid .solid0,#solid .solid1,#solid .solid2,#solid .solid3,#solid .solid4{position:absolute; left:0px; top:0px; width:100%; height:380px; display:none;}
+#home_101 #solid .solid0{ background:#78c4db;}
+#home_101 #solid .solid1{ background:#c5c9db;}
+#home_101 #solid .solid2{ background:#e7dfd1;}
+#home_101 #solid .solid3{ background:#e7dfd1;}
+#home_101 #solid .solid4{ background:#e7dfd1;}
+#home_101 #solid ul{margin:0px; padding:0px; list-style:none;	}
+#home_101 #solid ul li{ position:absolute; left:50%; top:0px; width:905px; height:380px; margin-left:-600px; display:none; cursor:pointer;}
+#home_101 #solid #btt{ width: 1200px;  height: 35px; top: 345px; left: 50%; position: relative; margin-left: -600px;}
+#home_101 #solid #btt span{position:absolute; top:15px; left:45%; display:block; width:30px; height:8px; margin:0 15px; text-align:center; background:#fff; z-index:3; cursor:pointer;
+                         filter:alpha(opacity=70); /*IEæ»¤é??ï¼?????åº?50%*/ -moz-opacity:0.7; /*Firefoxç§???ï¼?????åº?50%*/ opacity:0.7;/*?¶ä?ï¼?????åº?50%*/}
+#home_102{ margin:0px 0px 5px 0px;}
+#home_103{ float:left; width:110%; margin:20px 0px 0px 0px;}
+#home_103 li{ float:left; margin:0px 20px 20px 0px; width:214px; height:95px; overflow:hidden; border:1px solid #ebebeb;}
+#home_103 li a{ display:block; padding:20px 10px; overflow:hidden; text-align:center; line-height:15px;}
+#home_103 li a span.name{ font-size:20px; color:#808080; display:inline-block; width:100%; height:25px; line-height:25px; overflow:hidden;}
+#home_103 li a span.str{ font-size:14px; color:#cccccc; display:inline-block; width:100%; height:20px; line-height:20px; margin:10px 0px 0px 0px; overflow:hidden;}
+#home_103 li:hover{ box-shadow: 0px 0px 3px 3px #eae7e7;}
+#home_104{ float:left; width:110%; margin:20px 0px 0px 0px;}
+#home_104 li{ float:left; margin:0px 20px 20px 0px; width:214px; height:95px; overflow:hidden; border:1px solid #ebebeb;}
+#home_104 li a{ display:block; padding:0;}
+#home_201{ position:relative; top:0; left:0; z-index:1;}
+#home_201 img{ width: 100%;}
+#list_301{float: left; width: 280px; height: 280px; overflow: hidden; background: #fff;}
+#list_302{float: left; width: 1200px; height: 100px; margin: 20px 0px 0px 0px;}
+#page_303{ width: 180px; height: 180px; margin: 0px 0px 20px 0px; float: left;}
+#page_304{ width: 180px; height: 180px; margin: 0px 0px 20px 0px; float: left;}
+#list_401{float: left; width: 280px; height: 280px; overflow: hidden; background: #fff;}
+#list_402{float: left; width: 280px; height: 280px; overflow: hidden; background: #fff;}
+#page_403{width: 280px;  height: 280px;  margin: 20px 0px 0px 0px; float: right;}
+#page_502{width: 280px;  height: 280px;  margin: 10px 0px 0px 0px;}
+div#home_703{ position: fixed; bottom: 0; left: 0; width: 100%; height: 120px;}
+div#home_703 img{ position: absolute; left: 50%; margin: 0 0 0 -960px;}
+div#home_703 a.close{ position:absolute; right:0; top:0; display:inline-block; background:url(../images/2017/close.png); width:9px; height:9px;}
+
+
+.all_kdls_window{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3;}
+.all_kdls_window .box{ width:540px; height: 270px; background: url(../images/2017/kdls-20190705.jpg); background-size: 540px 270px; position: fixed; top: 20%; left: 50%; margin: 0 0 0 -270px; z-index: 3}
+.all_kdls_window p{ color: #fff; font-size: 16px; margin: 115px 0 0 65px;}
+.all_kdls_window .bg{ background: #000; opacity: 0.6; width: 100%; height: 100%;}
+.all_kdls_window img{ margin: 25px 0 0 40px;}
+.all_kdls_window  a.close{ display: inline-block; width: 33px; height: 33px; background: url(../images/side/close.png) no-repeat; float: right; margin: -170px -45px 0px 0px; cursor: pointer;}

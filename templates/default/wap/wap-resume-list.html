@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=false;"  />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>简历列表 - {#$QISHI.site_name#}</title>
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/resume.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+<script src="js/jquery.common.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//打开顶部菜单
+	$("#topmenu_sub").click( function () { 
+		$("#topmenu").slideToggle("fast");
+	});
+	
+	
+	OpenCity("#district_input","#district_cn","#district","#sdistrict","请选择地区");
+	//
+	$("#key").focus(function()
+	{
+		var patrn=/^(请输入关键字)/i; 
+		var key=$("#key").val();
+		if (patrn.exec(key))
+		{
+		$("#key").val('');
+		}
+	});
+	$("#clearkey").click( function () {
+	 $("#key").val('');
+	});
+	$(".resume_list .list").click(function(){
+		window.location.href=$(this).attr("url"); 
+	});
+	{#if $resume#}
+	$(".more").click(function(){
+		$(this).hide();
+		var offset=$(".resume_list div[class='list']").last().attr('id');
+		offset=parseInt(offset.substr(3));
+		$.get("{#$QISHI.wap_domain#}/plus/wap_ajax.php?act=ajaxresumelist&offset="+(offset+5)+"&rows=5", function(result){
+		    if(result=="-1"){
+		    	$(".more").show();
+		    	$(".more").html("没有更多简历了");
+		    }else{
+		    	$(".showlist").append(result);
+		    	$(".more").show();
+				$(".resume_list .list").click(function(){
+					window.location.href=$(this).attr("url"); 
+				});
+		    }
+		    
+		  });
+	});
+	{#/if#}
+	$(".so_sub").click(function(){
+		var patrn=/^(请输入关键字)/i; 
+		var key=$("#key").val();
+		if (patrn.exec(key))
+		{
+		key = "";
+		}
+		var district = "{#$smarty.get.district#}";
+		var sdistrict = "{#$smarty.get.sdistrict#}";
+		var url = "wap-resume-list.php";
+		window.location.href=url+"?key="+key+"&district="+district+"&sdistrict="+sdistrict; 
+	});
+});
+</script>
+</head>
+<body>
+<div class="sub_bodybg"></div>
+<div class="sub_head_top">
+	<div class="title">搜索简历</div>
+	<div class="back" id="pageback"><img src="images/18.jpg" alt="#"   border="0"/></div>  
+	<div class="menu" id="topmenu_sub"><a  ><img src="images/2.jpg"  border="0"/></a></div>
+</div>
+
+<!--快捷按钮 -->
+{#include file="top-menu.html"#}
+<!--快捷按钮 -->
+<!--关键字搜索 -->
+<div class="resume_so">
+	<input name="key" type="text"  id="key"  class="keyinput" value="{#if $smarty.get.key==""#}请输入关键字{#else#}{#$smarty.get.key#}{#/if#}"/>
+	<div class="clearkey" id="clearkey"><img src="images/17.jpg"  border="0"/></div>
+    <div class="so_sub"><img src="images/19.jpg"  border="0"/></div>
+</div>
+<!--更多搜索条件 -->
+<div class="resume_so_menu">
+  <div class="menulistbox">职位</div>
+  <div class="menulistbox">地区</div>
+  <div class="menulistbox">更多</div>
+  <div class="menulistbox last">排序</div>
+  <div class="clear"></div>
+</div>
+
+<div class="resume_list">
+<div class="showlist">
+{#foreach from=$resume item=list#}
+	<div class="list" id="li-0" url="{#$list.url#}">
+	  <span><a href="{#$list.url#}">{#$list.fullname#}({#$list.sex_cn#})</a></span><br />
+学历：{#$list.education_cn#}  工作经验：{#$list.experience_cn#}<br />
+{#$list.intention_jobs#}
+	</div>
+{#/foreach#}
+</div>
+{#if $resume#}
+    <div class="more link_bk"><a  >更多简历...</a></div>	
+{#else#}
+    <div class="more link_bk">没有更多简历了</div>	
+{#/if#}
+</div>
+{#include file="wap/footer.htm"#}
+</body>
+</html>

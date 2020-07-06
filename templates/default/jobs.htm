@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />{#qishi_pageinfo set="列表名:page,调用:QS_jobs"#}
+        <title>{#$page.title#}</title>
+        <meta name="description" content="{#$page.description#}"/>
+        <meta name="keywords" content="{#$page.keywords#}"/>
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+        <script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+        <script src="{#$QISHI.site_template#}js/jquery.jobs-list.js" type='text/javascript'></script>
+        <script src="{#$QISHI.site_template#}js/jquery.jobs-search.js" type='text/javascript'></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                allaround('{#$QISHI.website_dir#}', "");
+                // 显示行业
+                $("#jobsTrad").hover(function () {
+                    $("#divTradCate").show();
+                }, function () {
+                    $("#divTradCate").hide();
+                });
+                // 显示职位
+                $("#jobsSort").hover(function () {
+                    $("#divJobCate").show();
+                    $("#divJobCate li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divJobCate").hide();
+                });
+                // 显示地区
+                $("#jobsCity").hover(function () {
+                    $("#divCityCate").show();
+                    $("#divCityCate li").hover(function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).addClass('selected');
+                            $(this).find('.subcate').show();
+                        } else {
+                            $(this).find('a').css("color", "#f77d40");
+                        }
+                    }, function () {
+                        if ($(this).find('.subcate').length > 0) {
+                            $(this).removeClass('selected');
+                            $(this).find('.subcate').hide();
+                        } else {
+                            $(this).find('a').css("color", "#0180cf");
+                        }
+                    });
+                }, function () {
+                    $("#divCityCate").hide();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div class="page_location link_bk">
+            当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_jobs"|qishi_url#}">招聘信息</a>
+        </div>
+        <div id="searckeybox" class="jobsearch">
+            <!--
+                 <div class="jobnav">
+                        <span>搜索方式 : </span>
+                        <a href="{#"QS_resumelist"|qishi_url#}" class="select">全能搜索</a>
+                        <a href="{#"QS_resumetag"|qishi_url#}" >按标签搜索</a>
+                 </div>
+            -->
+            <div class="search_type" id="district_id" cn="district_cn">
+                <p class="flag" id="city">请选择地区分类 <i></i></p>
+                <div class="type_box">
+                    <p class="title">
+                        <span>选择城市</span>
+                        <a title="不选" class="no_select"  >不选</a>
+                    </p>
+                    <div class="hot">
+                        <p>热门城市</p>
+                        <ul>
+                            {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city item=c#}
+                            <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                            {#/foreach#}
+                        </ul>
+                    </div>
+                    <ul class="selected">
+                        <li id="select_bt" class="selected">请选择省份</li>
+                        <li id="selected_bt" style="display:none;"></li>
+                    </ul>
+                    <ul id='city_box' class="select_box">
+                        {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                        <!-- 以下为循环数组category内容  -->
+                        {#foreach from=$city item=c#}
+                        <li val="{#$c.parentid#}.{#$c.id#}.0">{#$c.categoryname#}</li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+            </div>
+            <input id="district_id" type="hidden" value="" name="district_id">
+                <input id="district_cn" type="hidden" value="" name="district_cn"/>
+
+
+                <div class="search_type" id="jobs_id" cn="jobs_cn">
+                    <p class="flag" id="job_type">请选择职位类别<i></i></p>
+                    <div class="job_type_box">
+                        <p class="title">
+                            <span>选择职位类别</span>
+                            <a title="不选" class="no_select"  >不选</a>
+                        </p>
+                        <ul class="job_ptype_ul">
+                            {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$category item=list#}
+                            {#if $list.parentid == 0 #}
+                            <li val="{#$list.id#}">
+                                <span>{#$list.categoryname#}</span>
+                                <u>></u>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <ul class="job_type_ul">
+                        </ul>
+                    </div>
+                </div>
+                <input name="jobs_cn" id="jobs_cn" type="hidden" value="" />
+                <input name="jobs_id" id="jobs_id" type="hidden" value="" />
+                <div class="keybox">
+                    <input type="text" id="searckey" name="key" value="请输入关键字" />
+                    <input type="hidden" value="" name="education">
+                        <input type="hidden" value="" name="experience">
+                            <input type="hidden" value="" name="photo">
+                                <input type="hidden" value="" name="talent">
+                                    <input type="hidden" value="" name="sort">
+                                        <input type="hidden" value="1" name="page">
+                                            </div>
+                                            <div class="btnsearch" id="btnsearch" ty="QS_resumelist">搜 索</div>
+                                            <a class="more" id="showmoreoption" href="javascript:;"><span>收起更多</span><i class="sq"></i></a>
+                                            </div>
+                                            <!--
+                                            <div class="jobsearch">
+                                                     <div class="jobnav">
+                                                            <span>搜索方式 : </span>
+                                                            <a href="{#"QS_jobslist"|qishi_url#}" class="select">全能搜索</a>
+                                            <!--<a href="{#"QS_street"|qishi_url#}">按道路搜索</a>--><!--
+                                            <a href="{#"QS_map,id:1"|qishi_url#}">地图搜索</a>
+                                            <a href="{#"QS_jobtag"|qishi_url#}" >按标签搜索</a>
+                                     </div>
+                                     <div class="jobmain" id="searckeybox">
+                                            <div class="box2" id="jobsSort">
+                                                    <div class="itemT">
+                                                            <span id="jobText">请选择职位类别</span><i></i>
+                                                    </div>
+                                                    <div style="display:none;" id="divJobCate" class="divJobCate">
+                                                            <table class="jobcatebox">
+                                                                    <div class="acquired">
+                                                                            <div class="l">已选</div>
+                                                                            <div class="c" id="jobAcq"></div>
+                                                                            <div class="r">
+                                                                                    <div class="empty" id="jobEmpty"></div>
+                                                                                    <div class="sure" id="jobSure">确定</div>
+                                                                                    <div class="container" id="jobdropcontent">
+                                                                                            <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                                                            <s><e></e></s>
+                                                                                    </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <tbody></tbody>
+                                                            </table>
+                                                    </div>
+                                                    <input name="jobs_cn" id="jobs_cn" type="hidden" value="" />
+                                                    <input name="jobs_id" id="jobs_id" type="hidden" value="" />
+                                            </div>-->
+                                            <!--<div class="box" id="jobsTrad">
+                                                    <div class="itemT">
+                                                            <span id="tradText">请选择行业类别</span><i></i>
+                                                    </div>
+                                                    <div id="divTradCate" class="infoList divIndCate" style="display:none">
+                                                            <div class="acquired">
+                                                                    <div class="l">已选</div>
+                                                                    <div class="c" id="tradAcq"></div>
+                                                                    <div class="r">
+                                                                            <div class="empty" id="tradEmpty"></div>
+                                                                            <div class="sure" id="tradSure">确定</div>
+                                                                            <div class="container" id="tradropcontent">
+                                                                                    <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                                                    <s><e></e></s>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                            <ul class="indcatelist" id="tradList"></ul>
+                                                    </div>
+                                                    <input name="trade_cn" id="trade_cn" type="hidden" value="" />
+                                                    <input name="trade_id" id="trade_id" type="hidden" value="" />
+                                            </div>--><!--
+                                            <div class="box2" id="jobsCity">
+                                                    <div class="itemT">
+                                                            <span id="cityText">请选择地区分类</span><i></i>
+                                                    </div>
+                                                    <div style="display:none;left:-374px;" id="divCityCate" class="divJobCate">
+                                                            <table class="jobcatebox">
+                                                                    <div class="acquired">
+                                                                            <div class="l">已选</div>
+                                                                            <div class="c" id="cityAcq"></div>
+                                                                            <div class="r">
+                                                                                    <div class="empty" id="cityEmpty"></div>
+                                                                                    <div class="sure" id="citySure">确定</div>
+                                                                                    <div class="container" id="citydropcontent">
+                                                                                            <div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+                                                                                            <s><e></e></s>
+                                                                                    </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <tbody></tbody>
+                                                            </table>
+                                                    </div>
+                                        <input id="district_id" type="hidden" value="" name="district_id">
+                                        <input id="district_cn" type="hidden" value="" name="district_cn"/>
+                                            </div>
+                                            <div class="keybox">
+                                                    <input type="text" id="searckey" name="key" value="请输入关键字" />
+                                                    <input type="hidden" value="" name="wage">
+                                                    <input type="hidden" value="" name="education">
+                                                    <input type="hidden" value="" name="experience">
+                                                    <input type="hidden" value="" name="nature">
+                                                    <input type="hidden" value="" name="settr">
+                                                    <input type="hidden" value="" name="sort">
+                                                    <input type="hidden" value="1" name="page">
+                                            </div>
+                                            <div class="btnsearch" id="btnsearch">搜 索</div>
+                                            <a class="more" id="showmoreoption" href="javascript:;"><span>收起更多</span><i class="sq"></i></a>
+                                            <div class="clear"></div>
+                                     </div>
+                            </div>
+                                            -->
+                                            <div class="searoptions" id="searoptions">
+                                                <div class="list"><div class="tit">职位月薪：</div><div class="option" id="jobswage"></div></div>
+                                                <div class="list"><div class="tit">学历要求：</div><div class="option" id="jobseducation"></div></div>
+                                                <div class="list"><div class="tit">工作经验：</div><div class="option" id="jobsexperience"></div></div>
+                                                <div class="list"><div class="tit">工作性质：</div><div class="option" id="jobsnature"></div></div>
+                                                <div class="list">
+                                                    <div class="tit">更新时间：</div>
+                                                    <div class="option" id="jobsuptime">
+                                                        <a   class="opt" id="settr-3">3天内</a>
+                                                        <a   class="opt" id="settr-3">7天内</a>
+                                                        <a   class="opt" id="settr-3">15天内</a>
+                                                        <a   class="opt" id="settr-3">30天内</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {#qishi_ad set="显示数目:6,调用名称:jobsbanner,列表名:ad,文字长度:10"#}
+                                            {#if $ad#}
+                                            {#foreach from=$ad item=list#}
+                                            <div class="jobsad_1000">
+                                                <a target="_blank" href="/ad_count/index.php?ad_name=jobsad_1000&img={#$list.img_path#}&url={#$list.img_url#}"><img src="{#$list.img_path#}" width="1000" height="80"  border="0"></a>
+                                            </div>
+                                            {#/foreach#}
+                                            {#/if#}
+                                            <div class="jobsmix" id="jobsmix">
+                                                <div class="tit">
+                                                    <span class="slect">推荐职位</span><span>紧急招聘</span><span>最新职位</span>
+                                                    <div class="more">
+                                                        <a href="{#"QS_jobslist"|qishi_url#}" target="_blank">更多推荐职位>></a>
+                                                        <a href="{#"QS_jobslist"|qishi_url#}" target="_blank" style="display:none">更多紧急职位>></a>
+                                                        <a href="{#"QS_jobslist"|qishi_url#}" target="_blank" style="display:none">更多最新职位>></a>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                                <!-- 推荐职位 -->
+                                                <div class="info">
+                                                    {#qishi_jobs_list set="列表名:jobslist,显示数目:30,填补字符:...,职位名长度:6,企业名长度:16,推荐:1,排序:rtime>desc"#}
+                                                    {#foreach from=$jobslist item=list#}
+                                                    <div class="list">
+                                                        <div class="jobname"><a href="{#$list.jobs_url#}" target="_blank" style="color:#0D69CB;font-size:14px;">{#$list.jobs_name#}</a></div>
+                                                        <div class="clear"></div>
+                                                        <div class="cominfo">
+                                                            <span class="comname"><a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a></span>
+                                                            <span class="retime time">{#$list.refreshtime|date_format:'%m-%d'#}</span>
+                                                        </div>
+                                                    </div>
+                                                    {#/foreach#}
+                                                    {#if $jobslist#}
+                                                    <div class="list more"><a href="{#"QS_jobslist"|qishi_url#}" target="_blank"><font style="color:#0D69CB;">+more</font><br>查看更多</a></div>
+                                                    {#/if#}
+                                                </div>
+                                                <!-- 紧急招聘 -->
+                                                <div class="info" style="display:none">
+                                                    {#qishi_jobs_list set="列表名:jobslist,显示数目:30,填补字符:...,职位名长度:6,企业名长度:16,紧急招聘:1,排序:rtime>desc"#}
+                                                    {#foreach from=$jobslist item=list#}
+                                                    <div class="list">
+                                                        <div class="jobname"><a href="{#$list.jobs_url#}" target="_blank" style="color:#0D69CB;font-size:14px;">{#$list.jobs_name#}</a></div>
+                                                        <div class="clear"></div>
+                                                        <div class="cominfo">
+                                                            <span class="comname"><a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a></span>
+                                                            <span class="retime time">{#$list.refreshtime|date_format:'%m-%d'#}</span>
+                                                        </div>
+                                                    </div>
+                                                    {#/foreach#}
+                                                    {#if $jobslist#}
+                                                    <div class="list more"><a href="{#"QS_jobslist"|qishi_url#}" target="_blank"><font style="color:#0D69CB;">+more</font><br>查看更多</a></div>
+                                                    {#/if#}
+                                                </div>
+                                                <!-- 最新职位 -->
+                                                <div class="info" style="display:none">
+                                                    {#qishi_jobs_list set="列表名:jobslist,显示数目:30,填补字符:...,职位名长度:6,企业名长度:16,排序:rtime>desc"#}
+                                                    {#foreach from=$jobslist item=list#}
+                                                    <div class="list">
+                                                        <div class="jobname"><a href="{#$list.jobs_url#}" target="_blank" style="color:#0D69CB;font-size:14px;">{#$list.jobs_name#}</a></div>
+                                                        {#if $list.recommend == 1#}
+                                                        <div class="jobtypejian"></div>
+                                                        {#/if#}
+                                                        {#if $list.emergency == 1#}
+                                                        <div class="jobtypeji"></div>
+                                                        {#/if#}
+                                                        <div class="clear"></div>
+                                                        <div class="cominfo">
+                                                            <span class="comname"><a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a></span>
+                                                            <span class="retime time">{#$list.refreshtime|date_format:'%m-%d'#}</span>
+                                                        </div>
+                                                    </div>
+                                                    {#/foreach#}
+                                                    {#if $jobslist#}
+                                                    <div class="list more"><a href="{#"QS_jobslist"|qishi_url#}" target="_blank"><font style="color:#0D69CB;">+more</font><br>查看更多</a></div>
+                                                    {#/if#}
+                                                </div>
+                                            </div>
+                                            {#include file="footer.htm"#}
+                                            </body>
+                                            </html>

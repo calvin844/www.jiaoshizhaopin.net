@@ -1,0 +1,148 @@
+body { background:#fafafa;}
+#content .search_box{ margin: 40px 0px 15px 0px; float: left; width: 100%;}
+#content .search_box h3{ float: left; font-size: 26px; color: red; margin: 2px 10px 0 20px;}
+#content .search_box form{ float:right;}
+#content .search_box input.key{ display:inline-block; float:left; height:42px; line-height:42px; width:180px; padding:0 10px 0 10px; border-top:1px solid #ebebeb; border-left:1px solid #ebebeb; border-bottom:1px solid #ebebeb; background:#fff; font-size:14px; color:#b2b2b2;}
+#content .search_box input.focus{ width:680px; border-top:1px solid #188eee; border-left:1px solid #188eee; border-bottom:1px solid #188eee; font-size:14px; color:#333;}
+#content .search_box input.submit{ display:inline-block; float:left; height:44px; width:100px; background:url(../../images/2017/submit_bt.jpg) no-repeat; cursor:pointer;}
+#content marquee a{ color:#f3711a; float:left; margin:0px 10px 0px 0px;}
+#content marquee a:hover{ color:#fa7c5c; text-decoration:underline;}
+#content p.nav{ margin:20px 0px 30px 0px;}
+#content p.nav a{ color:#808080; font-size:14px;}
+#content p.nav a:hover{ text-decoration:underline;}
+#content .district_box{ width:100%; float:left; background:#fff; padding:10px 0px 10px 0px; margin:0px 0px 40px 0px;}
+#content .district_box .left{ text-align:center; height:100%; line-height:15px; margin:0px 10px 0px 20px;}
+#content .district_box .left i{ display:inline-block; width:23px; height:30px; background:url(../../images/2017/district_icon.png) no-repeat; margin:15px 0px 0px 5px; background-size: 18px 24px; }
+#content .district_box .left span{ font-size:14px; color:#188eee;}
+#content .district_box ul{ height:80px; overflow:hidden; overflow:hidden;}
+#content .district_box ul li{ float:left; margin:0px 20px 5px 0px;}
+#content .district_box ul li a{ padding:8px 10px 8px 10px; font-size:14px; color:#666; background:#fff; float:left;}
+#content .district_box ul li a:hover{ color:#fff; background:#eb791e;}
+#content .district_box ul li a.hover{ color:#fff; background:#eb791e;}
+#content .b_title{ float:left;}
+#content .b_title b{ float: left; display: inline-block; width: 5px; height: 20px; margin: 4px 5px 0px 0px; background: #f56540;}
+#content .b_title span{ font-size:20px; color:#333;}
+#content .title_box{ padding:40px 0px 20px 0px; background: #fff;}
+#content .title_box h1.title{ font-size:36px; color:#333; text-align:center; margin:0px 0px 20px 0px;}
+#content .title_box div.info{ padding:10px 0px 10px 0px; border-bottom:1px solid #ebebeb; height:20px;}
+#content .title_box div.info p.left{ color:#ccc; margin: 0 0 0 20px;}
+#content .title_box div.info p.right{ color:#ccc; margin:0px 20px 0px 0px;}
+#content .title_box div.info p.right i.time{ display:inline-block; width:14px; height:14px; background:url(../../images/2017/clock_icon.png) no-repeat; margin:2px 5px 0px 0px; float: left;}
+#content .title_box div.info p.right i.click{ display:inline-block; width:19px; height:14px; background:url(../../images/2017/eye_icon.png) no-repeat; margin:2px 5px 0px 0px; float: left;}
+#content .title_box div.info p.right span{ color:#ccc; float: left;}
+#content .progress_box{ float:left; padding:0px 20px 30px 20px; background: #fff;}
+#content .progress_box div.left{ width:978px;}
+#content .progress_box div.left span.state{ float:left; color:#188eee; line-height:20px; margin:5px 0px 0px 10px;}
+#content .progress_box div.left span.endtime{ float:right; color:#188eee; line-height:20px; margin:5px 0px 0px 10px;}
+#content .progress_box div.left div.progress{ width:100%; background:#fff; height:40px; border-radius:5px; overflow:hidden; margin:10px 0px 0px 0px; border: 1px solid #ebebeb;}
+#content .progress_box div.left div.progress p{ display:block; height:40px; background:#428bca;}
+#content .progress_box div.right{ margin:37px 0px 0px 10px;}
+#content .progress_box div.right .apply_bt{ display:inline-block; width:115px; height:40px; line-height:40px; text-align:center; color:#fff; font-size:16px; background:#ff9900; border-radius:5px; overflow:hidden; float:left;}
+#content .progress_box div.right .apply_bt:hover{ background:#ffbe5c;}
+#content .progress_box div.right .no_apply{ display:inline-block; width:115px; height:40px; line-height:40px; text-align:center; color:#fff; font-size:16px; border-radius:5px; overflow:hidden; float:left; background:#cccccc;}
+#content .progress_box div.right .fav_bt{ color:#428bca; float:left; margin:15px 0px 0px 10px;}
+#content .progress_box div.right .fav_bt:hover{ color:#188eee; text-decoration:underline;}
+#content .progress_box div.right .fav_bt i{ display:inline-block; width:18px; height:16px; background:url(../../images/2017/love_icon.png) no-repeat; margin:0px 5px 0px 0px; float:left;}
+#content .content_box{ padding:10px 150px 30px 150px; background:#fff; margin:0px 0px 40px 0px; line-height: 36px; font-size: 16px; color:#333;}
+#content .content_box p{ line-height: 36px; margin: 14px 0; font-size: 16px; text-align:left; color:#333;}
+#content .content_box *{ line-height: 36px; margin: 14px 0; font-size: 16px; text-align:left; color:#333;}
+#content .content_box strong{ font-weight: bolder;}
+#content .content_box img{ max-width:100%; margin:0 auto;    display: table;}
+#content .jobs_box { float:left; width:1160px; margin:0px 0 40px 0px; background:#fff; padding:20px 20px 0 20px;}
+#content .jobs_box ul.jobs{ float:left; width:100%; margin:20px 0 0px 0px;}
+#content .jobs_box ul.jobs li{ float:left; margin:0px 10px 10px 0px; height:auto; padding:0; border:none; width:auto;}
+#content .jobs_box ul.jobs li p{ display:inline-block; height:30px; line-height:30px; padding:0px 10px 0px 10px; border:1px solid #188eee; text-align:center; color:#188eee; border-radius:5px; overflow:hidden;}
+#content .jobs_box ul.jobs li p span{ color:#f3711a;}
+#content .join_box{ width:100%; overflow:hidden;}
+#content .join_box .box_bg{ width:1210px;}
+#content .join_box .box_bg div{ margin:0px 10px 10px 0px; background:#fff; float:left;}
+#content .join_box div.title{ height:50px; width:1200px;}
+#content .join_box div.title span.b1{ float:left; display:inline-block; line-height:50px; margin:0px 5px 0px 20px; font-size:20px; color:#428bca;}
+#content .join_box div.title span.b2{ float:left; display:inline-block; line-height:50px; margin:0px 5px 0px 0px; color:#ccc;}
+#content .join_box div.title span.b3{ float:left; display:inline-block; line-height:50px; color:#333;}
+#content .join_box div.title a.apply_bt{ float:right; display:inline-block; width:120px; height:50px; line-height:50px; text-align:center; color:#fff; font-size:20px; background:#ff9900;}
+#content .join_box div.title a.apply_bt:hover{ background:#ffbe5c;}
+#content .join_box div.title a.no_apply{ float:right; display:inline-block; width:120px; height:50px; line-height:50px; text-align:center; color:#fff; font-size:20px; background:#cccccc;}
+#content .join_box div.title .no_apply:hover{ background:#cccccc !important;}
+#content .join_box div.district{ height:50px; width:595px; overflow:hidden;}
+#content .join_box div.district p{ margin:0px 0px 0px 20px; font-size:16px; color:#808080; line-height:50px;}
+#content .join_box div.join_way{ height:50px; width:595px; overflow:hidden;}
+#content .join_box div.join_way p{ margin:0px 0px 0px 20px; font-size:16px; color:#808080; line-height:50px;}
+#content .join_box div.contact{ padding:20px; width:1160px;}
+#content .join_box div.contact p{ font-size:16px; color:#808080;}
+#content .join_box div.contact p a{ font-size:16px; color:#808080;}
+#content .join_box div.contact p a:hover{ text-decoration:underline;}
+#content .join_box div.contact p.p1{ display:inline-block; width:560px;}
+#content .join_box div.contact p.p2{ margin:40px 0px 40px 0px;}
+#content .join_box div.contact p.p3{ line-height:25px;}
+#content .join_box div.email{ height:50px; width:1200px; overflow:hidden;}
+#content .join_box div.email p{ margin:0px 0px 0px 20px; font-size:16px; color:#808080; line-height:50px;}
+#content .join_box div.note{ width:1200px; overflow:hidden; padding:20px 0px 20px 0px;}
+#content .join_box div.note p{ margin:0px 0px 0px 20px; font-size:16px; color:#808080; line-height:25px;}
+#content .join_box div.attachment{ width:1160px; overflow:hidden; padding:20px 20px 10px 20px;}
+#content .join_box div.attachment p{ width:100%; margin:0px 0px 10px 0px;}
+#content .join_box div.attachment p a{ color:#188eee; font-size:16px;}
+#content .join_box div.attachment p a:hover{ text-decoration:underline;}
+#content .service_box{ width:100%; overflow:hidden;}
+#content .service_box p.tips{ font-size:16px; color:#ff0000; margin:0px 0px 10px 0px; line-height:50px;}
+#content .service_box p.tips i{ display: inline-block; width: 29px; height: 27px; background:url(../../images/2017/news_details_tips_icon.png) no-repeat; margin: 8px 10px 0 20px; float: left; }
+#content .service_box p.tips span{ font-size:20px;}
+#content .service_box ul{ padding:20px 0px 0px 20px; background:#fff; float:left;}
+#content .service_box ul li{ float:left; margin:0px 20px 29px 0px;}
+#content .service_box ul li p{ text-align:center;}
+#content .course_box{ padding: 20px 0 20px 20px; background: #fff; margin: 40px 0px 0px 0px;}
+#content .course_box div.news{ width: 300px; float: left;}
+#content .course_box div.news ul{ width: 295px; height: 370px; overflow: hidden;}
+#content .course_box div.news ul li{ height: 73px; border-bottom: 1px dotted #dcdcdc;}
+#content .course_box div.news ul li a{ display: inline-block; max-width: 300px; height: 20px; line-height: 20px; overflow: hidden; font-size: 16px; color: #808080; margin: 18px 0px 0px 0px;}
+#content .course_box div.news ul li a:hover{ color:#188eee; text-decoration:underline;}
+#content .course_box div.news ul li p{ margin: 10px 0px 0px 0px;}
+#content .course_box div.news ul li p i{ display: inline-block; width: 14px; height: 14px; background:url(../../images/2017/clock_icon.png) no-repeat; margin: 1px 5px 0 0; float: left;}
+#content .course_box div.news ul li p span{ font-size: 12px; color: #ccc;}
+#content .course_box div.course{ margin: 0px 0px 0px 60px; width: 412px; float: left; overflow: hidden;}
+#content .course_box div.course ul{ margin: 20px 0 0 0; float: left; width: 430px; height: 335px; overflow: hidden;}
+#content .course_box div.course ul li{ float: left; margin: 0px 18px 10px 0px; width: 196px; height: 157px; overflow: hidden;}
+#content .course_box div.course ul li a.title{ display: inline-block; width: 196px; height: 38px; line-height: 38px; overflow: hidden; color: #333; font-size: 16px; text-align: center;}
+#content .course_box div.course ul li a.title:hover{ color:#188eee;}
+#content .course_box div.course a.more{ float: right; color: #ccc;}
+#content .course_box div.course a.more:hover{ color: #188eee;}
+#content .course_box div.ad_box{ width: 330px; height: 330px; float: right; margin: 0px 20px 0px 0px;}
+
+
+
+
+
+
+
+
+#content .other_box{ padding:20px; background:#fff; margin:40px 0px 20px 0px; float:left; width: 1160px;}
+#content .other_box a.more{ display:inline-block; width:82px; height:30px; line-height:30px; border:1px solid #f3711a; border-radius:5px; overflow:hidden; text-align:center; color:#f3711a; float:right;}
+#content .other_box a.more:hover{ background:#f3711a; color:#fff;}
+#content .other_box div.company { width:300px; float:left;}
+#content .other_box div.company ul{ width:300px; height:540px; overflow:hidden; margin:20px 0px 38px 0px;}
+#content .other_box div.company ul li{ width:258px; height:50px; overflow:hidden; padding:20px; background:#fff; border:1px solid #e8e8e8; margin:0px 0px 20px 0px;}
+#content .other_box div.company ul li a.name{ display:inline-block; max-width:100%; height:20px; overflow:hidden; line-height:20px; font-size:16px; color:#666; margin:0px 0px 15px 0px;}
+#content .other_box div.company ul li a.name:hover{ text-decoration:underline;}
+#content .other_box div.company ul li p.info{ width:100%; height:20px; line-height:20px; overflow:hidden; display:inline-block; color:#b2b2b2; font-size:14px;}
+#content .other_box div.company ul li p.info span{ color:#fa7c5c; font-size:14px;}
+#content .other_box div.company ul li p.info a{ color:#3275b1; font-size:14px;}
+#content .other_box div.company ul li p.info a:hover{ color:#188eee; text-decoration:underline;}
+#content .other_box div.company ul li:hover{ background:#3275b1; border:1px solid #3275b1;}
+#content .other_box div.company ul li:hover a.name{ color:#fff;}
+#content .other_box div.company ul li:hover p.info{ color:#fff;}
+#content .other_box div.company ul li:hover p.info a{ color:#fff;}
+#content .other_box div.jobs { width:410px; float:left; margin:0px 60px 0px 60px;}
+#content .other_box div.jobs ul{ width:410px; height:560px; overflow:hidden; margin:20px 0px 20px 0px;}
+#content .other_box div.jobs ul li{ width:370px; height:52px; overflow:hidden; padding:20px 20px 18px 20px; background:#fff; border-bottom:1px dotted #dcdcdc;}
+#content .other_box div.jobs ul li:hover{ background:#fafafa;}
+#content .other_box div.jobs ul li div.title{ margin:0px 0px 10px 0px; width:100%; height:20px; overflow:hidden;}
+#content .other_box div.jobs ul li div.title a{ font-size:16px; color:#3275b1;}
+#content .other_box div.jobs ul li div.title a:hover{ color:#188eee; text-decoration:underline;}
+#content .other_box div.jobs ul li div.title span{ font-size:16px; color:#666666;}
+#content .other_box div.jobs ul li div.info span.wage{ font-size:16px; color:#fa7c5c; margin:0px 35px 0px 0px;}
+#content .other_box div.jobs ul li div.info span.experience{ font-size:16px; color:#666; }
+#content .other_box div.ad_box { width:330px; float:left;}
+
+
+
+

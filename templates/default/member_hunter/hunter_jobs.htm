@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+            <title>{#$title#}</title>
+            <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+            <meta name="author" content="骑士CMS" />
+            <meta name="copyright" content="74cms.com" />
+            <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+            <link href="{#$QISHI.site_template#}css/user_hunter.css" rel="stylesheet" type="text/css" />
+            <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    //更多操作
+                    $(".publicity").hover(
+                            function () {
+                                $(this).children(".selbox").slideDown('fast');
+                            },
+                            function () {
+                                $(this).children(".selbox").hide();
+                            }
+                    );
+                    //更多操作-菜单效果
+                    $(".publicity .selbox li").hover(
+                            function () {
+                                $(this).css("background-color", "#F6F6F6");
+                            },
+                            function () {
+                                $(this).css("background-color", "#FFFFFF");
+                            }
+                    );
+                    {#if $QISHI.operation_hunter_mode == "1" && $points_rule.hunter_hunterhunter_hunterjobs_refresh.value > "0"#}
+                    $("#refresh").click(function () {
+                        var length = $("#form1 :checkbox[checked]").length;
+                        var refresh_point = "{#$points_rule.hunter_hunterhunter_hunterjobs_refresh.value#}";
+                        var total_point = length * refresh_point;
+                        alert("刷新职位可提高职位排名，每条职位消耗{#$points_rule.hunter_hunterhunter_hunterjobs_refresh.value#}{#$QISHI.hunter_points_quantifier#}{#$QISHI.hunter_points_byname#}，您选择了" + length + "条职位，总共需要消耗" + total_point + "{#$QISHI.hunter_points_quantifier#}{#$QISHI.hunter_points_byname#}，确定刷新吗？")
+                    });
+                    {#/if#}
+                });
+
+            </script>
+    </head>
+    <body>
+        {#include file="user/header.htm"#}
+
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 职位管理</div>
+        <div class="usermain">
+            <div class="leftmenu  hunter link_bk">
+                {#include file="member_hunter/left.htm"#}
+            </div>
+            <div class="rightmain">
+
+                <div class="bbox1 link_bk">
+                    <div class="topnav">
+                        <div class="titleH1">
+                            <div class="h1-title">管理职位</div>
+                        </div>
+                        <div class="title_text">
+                            {#if $QISHI.operation_hunter_mode=="2"#}
+                            您已发布&nbsp;<span>{#$total[2]#}</span>&nbsp;个职位，还可发布&nbsp;<span>{#$setmeal.jobs_ordinary#}</span>&nbsp;个职位。
+                            {#/if#}
+                            <div class="but95lan" onclick="javascript:location.href = '?act=addjobs'">立即发布</div>
+                        </div>
+
+                        <div class="navs">
+                            <a   class="se">所有职位</a>
+
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                    <form id="form1" name="form1" method="post" action="?act=jobs_perform">
+                        <!-- 所有职位 -->
+                        {#if $smarty.get.jobtype==""#}
+                        <div class="manage_list">
+                            <div class="mlist_tit">
+                                <div class="mlistt1"><input type="checkbox" id="chk" name="chkAll">&nbsp;职位名称</div>
+                                <div class="mlistt2">发布期限</div>
+                                <div class="mlistt3" style="text-align:center;">刷新时间</div>
+                                <div class="mlistt4" style="text-align:center;">浏览</div>
+                                <div class="mlistt5">状态</div>
+                                <div class="mlistt7">更多操作</div>
+                            </div>
+                            {#if $hunterjobs#}
+                            {#foreach from=$hunterjobs item=li#}
+                            <div class="mlist_txt">
+                                <div class="mlistc1"><input name="y_id[]" type="checkbox" id="y_id"  value="{#$li.id#}"/>&nbsp;<a href="{#$li.jobs_url#}" target="_blank">{#$li.jobs_name#}</a></div>
+                                <div class="mlistc2">{#$li.addtime|date_format:"%Y-%m-%d"#} 至 {#$li.deadline|date_format:"%Y-%m-%d"#}</div>
+                                <div class="mlistc3" style="text-align:center;">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+                                <div class="mlistc4" style="text-align:center;">{#$li.click#}</div>
+                                <div class="mlistc5">{#$li.status_cn#}</div>
+                                <div class="mlistc7">
+                                    <div class="publicity">
+                                        <div class="input_text_50_z" onclick="javascript:location.href = '?act=jobs_perform&delete=1&y_id={#$li.id#}'">删除</div>
+                                        <ul style="display:none;" class="selbox">
+                                            <li><a href="?act=edit_jobs&id={#$li.id#}">修改</a></li>
+                                            {#if $li.status=="2"#}<li><a href="?act=jobs_perform&display1=1&y_id={#$li.id#}">恢复</a></li>{#/if#}
+                                            {#if $li.status=="1"#}<li><a href="?act=jobs_perform&display2=1&y_id={#$li.id#}">暂停</a></li>{#/if#}
+                                            <li><a target="_blank" href="{#"QS_resumelist,talent:2-trade:"|cat:$li.trade|qishi_url#}">匹配</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {#/foreach#}
+                            <div class="mlist_txt last">
+                                <input type="submit" name="delete" value="删除职位" class="but100lan" id="delete"/>
+                                <input type="submit" name="refresh" value="刷新职位" class="but100lan" id="refresh"/>
+                                <input type="submit" name="display2" value="暂停职位" class="but100lan" id="display2"/>
+                                <input type="submit" name="display1" value="恢复职位" class="but100lan" id="display1"/>
+                            </div>
+                            <div class="clear"></div>
+                            {#if $page#}
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+                                <tr>
+                                    <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+                                </tr>
+                            </table>
+                            {#/if#}
+                            {#else#}
+                            <div class="emptytip">您没有发布职位！</div>
+                            {#/if#}
+                        </div>
+                        {#/if#}
+                        <!-- 所有职位 结束 -->
+                    </form>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

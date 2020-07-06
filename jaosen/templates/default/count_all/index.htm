@@ -1,0 +1,113 @@
+{#include file="sys/admin_header.htm"#}
+<style>
+    table{ border: 1px solid #ccc;}
+    table th{ border: 1px solid #ccc; font-size: 18px; padding: 10px;}
+    table tr:hover{ background: #c0c0c0;}
+    table td{ border: 1px solid #ccc; font-size: 14px; text-align: center; padding: 10px; width: 78px;}
+    .d_name{ text-align: left;}
+
+</style>
+<div class="admin_main_nr_dbox">
+    <form method="get" action="" >
+        <div>
+            <label>时间：</label>
+            <span>从</span>
+            <input type="text" name="start" />
+            <span>到</span>
+            <input type="text" name="end" />
+            <label>(2010-03-24 08:15:42)</label>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="提交"/>
+        </div>
+    </form>
+    <br/>
+    <br/>
+    <div class="all_data">
+        <p><label>全国：</label></p>
+    </div>
+    <script>
+        $.get('?act=ajax&start={#$smarty.get.start#}&end={#$smarty.get.end#}&did=0', function (data_str) {
+            var str = "";
+            var str_arr = new Array(); //定义一数组 
+            str_arr = data_str.split("-"); //字符分割 
+            str += "<p>企业会员注册：" + str_arr[1] + "</p>";
+            str += "<p>企业职位发布：" + str_arr[2] + "</p>";
+            str += "<p>企业职位刷新：" + str_arr[3] + "</p>";
+            str += "<p>企业简历下载：" + str_arr[4] + "</p>";
+            str += "<p>个人会员注册：" + str_arr[5] + "</p>";
+            str += "<p>个人创建简历：" + str_arr[6] + "</p>";
+            str += "<p>个人简历刷新：" + str_arr[7] + "</p>";
+            str += "<p>个人职位投递：" + str_arr[8] + "</p>";
+            str += "<p>简章数量：" + str_arr[9] + "</p>";
+            str += "<p>简章投递数量：" + str_arr[10] + "</p>";
+            $('.all_data').append(str);
+        })
+    </script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <table width="1200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <th rowspan="2" scope="col">地区</th>
+            <th colspan="4" scope="col">企业</th>
+            <th colspan="4" scope="col">个人</th>
+            <th colspan="2" scope="col">简章</th>
+        </tr>
+        <tr style=" position: fixed; bottom: 0; background-color: #c0c0c0;">
+            <td><div align="center">会员注册</div></td>
+            <td><div align="center">职位发布</div></td>
+            <td><div align="center">职位刷新</div></td>
+            <td><div align="center">简历下载</div></td>
+            <td><div align="center">会员注册</div></td>
+            <td><div align="center">创建简历</div></td>
+            <td><div align="center">简历刷新</div></td>
+            <td><div align="center">职位投递</div></td>
+            <td><div align="center">简章数量</div></td>
+            <td><div align="center">投递数量</div></td>
+        </tr>
+
+        {#foreach from=$all_data item=d#}
+        <tr>
+            <th did ="{#$d.id#}" id ="d{#$d.id#}" class="d_name" scope="row">{#$d.categoryname#}</th>
+        </tr>
+        {#foreach from=$d.son item=ds#}
+        <tr>
+            <th did ="{#$ds.id#}" id ="d{#$ds.id#}" class="d_name" scope="row">|--{#$ds.categoryname#}</th>
+        </tr>
+        {#/foreach#}
+        {#/foreach#}
+    </table>
+    <script>
+        var did = $('#d30').attr('did');
+        get_str(did)
+        function get_str(did) {
+            $.get('?act=ajax&start={#$smarty.get.start#}&end={#$smarty.get.end#}&did=' + did, function (data_str) {
+                var str = "";
+                var str_arr = new Array(); //定义一数组 
+                str_arr = data_str.split("-"); //字符分割 
+                str += "<td>" + str_arr[1] + "</td>";
+                str += "<td>" + str_arr[2] + "</td>";
+                str += "<td>" + str_arr[3] + "</td>";
+                str += "<td>" + str_arr[4] + "</td>";
+                str += "<td>" + str_arr[5] + "</td>";
+                str += "<td>" + str_arr[6] + "</td>";
+                str += "<td>" + str_arr[7] + "</td>";
+                str += "<td>" + str_arr[8] + "</td>";
+                str += "<td>" + str_arr[9] + "</td>";
+                str += "<td>" + str_arr[10] + "</td>";
+                $('#d' + str_arr[0]).parent().append(str);
+                if (str_arr[0] > 0) {
+                    var did = $('#d' + str_arr[0]).parent().next().find('.d_name').attr('did');
+                    get_str(did);
+
+                }
+            })
+        }
+    </script>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+{#qishi_pageinfo set="列表名:page,调用:QS_train"#}
+<title>{#$page.title#}</title>
+<meta name="description" content="{#$page.description#}">
+<meta name="keywords" content="{#$page.keywords#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script>
+	$(function(){
+		$(".bot_content tr:eq(1) td").css("margin-top", 15);
+		$(".rec_t_list li:eq(2), .rec_t_list li:eq(5)").css("margin-right",0);
+	})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<!-- 当前位置 -->
+<div class="page_location link_bk">
+	当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_train"|qishi_url#}">教育培训</a>
+</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<!-- 顶部内容 -->
+		<div class="train_top">
+			<div class="train_left">
+				<div class="big_ad">
+					{#qishi_ad set="显示数目:1,调用名称:QS_trainfocus,列表名:ad"#}
+					{#if $ad#}
+					{#foreach from=$ad  item=list#}
+					<img src="{#$list.img_path#}" alt="{#$list.img_explain#}" />
+					{#/foreach#}
+					{#else#}
+					<img src="{#$QISHI.site_template#}images/train/39.gif" alt="" />
+					{#/if#}
+				</div>
+				<div class="sreach_box" style="height:32px;line-height:32px;">
+					<div class="soinput" style=" position:relative;height:32px;line-height:32px;">
+						<input name="typeid" id="typeid" type="hidden" value="" />
+							<input name="typeid_cn" type="text" id="typeid_cn" class="selectinput" value="选择课程" />
+					  		<div class="trainshowdiv" id="trainshowdiv">
+								<ul>
+									{#qishi_get_classify set="列表名:c_nature,类型:QS_train_category"#}
+									{#foreach from=$c_nature item=list#}
+									 <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+									{#/foreach#}
+								</ul>
+							</div>
+					</div>
+					<input type="text" class="input_text_280" name="key" id="keyinput" placeholder="请输入培训关键字" style="font-size:12px;float:left;" />
+					<input type="button" value="搜索" class="but70lan" id="search_go"style="height:32px;float:left;" />
+					<a href="{#"QS_train_curriculum"|qishi_url#}">高级搜索</a>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="train_right">
+				<div class="publish" onclick="javascript:location.href='{#"QS_user,4"|qishi_url#}train_course.php?act=addcourse'"></div>
+				<div class="new_class">
+					<div class="n_class_tit">最新课程</div>
+					<div class="n_class_list">
+						<ul>
+							{#qishi_curriculum_list set="列表名:course,填补字符:...,课程名长度:18,分页显示:0,显示数目:6,列表页:QS_train_agency_curriculum,机构名长度:7,排序:rtime>desc"#}
+			  				{#foreach from=$course item=list#}
+							<li><a href="{#$list.course_url#}">{#$list.course_name#}</a></li>
+							{#/foreach#}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!-- 顶部 结束 -->
+		<!-- 中部 -->
+		<div class="train_mid">
+			<div class="mid_item">
+				<div class="item_tit">
+					<h4>即将开课课程</h4>
+					<a href="{#"QS_train_curriculum"|qishi_url#}">更多>></a>
+					<div class="clear"></div>
+				</div>
+				<div class="item_content">
+					<ul class="coming_soon">
+						{#qishi_curriculum_list set="列表名:course,填补字符:...,课程名长度:18,分页显示:0,显示数目:8,列表页:QS_train_agency_curriculum,开课时间:60,课程名长度:7,机构名长度:10"#}
+			 			 {#foreach from=$course item=list#}
+						<li><a href="{#$list.course_url#}">{#$list.course_name#}</a></li>
+						{#/foreach#}
+					</ul>
+				</div>
+			</div>
+			<div class="mid_item">
+				<div class="item_tit">
+					<h4>推荐培训机构</h4>
+					<a href="{#"QS_train_agency"|qishi_url#}">更多>></a>
+					<div class="clear"></div>
+				</div>
+				<div class="item_content">
+					<ul>
+						{#qishi_train_list set="列表名:train,填补字符:...,分页显示:0,推荐:1,显示数目:8,排序:rtime>desc"#}
+			 			 {#foreach from=$train item=list#}
+						<li>
+							<div class="w110"><a href="{#$list.train_url#}">{#$list.trainname_#}</a></div>
+							<div class="w93">{#$list.nature_cn#}</div>
+							<div class="w76">{#$list.district_cn#}</div>
+						</li>
+						{#/foreach#}
+						<div class="clear"></div>
+					</ul>
+				</div>
+			</div>
+			<div class="mid_item last">
+				<div class="item_tit">
+					<h4>推荐讲师</h4>
+					<a href="{#"QS_train_lecturer"|qishi_url#}">更多>></a>
+					<div class="clear"></div>
+				</div>
+				<div class="item_content">
+					<div class="rec_teacher">
+						<ul class="rec_t_list">
+							{#qishi_train_lecturer_list set="列表名:teacher,填补字符:...,分页显示:0,推荐:1,显示数目:6,擅长专业长度:11,列表页:QS_train_lecturershow,排序:rtime>desc"#}
+						  {#foreach from=$teacher item=list#}
+							<li><a href="{#$list.teacher_url#}"><img src="{#$list.photosrc#}"width="76" height="95" /></a></li>
+						 {#/foreach#}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!-- 中部 结束 -->
+		{#qishi_ad set="显示数目:1,调用名称:QS_traincentreimg,列表名:ad"#}
+		{#if $ad#}
+		<div class="ad_1000">
+			{#foreach from=$ad  item=list#}
+			<a target="_blank" href="/ad_count/index.php?ad_name=QS_traincentreimg&img={#$list.img_path#}&url={#$list.img_url#}"><img src="{#$list.img_path#}" alt="{#$list.img_explain#}" width="1000"></a>
+			{#/foreach#}
+		</div>
+		{#/if#}
+		<!-- 底部 -->
+		<div class="train_bot">
+			<div class="bot_left">
+				<div class="item_tit">
+					<h4>精品课程</h4>
+					<a href="{#"QS_train_curriculum"|qishi_url#}">更多>></a>
+					<div class="clear"></div>
+				</div>
+				<div class="bot_content">
+					<table>
+						<tbody>
+							<tr class="b_tab_tit">
+								<th width="207" class="frist">课程名称</th>
+								<th width="184">开课地点</th>
+								<th width="146">开课时间</th>
+								<th width="98">价格</th>
+							</tr>
+							{#qishi_curriculum_list set="列表名:course,填补字符:...,课程名长度:18,分页显示:0,显示数目:7,列表页:QS_train_agency_curriculum,推荐:1,机构名长度:10"#}
+			  				{#foreach from=$course item=list#}
+							<tr>
+								<td width="207" class="frist"><a href="{#$list.course_url#}">{#$list.course_name#}</a></td>
+								<td width="184">{#$list.district_cn#}</td>
+								<td width="146">{#$list.starttime_cn#}</td>
+								<td width="98"><span>￥{#$list.favour_expenses#}</span></td>
+							</tr>
+							{#/foreach#}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="information_box">
+				<div class="job_box">
+					<div class="box_tit">
+						<h4>充电专区 </h4><a href="{#"QS_train_news"|qishi_url#}" class="s">更多>></a>
+						<div class="clear"></div>
+					</div>
+					<div class="box_content">
+						<div class="info_box">
+							<div class="img_box">
+								<a  ><img src="{#$QISHI.site_template#}images/index/16.jpg" alt="" /></a>
+							</div>
+							<div class="info_content">
+								{#qishi_train_news_list set="列表名:news,标题长度:15,填补字符:...,分页显示:0,显示数目:1,排序:id>desc"#}
+			  					{#foreach from=$news item=list#}
+								<a href="{#$list.url#}"><h5>{#$list.title#}</h5></a>
+								<p>{#$list.briefly#} <a href="{#$list.url#}">阅读全文>></a></p>
+								{#/foreach#}
+							</div>
+							<div class="clear"></div>
+							<div class="info_list">
+								<ul>
+									{#qishi_train_news_list set="列表名:news,标题长度:15,填补字符:...,分页显示:0,显示数目:5,排序:id>desc"#}
+			  						{#foreach from=$news item=list#}
+									<li><a href="{#$list.url#}">{#$list.title#}</a></li>
+									{#/foreach#}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="clear"></div>
+		</div>
+	</div>
+	<!-- 主体内容 结束 -->
+	{#include file="footer.htm"#}
+	<script type="text/javascript">
+				showmenu('#typeid_cn','#trainshowdiv',"#typeid");
+				$("#search_go").click(function() {
+					 var patrn1=/^(请输入关键字)/i;	 
+					 var key1=$("#keyinput").val();
+					if (patrn1.exec(key1))
+					{
+						 $(this).css('color','#000000').val('');
+						 $("#keyinput").val('');
+						 key1='';
+					}
+				$.get("{#$QISHI.website_dir#}plus/ajax_search_location.php", {"act":"QS_train_curriculum","key":key1,"category":$("#typeid").val(),"page":1},
+						function (data,textStatus)
+						 {
+							 window.location.href=data;
+						 }
+					);
+				});
+				//模拟select
+				function showmenu(menuID,showID,inputname)
+				{
+					$(menuID).click(function(){
+						$(menuID).blur();
+						$(menuID).parent("div").css("position","relative");
+						$(showID).slideToggle("fast");
+						//生成背景
+						$(menuID).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+						$(".menu_bg_layer").height($(document).height());
+						$(".menu_bg_layer").css({ width: $(document).width(), position: "absolute", left: "0", top: "0" , "z-index": "0", "background-color": "#ffffff"});
+						$(".menu_bg_layer").css("opacity","0");
+						//生成背景结束
+						$(showID+" li").live("click",function(){
+							$(menuID).val($(this).attr("title"));
+							$(inputname).val($(this).attr("id"));
+							$(".menu_bg_layer").hide();
+							$(showID).hide();
+							$(menuID).parent("div").css("position","");	
+							$(this).css("background-color","");
+						});
+
+								$(".menu_bg_layer").click(function(){
+									$(".menu_bg_layer").hide();
+									$(showID).hide();
+									$(menuID).parent("div").css("position","");
+								});
+						$(showID+" li").unbind("hover").hover(
+						function()
+						{
+						$(this).css("background-color","#F5F5F5");
+						},
+						function()
+						{
+						$(this).css("background-color","");
+
+						}
+						);
+					});
+				}
+			</script>
+</body>
+</html>

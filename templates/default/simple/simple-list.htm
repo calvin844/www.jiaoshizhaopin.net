@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+{#qishi_pageinfo set="列表名:page,调用:QS_simplelist"#}
+<title>{#$page.title#}</title>
+<meta name="description" content="{#$page.description#}">
+<meta name="keywords" content="{#$page.keywords#}">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/simple.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.main_domain#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript'></script>
+<script src="{#$QISHI.site_template#}js/jquery.simple.js" type='text/javascript'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var getstr = "{#$smarty.get.citycategory#}";
+	allaround('{#$QISHI.site_dir#}',getstr);
+	// 显示地区
+	$("#jobsCity").hover(function() {
+		$("#divCityCate").show();
+		$("#divCityCate li").hover(function() {
+			if($(this).find('.subcate').length > 0) {
+				$(this).addClass('selected');
+				$(this).find('.subcate').show();
+			} else {
+				$(this).find('a').css("color","#f77d40");
+			}
+		}, function() {
+			if($(this).find('.subcate').length > 0) {
+				$(this).removeClass('selected');
+				$(this).find('.subcate').hide();
+			} else {
+				$(this).find('a').css("color","#0180cf");
+			}
+		});
+	}, function() {
+		$("#divCityCate").hide();
+	});
+	$(".delsimple").click(function(){
+	var url="{#$QISHI.website_dir#}plus/ajax_simple.php?act=delsimple&id="+$(this).attr("id");
+	dialog("删除信息","url:"+url,"500px","auto","","");				
+	});
+	$(".refreshsimple").click(function(){
+	var url="{#$QISHI.website_dir#}plus/ajax_simple.php?act=refreshsimple&id="+$(this).attr("id");
+	dialog("刷新信息","url:"+url,"500px","auto","","");				
+	});	
+	$(".editsimple").click(function(){
+	var url="{#$QISHI.website_dir#}plus/ajax_simple.php?act=editsimple&id="+$(this).attr("id");
+	dialog("编辑信息","url:"+url,"600px","auto","","");				
+	});	
+	$("#add").click(function(){
+	var url="{#$QISHI.website_dir#}plus/ajax_simple.php?act=add&subsite_id={#$smarty.get.subsite_id#}";
+	dialog("发布微招聘","url:"+url,"600px","auto","","");				
+	});	
+	$(".show_tel").click(function(){
+		var tel=$(this);
+		$.get("{#$QISHI.website_dir#}plus/ajax_simple.php?act=get_simple_tel&id="+$(this).attr("id"),function(result){
+			tel.parent("li").html(result);
+		});
+	});
+	$(".show_detailed").live("click",function(){
+		var detailed=$(this);
+		$.get("{#$QISHI.website_dir#}plus/ajax_simple.php?act=get_simple_detailed&id="+$(this).attr("id"),function(result){
+			detailed.parent("p").html(result);
+		});
+	});
+	$(".hidden_detailed").live("click",function(){
+		var detailed=$(this);
+		$.get("{#$QISHI.website_dir#}plus/ajax_simple.php?act=hidden_simple_detailed&id="+$(this).attr("id"),function(result){
+			detailed.parent("p").html(result);
+		});
+	});
+	$("#simple_form_search .simpleso").click(function()
+	{
+	simple_search_location(2);
+	});
+	function simple_search_location(keytype)
+	{
+		$("body").append('<div id="pageloadingbox">页面加载中....</div><div id="pageloadingbg"></div>');
+		$("#pageloadingbg").css("opacity", 0.5);
+		$.get("{#$QISHI.website_dir#}plus/ajax_search_location.php", {"act":"QS_simplelist","key":$("#simple_form_search #searckey").val(),"keytype":keytype,"citycategory":$("#district_id").val()},
+				function (data,textStatus)
+				 {
+					 window.location.href=data;
+				 }
+			);
+	}
+});
+$(function(){
+	$("input[type='button']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+	<!-- 当前位置 -->
+	<div class="page_location link_bk">
+		当前位置：<a href="{#$QISHI.website_dir#}">首页</a>>微商圈
+	</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="rec_banner">
+		</div>
+		<div class="wei_left">
+			<div class="wei_tit">
+				<a href="{#"QS_simplelist"|qishi_url#}" class="select">微招聘</a>
+				<div class="clear"></div>
+			</div>
+			<div class="sreach jobmain" id="simple_form_search">
+				<div class="box" id="jobsCity">
+					<div class="itemT">
+						<span id="cityText">请选择地区分类</span><i></i>
+					</div>
+					<div style="display:none;" id="divCityCate" class="divJobCate">
+						<table class="jobcatebox citycatebox">
+							<div class="acquired">
+								<div class="l">已选</div>
+								<div class="c" id="cityAcq"></div>
+								<div class="r">
+									<div class="empty" id="cityEmpty"></div>
+									<div class="sure" id="citySure">确定</div>
+									<div class="container" id="citydropcontent">
+										<div class="content">您的选择已达上限（5项）<br>请点击“确定”，或移除部分选项</div>
+										<s><e></e></s>
+									</div>
+								</div>
+							</div>
+							<tbody></tbody> 
+						</table>
+					</div>
+					<input id="district_id" type="hidden" value="{#$smarty.get.citycategory#}" name="district_id">
+					<input id="district_cn" type="hidden" value="" name="district_cn"/>
+				</div>
+				<div class="keybox">
+			 		<input type="text" id="searckey" name="key" value="{#$smarty.get.key|default:请输入关键字#}" />
+			 	</div>
+				<input type="button" value="搜索" class="but100lan simpleso" />
+			</div>
+			
+			{#qishi_simple_list  set="分页显示:1,列表名:simplelist,显示数目:15,填补字符:...,职位名长度:12,企业名长度:18,描述长度:40,关键字:GET[key],关键字类型:GET[keytype],地区分类:GET[citycategory],排序:refreshtime>desc"#}
+			{#if $simplelist#}
+			<div class="wei_list">
+				<ul>
+				{#foreach from=$simplelist item=li#}
+				<li class="wei_l_content">
+					<h4><a>{#$li.jobname#}</a></h4>
+					<div class="date">{#$li.refreshtime_cn#}</div>
+					<ul>
+						<li>{#$li.comname#}</li>
+						<li>招聘人数：{#if $li.amount=="0"#}若干{#else#}{#$li.amount#}{#/if#}人</li>
+						<li>有效期截至：{#if $li.deadline=="0"#}长期有效{#else#}{#$li.deadline|date_format:"%Y-%m-%d"#}{#/if#}</li>
+						<li class="tel">联系方式：<a   class="show_tel" id="{#$li.id#}">[点击查看]</a></li>
+						<div class="clear"></div>
+					</ul>
+					<div class="clear"></div>
+					<p>要求：{#$li.detailed#}{#if $li.show_detail#}<a   class="show_detailed" id="{#$li.id#}">[展开]</a>{#/if#}</p>
+					<div class="add">地址：{#$li.district_cn#}{#if $li.district_cn#}-{#$li.sdistrict_cn#}{#/if#}</div>
+					<div class="edit"><a href="javascript:void(0)" class="refreshsimple" id="{#$li.id#}">刷新</a>| <a href="javascript:void(0)" class="editsimple" id="{#$li.id#}">编辑</a> | <a href="javascript:void(0)" class="delsimple" id="{#$li.id#}">删除</a></div>
+					<div class="clear"></div>
+				</li>
+				{#/foreach#}
+				{#if $page#}
+					<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+				        <tr>
+				        	<td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+				        </tr>
+				    </table>
+				{#/if#}
+				</ul>
+			</div>
+			{#else#}
+			<div class="wei_list" style="padding-top: 40px;">
+				<ul>
+					<div class="emptytip">抱歉，没有符合此条件的信息！</div>
+				</ul>
+			</div>
+			{#/if#}
+
+		</div>
+		<div class="wei_right">
+			<input type="button" value="发布微招聘" class="but218cheng" id="add"/>
+			<p>
+				为方便一些普工类企业(如饭店,店面,个体户等)发布招聘信息，我们特增加了快速通道，无需注册即可发布简短招聘信息！
+			</p>
+			<p>
+				如果您不是普工类企业，我们建议您<a href="{#"QS_login"|qishi_url#}">【注册】</a>成为企业会员，仅需几秒钟您就可以享受更加完善的网络招聘服务。
+			</p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<!-- 主体内容 结束 -->
+	{#include file="footer.htm"#}
+</body>
+</html>

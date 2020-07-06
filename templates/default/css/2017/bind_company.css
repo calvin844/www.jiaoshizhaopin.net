@@ -1,0 +1,53 @@
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 750px;}
+#content .left_box{ padding:30px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 35px 0px;}
+#content .left_box div.box_title p{ padding:0px 10px 0px 0px; height:40px; line-height:40px; border-bottom:1px solid #f3711a; font-size:16px; color:#333; display:inline-block;}
+#content .left_box div.box_title span{ padding:0px 10px 0px 0px; height:40px; line-height:40px; font-size:12px; color:#ccc; display:inline-block;}
+#content .left_box div.item_box{ width:410px; height:45px; margin:0px 0px 10px 200px;}
+#content .left_box div.item_box div.input_box{ width:320px; border-bottom:1px solid #ebebeb; margin:0 0 5px 0; float:left; height:25px; }
+#content .left_box div.item_box label.item_name{ display:inline-block; color:#808080; font-size:14px; float: left; width:80px; text-align:right; height:45px; margin:0px 10px 0px 0px;}
+#content .left_box div.item_box div.input_box .select_box{ float:left; margin:0px 0px 15px 0px; width:320px;}
+#content .left_box div.item_box div.input_box .select_box div.text span{ color:#333;}
+#content .left_box div.item_box div.input_box .half{ width:150px; }
+#content .left_box div.item_box div.input_box .half:nth-child(2){ width:150px; margin:0px 0px 15px 20px;}
+#content .left_box div.item_box div.input_box input{ background:none; color:#333; font-size:14px; margin:0px 0px 15px 0px; width:275px; float:left;}
+#content .left_box div.intention_job{ width:470px; height:auto;}
+#content .left_box div.intention_job a{ margin:0 0 0 20px; color:#188eee; font-size:14px;}
+#content .left_box div.intention_job ul.select_list{ }
+#content .left_box div.intention_job ul.select_list li{ float:left; border-radius:5px; border:1px solid #188eee; text-align:center; margin:0px 10px 10px 0px; padding:5px 10px 5px 10px;}
+#content .left_box div.intention_job ul.select_list li span{ color:#188eee;}
+#content .left_box div.intention_job ul.select_list li a{ margin:2px 0px 0px 5px; display:inline-block; width:8px; height:8px; background:url(../../images/2017/close.png); background-size:8px 8px;}
+
+#content .left_box div.img_code div.input_box{ width: 150px; margin: 0px 20px 5px 0; height: 40px; }
+#content .left_box div.img_code label.item_name{ line-height: 45px;}
+#content .left_box div.img_code div.input_box input{ width: 150px; height: 40px; line-height: 40px;}
+#content .left_box input.submit{ width: 150px; height: 45px; line-height: 45px; text-align:center; color:#fff; font-size:20px; background:#f3711a; border-radius:5px; margin:20px 0 0 330px; cursor:pointer;}
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px; height:65px; overflow:hidden;}
+#content .right_box .function_box ul{ width:290px;}
+#content .right_box .function_box ul li{ width:65px; height:65px; margin:0px 7px 0px 0px; float:left; background:#fff;}
+#content .right_box .function_box ul li i{ display:inline-block;}
+#content .right_box .function_box ul li label{ display:none; width:100%; color:#fff; margin:10px 0px 2px 0px; text-align:center; line-height:27px; font-size:16px;}
+#content .right_box .function_box ul li span{ display:inline-block; width:100%; text-align:center; color:#188eee;}
+#content .right_box .function_box ul li.apply i{ width:28px; height:27px; background:url(../../images/2017/apply_box_icon.png); margin:10px 0px 0px 20px;}
+#content .right_box .function_box ul li.fav i{ width:26px; height:25px; background:url(../../images/2017/star_icon.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box ul li.invitation i{ width:25px; height:25px; background:url(../../images/2017/invitation_icon.png); margin:12px 0px 0px 18px;}
+#content .right_box .function_box ul li.rss i{ width:25px; height:25px; background:url(../../images/2017/rss_icon.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box ul li.rss label{ width:25px; height:25px; background:url(../../images/2017/rss_icon_h.png); margin:12px 0px 0px 20px;}
+#content .right_box .function_box a{ display:block; width:65px; height:65px;}
+#content .right_box .function_box a:hover i{ display:none;}
+#content .right_box .function_box a:hover label{ display: inline-block;}
+#content .right_box .function_box a:hover span{ color:#fff;}
+#content .right_box .function_box ul li.apply a:hover{ background:#10b643;}
+#content .right_box .function_box ul li.fav a:hover{ background:#9a0909;}
+#content .right_box .function_box ul li.invitation a:hover{ background:#188eee;}
+#content .right_box .function_box ul li.rss a:hover{ background:#f37118;}
+
+#content .right_box .item_box{ margin:10px 0px 0px 0px; background:#fff; padding:20px 10px 20px 10px;}
+#content .right_box .item_box p{ font-size:16px; color:#333; margin:0px 0px 20px 0px;}
+#content .right_box .item_box span{ font-size:14px; color:#808080; margin:0px 0px 20px 0px; line-height:20px; display:inline-block;}

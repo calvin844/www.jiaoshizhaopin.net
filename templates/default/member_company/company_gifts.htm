@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+$("#Form1").validate({
+// debug: true,
+// onsubmit:false,
+//onfocusout :true,
+   rules:{
+   account:{
+    required: true
+   },
+   pwd: {
+	required:true
+   }
+   {#if $verify_gifts=="1"#}
+   ,
+   postcaptcha: {
+   IScaptchastr:true,
+   required:true,
+   remote:{     
+	url:"{#$QISHI.main_domain#}include/imagecaptcha.php",     
+	type:"post",    
+	data:{"postcaptcha":function (){return $("#postcaptcha").val()},"act":"verify","time":function (){return new Date().getTime()}}     
+	}
+   }
+   {#/if#} 
+	},
+    messages: {
+    account: {
+    required: "请输入卡号"
+   },
+   pwd: {
+    required: "请输入密码"
+   }
+   {#if $verify_gifts=="1"#}
+   ,
+   postcaptcha: {
+    required: jQuery.format("请输入验证码"),
+	 remote: jQuery.format("验证码错误")
+   }
+   {#/if#}
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+	jQuery.validator.addMethod("IScaptchastr", function(value, element) {
+	var str="点击获取验证码";
+	var flag=true;
+	if (str==value)
+	{
+	flag=false;
+	}
+	return  flag || this.optional(element) ;
+	}, "请填写验证码");
+
+
+function imgcaptcha(inputID,imgdiv)
+{
+	$(inputID).focus(function(){
+		if ($(inputID).val()=="点击获取验证码")
+		{
+		$(inputID).val("");
+		$(inputID).css("color","#333333");
+		}
+		$(inputID).parent("div").css("position","relative");
+		//设置验证码DIV
+		$(imgdiv).css({ position: "absolute", left:  $(inputID).width(), "bottom": "0px" , "z-index": "10", "background-color": "#FFFFFF", "border": "1px #A3C8DC solid","display": "none","margin-left": "15px"});
+		$(imgdiv).show();
+		if ($(imgdiv).html()=='')
+		{
+		$(imgdiv).append("<img src=\"{#$QISHI.main_domain#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer; margin:3px;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+		}
+		$(imgdiv+" img").click(function()
+		{
+			$(imgdiv+" img").attr("src",$(imgdiv+" img").attr("src")+"1");		
+		});
+		$(document).unbind().click(function(event)
+		{
+			var clickid=$(event.target).attr("id");
+			if (clickid!="getcode" &&  clickid!="postcaptcha")
+			{
+			$(imgdiv).hide();
+			$(inputID).parent("div").css("position","");
+			$(document).unbind();
+			}			
+		});
+	});
+}
+imgcaptcha("#postcaptcha","#imgdiv");
+});
+</script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 充值订单</div>
+
+<div class="usermain">
+  <div class="leftmenu com link_bk">
+   {#include file="member_company/left.htm"#}
+  </div>
+<div class="rightmain">
+  
+	<div class="bbox1">
+	
+	  <div class="pwd link_bk">
+			
+ 	    <div class="topnav">
+			  
+		 	<div class="titleH1">
+			  <div class="h1-title">充值订单</div>
+			</div>
+			<div class="navs">
+				{#if $QISHI.operation_mode=="1" || $QISHI.operation_mode=="3"#}
+				<a href="?act=order_add">积分充值</a>
+				{#/if#}
+				{#if $QISHI.operation_mode=="2" || $QISHI.operation_mode=="3"#}
+				<a href="?act=setmeal_list">申请服务</a>
+				{#/if#}
+		        <a href="?act=order_list">我的订单</a>
+		        <a href="?act=gifts" class="se">礼品卡</a>
+				<div class="clear"></div>
+			</div>		
+	  	</div>
+		<form action="?act=gifts_apy" method="post" id="Form1" >
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" style="margin-top:15px;">
+		  <tr>
+			<td width="165" align="right"><span class="nec">礼品卡号</span>：</td>
+			<td width="424"><input name="account" type="text" class="input_text_200" id="account"/> </td>
+			<td></td>
+		  </tr>
+			<tr>
+			<td width="165" align="right"><span class="nec">输入密码</span>：</td>
+			<td width="424"><input name="pwd" type="text" class="input_text_200" id="pwd" /> </td>
+			<td>
+			</td>
+			</tr>
+			{#if $verify_gifts=="1"#}
+			<tr>
+			<td width="165" align="right"><span class="nec">验证码</span>：</td>
+			<td width="424">
+				<div>
+	  			<div id="imgdiv"></div>
+				<input  class="input_text_200" name="postcaptcha" id="postcaptcha" type="text" value="点击获取验证码" style="color:#999999" />
+				</div>
+			</td>
+			<td>
+			</td>
+			</tr>
+			{#/if#}
+		   <tr>
+			<td align="right"> </td>
+			<td colspan="2"><input type="submit" name="submitsave" id="submitsave" value="充值"  class="but220lan"/>
+			</td>
+		  </tr>
+		</table>
+		</form>
+	  </div>
+
+	  <div class="gifts_list">
+			<div class="ilist_tit">
+				<div class="ilistt1">类型</div>
+				<div class="ilistt2">卡号</div>
+				<div class="ilistt3">使用时间</div>
+				<div class="ilistt4">面值({#$QISHI.points_byname#})</div>
+			</div>
+  		 	{#if $gifts#}
+			{#foreach from=$gifts item=list#}
+			<div class="ilist_txt">
+				<div class="ilistc1">{#$list.giftsname#}</div>
+				<div class="ilistc2">{#$list.account#}</div>
+				<div class="ilistc3">{#$list.usetime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="ilistc4">{#$list.giftsamount#}</div>
+			</div>
+			 {#/foreach#}
+			{#else#}
+			<div class="emptytip">您没有使用过礼品卡</div>
+			{#/if#}
+			<div class="clear"></div>
+		</div>
+
+	</div>
+  </div>
+	</div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+{#include file="user/footer.htm"#}
+</body>
+</html>

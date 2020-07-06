@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我参加了最美乡村教师票选活动，快为我投上一票！_参赛作品_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/activities.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/jquery-rebox.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <script src="{#$QISHI.site_template#}js/jquery-rebox.js" type="text/javascript" language="javascript"></script>
+    </head>
+    <body id="details">
+        <div id="header">
+            <div class="top">
+                <div class="main">
+                    <ul class="left">
+                        <li><a title="中国教师招聘网" href="/">首页</a></li>
+                        <li><a title="学校" href="/company">学校</a></li>
+                        <li><a title="教师" href="/ProfileBank">教师</a></li>
+                        <li><a title="职位" href="/TeachingJobs">职位</a></li>
+                        <li><a title="简章" href="/morejobs">简章</a></li>
+                        <li><a title="我的简历" href="/user/personal/personal_resume.php?act=resume_list">我的简历</a></li>
+                    </ul>
+                    <p class="right"></p>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="ad">
+                <a title="寻找最美乡村教师" href="/activities/list.php" ><img src="{#$QISHI.site_template#}images/activities_20170410_top.png" width="100%" /></a>
+            </div>
+        </div>
+        <div id="content">
+            <div class="main">
+                <div class="left">
+                    <h1 class="left">{#$item.title#}</h1>
+                    <div class="clear"></div>
+                    <div class="info_box">
+                        <div class="left">
+                            <div id="photo_show">
+                                <div class="pre"></div>
+                                <div class="next"></div>
+                                <div class="smalltitle">
+                                    <ul>
+                                        {#section name=loop loop=$item.photo_num#} 
+                                        <li {#if $smarty.section.loop.index == 0#}class="thistitle"{#/if#}></li>
+                                        {#/section#} 
+                                    </ul>
+                                </div>
+                                <ul class="oUlplay">
+                                    {#foreach from=$item.photo item=li#}
+                                    <li><a href="{#$li#}" title="{#$item.title#}"><img src="{#$li#}" /></a></li>
+                                    {#/foreach#}
+                                </ul>
+                            </div>
+                            <script>
+
+                                        $('#photo_show .oUlplay').rebox({selector: 'a'});
+                                        var t_img; // 定时器
+                                        var isLoad = true; // 控制变量
+
+// 判断图片加载状况，加载完成后回调
+                                        isImgLoad(function () {
+                                        var w = 0;
+                                                var h = 0;
+                                                $('.oUlplay li img').each(function () {
+                                        w = $(this).width();
+                                                h = $(this).height();
+                                                if (h > w) {
+                                        $(this).height(360);
+                                        } else {
+                                        $(this).width(570);
+                                                if ($(this).height() > 360) {
+                                        $(this).height(360);
+                                                $(this).width('auto');
+                                        }
+                                        }
+                                        });
+                                        });
+// 判断图片加载的函数
+                                        function isImgLoad(callback) {
+                                        // 注意我的图片类名都是cover，因为我只需要处理cover。其它图片可以不管。
+                                        // 查找所有封面图，迭代处理
+                                        $('.oUlplay li img').each(function () {
+                                        // 找到为0就将isLoad设为false，并退出each
+                                        if (this.height === 0) {
+                                        isLoad = false;
+                                                return false;
+                                        }
+                                        });
+                                                // 为true，没有发现为0的。加载完毕
+                                                if (isLoad) {
+                                        clearTimeout(t_img); // 清除定时器
+                                                // 回调函数
+                                                callback();
+                                                // 为false，因为找到了没有加载完成的图，将调用定时器递归
+                                        } else {
+                                        isLoad = true;
+                                                t_img = setTimeout(function () {
+                                                isImgLoad(callback); // 递归扫描
+                                                }, 500); // 我这里设置的是500毫秒就扫描一次，可以自己调整
+                                        }
+                                        }
+                            </script>
+                            <script src="{#$QISHI.site_template#}js/photo_show.js" type='text/javascript' ></script>
+                        </div>
+                        <div class="right">
+                            <ul>
+                                <li><p>姓名：{#$item.name#}</p></li>
+                                <li><p>地区：{#$item.district_cn#}</p></li>
+                                <li><p>执教学校：{#$item.school#}</p></li>
+                                <li><p>评选编号：{#$item.id#}</p></li>
+                                <li><p>票数：<span>{#$item.count#}</span></p></li>
+                                <li><a id="copy_url" href="javascript:void();">点击复制投票，发送给朋友。</a><input style="opacity: 0" type="text" id="currentpath" value="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>"/></li>
+                            </ul>
+                            <script>
+                                        $('a#copy_url').click(function () {
+                                var e = document.getElementById("currentpath"); //对象是content
+                                        e.select(); //选择对象
+                                        document.execCommand("Copy"); //执行浏览器复制命令
+                                        alert("复制成功");
+                                        //var clipValue=window.clipboardData.getData("text");//text is not case sensitive  
+                                        //alert(clipValue);
+                                })
+                            </script>
+                            <p class="vote_tip">每人投票1次/天，发动好友参与吧。</p>
+                            <a class="vote_it" <?php if (time() > 1493568000): ?>disabled<?php else:?> onclick="vote_it()"<?php endif;?> <?php if (time() < 1493568000): ?>style=" background: #88c041;"<?php endif; ?>><?php if (time()  < 1493568000): ?>投TA一票<?php else: ?>投票结束<?php endif; ?></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="content_box">
+                        <p>{#$item.content#}</p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="bt_box">
+                        <a class="vote_it" <?php if (time() > 1493568000): ?>disabled<?php else:?> onclick="vote_it()"<?php endif;?> <?php if (time() < 1493568000): ?>style=" background: #88c041;"<?php endif; ?>><?php if (time()  < 1493568000): ?>投TA一票<?php else: ?>投票结束<?php endif; ?></a>
+                        <a class="back_home" href="/activities/list.php">票选首页</a>
+                        <p class="vote_tip">每人投票1次/天，发动好友参与吧。</p>
+                    </div>
+                    <script>
+                                function vote_it(){
+                                var id = {#$item.id#};
+                                        $.post("/activities/vote.php", {id: id}, function (result) {
+                                        if (result == 1){
+                                        alert('参数错误')
+                                        } else if (result == 2) {
+                                        alert('教师招聘网最美提示' + '\n' + '单个作品每天只能投1票，发点评论吧！')
+                                        } else if (result == 3) {
+                                        alert('教师招聘网最美提示' + '\n' + '您已投出公正的1票，明天继续努力！')
+                                        } else if (result == 4){
+                                        alert('4月26日才开始投票哦')
+                                        } else if (result == 5){
+                                        alert('投票结束')
+                                        }
+                                        });
+                                }
+                    </script>
+                    <div class="clear"></div>
+                    <div class="share_box">
+                        <span>分享，获取更多投票：</span>
+                        <div class="bshare-custom icon-medium-plus"><div class="bsPromo bsPromo2"></div><a title="分享到微信" class="bshare-weixin"  ></a><a title="分享到新浪微博" class="bshare-sinaminiblog"  ></a><a title="分享到QQ好友" class="bshare-qqim"  ></a><a title="分享到豆瓣" class="bshare-douban"  ></a><a title="分享到QQ空间" class="bshare-qzone"  ></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到人人网" class="bshare-renren"  ></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                    </div>
+                    <div class="clear"></div>
+                    <!--PC版-->
+                    <div id="SOHUCS" sid="{#$item.id#}"></div>
+                    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+                    <script type="text/javascript">
+                                window.changyan.api.config({
+                                appid: 'cysWBkEpD',
+                                        conf: 'prod_d0784af738f899e247bc915ef565c278'
+                                });
+                    </script>
+                </div>
+                <div class="right">
+                    <a class="back_home" href="/activities/list.php">返回活动首页</a>
+                    <p class="title">奖品展示</p>
+                    <ul>
+                        <li>
+                            <img class="left" src="{#$QISHI.site_template#}images/activities_20170410_prize1.jpg" width="110" height="110" />
+                            <div class="right">
+                                <p class="name">一等奖：最美教师奖</p>
+                                <p class="amount">数量：3名</p>
+                                <p class="info">奖品：Apple iPad 平板电脑 9.7英寸  32G WLAN版</p>
+                                <p class="price">市场价：<span>2668</span>元</p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <img class="left" src="{#$QISHI.site_template#}images/activities_20170410_prize2.jpg" width="110" height="110" />
+                            <div class="right">
+                                <p class="name">二等奖：教学奉献奖</p>
+                                <p class="amount">数量：10名</p>
+                                <p class="info">奖品：Kindle电子阅读器入门版</p>
+                                <p class="price">市场价：<span>558</span>元</p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <img class="left" src="{#$QISHI.site_template#}images/activities_20170410_prize3.jpg" width="110" height="110" />
+                            <div class="right">
+                                <p class="name">三等奖：师德标兵奖</p>
+                                <p class="amount">数量：50名</p>
+                                <p class="info">奖品：教学扩音器+定制U盘</p>
+                                <p class="price">市场价：<span>199</span>元</p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <img class="left" src="{#$QISHI.site_template#}images/activities_20170410_prize4.jpg" width="110" height="110" />
+                            <div class="right">
+                                <p class="name">参与奖：辛勤园丁奖</p>
+                                <p class="amount">数量：100名</p>
+                                <p class="info">奖品：教师招聘网特别组合纪念品</p>
+                                <p class="price">市场价：<span>99</span>元</p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <img class="left" src="{#$QISHI.site_template#}images/activities_20170410_prize5.jpg" width="110" height="110" />
+                            <div class="right">
+                                <p class="name">校园奖：特别赞助奖</p>
+                                <p class="amount">数量：3名</p>
+                                <p class="info">奖品：爱普生投影机</p>
+                                <p class="price">市场价：<span>2199</span>元<br/>备注：赞助给一等奖获得者所在学校（需学校证明）</p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                    <p class="title">奖品说明</p>
+                    <p class="note">1.奖品统一在2017年4月29日至2017年5月7日发放；</p>
+                    <p class="note">2.获奖者需提供与参赛姓名一致的教师资格证书，否则视为不符合参赛资格。</p>
+                    <p class="note">一等奖获得者所在学校，免费获得2199元爱普生投影机（每学校仅限1个），需提供加盖公章的证明。</p>
+                </div>
+            </div>
+        </div>
+        <div id="fix_footer">
+            <div class="main">
+                <p class="left">最美乡村教师：耐得住平凡，守得住希望。传照片，写故事，赢ipad、Kindle大奖！征集火热进行中……{#if $total > 100#}最美乡村教师：耐得住平凡，守得住希望。大爱无声，已有<b>{#$total#}</b>人默默的上传了照片{#/if#}。</p>
+                <a href="/activities/index.php" class="back_home">马上参加</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

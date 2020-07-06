@@ -1,0 +1,64 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="subsite/admin_subsite_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+<h2>提示：</h2>
+<p>
+新增分站后，需要将分站域名解析至主站，同时主网站需绑定此的分站域名；
+</p>
+</div> 
+<script type="text/javascript">
+$(document).ready(function()
+{
+//
+	//$("form[name=form1]").submit(function(){
+		//	if ($("#oldsubsite").val()!=$("#subsitetype  :radio[checked]").val())
+		//	{	
+			//	if (confirm('开启或关闭分站会使数据索引重建，此过程执行时间取决于数据量的大小。\n\n在执行中请不要离开此页面。\n\n您确定要修改吗？'))
+			//	{
+			//	$("#hide").show();
+			//	$("#set").hide();
+			//	}
+			//	else
+			//	{
+			//	return false;
+			//	}
+		//	}
+//	});
+});
+</script>
+<div class="toptit">开启分站</div>
+<form action="?act=setsave" method="post" name="form1" id="form1">
+ {#$inputtoken#}
+    <table width="100%" border="0" cellspacing="5" cellpadding="5" id="set">
+	<tr>
+      <td width="80" align="right">开启分站：</td>
+      <td id="subsitetype">
+	  <label><input name="subsite" type="radio"  value="0"  {#if $config.subsite=="0"#}checked="checked"{#/if#}/>否</label>
+       &nbsp;&nbsp;&nbsp;&nbsp; 
+	   <label ><input type="radio" name="subsite" value="1"   {#if $config.subsite=="1"#}checked="checked"{#/if#}/>是</label>
+	   
+	   <input name="oldsubsite"   id="oldsubsite" type="hidden" value="{#$config.subsite#}" />	   </td>
+      </tr>
+	<tr>
+	  <td align="right">&nbsp;</td>
+	  <td><input name="submit" type="submit" class="admin_submit"  id="sub"   value="保存修改"/></td>
+	  </tr>
+  </table>
+ <table width="600" height="100" border="0" cellpadding="5" cellspacing="0" id="hide" style="display:none">
+          <tr>
+            <td align="center" valign="bottom"><img src="images/ajax_loader.gif"  border="0" /></td>
+          </tr>
+          <tr>
+            <td align="center" valign="top" style="color: #009900">正在重建数据索引，请稍候......</td>
+          </tr>
+        </table>
+</form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

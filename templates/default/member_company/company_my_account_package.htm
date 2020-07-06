@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/company_my_account_package.css" type="text/css" rel="stylesheet"/>
+        <title>{#$title#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/company/company_index.php">企业中心 </a>&nbsp;>&nbsp;账号设置</p>
+                <div class="left_box">
+                    <div class="box_title">
+                        <a href="/user/company/company_info.php?act=company_profile">企业资料</a>
+                        <a href="/user/company/company_info.php?act=company_img">企业相册</a>
+                        <a href="/user/company/company_info.php?act=company_map_set">地图标注</a>
+                        <a href="/user/company/company_user.php?act=password_edit">密码安全</a>
+                        <a href="/user/company/company_user.php?act=login_log">登录日志</a>
+                        <a class="cur" href="/user/company/company_service.php?act=account">我的账号</a>
+                        <a href="/user/company/company_user.php?act=pm">我的消息</a>
+                    </div>
+                    <p class="vip_tip">您当前身份：<span class="vip_name">{#$setmeal.setmeal_name#}</span>，{#if $setmeal_endtime#}{#if $setmeal_endtime=="无限期"#}无限期{#else#}还有{#$setmeal_endtime#}到期{#/if#}{#else#}已经到期{#/if#}<span>（开通时间：{#$setmeal.starttime|date_format:"%Y-%m-%d"#}）</span><a href="/user/company/company_service.php?act=setmeal_list">续期</a><span>或</span><a href="/user/company/company_service.php?act=setmeal_list">升级</a></p>
+                    <table class="package" width="840" border="1" cellspacing="0" cellpadding="0">
+                        <tr class="title">
+                            <th scope="col">套餐内容</th>
+                            <th scope="col">剩余</th>
+                            <th scope="col">总量</th>
+                        </tr>
+                        <tr>
+                            <td>发布招聘职位</td>
+                            <td>{#$setmeal.jobs_ordinary#}</td>
+                            <td>{#$setmeal_rule.jobs_ordinary#}</td>
+                        </tr>
+                        <tr>
+                            <td>下载高级人才简历</td>
+                            <td>{#$setmeal.download_resume_senior#}</td>
+                            <td>{#$setmeal_rule.download_resume_senior#}</td>
+                        </tr>
+                        <tr>
+                            <td>邀请高级人才面试数</td>
+                            <td>{#$setmeal.interview_senior#}</td>
+                            <td>{#$setmeal_rule.interview_senior#}</td>
+                        </tr>
+                        <tr>
+                            <td>下载普通人才简历</td>
+                            <td>{#$setmeal.download_resume_ordinary#}</td>
+                            <td>{#$setmeal_rule.download_resume_ordinary#}</td>
+                        </tr>
+                        <tr>
+                            <td>邀请普通人才面试数</td>
+                            <td>{#$setmeal.interview_ordinary#}</td>
+                            <td>{#$setmeal_rule.interview_ordinary#}</td>
+                        </tr>
+                        <tr>
+                            <td>人才库容量</td>
+                            <td>{#$setmeal.talent_pool#}</td>
+                            <td>{#$setmeal_rule.talent_pool#}</td>
+                        </tr>
+                        <tr>
+                            <td>职位推广-推荐</td>
+                            <td>{#$setmeal.recommend_num#}</td>
+                            <td>{#$setmeal_rule.recommend_num#}</td>
+                        </tr>
+                        <tr>
+                            <td>职位推广-紧急</td>
+                            <td>{#$setmeal.emergency_num#}</td>
+                            <td>{#$setmeal_rule.emergency_num#}</td>
+                        </tr>
+                        <tr>
+                            <td>职位推广-置顶</td>
+                            <td>{#$setmeal.stick_num#}</td>
+                            <td>{#$setmeal_rule.stick_num#}</td>
+                        </tr>
+                        <tr>
+                            <td>职位推广-变色</td>
+                            <td>{#$setmeal.highlight_num#}</td>
+                            <td>{#$setmeal_rule.highlight_num#}</td>
+                        </tr>
+                    </table>
+                    <div class="box_title">
+                        <p>消费记录</p>
+                    </div>
+                    {#if $report#}
+                    <table class="complex" width="840" border="1" cellspacing="0" cellpadding="0">
+                        <tr class="title">
+                            <th scope="col">操作类型</th>
+                            <th scope="col">套餐余量</th>
+                            <th scope="col">操作时间</th>
+                            <th scope="col">详情</th>
+                        </tr>
+                        {#foreach from=$report item=list#}
+                        <tr>
+                            <td>{#$list.log_op_type_cn#}</td>
+                            <td>{#$list.log_op_leave#}</td>
+                            <td>{#$list.log_addtime|date_format:"%Y-%m-%d %H:%M"#}</td>
+                            <td>{#$list.log_value#}</td>
+                        </tr>
+                        {#/foreach#}
+                    </table>
+                    <div class="clear"></div>
+                    <div class="page_box">{#$page#}</div>
+                    {#else#}
+                    <div class="clear"></div>
+                    <div class="empty_box">
+                        <i></i>
+                        <div class="clear"></div>
+                        <p>很抱歉，暂时找不到对应的信息~</p>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="right_box">
+                    <div class="function_box">
+                        <ul>
+                            <li class="company_profile">
+                                <a href="/user/company/company_index.php"><i></i><span>企业中心</span></a>
+                            </li>
+                            <li class="company_job">
+                                <a href="/user/company/company_jobs.php?act=jobs&jobtype=1"><i></i><span>职位管理</span></a>
+                            </li>
+                            <li class="company_resume">
+                                <a href="/user/company/company_recruitment.php?act=apply_jobs"><i></i><span>简历管理</span></a>
+                            </li>
+                            <li class="company_vip">
+                                <a href="/user/company/company_service.php?act=setmeal_list"><i></i><span>VIP服务</span></a>
+                            </li>
+                            <li class="company_account">
+                                <a href="/user/company/company_info.php?act=company_profile"><i></i><span>账号设置</span></a>
+                            </li>
+                            <li class="company_authenticate">
+                                <a href="/user/company/company_user.php?act=authenticate"><i></i><span>身份认证</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="quick_box">
+                        <ul>
+                            <li class="add_jobs">
+                                <a href="/user/company/company_jobs.php?act=addjobs"><i></i><br/><span>发布职位</span></a>
+                            </li>
+                            <li class="home_page">
+                                <a href="/school/{#$company_profile.id#}.html"><i></i><br/><span>公司主页</span></a>
+                            </li>
+                            <li class="search_resume">
+                                <a href="/resume/resume-list.php"><i></i><br/><span>人才搜索</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

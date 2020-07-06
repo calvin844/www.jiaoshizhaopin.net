@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+            <title>{#$title#}</title>
+            <link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+            <meta name="author" content="骑士CMS" />
+            <meta name="copyright" content="74cms.com" />
+            <link href="{#$QISHI.site_template#}css/user_personal.css" rel="stylesheet" type="text/css" />
+            <link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+            <link href="{#$QISHI.site_template#}css/jobs.css" rel="stylesheet" type="text/css" />
+            <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+            <script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+            <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+            <script src="{#$QISHI.site_dir#}data/cache_classify.js" type='text/javascript' charset="utf-8"></script>
+            <script src="{#$QISHI.site_template#}js/jquery.user.selectlayer.js" type='text/javascript' language="javascript"></script>
+            <script type="text/javascript">
+                $(document).ready(function ()
+                {
+                    allaround('{#$QISHI.site_dir#}');
+            // 显示地区
+                    $("#jobsCity").hover(function () {
+                        $("#divCityCate").show();
+                        $("#divCityCate li").hover(function () {
+                            if ($(this).find('.subcate').length > 0) {
+                                $(this).addClass('selected');
+                                $(this).find('.subcate').show();
+                            } else {
+                                $(this).find('a').css("color", "#f77d40");
+                            }
+                        }, function () {
+                            if ($(this).find('.subcate').length > 0) {
+                                $(this).removeClass('selected');
+                                $(this).find('.subcate').hide();
+                            } else {
+                                $(this).find('a').css("color", "#0180cf");
+                            }
+                        });
+                    }, function () {
+                        $("#divCityCate").hide();
+                    });
+            // 显示籍贯
+                    $("#jobsCityH").hover(function () {
+                        $("#divCityCateH").show();
+                        $("#divCityCateH li").hover(function () {
+                            if ($(this).find('.subcate').length > 0) {
+                                $(this).addClass('selected');
+                                $(this).find('.subcate').show();
+                            } else {
+                                $(this).find('a').css("color", "#f77d40");
+                            }
+                        }, function () {
+                            if ($(this).find('.subcate').length > 0) {
+                                $(this).removeClass('selected');
+                                $(this).find('.subcate').hide();
+                            } else {
+                                $(this).find('a').css("color", "#0180cf");
+                            }
+                        });
+                    }, function () {
+                        $("#divCityCateH").hide();
+                    });
+            //填写基本信息，打开选填内容
+                    $("#displaymore").click(function () {
+                        var tb = $("#displaymorediv");
+                        var tb_display = tb.css("display");
+                        if (tb_display == "block")
+                        {
+                            $(this).css("background", "url({#$QISHI.site_template#}images/13.gif) no-repeat 108px -125px");
+                            tb.slideUp('fast');
+                        }
+                        else
+                        {
+                            $(this).css("background", "url({#$QISHI.site_template#}images/13.gif) no-repeat 108px -151px");
+                            tb.slideDown('fast');
+                        }
+                    });
+            //发送手机验证码按钮效果
+                    $("#mobilesend").hover(
+                            function () {
+                                $(this).addClass("h");
+                            },
+                            function () {
+                                $(this).removeClass("h");
+                            }
+                    );
+            //发送手机验证码
+            //发送邮箱验证码按钮效果
+                    $("#emailsend").hover(
+                            function () {
+                                $(this).addClass("h");
+                            },
+                            function () {
+                                $(this).removeClass("h");
+                            }
+                    );
+            //发送邮箱验证码
+
+            //填写基本信息,打开选填项按钮效果
+                    $("#displaymore").hover(
+                            function () {
+                                $(this).css("background-color", "#F6F6F6");
+                            },
+                            function () {
+                                $(this).css("background-color", "#FFFFFF");
+                            }
+                    );
+            //工作性质单选
+                    var nature_obj = $("#nature_radio .input_radio").first();
+                    $("#nature").val(nature_obj.attr("id"));
+                    $("#nature_cn").val(nature_obj.text());
+                    $("#nature_radio .input_radio").click(function () {
+                        $("#nature").val($(this).attr('id'));
+                        $("#nature_cn").val($(this).text());
+                        $("#nature_radio .input_radio").removeClass("select");
+                        $(this).addClass("select");
+                    });
+            //简历公开设置
+                    $("#publicitydiv").hover(
+                            function () {
+                                $("#publicitydiv .selbox").slideDown('fast');
+                            },
+                            function () {
+                                $("#publicitydiv .selbox").slideUp('fast');
+                            }
+                    );
+            //简历公开设置-菜单效果
+                    $("#publicitydiv .selbox div").hover(
+                            function () {
+                                $(this).css("background-color", "#F6F6F6");
+                            },
+                            function () {
+                                $(this).css("background-color", "#FFFFFF");
+                            }
+                    );
+            //简历公开设置-点击执行填充表单
+                    $("#publicitydiv .selbox div").click(function () {
+                        $("#display_name").val($(this).attr('id'));
+                        $("#display_name_cn").text($(this).text());
+                        $("#publicitydiv .selbox").slideUp('fast');
+                    });
+
+            //性别单选
+                    $("#sex_radio .input_radio").click(function () {
+                        $("#sex").val($(this).attr('id'));
+                        $("#sex_cn").val($(this).text());
+                        $("#sex_radio .input_radio").removeClass("select");
+                        $(this).addClass("select");
+                    });
+            //婚姻状况单选
+                    $("#marriage_radio .input_radio").click(function () {
+                        $("#marriage").val($(this).attr('id'));
+                        $("#marriage_cn").val($(this).text());
+                        $("#marriage_radio .input_radio").removeClass("select");
+                        $(this).addClass("select");
+                    });
+            //下拉菜单
+                    menuDown("#education_menu", "#education", "#education_cn", "#menu1", "218px");
+                    menuDown("#experience_menu", "#experience", "#experience_cn", "#menu2", "218px");
+                    function menuDown(menuId, input, input_cn, menuList, width) {
+                        $(menuId).click(function () {
+                            $(menuList).css("width", width);
+                            $(menuList).slideDown('fast');
+                            //生成背景
+                            $(menuId).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                            $(".menu_bg_layer").height($(document).height());
+                            $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
+                            $(".menu_bg_layer").css("opacity", "0");
+                            $(".menu_bg_layer").click(function () {
+                                $(".menu_bg_layer").remove();
+                                $(menuList).slideUp("fast");
+                                $(menuId).parent("div").css("position", "");
+                            });
+                        });
+
+                        $(menuList + " li").click(function () {
+                            var id = $(this).attr("id");
+                            var title = $(this).attr("title");
+                            $(input).val(id);
+                            $(input_cn).val(title);
+                            $(menuId).html(title);
+                            $(menuList).slideUp('fast');
+                            $(".menu_bg_layer").remove();
+                        });
+                    }
+                    showyearbox(".date_input", "#birthday");
+                    function showyearbox(divname, inputname)
+                    {
+                        $(divname).click(function () {
+                            var inputdiv = $(this);
+                            $(inputdiv).parent("div").before("<div class=\"menu_bg_layer\"></div>");
+                            $(".menu_bg_layer").height($(document).height());
+                            $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0"});
+                            $(inputdiv).parent("div").css("position", "relative");
+
+                            var myDate = new Date();
+                            var y = myDate.getFullYear();
+                            y = y - 18;
+                            var ymin = y - 35;
+                            htm = "<div class=\"showyearbox yearlist\">";
+                            htm += "<ul>";
+                            for (i = y; i >= ymin; i--)
+                            {
+                                htm += "<li title=\"" + i + "\">" + i + "年</li>";
+                            }
+                            htm += "<div class=\"clear\"></div>";
+                            htm += "</ul>";
+                            htm += "</div>";
+                            $(inputdiv).blur();
+                            if ($(inputdiv).parent("div").find(".showyearbox").html())
+                            {
+                                $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                            }
+                            else
+                            {
+                                $(inputdiv).parent("div").append(htm);
+                                $(inputdiv).parent("div").children(".showyearbox.yearlist").slideToggle("fast");
+                            }
+                            //
+                            $(inputdiv).parent("div").children(".yearlist").find("li").unbind("click").click(function ()
+                            {
+                                $(inputname).val($(this).attr("title"));
+                                $(inputdiv).html($(this).attr("title"));
+                                $(inputdiv).parent("div").children(".yearlist").hide();
+                                $(".menu_bg_layer").remove();
+                            });
+                            //
+                            $(".showyearbox>ul>li").hover(
+                                    function ()
+                                    {
+                                        $(this).css("background-color", "#DAECF5");
+                                        $(this).css("color", "#ff0000");
+                                    },
+                                    function ()
+                                    {
+                                        $(this).css("background-color", "");
+                                        $(this).css("color", "");
+                                    }
+                            );
+                            //
+                            $(".menu_bg_layer").click(function () {
+                                $(".menu_bg_layer").hide();
+                                $(inputdiv).parent("div").css("position", "");
+                                $(inputdiv).parent("div").find(".showyearbox").hide();
+
+                            });
+                        });
+                    }
+                    $("#mobilesend").click(function () {
+                        var tel = /^(13|15|14|18)\d{9}$/;
+                        if ($("#mobile").val() == '')
+                        {
+                            alert_dialog("fail:请填写手机号", "", "", "", "");
+                        }
+                        else if (!tel.test($("#mobile").val()))
+                        {
+                            alert_dialog("fail:手机号错误", "", "", "", "");
+                        }
+                        else
+                        {
+                            $("#mobilesend").html("正在发送...");
+                            var mobile = $("#mobile").val();
+                            $("#mobile").attr("disabled", "disabled");
+                            $("#Form1").append("<input type='hidden' name='mobile' id='mobile' value='" + mobile + "'>");
+                            $.post("{#$QISHI.site_dir#}plus/ajax_verify_mobile.php", {"mobile": $("#mobile").val(), "send_key": "{#$send_mobile_key#}", "time": new Date().getTime(), "act": "send_code"},
+                            function (data, textStatus)
+                            {
+                                if (data == "success")
+                                {
+                                    $("#mobilesend").hide();
+                                    $("#mobilesendsucceed").show();
+                                    $("#displaymobilesend").show();
+                                    $("#mobile_verifycode").attr("disabled", "");
+                                    SysSecond = 60;
+                                    InterValObj = window.setInterval(SetRemainTime, 1000);
+                                    function SetRemainTime()
+                                    {
+                                        if (SysSecond > 0)
+                                        {
+                                            SysSecond--;
+                                            $("#remainTime").html(SysSecond);
+                                        }
+                                        else
+                                        {
+                                            window.clearInterval(InterValObj);
+                                            $("#mobilesend").attr("disabled", "");
+                                            $("#mobile").attr("disabled", "");
+                                            $("#mobilesend").show();
+                                            $("#mobilesendsucceed").hide();
+                                            $("#displaymobilesend").hide();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    $("#mobilesend").attr("disabled", "");
+                                    $("#mobilesend").html("手机认证");
+                                    $("#mobile").attr("disabled", "");
+                                    $("#displaymobilesend").hide();
+                                    $("#mobilesendsucceed").hide();
+                                    alert_dialog("fail:" + data, "", "", "", "");
+                                }
+                            }
+                            , "text"
+                                    )
+                        }
+                    });
+            //发送验证完毕
+
+
+            //发送邮箱验证
+                    $("#emailsend").click(function ()
+                    {
+                        var str = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]w+)*$/;
+                        if ($("#email").val() == '')
+                        {
+                            alert_dialog("fail:请填写邮箱", "", "", "", "");
+                        }
+                        else if (!str.test($("#email").val()))
+                        {
+                            alert_dialog("fail:邮箱填写错误", "", "", "", "");
+                        }
+                        else
+                        {
+                            $("#emailsend").html("正在发送...");
+                            var email = $("#email").val();
+                            $("#email").attr("disabled", "disabled");
+                            $("#Form1").append("<input type='hidden' name='email' id='email' value='" + email + "'>");
+                            $.post("{#$QISHI.site_dir#}plus/ajax_verify_email.php", {"email": $("#email").val(), "send_key": "{#$send_email_key#}", "time": new Date().getTime(), "act": "send_code"},
+                            function (data, textStatus)
+                            {
+                                if (data == "success")
+                                {
+                                    $("#emailsend").hide();
+                                    $("#emailsendsucceed").show();
+                                    $("#displayemailsend").show();
+                                    SysSecond = 60;
+                                    InterValObj = window.setInterval(SetRemainTime, 1000);
+                                    function SetRemainTime()
+                                    {
+                                        if (SysSecond > 0)
+                                        {
+                                            SysSecond--;
+                                            $("#remainTime").html(SysSecond);
+                                        }
+                                        else
+                                        {
+                                            window.clearInterval(InterValObj);
+                                            $("#emailsend").attr("disabled", "");
+                                            $("#email").attr("disabled", "");
+                                            $("#emailsend").show();
+                                            $("#emailsendsucceed").hide();
+                                            $("#displayemailsend").hide();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    $("#emailsend").attr("disabled", "");
+                                    $("#emailsend").html("邮箱认证");
+                                    $("#email").attr("disabled", "");
+                                    $("#displayemailsend").hide();
+                                    $("#emailsendsucceed").hide();
+                                    alert_dialog("fail:" + data, "", "", "", "");
+                                }
+                            }
+                            , "text"
+                                    )
+                        }
+                    });
+            //发送邮箱验证完毕
+                    $("#Form1").validate({
+            // debug: true,
+            // onsubmit:false,
+            //onfocusout :true,
+                        rules: {
+                            realname: "required",
+                            birthday: "required",
+                            residence: "required",
+                            education: "required",
+                            experience: "required",
+                            mobile: "required",
+                            email: {
+                                required: true,
+                                email: true
+                            }
+                        },
+                        messages: {
+                            realname: {
+                                required: jQuery.format("请输入真实姓名")
+                            },
+                            birthday: {
+                                required: jQuery.format("请选择出生年份")
+                            },
+                            residence: {
+                                required: jQuery.format("请选择现居住地")
+                            },
+                            education: {
+                                required: jQuery.format("请选择你的学历")
+                            },
+                            experience: {
+                                required: jQuery.format("请选择工作经验")
+                            },
+                            mobile: {
+                                required: jQuery.format("请填写手机号")
+                            },
+                            email: {
+                                required: jQuery.format("请填写电子邮箱"),
+                                email: jQuery.format("请正确填写电子邮箱")
+                            }
+                        },
+                        errorPlacement: function (error, element) {
+                            if (element.is(":radio"))
+                                error.appendTo(element.parent().next().next());
+                            else if (element.is(":checkbox"))
+                                error.appendTo(element.next());
+                            else
+                                error.appendTo(element.parent());
+                        }
+                    });
+                });
+            </script>
+    </head>
+    <body>
+        {#include file="user/header.htm"#}
+
+        <div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 基本资料</div>
+
+        <div class="usermain">
+            <div style="display:inline-block;">
+                <div class="leftmenu link_bk">
+                    {#include file="member_personal/left.htm"#}	
+                </div>
+                <div class="rightmain">
+                    <div class="bbox1">
+                        <div class="addresume link_bk">
+                            <div class="topnav">
+                                <div class="titleH1">
+                                    <div class="h1-title">账户管理</div>
+                                </div>
+                                <div class="navs link_bk">
+                                    <a href="?act=userprofile" class="se">基本资料</a>
+                                    <a href="?act=password_edit">密码修改</a>
+                                    <a href="?act=authenticate">安全认证</a>
+                                    <a href="?act=avatars">头像</a>
+                                    <a href="?act=pm">消息{#if $total#}<span class="h">({#$total#})</span>{#/if#}</a>
+                                    <a href="?act=login_log">登陆日志</a>
+                                    <a href="?act=binding">账号绑定</a>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <form id="Form1" name="Form1" method="post" action="?act=userprofile_save" >
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" style="margin-top:15px;">
+                                    <tr>
+                                        <td width="125" align="right"><span class="nec">姓名</span>：</td>
+                                        <td width="230"><input name="realname" type="text" class="input_text_200" id="realname" maxlength="6"   value="{#$userprofile.realname#}" /> </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><span class="nec">性别</span>：</td>
+                                        <td>
+                                            <div id="sex_radio">
+                                                <input name="sex" id="sex" type="hidden" value="{#$userprofile.sex|default:1#}" />
+                                                <input name="sex_cn" id="sex_cn" type="hidden" value="{#$userprofile.sex_cn|default:'男'#}" />
+                                                <div class="input_radio{#if $userprofile.sex==1||$userprofile.sex==''#} select{#/if#}" id="1">男</div>
+                                                <div class="input_radio{#if $userprofile.sex==2#} select{#/if#}" id="2">女</div>			  
+                                                <div class="clear"></div>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><span class="nec">出生年份</span>：</td>
+                                        <td>
+                                            <div>
+                                                <div class="input_text_200_bg date_input">{#if $userprofile.birthday>0#}{#$userprofile.birthday#}{#else#}请选择{#/if#}</div>
+                                                <input name="birthday" id="birthday" type="hidden" value="{#$userprofile.birthday#}" />
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr class="jobmain">
+                                        <td align="right"><span class="nec">现居住地</span>：</td>
+                                        <td id="jobsCity" style="position:relative;">
+                                            <div class="input_text_200_bg" id="cityText">{#$userprofile.residence_cn|default:"请选择"#}</div>
+                                            <div style="display:none;left:1px;top:46px;" id="divCityCate" class="divJobCate">
+                                                <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                            </div>
+                                            <input name="residence" id="residence" type="hidden" value="{#$userprofile.residence#}" />
+                                            <input name="residence_cn" id="residence_cn" type="hidden" value="{#$userprofile.residence_cn#}" />
+                                        </td>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><span class="nec">学历</span>：</td>
+                                        <td>
+                                            <div style="position:relateve;">
+                                                <div id="education_menu" class="input_text_200_bg">{#if $userprofile.education>0#}{#$userprofile.education_cn#}{#else#}请选择{#/if#}</div>	
+                                                <div class="menu" id="menu1">
+                                                    <ul>
+                                                        {#qishi_get_classify  set="类型:QS_education,列表名:c_education"#}
+                                                        {#foreach from=$c_education item=list#}
+                                                        <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                        {#/foreach#}
+                                                    </ul>
+                                                </div>
+                                            </div>				
+                                            <input name="education" type="hidden" id="education" value="{#$userprofile.education#}" />
+                                            <input name="education_cn" type="hidden" id="education_cn" value="{#$userprofile.education_cn#}" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><span class="nec">工作经验</span>：</td>
+                                        <td>
+                                            <div style="position:relateve;">
+                                                <div id="experience_menu" class="input_text_200_bg">{#if $userprofile.experience>0#}{#$userprofile.experience_cn#}{#else#}请选择{#/if#}</div>	
+                                                <div class="menu" id="menu2">
+                                                    <ul>
+                                                        {#qishi_get_classify  set="类型:QS_experience,列表名:c_experience"#}
+                                                        {#foreach from=$c_experience item=list#}
+                                                        <li id="{#$list.id#}" title="{#$list.categoryname#}">{#$list.categoryname#}</li>
+                                                        {#/foreach#}
+                                                    </ul>
+                                                </div>
+                                            </div>				
+                                            <input name="experience" type="hidden" id="experience" value="{#$userprofile.experience#}" />
+                                            <input name="experience_cn" type="hidden" id="experience_cn" value="{#$userprofile.experience_cn#}" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><span class="nec">手机</span>：</td>
+                                        <td>
+                                            {#if $user.mobile_audit=="1"#}
+                                            {#$userprofile.phone#}
+                                            {#else#}
+                                            <input name="mobile" id="mobile" type="text" class="input_text_200" value="{#$userprofile.phone#}" />
+                                            {#/if#}
+                                        </td>
+                                        <!--<td>
+                                        {#if $user.mobile_audit!="1"#}
+                                        <div class="mobilesend" id="mobilesend">手机认证</div><div class="mobilesend succeed" id="mobilesendsucceed">已成功发送验证码，<span id="remainTime">60</span>秒后可重新发送！</div>
+                                        {#/if#}
+                                        </td>-->
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" id="displaymobilesend" style="display:none" >
+                                    <tr>
+                                        <td align="right" width="125"><span class="nec">手机验证码</span>：</td>
+                                        <td width="230"><input name="mobile_verifycode" id="mobile_verifycode" type="text" class="input_text_200" value="" /></td>
+                                        <td><div class="righttip">请填写您手机收到的验证码!</div></td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                                    <tr>
+                                        <td width="125" align="right"><span class="nec">邮箱</span>：</td>
+                                        <td width="230">
+                                            {#if $user.email_audit=="1"#}
+                                            {#$userprofile.email#}
+                                            {#else#}
+                                            <input name="email" id="email" type="text" class="input_text_200" value="{#$userprofile.email#}" />
+                                            {#/if#}
+                                        </td>
+                                        <td>
+                                            {#if $user.email_audit!="1"#}
+                                            <div class="emailsend" id="emailsend">邮箱认证</div><div class="emailsend succeed" id="emailsendsucceed">已成功发送验证码，<span id="remainTime">60</span>秒后可重新发送！</div>
+                                            {#/if#}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" id="displayemailsend" style="display:none" >
+                                    <tr>
+                                        <td align="right" width="125"><span class="nec">邮箱验证码</span>：</td>
+                                        <td width="230"><input name="email_verifycode" id="email_verifycode" type="text" class="input_text_200" value="" /></td>
+                                        <td><div class="righttip">请填写您邮箱收到的验证码!</div></td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+                                    <tr>
+                                        <td width="125" align="right">&nbsp;</td>
+                                        <td width="230"><div class="displaymore" id="displaymore">展开选填信息</div></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>		
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" id="displaymorediv" style="display:none">
+                                    <tr>
+                                        <td width="125" align="right">身高：</td>
+                                        <td width="220"><input name="height" type="text" class="input_text_200_bgsg" value="{#$userprofile.height#}" /> </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr class="jobmain">
+                                        <td width="125" align="right">籍贯：</td>
+                                        <td width="220" id="jobsCityH" style="position:relative;">
+                                            <div class="input_text_200_bg" id="cityTextH">{#$userprofile.householdaddress_cn|default:"请选择"#}</div>
+                                            <div style="display:none;left:1px;top:46px;" id="divCityCateH" class="divJobCate">
+                                                <table class="jobcatebox citycatebox"><tbody></tbody></table>
+                                            </div>
+                                            <input name="householdaddress" id="householdaddress" type="hidden" value="{#$userprofile.householdaddress#}" />
+                                            <input name="householdaddress_cn" id="householdaddress_cn" type="hidden" value="{#$userprofile.householdaddress_cn#}" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">婚姻状况：</td>
+                                        <td>
+                                            <div id="marriage_radio">
+                                                <input name="marriage" id="marriage" type="hidden" value="{#$userprofile.marriage#}" />
+                                                <input name="marriage_cn" id="marriage_cn" type="hidden" value="{#$userprofile.marriage_cn#}" />
+                                                <div class="input_radio{#if $userprofile.marriage==1#} select{#/if#}" id="1">未婚</div>
+                                                <div class="input_radio{#if $userprofile.marriage==2#} select{#/if#}" id="2">已婚</div>			  
+                                                <div class="clear"></div>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>
+
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" >
+                                    <tr>
+                                        <td width="127" align="right"> </td>
+                                        <td colspan="2"><input type="submit" name="submitsave" id="submitsave" value="保存"  class="but220lan"/>			</td>
+                                    </tr>
+                                </table>
+                            </form>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="clear"></div>
+        </div>
+        {#include file="user/footer.htm"#}
+    </body>
+</html>

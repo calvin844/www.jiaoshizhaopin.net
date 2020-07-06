@@ -1,0 +1,285 @@
+div.a_box div.left div.box ul li i,div.a_box div.right div.search_box div.search_type,div.a_box div.right div.ad_bt a.nor,div.a_box div.right div.ad_bt a.act{ background:url(../images/common_c.png) no-repeat;}
+
+body{ background:#f5f5f5 !important;}
+div.city_box{ margin:5px 0px 5px 0px;}
+div.city_box ul{ width: 700px;}
+div.city_box ul.right{ height: 60px; overflow: hidden; width: 300px;}
+div.city_box ul li{ float:left; margin:5px 7px 3px 10px; height:18px; line-height:18px;}
+div.city_box ul li.title { margin:5px 0px 0px 10px;}
+div.city_box ul li.title p{ background: #8abbf8; color:#fff; padding: 0px 3px 0px 3px;}
+div.city_box ul li a{ font-family:"Î¢ÈíÑÅºÚ"; color:#656565;}
+div.city_box ul li a:hover{ text-decoration:underline; color:#226cd6;}
+
+div p.left_title{ padding:8px 0px 8px 10px;float: left; }
+div p.left_title i{ display:inline-block; width:2px; height:20px; background:#fab15c; margin:4px 10px 0px 0px; float:left;}	
+div p.left_title span{ color:#50537b; font-size:18px; font-family:"Î¢ÈíÑÅºÚ"; float:left; margin:4px 0px 0px 0px;}
+div p.bottom_title{ margin:15px 10px 8px 10px; padding:0px 0px 15px 0px; border-bottom:1px #ccc solid;}	
+div p.bottom_title span{ color:#000; font-size:18px; font-family:"Î¢ÈíÑÅºÚ"; margin:0px 0px 0px 4px;}
+div p.bottom_title a{ color:#0039bc; float:right; margin:10px 10px 0px 0px;}
+div p.bottom_title a:hover{ text-decoration:underline;}
+div div.bottom_title{ border-bottom: 1px solid #ccc;float: left; margin: 15px 10px 8px; width: 728px; *height:30px;}	
+div div.bottom_title span{ color:#000; font-size:18px; font-family:"Î¢ÈíÑÅºÚ"; margin:0px 0px 0px 4px; float:left;}
+div div.bottom_title a{ color:#0039bc; float:right; margin:10px 10px 0px 0px;}
+div div.bottom_title a:hover{ text-decoration:underline;}
+div a.more{ float: right; margin: 2px 10px 0px 0px; color:#0039bc;}
+div a.item_more{ margin: 0px 0px 10px 670px; color:#0039bc; display: inline-block;}
+
+div.a_box{}
+div.a_box div.left{ width:233px; overflow:hidden;}
+div.a_box div.left div.box{ width:233px; border-top:2px #8abbf8 solid; background:#FFF; margin-bottom:10px; float:left; min-height:203px; overflow:hidden;}
+div.a_box div.left div.box ul{ padding:0px 0px 10px 10px; float:left;}
+div.a_box div.left div.box ul li{ width:220px; height:55px; float:left; margin:0px 0px 5px 0px;}
+div.a_box div.left div.box ul li:hover{ background:#f5f5f5;}
+div.a_box div.left div.box ul li a{ padding:10px 0px 0px 0px; float:left; display:inline-block; height:45px; margin:0px 0px 5px 0px; width: 215px;}
+div.a_box div.left div.box ul li a:hover{ color:#FFF;}
+div.a_box div.left div.box ul li a i{ display:inline-block; height:30px; width:30px; float:left;border-radius:100px; margin:3px 0px 0px 10px;}
+div.a_box div.left div.box ul li a span{ display:block; font-family:"Î¢ÈíÑÅºÚ"; margin: 3px 0px 0px 50px;}
+div.a_box div.left div.box ul li a span.title{ font-size:16px; color:#333;}
+div.a_box div.left div.box ul li a span.des{ color:#c7c7c7; margin: 5px 0px 0px 50px;}
+div.a_box div.left div.box ul li a.news i{  background-position:-6px -29px;}
+div.a_box div.left div.box ul li a.recommend i{  background-position:-8px -84px;}
+div.a_box div.left div.box ul li a.urgent i{  background-position:-7px -140px;}
+div.a_box div.left div.box ul li a.company i{  background-position:-7px -194px;}
+div.a_box div.left div.jobs_type div{ margin:10px 0px 0px 20px;}
+div.a_box div.left div.jobs_type a{ padding:5px 6px 5px 6px; float:left; margin:0px 5px 5px 0px; font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; color:#333; height:18px; line-height:18px;}
+div.a_box div.left div.jobs_type a:hover{ background:#fab15c; color:#FFF;}
+div.a_box div.right{ width:756px; height:290px; border-top:2px #8abbf8 solid; background:#FFF;}
+div.a_box div.right div.search_box{ width:731px; height:43px; border:2px #5a8bc8 solid; background:#FFF; margin:36px 0px 0px 10px;}
+div.a_box div.right div.search_box div.search_type{ width:75px; height:43px; background-position:0 -235px; border-right:2px #5a8bc8 solid; position:relative; float:left;}
+div.a_box div.right div.search_box div.search_type p.flag{ width:60px; height:43px; text-align:center; line-height:43px; font-size:14px; cursor:pointer; overflow:hidden;}
+
+div.a_box div.right div.search_box div.type_box{ position:absolute; top:46; left:-2px; background:#FFF; border:2px #5a8bc8 solid; z-index:5; display:none;}
+div.a_box div.right div.search_box div.type_box p.title{ width:380px; text-align:right; font-size:14px; background:#f5f5f5; cursor: default; padding:5px 10px 5px 10px;}
+div.a_box div.right div.search_box div.type_box p.title span{ float:left; font-size:14px; font-weight:bold;}
+div.a_box div.right div.search_box div.type_box div.hot{ padding:0px 0px 5px 0px; float:left;}
+div.a_box div.right div.search_box div.type_box div.hot p{ margin:10px 5px 5px 10px; width:auto; height:15px; text-align:left; line-height:15px; font-size:12px; cursor:default; font-weight:bold;}
+div.a_box div.right div.search_box div.type_box div.hot ul{ margin:0px 0px 0px 5px; width:380px; height:50px; overflow:hidden;}
+div.a_box div.right div.search_box div.type_box div.hot ul li{ float:left; font-size:12px; cursor:pointer; padding:5px;    line-height: 15px; height: 15px;}
+div.a_box div.right div.search_box div.type_box div.hot ul li:hover{ background:#b1d2fc; color:#FFF;}
+div.a_box div.right div.search_box div.type_box ul.selected{ background:#f5f5f5; margin:0px; padding:0px 10px 0px 5px; border-bottom:1px #5a8bc8 solid; float:left; width:385px; height:25px;}
+div.a_box div.right div.search_box div.type_box ul.selected li{ height:25px; float:left; padding:0px 5px 0px 5px; line-height:25px; cursor:pointer;}
+div.a_box div.right div.search_box div.type_box ul.selected li.selected{ background:#FFF; border-top:2px #5a8bc8 solid; border-left:1px #5a8bc8 solid; border-right:1px #5a8bc8 solid; line-height:23px; cursor:default;}
+div.a_box div.right div.search_box div.type_box ul.select_box{ background:#fff; margin:0px; padding:5px 10px 5px 5px; float:left; width:385px;}
+div.a_box div.right div.search_box div.type_box ul.select_box li{ float:left; padding:5px; cursor:pointer;}
+div.a_box div.right div.search_box div.type_box ul.select_box li:hover{ background:#b1d2fc; color:#FFF;}
+
+
+div.a_box div.right div.search_box div.job_type_box{ position:absolute; top:46; left:-2px; background:#FFF; border:2px #5a8bc8 solid; border-bottom:1px #5a8bc8 solid;  border-right:none;z-index:5; display:none;}
+div.a_box div.right div.search_box div.job_type_box p.title{ width:150px; border-right:2px #5a8bc8 solid; text-align:left; font-size:14px; background:#f5f5f5; cursor: default; padding:5px 10px 5px 5px; border-bottom:1px #5a8bc8 solid; font-weight:bold;}
+div.a_box div.right div.search_box div.job_type_box a.no_select{ float: right; font-weight: normal; margin: 2px 0px 0px 0px;}
+div.a_box div.right div.search_box div.job_type_box ul{ position:relative; z-index:6;}
+div.a_box div.right div.search_box div.job_type_box ul li{ background:#FFF; padding:5px 10px  5px 5px; cursor:pointer; border-bottom:1px #ccc dotted; border-right:2px #5a8bc8 solid; position:relative; z-index:6;}
+div.a_box div.right div.search_box div.job_type_box ul li:hover{ background:#f5f5f5;}
+div.a_box div.right div.search_box div.job_type_box ul li.cur{ background:#f5f5f5; border-right:2px #f5f5f5 solid;  border-bottom:1px #5a8bc8 solid; border-top: 1px solid #5a8bc8;}
+div.a_box div.right div.search_box div.job_type_box ul li span{ width:140px; height:20px; line-height:25px; overflow:hidden; display:inline-block;}
+div.a_box div.right div.search_box div.job_type_box ul li u{ text-decoration:none; float:right; line-height:25px;}
+div.a_box div.right div.search_box div.job_type_box ul li i{ position:absolute; z-index:6; display:block; width:2px; height:34px; background:#f5f5f5; right:-2px; top:0; display:none;}
+div.a_box div.right div.search_box div.job_type_box ul.job_type_ul{ background:#f5f5f5;  position:absolute; left:165px; top:-2px; border:2px #5a8bc8 solid; z-index:5; width:420px; overflow:auto; display:none;}
+div.a_box div.right div.search_box div.job_type_box ul.job_type_ul li{ background:#f5f5f5;  border:none; float:left; padding:5px; width:190px; overflow:hidden; height:24px; line-height:24px;}
+div.a_box div.right div.search_box div.job_type_box ul.job_type_ul li:hover{ background:#5a8bc8; color:#FFF;}
+
+
+/*
+div.a_box div.right div.search_box div.search_type ul{ position:absolute; top:46; left:-3px; display:none; background:#FFF; border-top:3px #5a8bc8 solid;}
+div.a_box div.right div.search_box div.search_type ul li{ width:73px; height:43px; border:3px #5a8bc8 solid; border-top:none; text-align:center; line-height:43px; font-size:14px;}
+*/
+div.a_box div.right input.search_str{ outline:none;width:611px;*width:607px; height:33px; *height:30px; line-height:33px; *line-height:30px; padding:5px 2px 5px 10px; float:left; color:#999; font-size:16px; border:none; }
+div.a_box div.right input.search_submit{ width:108px; height:43px; line-height:43px; float:left; color:#fff; background:#5a8bc8; font-size:16px; cursor:pointer; font-family:"Î¢ÈíÑÅºÚ"; -webkit-appearance: none;}
+div.a_box div.right div.search_keyword{ margin:12px 0px 40px 12px; float:left;}
+div.a_box div.right div.search_keyword span{ font-family:"Î¢ÈíÑÅºÚ"; font-size:14px; color:#333;}
+div.a_box div.right div.search_keyword a{ font-family:"Î¢ÈíÑÅºÚ"; font-size:14px; margin:0px 10px 0px 0px; color:#333;}
+div.a_box div.right div.search_keyword a:hover{ text-decoration:underline; color:#8abbf8;}
+
+div.a_box div.right div.ad_box{ height: 160px; margin: 0 12px;position: relative; overflow: hidden; width: 732px; z-index: 1;}
+div.a_box div.right div.ad_box ul{ float: left;position: relative;left: 0;width:600px; z-index: 1;}
+div.a_box div.right div.ad_box ul li{ height: 160px;}
+div.a_box div.right div.ad_bt_box { float: right;width: 121px;height: 160px;position: relative;right: 0;top: 0;z-index: 3;}
+div.a_box div.right div.ad_bt_box i{ width: 127px;height: 50px;background: #d3d3d3;position: absolute;z-index: 20;}
+div.a_box div.right div.ad_bt_box em{ width: 132px;height: 50px;background:url(../images/controller_rect.png);position: absolute;z-index: 21;top: 0;left: -9px;}
+div.a_box div.right div.ad_bt_box ul { position:relative;z-index:100}
+div.a_box div.right div.ad_bt_box ul li{ width:121px;;height:50px;margin-bottom:5px; position:relative;z-index:100}
+div.a_box div.right div.ad_bt_box ul li img{ position:relative;left:4px;top:4px;z-index:100}
+
+div.a_box div.right div.ad img { border-right: #a3afc5 1px solid; border-top: #a3afc5 1px solid; float:none; border-left: #a3afc5 1px solid; border-bottom: #a3afc5 1px solid;}
+div.a_box div.right div.ad_bt { margin:5px 0 0 570px; width:124px; line-height:32px;position:absolute}
+div.a_box div.right div.ad_bt a.nor { padding:2px 0px 0px 10px;  background-position:0 -343px; float: left; width:159px; height:62px; text-decoration:none; margin:0px 0px 5px 0px;}
+div.a_box div.right div.ad_bt a.act { padding:2px 0px 0px 10px;  background-position:0 -280px; float: left; width:159px; height:62px; text-decoration:none; margin:0px 0px 5px 0px; color:#fff;}
+
+div.a_box div.right .da-thumbs {list-style: none;height: 118px;	position: relative;	margin:20px 0 25px 12px; padding: 0;}
+div.a_box div.right .da-thumbs li {	float: left;margin-right:6px;background: #fff;position: relative;	border:2px solid #fafafa;}
+div.a_box div.right .da-thumbs li.last{margin-right:0;}
+div.a_box div.right .da-thumbs li a,.da-thumbs li a img {display: block;position: relative;}
+div.a_box div.right .da-thumbs li a {color:#fff;overflow: hidden;}
+div.a_box div.right .da-thumbs li a div {position: absolute;background: #333; opacity:0.9;width: 100%;height: 100%; background:#32afd3;display: block; left: 0px; top: 100%; transition: all 300ms ease; -webkit-transition: all 300ms ease;}
+div.a_box div.right .da-thumbs li a em{display:block;width:100px;height:5px;background:rgba(255,255,255,0.3);*background:#fff;background:#fff\0;filter:alpha(Opacity=30);margin:0 6px;}
+div.a_box div.right .da-thumbs li a h2{font-size:24px;height:24px;line-height:24px;margin:10px 8px 8px 8px;font-weight:normal;text-align:center;overflow:hidden;font-family:"Î¢ÈíÑÅºÚ";}
+div.a_box div.right .da-thumbs li a p{font-size:12px;margin:6px 8px;line-height:18px;font-family:"Î¢ÈíÑÅºÚ";}
+marquee#ad_h009{margin: 5px 0px 10px 0px; width:1000px;}
+marquee#ad_h009 a{margin: 0px 10px 0px 0px; color: #ca2f13;}
+marquee#ad_h009 a:hover{color: #FF6600;}
+div.b_box { float: left;margin: 0px 0px 10px 0px; width:1000px;}
+div.b_box div.left{ width:747px; height:525px; overflow:hidden; border-top:2px #8abbf8 solid; background:#FFF;}
+div.b_box div.left .search_box{background: none repeat scroll 0 0 #fff; border: 1px solid #d1d0d0; float: left; margin-bottom: 10px; margin-left: 295px; width: 208px; height: 20px;}
+div.b_box div.left .search_box .search_str{height: 18px; margin: 0; outline: medium none; padding-left: 8px; width: 147px; *width: 145px; border:none; float:left;}
+div.b_box div.left .search_box .search_submit{background: none repeat scroll 0 0 #5a8bc8; color: #fff; cursor: pointer; float: right; height: 20px; margin: 0; width: 50px;}
+div.b_box div.left ul{ margin:10px 0px 0px 0px; overflow:hidden;float: left;}
+div.b_box div.left li{ margin:0px 14px 9px 14px; width:345px; height:20px; line-height:20px; overflow:hidden; float:left;}
+div.b_box div.left li p.left{ max-width:305px; overflow:hidden;}
+div.b_box div.left li p.left a.city{ margin:0px 5px 0px 0px; color:#2348a9; font-family:"Î¢ÈíÑÅºÚ"; font-size:14px;}
+div.b_box div.left li p.left a.city:hover{ color:#fab15c;}
+div.b_box div.left li p.left i.new_icon{ display: inline-block; width: 35px; height: 13px; background:url(../images/index_new_icon.gif); }
+div.b_box div.left li p.left a.title{ color:#333; font-family:"Î¢ÈíÑÅºÚ"; font-size:13px;}
+div.b_box div.left li p.left a.title span{ font-family:"Î¢ÈíÑÅºÚ"; font-size:13px;}
+div.b_box div.left li p.left a.title:hover{ text-decoration:underline;}
+div.b_box div.left li p.right{ color:#aaaaaa; font-size:14px; line-height: 20px;}
+
+
+/**
+div.b_box div.right div#new_company_scroll{ height:363px; overflow:hidden;}
+div.b_box div.right ul{ margin:6px 14px 12px 14px;}
+div.b_box div.right ul li{ margin:0px 0px 9px 0px; height:20px; line-height:20px; width:215px; overflow:hidden;}
+div.b_box div.right ul li span.new_jobs_num{color:#ff9900;float:right;font-size:13px;padding-top:3px; max-width:25px; overflow:hidden;}
+div.b_box div.right ul li div.new_school_jobs{float:left;width:180px;}
+div.b_box div.right ul li a{ font-size:13px; font-family:"Î¢ÈíÑÅºÚ";}
+div.b_box div.right ul li a.city{ font-size:14px;color:#2348a9; margin:0px 5px 0px 0px;}
+div.b_box div.right ul li a.city:hover{ color:#fab15c;}
+div.b_box div.right ul li a.title{ color:#333;}
+div.b_box div.right ul li a.title:hover{ text-decoration:underline;}
+div.b_box div.right ul li a.red{ color:#ff2e00;}
+div.b_box div.right div.jobs_type div{ margin:10px 0px 0px 20px;}
+div.b_box div.right div.jobs_type a{ padding:5px 6px 5px 6px; float:left; font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; color:#333; height:18px; line-height:18px;}
+div.b_box div.right div.jobs_type a:hover{ background:#fab15c; color:#FFF;}
+div.b_box div.code_box{ float: right;margin-top: 10px; border-top:2px #8abbf8 solid; background:#FFF; width:244px; height:236px; padding:0px;}
+div.b_box div.code_box img {margin:15px 0px 0px 15px;}
+*/
+div.b_box div.right{ width:240px; height:381px; border:2px #8abbf8 solid; background:#FFF;}
+div.b_box div.right {  height:381px; }
+div.b_box div.right p.left_title{ width: 234px; border-bottom: 1px solid #ddd;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li{ position: relative; border-bottom: 1px #ddd solid;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li p.old{ font-size: 14px;color:#333; line-height: 41px; padding: 0px 0px 0px 20px; font-family:"Î¢ÈíÑÅºÚ";}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li p.old i{ display: inline-block; width: 5px; height: 5px; border-radius: 50px; background:url(../images/index/dot_black.png); margin: 5px 10px 3px 0px;}
+div.b_box div.right div.jobs_type .over_box{ display: none; width: 100%; height: 100%; position: absolute; right:0px; top: 0px;}
+div.b_box div.right div.jobs_type .over_box a{ display: block; padding: 0px 0px 0px 20px; font-size: 14px; line-height: 41px; color: #fff; background-color: #8abbf8; text-decoration: underline; font-family:"Î¢ÈíÑÅºÚ";}
+div.b_box div.right div.jobs_type .over_box a i{ display: inline-block; width: 5px; height: 5px; border-radius: 50px; background:url(../images/index/dot_white.png); margin: 5px 10px 3px 0px;}
+div.b_box div.right div.jobs_type .details{ display: none; position: absolute; left: -758px; top: -42px;  border: 2px #8abbf8 solid; background: #fff; width: 754px; height: 523px;}
+div.b_box div.right div.jobs_type .details ul{ padding: 22px 0px 0px 10px; float: left;}
+div.b_box div.right div.jobs_type .details ul li{ margin: 0px 35px 30px 0px; float: left; border-bottom: none;}
+div.b_box div.right div.jobs_type .details ul li a{ color: #333; font-size: 14px; text-decoration: none;}
+div.b_box div.right div.jobs_type .details ul li a:hover{ color: #ff000c; }
+div.b_box div.right div.jobs_type .details ul li.more a{ color: #0039bc;}
+
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(1) .details{  top: -43px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(2) .details{  top: -85px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(3) .details{  top: -127px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(4) .details{  top: -169px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(5) .details{  top: -211px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(6) .details{  top: -253px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(7) .details{  top: -295px;}
+div.b_box div.right div.jobs_type ul.jobs_type_ul li:nth-child(8) .details{  top: -337px;}
+
+div.c_box{ margin:10px 0px -8px 0px; width:1000px; overflow:hidden;}
+div.c_box ul#ad_h004{ width:1015px;}
+div.c_box ul#ad_h004 li{ width:243px; overflow:hidden; border:1px solid #dcdcdc; float:left; margin:0px 7px 5px 0px;}
+div.c_box ul#ad_h004 li a:hover{ opacity:0.8;}
+div.c_box div#ad_h002{ margin:5px 0px 5px 0px;}
+div.c_box div#ad_h002 a:hover{ opacity:0.8;}
+div.c_box div#ad_h003{ width:1000px; overflow:hidden;}
+div.c_box div#ad_h003 div.box{ width:1020px; overflow:hidden;}
+div.c_box div#ad_h003 div.box a{ float: left; margin: 0px 10px 10px 0px;}
+div.c_box div#ad_h003 div.box a:hover{ opacity:0.8;}
+div.c_box.image_one ul{ width:1015px;}
+div.c_box.image_one ul li{ width:1000px; overflow:hidden; border:1px solid #dcdcdc; float:left; margin:0px 0px 5px 0px;}
+div.c_box.image_one ul li a{ float: left;}
+div.c_box.image_one ul li a:hover{ opacity:0.8;}
+div.c_box.image_two ul{ width:1015px;}
+div.c_box.image_two ul li{ width:495px; height:58px; overflow:hidden; border:1px solid #dcdcdc; float:left; margin:0px 7px 5px 0px;}
+div.c_box.image_two ul li a:hover{ opacity:0.8;}
+div.d_box{ margin:5px 0px 0px 0px;}
+div.d_box div.left{ width:747px;}
+div.d_box div.left div.page_box{border-top:2px #8abbf8 solid; background:#FFF;margin-top:10px;}
+div.d_box div.left div.page_box ul{ margin:0px 0px 0px 14px; overflow:hidden; padding:0px 0px 10px 0px; width: 747px;}
+div.d_box div.left div.page_box ul li{ height:72px; width:720px; overflow:hidden; border-bottom:#ccc 1px dotted;padding:5px 0;}
+div.d_box div.left div.page_box ul li p.job{ float:left; display:inline-block; width:380px; height:32px; line-height:40px; overflow:hidden; margin:0px 5px 0px 0px;}
+div.d_box div.left div.page_box ul li p.company{ float:left; display:inline-block; width:320px; height:30px; line-height:40px; overflow:hidden; margin:0px 5px 0px 0px;}
+div.d_box div.left div.page_box ul li p.job_name a.city{font-family: "Î¢ÈíÑÅºÚ";  color:#2348a9; margin:0px; font-size:16px;}
+div.d_box div.left div.page_box ul li p.job_name a.city:hover{ color:#fab15c;}
+div.d_box div.left div.page_box ul li p.job_name a.name{font-family: "Î¢ÈíÑÅºÚ";  color:#333; font-size:16px; margin: 0px 8px 0px 0px;}
+div.d_box div.left div.page_box ul li p.job_name a.name:hover{ text-decoration:underline;}
+div.d_box div.left div.page_box ul li p.job_name u{ border-radius: 2px; text-decoration: none; color:#fff; background:#fab15c; display: inline-block; height: 20px; line-height: 20px; width: 20px; text-align: center; margin: 0px 0px 0px 4px;}
+div.d_box div.left div.page_box ul li p.company_name a{font-family: "Î¢ÈíÑÅºÚ";  color:#333; font-size:16px;}
+div.d_box div.left div.page_box ul li p.company_name a:hover{ text-decoration:underline;}
+div.d_box div.left div.page_box ul li p.job_info span{font-family: "Î¢ÈíÑÅºÚ";  color:#999;font-size:13px;}
+div.d_box div.left div.page_box ul li p.job_info span.wage{width:180px;float:left;}
+div.d_box div.left div.page_box ul li p.job_info span.education{width:100px;float:left;}
+div.d_box div.left div.page_box ul li p.job_info span span{color:#ff9900;}
+div.d_box div.left div.page_box ul li p.job_other{font-family: "Î¢ÈíÑÅºÚ";  color:#666;font-size:13px;}
+div.d_box div.left div.page_box ul li p.job_other a{ font-family: "Î¢ÈíÑÅºÚ"; color:#5e8af9;font-size:13px;}
+div.d_box div.left div.page_box ul li p.job_other a:hover{ text-decoration:underline;}
+/*
+div.d_box div.left div.page_box ul li{float: left; height: 20px;  margin: 0 0 11px; overflow: hidden; width: 735px;}
+div.d_box div.left div.page_box ul li p{ display: inline; height: 20px; margin: 0 0 5px;}
+div.d_box div.left div.page_box ul li a.city{ color:#2348a9; font-family:"Î¢ÈíÑÅºÚ"; font-size:14px; line-height:20px;}
+div.d_box div.left div.page_box ul li a.city:hover{ color:#fab15c;}
+div.d_box div.left div.page_box ul li a.name{color: #070707; font-family: "Î¢ÈíÑÅºÚ"; font-size: 14px; line-height: 20px; margin: 0 20px;}
+div.d_box div.left div.page_box ul li a.name:hover{ text-decoration:underline;}
+div.d_box div.left div.page_box ul li a.red{ color:#ff2e00;}
+div.d_box div.left div.page_box ul li u{ display:inline-block; width:20px; height:20px; color:#FFF; line-height:20px; text-align:center; text-decoration:none; background:#fba22f;}
+div.d_box div.left div.page_box ul li span{ color:#666666;}
+div.d_box div.left div.page_box ul li span a{ color:#666666;}
+div.d_box div.left div.page_box ul li span a:hover{ text-decoration:underline;}
+*/
+div.d_box div.left div.school ul{ margin:0px 0px 0px 20px; overflow:hidden; width:1000px;}
+div.d_box div.left div.school ul li{ margin:10px 30px 0px 0px; width:160px; height:60px; overflow:hidden; float:left; border:none;}
+div.d_box div.left div.school ul li a{ font-size:16px; font-family:"Î¢ÈíÑÅºÚ"; color:#000; height:18px; line-height: 18px; overflow:hidden; display: inline-block;}
+div.d_box div.left div.school ul li a:hover{ text-decoration:underline;}
+div.d_box div.left div.school ul li p{ font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; color:#2348a9; height:18px; line-height:18px; overflow:hidden; display:block; margin:0px;padding-top:2px;}
+div.d_box div.left div.school ul li span{ font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; color:#808080; height:20px; overflow:hidden; display:block; margin:0px;}
+div.d_box div.left div.ad_box{ margin:10px 0px 0 0px; width:766px; overflow:hidden;}
+div.d_box div.left div.ad_box ul{ height:60px;}
+div.d_box div.left div.ad_box ul li{ display:inline-block; width:243px; border:1px solid #dcdcdc; height:60px; overflow:hidden; float:left; margin:0px 7px 0px 0px;}
+div.d_box div.left div.ad_box2 ul li a:hover{ opacity:0.8;}
+div.d_box div.left div.ad_box2{ margin:10px 0px 0 0px; width:739px; overflow:hidden;}
+
+div.d_box div.left div.ad_box2 ul li{ padding:0;display:inline-block; width:234px; border:1px solid #dcdcdc; height:58px; overflow:hidden; float:left; margin:0px 7px 7px 0px;}
+div.d_box div.left div.ad_box2 ul li a:hover{ opacity:0.8;}
+div.d_box div.right{ width:244px; margin: 10px 0px 0px 0px;}
+div.d_box div.right div.box{ border-top:2px #8abbf8 solid; background:#FFF; padding:0px 0px 10px 0px; margin:0px 0px 10px 0px;max-height: 425px; overflow: hidden;}
+div.d_box div.right div.box ul{ margin:15px 14px 0px 14px;}
+div.d_box div.right div.box ul li{ margin:0px 0px 10px 0px; height:18px; line-height: 18px; width:220px; overflow:hidden;}
+div.d_box div.right div.box ul li a{ font-size:13px; font-family:"Î¢ÈíÑÅºÚ";}
+div.d_box div.right div.box ul li a.city{ color:#2348a9; margin:0px 5px 0px 0px;font-size:14px;}
+div.d_box div.right div.box ul li a.city:hover{ color:#fab15c;}
+div.d_box div.right div.box ul li a.title{ color:#333;}
+div.d_box div.right div.box ul li a.title:hover{ text-decoration:underline;}
+div.d_box div.right div.box ul li a.red{ color:#ff2e00;}
+div.d_box div.right div.box ul li p.person_box{ color:#2348a9; margin:0px 5px 0px 0px; width:170px; overflow:hidden; display:inline-block; height:20px; line-height:20px;}
+div.d_box div.right div.box ul li p.job_box{ width:165px; overflow:hidden; display:inline-block; height:20px; line-height:20px;}
+div.d_box div.right div.box ul li a.person{ color:#2348a9; margin:0px 5px 0px 0px;}
+div.d_box div.right div.box ul li a.person:hover{ text-decoration:underline;}
+div.d_box div.right div.box ul li span.school{ color:#2d2e2f; font-size:13px; font-family:"Î¢ÈíÑÅºÚ";}
+div.d_box div.right div.box ul li span.date{ color:#ccc; font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; margin:2px 0px 0px 0px; float:right;}
+div.d_box div.right div.box ul li span.date u{ color:#ff9900; font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; text-decoration: none;}
+div.d_box div.right div#new_teacher_scroll{ height:350px; overflow:hidden; margin: 0px 0px 5px 0px;}
+div.d_box div.right div.code{margin-top: 10px;border:none; background: url(../images/d_box_code_bg.jpg) no-repeat; width:244px; height:268px; padding:0px;}
+div.d_box div.right div.code a{ display:inline-block; width:87px; height:37px; background:#96c91c; border-radius:5px; line-height:37px; text-align:center; color:#FFF; font-weight:bold;}
+div.d_box div.right div.code a.and_a{ margin:215px 5px 0 35px;}
+
+//20150214 ÁÙÊ±°áÇ¨ÑùÊ½  begin
+div.d_box div.box div#new_company_scroll{ height:363px; overflow:hidden;}
+div.d_box div.box div#new_company_scroll ul{ margin:6px 14px 12px 14px;}
+div.d_box div.box div#new_company_scroll ul li{ margin:0px 0px 9px 0px; height:20px; line-height:20px; width:215px; overflow:hidden;}
+div.d_box div.box div#new_company_scroll ul li span.new_jobs_num{color:#ff9900;float:right;font-size:13px;padding-top:3px; max-width:25px; overflow:hidden;}
+div.d_box div.box div#new_company_scroll ul li div.new_school_jobs{float:left;width:180px;}
+div.d_box div.box div#new_company_scroll ul li a{ font-size:13px; font-family:"Î¢ÈíÑÅºÚ";}
+div.d_box div.box div#new_company_scroll ul li a.city{ font-size:14px;color:#2348a9; margin:0px 5px 0px 0px;}
+div.d_box div.box div#new_company_scroll ul li a.city:hover{ color:#fab15c;}
+div.d_box div.box div#new_company_scroll ul li a.title{ color:#333;}
+div.d_box div.box div#new_company_scroll ul li a.title:hover{ text-decoration:underline;}
+div.d_box div.box div#new_company_scroll ul li a.red{ color:#ff2e00;}
+div.e_box{ margin:25px 0px 25px 0px; float:left;}
+div.e_box p.title{ border-left:#528ad0 2px solid; padding:0px 0px 0px 10px; height:20px; line-height:20px; overflow:hidden;}
+div.e_box p.title span{ color:#161616; font-size:16px; font-family:"Î¢ÈíÑÅºÚ"; margin:0px 10px 0px 0px;}
+div.e_box p.title a{ color:#2348a9; font-size:14px; font-family:"Î¢ÈíÑÅºÚ"; margin:0px; display:inline;}
+div.e_box ul li{ width:195px; height:20px; line-height:20px; margin:10px 0px 0px 0px; float:left;}
+div.e_box a{ color:#333; font-size:14px; font-family:"Î¢ÈíÑÅºÚ";}
+div.e_box a:hover{ text-decoration:underline;}

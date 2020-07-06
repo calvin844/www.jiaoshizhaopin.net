@@ -1,0 +1,72 @@
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:20px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:1px solid #ebebeb; position:relative; margin:0px 0px 30px 0px;}
+#content .left_box div.box_title a{ padding:0px 20px 0px 20px; height:40px; line-height:40px; border-bottom:1px solid #ebebeb; font-size:16px; color:#333; display:inline-block;}
+#content .left_box div.box_title a:nth-child(1){ padding:0px 20px 0px 0px;}
+#content .left_box div.box_title a.cur{ border-bottom:1px solid #f3711a; color:#f3711a; }
+#content .left_box div.box_title a:hover{ border-bottom:1px solid #f3711a; color:#f3711a;}
+
+#content .left_box div.top_box{ float:left; background:#f5f5f5; width:100%; padding:15px 0px 15px 0px;}
+#content .left_box div.top_box p{ float:left; width:279px; text-align:center; font-size:14px; color:#808080;}
+#content .left_box div.top_box b{ float:left; width:1px; height:15px; display:inline-block; background:#ccc; margin:2px 0px 0px 0px;}
+#content .left_box div.vip_tips{ float:left; background:#ecf3f8; width:810px; padding:15px 10px 15px 20px; margin:0px 0px 30px 0px;}
+#content .left_box div.vip_tips i{ float:left; display:inline-block; width:27px; height:23px; background:url(../../images/2017/note.png) no-repeat; margin:0px 20px 0px 0px;}
+#content .left_box div.vip_tips span.left{ font-size:14px; color:#188eee;}
+#content .left_box div.vip_tips a.right{ font-size:14px; color:#188eee;}
+#content .left_box div.vip_tips a.right:hover{ text-decoration:underline;}
+#content .left_box div.vip_tips a.del{ display:inline-block; float:right; width:9px; height:9px; background:url(../../images/2017/close.png); margin:6px 0px 0px 10px;}
+
+#content .left_box p.tips{ font-size:14px; color:#188eee; margin:0px 0px 10px 0px;}
+#content .left_box .map{ width:800px; height:450px; border:3px solid #ccc; cursor:pointer;}
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px; float:left;}
+#content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .function_box ul li:hover span{ color:#188eee;}
+#content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px; width:22px; height:23px;}
+
+#content .right_box .function_box ul li.company_profile i{ background:url(../../images/2017/company_profile_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job i{ background:url(../../images/2017/company_jobs_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume i{ background:url(../../images/2017/company_resume_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip i{ background:url(../../images/2017/company_vip_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account i{ background:url(../../images/2017/company_account_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate i{ background:url(../../images/2017/company_authenticate_icon.png) center no-repeat;}
+#content .right_box .function_box ul li.company_profile:hover i{ background:url(../../images/2017/company_profile_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_job:hover i{ background:url(../../images/2017/company_jobs_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_resume:hover i{ background:url(../../images/2017/company_resume_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_vip:hover i{ background:url(../../images/2017/company_vip_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account:hover i{ background:url(../../images/2017/company_account_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_authenticate:hover i{ background:url(../../images/2017/company_authenticate_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account i{ background:url(../../images/2017/company_account_icon_h.png) center no-repeat;}
+#content .right_box .function_box ul li.company_account span{ color:#188eee;}
+
+
+#content .right_box .quick_box{ width:280px; margin:10px 0px 0px 0px; float:left;}
+#content .right_box .quick_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .quick_box ul li{ float:left; width:53px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .quick_box ul li a{ display:block; float:left; width:100%; height:100%; text-align:center;}
+#content .right_box .quick_box ul li span{ color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .quick_box ul li:hover span{ color:#188eee;}
+#content .right_box .quick_box ul li i{ display:inline-block; width:50px; height:50px;}
+
+#content .right_box .quick_box ul li.add_jobs i{ background:url(../../images/2017/add_jobs.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page i{ background:url(../../images/2017/home_page.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume i{ background:url(../../images/2017/search_resume.png) center no-repeat;}
+
+#content .right_box .quick_box ul li.add_jobs:hover i{ background:url(../../images/2017/add_jobs_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.home_page:hover i{ background:url(../../images/2017/home_page_h.png) center no-repeat;}
+#content .right_box .quick_box ul li.search_resume:hover i{ background:url(../../images/2017/search_resume_h.png) center no-repeat;}
+
+
+	
+
+

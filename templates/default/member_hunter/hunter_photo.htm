@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_hunter.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	
+//控制图片大小
+{#if $hunter_profile.photo_img<>""#}
+var imgwidth=$("#c_img").attr("width");
+if (imgwidth>500)
+{
+$("#c_img").attr("width","500")
+}
+{#/if#}
+});
+//验证
+$(document).ready(function() {
+ $("#Form1").validate({
+ //debug: true,
+// onsubmit:false,
+//onfocusout :true,
+   rules:{
+   photo_img:"required"
+	},
+    messages: {
+   photo_img:{
+    required:jQuery.format("请上传照片"),
+	accept:jQuery.format("您上传的文件格式不正确")
+   }   
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( element.parent().next().next() );
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+	}
+    });
+});
+</script>
+</head>
+
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 认证管理</div>
+
+<div class="usermain">
+  <div class="leftmenu hunter link_bk">
+   {#include file="member_hunter/left.htm"#}	
+  </div>
+  <div class="rightmain">
+	<div class="bbox1">	
+	  <div class="addjob link_bk">
+	    <div class="topnav">
+			<div class="titleH1" style="margin-top:0;padding-left:30px;">
+				<div class="h1-title">认证管理</div>
+			</div>
+			<div class="navs">
+				  <a href="hunter_user.php?act=authenticate">安全认证</a>
+				  <a href="hunter_info.php?act=company_auth" class="se">照片认证</a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+		  <div class="pic">
+		  	{#if $hunter_profile.photo_img<>""#}
+		  	<div class="logo_img">
+		  		<div class="img"><img width="120" height="150" src="{#$QISHI.hunter_photo_dir#}{#$hunter_profile.photo_img#}" border="0" id="c_img"/></div>
+		  	</div>
+		  	{#/if#}
+		  	<div class="upload" >
+		  		<form action="?act=photo_save" method="post"  enctype="multipart/form-data" id="Form1">
+		  		<table id="upform" width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+			  	<tbody>
+			  		<tr>
+						<td width="125" align="right">认证状态：</td>
+						<td width="150">
+							{#if $hunter_profile.audit=="0"#}
+							  <font color="red">未上传照片，请上传！</font>
+							  {#elseif $hunter_profile.audit =="1"#}
+							   <font color="green">已认证通过！</font>
+							  {#elseif $hunter_profile.audit =="2"#}
+							   <font color="orange">认证中,请耐心等待</font>
+								{#elseif $hunter_profile.audit =="3"#}
+							   <font color="red">认证失败！请重新上传</font> 
+							  {#/if#}&nbsp;	  
+						</td>
+						<td>{#if $hunter_profile.audit=="3"#}{#if $reason#}<font color="red">({#$reason#}){#/if#}</font>{#/if#}</td>
+			  		</tr>
+			  		<tr>
+						<td width="125" align="right">{#if $hunter_profile.photo_img <>""#}重新上传：{#else#}上传图片：{#/if#}</td>
+						<td width="150"><input type="file" name="photo_img" id="photo_img" class="input_text_200"/></td>
+						<td>(图片大小不超过 {#$QISHI.resume_photo_max#} KB,允许格式：jpg/gif/bmp/png)</td>
+			  		</tr>
+			  		<tr>
+						<td width="125" align="right"></td>
+						<td width="150"><input type="submit" name="Submit" value="上传" id="up" class="but_upload" /></td>
+						<td></td>
+			  		</tr>
+			  	</tbody>
+			  </table>
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall" style="margin-top:15px; margin-bottom:15px;line-height:180%; display:none; color:#009900" id="upform_wait">
+			  	<tbody>
+			  		<tr>
+						<td height="40" align="center"><img src="{#$QISHI.site_template#}images/30.gif"  border="0"/></td>
+			  		</tr>
+			  		<tr>
+						<td height="20" align="center">正在上传，请稍后...</td>
+			  		</tr>
+			  	</tbody>
+			  </table>
+			</form>
+		  	</div>
+		  </div>
+
+	  </div>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+ {#include file="user/footer.htm"#}
+
+
+
+</body>
+</html>

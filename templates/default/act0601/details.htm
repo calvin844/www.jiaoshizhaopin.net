@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>我的得意门生_作品详情_{#$QISHI.site_name#}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="{#$QISHI.site_name#}" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/act0601.css" rel="stylesheet" type="text/css" />
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+    </head>
+    <body id="details">
+        <div id="header">
+            <div class="top">
+                <div class='main_box'>
+                    <a class="logo" href="/" title="中国教师招聘网"></a>
+                    <ul class="fleft">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/company">学校</a></li>
+                        <li><a href="/TeachingJobs/?Classify=%D6%D0%D0%A1%D1%A7">职位</a></li>
+                        <li><a href="/morejobs">简章</a></li>
+                        <li><a href="http://tiku.jiaoshizhaopin.net/">考试</a></li>
+                        <li><a href="/user/personal/personal_resume.php?act=resume_list">简历</a></li>
+                        <li><a href="/act0601/index.php">我的得意门生</a></li>
+                    </ul>
+                    <ul class="fright">
+                        <?php if(empty($_SESSION['username'])):?>
+                        <li><a href="/user/login.php?act_url=/act0601/index.php">登录</a></li>
+                        <li><a href="/user/user_reg.php?act_url=/act0601/index.php">注册</a></li>
+                        <?php else:?>
+                        <li><a href="/user/personal/personal_index.php"><?php echo $_SESSION['username'] ?></a></li>
+                        <li><a class="hover" href="/act0601/share.php">我的活动中心</a></li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{#$QISHI.site_template#}images/act0601/act0601_header_banner.jpg" width="100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="title_box">
+                        <div class="top">
+                            <h1>{#$item.title#}</h1>
+                            <div class="fright">
+                                <span>评分：</span>
+                                <b>{#$item.star_total#}</b>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <ul class="fleft">
+                                <li class="type">分类：{#if $item.item_type == 1#}美术{#elseif $item.item_type == 2#}音乐{#elseif $item.item_type == 3#}表演{#elseif $item.item_type == 4#}创意{#elseif $item.item_type == 5#}书法{#elseif $item.item_type == 6#}作文{#/if#}</li>
+                                <li class="student">创作人：{#$item.student_name#}</li>
+                                <li class="age">年龄：{#$item.student_age#}岁</li>
+                                <li class="click">人气：<span>{#$item.click#}</span></li>
+                                <li class="love">爱心：<span>{#$item.love_total#}</span></li>
+                            </ul>
+                            <div id="top_love_box" class="fright">
+                                <p class="fleft">送爱心给小盆友加油：</p>
+                                <i order="1" data="love-1"></i>
+                                <i order="2" data="love-2"></i>
+                                <i order="3" data="love-3"></i>
+                                <i order="4" data="love-4"></i>
+                                <i order="5" data="love-5"></i>
+                                <script>
+                                    $('#top_love_box i').mouseover(function () {
+                                        var o = $(this).attr('order');
+                                        $('#top_love_box i').removeClass('hover');
+                                        $('#top_love_box i').each(function () {
+                                            if ($(this).attr('order') < o) {
+                                                $(this).addClass('hover');
+                                            }
+                                        })
+                                    }).mouseleave(function () {
+                                        $('#top_love_box i').removeClass('hover');
+                                        })
+
+                                    $('#top_love_box i').click(function(){
+                                        var str = $(this).attr('data');
+                                        vote_it(str);
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content_box">
+                        {#$item.content#}
+                    </div>
+                    <div class="comment_box">
+                        <div class="player">
+                            <p class="fleft">嘉宾导师：</p>
+                            <ul class="fleft">
+                                {#foreach from=$player_resume item=p#}
+                                <li><img src="/data/photo/{#$p.photo_img#}" width="40" height="40" /></li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        {#if $judges == 1#}
+                        <div class="comment">
+                            <p>嘉宾导师点评：</p>
+                            <form action="?act=judges_comment" method="post">
+                                <input type="hidden" name="pid" value="{#$item.id#}"/>
+                                <input type="hidden" name="uid" value="{#$uid#}"/>
+                                <textarea name="judges_comment"></textarea>
+                                <input type="submit" value="提交" />
+                            </form>
+                        </div>
+                        {#/if#}
+                        <div class="clear"></div>
+                        {#if !empty($comment_list)#}
+                        <ul class="comment_list">
+                            {#foreach from=$comment_list item=c#}
+                            <li>
+                                <div class="fleft">
+                                    <img src="/data/photo/{#$c.photo_img#}" width="50" height="50" />
+                                </div>
+                                <div class="fright">
+                                    <p>{#$c.fullname#}：</p>
+                                    <div class="clear"></div>
+                                    <p>{#$c.content#}</p>
+                                    <div class="clear"></div>
+                                    <span class="fright">{#$c.addtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        {#/if#}
+                        <div class="clear"></div>
+                        <div class="point_box">
+                            <div class="star_box">
+                                <div class="fleft">
+                                    {#if $star_show == 1#}
+                                    <p class="fleft">教师评审团打分：</p><i order="1" data="star-1"></i><i order="2" data="star-2"></i><i order="3" data="star-3"></i><i order="4" data="star-4"></i><i order="5" data="star-5"></i>
+                                    {#/if#}         
+                                </div>
+                                <div class="fright">
+                                    <span>{#$star_count#}人参与，评分：</span><b>{#$item.star_total#}</b>
+                                </div>
+                                <script>
+                                    $('.point_box .star_box i').mouseover(function () {
+                                        var o = $(this).attr('order');
+                                        $('.point_box .star_box i').removeClass('hover');
+                                        $('.point_box .star_box i').each(function () {
+                                            if ($(this).attr('order') < o) {
+                                                $(this).addClass('hover');
+                                            }
+                                        })
+                                    }).mouseleave(function () {
+                                        $('.point_box .star_box i').removeClass('hover');
+                                        })
+
+                                    $('.point_box .star_box i').click(function(){
+                                        var str = $(this).attr('data');
+                                        vote_it(str);
+                                    })
+                                </script>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="love_box">
+                                <div class="fleft">
+                                    <p class="fleft">送爱心给小盆友加油：</p><i order="1" data="love-1"></i><i order="2" data="love-2"></i><i order="3" data="love-3"></i><i order="4" data="love-4"></i><i order="5" data="love-5"></i>
+                                </div>
+                                <div class="fright">
+                                    <span>{#$love_count#}人送爱心，总计：</span><b>{#$item.love_total#}</b>
+                                </div>
+                                <script>
+                                    $('.point_box .love_box i').mouseover(function () {
+                                        var o = $(this).attr('order');
+                                        $('.point_box .love_box i').removeClass('hover');
+                                        $('.point_box .love_box i').each(function () {
+                                            if ($(this).attr('order') < o) {
+                                                $(this).addClass('hover');
+                                            }
+                                        })
+                                    }).mouseleave(function () {
+                                        $('.point_box .love_box i').removeClass('hover');
+                                        })
+
+                                    $('.point_box .love_box i').click(function(){
+                                        var str = $(this).attr('data');
+                                        vote_it(str);
+                                    })
+                                </script>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <div class="teacher_photo">
+                        <img src="/data/photo/{#$leader_resume.photo_img#}" width="180" height="180" />
+                    </div>
+                    <div class="teacher_info">
+                        <p>主创导师：{#$leader_resume.fullname#}</p>
+                        <p>执教科目：{#$leader_resume.intention_jobs#}</p>
+                        <p>地区：{#$leader_resume.district_cn#}</p>
+                        <p>自我介绍：{#$leader_resume.specialty#}</p>
+                    </div>
+                    <ul>
+                        <li><a href="/act0601/share.php">我的活动中心</a></li>
+                        <li><a href="/act0601/ilist.php">更多参赛作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <script>
+                    function vote_it(vote_str){
+                    var pid = {#$item.id#};
+                        $.post("/act0601/vote.php", {pid: pid, vote_str:vote_str}, function (result) {
+                            if (result == 1){
+                                alert('参数错误')
+                            } else if (result == 2) {
+                                alert('参数错误')
+                            } else if (result == 3) {
+                                alert('参数错误')
+                            } else if (result == 4) {
+                                alert('教师招聘网提示' + '\n' + '单个作品每天只能送一次爱心')
+                            } else if (result == 5) {
+                                alert('教师招聘网提示' + '\n' + '您已为该小盆友送出爱心，明天继续努力！')
+                            } else if (result == 6){
+                                alert('教师招聘网提示' + '\n' + '您暂时没法为该小盆友送出爱心，请稍后再试！')
+                            } else if (result == 7) {
+                                alert('教师招聘网提示' + '\n' + '单个作品每天只能评分一次')
+                            } else if (result == 8) {
+                                alert('教师招聘网提示' + '\n' + '单个作品每天只能评分一次')
+                            } else if (result == 9) {
+                                alert('教师招聘网提示' + '\n' + '您已投出公平的一票，明天继续努力！')
+                            } else if (result == 10) {
+                                alert('教师招聘网提示' + '\n' + '您暂时没法为该小盆友评分，请稍后再试！')
+                            }
+                        });
+                    }
+        </script>
+        {#include file="footer_noad.htm"#}
+    </body>
+</html>

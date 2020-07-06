@@ -1,0 +1,146 @@
+{#include file="sys/admin_header.htm"#}
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//点击批量取消	
+	$("#ButDel").click(function(){
+		if (confirm('你确定要删除吗？'))
+		{
+			$("form[name=form1]").submit()
+		}
+	});
+		
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="jobfair/admin_jobfair_nav.htm"#}
+  <div class="clear"></div>
+</div>
+ 
+
+
+ <div class="seltpye_x">
+		<div class="left">添加时间</div>	
+		<div class="right">
+		<a href="{#"settr:"|qishi_parse_url#}" {#if $smarty.get.settr==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"settr:3"|qishi_parse_url#}" {#if $smarty.get.settr=="3"#}class="select"{#/if#}>三天内</a>
+		<a href="{#"settr:7"|qishi_parse_url#}" {#if $smarty.get.settr=="7"#}class="select"{#/if#}>一周内</a>
+		<a href="{#"settr:30"|qishi_parse_url#}" {#if $smarty.get.settr=="30"#}class="select"{#/if#}>一月内</a>
+		<a href="{#"settr:180"|qishi_parse_url#}" {#if $smarty.get.settr=="180"#}class="select"{#/if#}>半年内</a>
+		<a href="{#"settr:360"|qishi_parse_url#}" {#if $smarty.get.settr=="360"#}class="select"{#/if#}>一年内</a>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+  </div>
+  
+  
+   <div class="seltpye_x">
+		<div class="left">预定状态</div>	
+		<div class="right">
+		<a href="{#"predetermined_status:"|qishi_parse_url#}" {#if $smarty.get.predetermined_status==""#}class="select"{#/if#}>不限</a>
+		<a href="{#"predetermined_status:1"|qishi_parse_url#}" {#if $smarty.get.predetermined_status=="1"#}class="select"{#/if#}>允许预定</a>
+		<a href="{#"predetermined_status:2"|qishi_parse_url#}" {#if $smarty.get.predetermined_status=="2"#}class="select"{#/if#}>停止预定</a>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+  </div>
+  
+  <form id="form1" name="form1" method="post" action="?act=jobfair_del">
+  {#$inputtoken#}
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="list" class="link_bk">
+    <tr>
+      <td height="26" class="admin_list_tit admin_list_first" width="120">
+      <label id="chkAll"><input type="checkbox" name=" " title="全选/反选" id="chk"/>举办时间</label>
+	  </td>
+      <td  class="admin_list_tit">招聘会标题</td>
+      <td width="80"   align="center" class="admin_list_tit"> 预定状态 </td>
+      <td width="180"   align="center" class="admin_list_tit">预定期限</td>
+      <td width="120"   align="center" class="admin_list_tit" >添加日期</td>
+      <td width="100"   align="center" class="admin_list_tit" >操作</td>
+    </tr>
+	  {#foreach from=$list item=list#}
+      <tr>
+      <td  class="admin_list admin_list_first">
+        <input name="id[]" type="checkbox" id="id" value="{#$list.id#}"/>    
+		{#if $list.holddates>$time#}  
+		<span style="color:#009900">{#$list.holddates|date_format:"%Y-%m-%d"#}</span>
+		{#else#}
+		<span style="color: #999999">{#$list.holddates|date_format:"%Y-%m-%d"#}</span>
+		{#/if#}
+	    </td>
+		 <td  class="admin_list" >
+		<a href="?act=jobfair_edit&id={#$list.id#}">{#$list.title#}</a>
+		 </td>
+        <td align="center"  class="admin_list">
+		{#if $list.predetermined_status=="1"#}  
+		允许预定
+		{#else#}
+		<span style="color: #999999">禁止预定</span>
+		{#/if#}
+		
+		</td>
+        <td align="center"  class="admin_list">
+		{#if $list.predetermined_start#}
+		{#$list.predetermined_start|date_format:"%Y-%m-%d"#}
+		{#else#}
+		不限制
+		{#/if#}
+		≈
+		{#if $list.predetermined_end#}
+		{#$list.predetermined_end|date_format:"%Y-%m-%d"#}
+		{#else#}
+		不限制
+		{#/if#}
+		</td>
+        <td align="center"  class="admin_list">
+		{#$list.addtime|date_format:"%Y-%m-%d"#}
+		</td>
+        <td align="center"  class="admin_list">
+		<a href="?act=jobfair_edit&id={#$list.id#}">修改</a> &nbsp;&nbsp;
+		<a href="?act=jobfair_del&id={#$list.id#}&{#$urltoken#}" onclick="return confirm('你确定要删除吗？')">删除</a></td>
+      </tr>
+      {#/foreach#}
+    </table>
+  </form>
+	{#if !$list#}
+	<div class="admin_list_no_info">没有任何信息！</div>
+	{#/if#}	
+<table width="100%" border="0" cellspacing="10"  class="admin_list_btm">
+<tr>
+        <td>
+        <input name="ButADD" type="button" class="admin_submit" id="ButADD" value="新增"  onclick="window.location='?act=jobfair_add'"/>
+		<input name="ButDel" type="button" class="admin_submit" id="ButDel"  value="删除所选"/>
+		</td>
+        <td width="305" align="right">
+		<form id="formseh" name="formseh" method="get" action="?">	
+			<div class="seh">
+			    <div class="keybox"><input name="key" type="text"   value="{#$smarty.get.key#}" /></div>
+			    <div class="selbox">
+					<input name="key_type_cn"  id="key_type_cn" type="text" value="{#$smarty.get.key_type_cn|default:"标题"#}" readonly="true"/>
+						<div>
+								<input name="key_type" id="key_type" type="hidden" value="{#$smarty.get.key_type|default:"1"#}" />
+												<div id="sehmenu" class="seh_menu">
+														<ul>
+														<li id="1" title="标题">标题</li>
+														</ul>
+												</div>
+						</div>				
+				</div>
+				<div class="sbtbox">
+				<input name="act" type="hidden" value="" />
+				<input type="submit" name="" class="sbt" id="sbt" value="搜索"/>
+				</div>
+				<div class="clear"></div>
+		  </div>
+		  </form>
+		  <script type="text/javascript">$(document).ready(function(){showmenu("#key_type_cn","#sehmenu","#key_type");});	</script>
+	    </td>
+      </tr>
+  </table>
+<div class="page link_bk">{#$page#}</div>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

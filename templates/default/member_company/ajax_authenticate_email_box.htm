@@ -1,0 +1,136 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+    <tr>
+		<td width="120" align="right">您的邮箱：</td>
+		<td class="email">{#$email#}<input type="hidden" name="email" id="email" value="{#$email#}"> </td>
+		<td> <a class="change_email"  >【更改】</a></td>
+    </tr>
+    <tr id="displayemailsend" style="display:none">
+		<td width="120" align="right">验证码：</td>
+		<td><input name="email_verifycode" id="email_verifycode" type="text" class="input_text_200" value="" /></td>
+    </tr>
+    <tr id="emailsenddiv">
+		<td></td>
+		<td>
+			<input type="button" name="emailsend" id="emailsend" value="发送验证邮件"  class="but130lan"/>
+		</td>
+    </tr>
+    <tr id="postverify" style="display:none">
+		<td align="right"></td>
+		<td><div class="but95cheng">确定</div></td>
+	</tr>
+</table>
+<table width="100%" border="0" style="border-top:1px #CCCCCC dotted;background-color: #EEEEEE; line-height: 200%;padding: 10px 15px; margin-top: 10px; color:#666666;"  >
+    <tr>
+	    <td>提示：当您的邮箱通过认证后，可以用邮箱号直接登录；可以用邮件修改密码；可以及时收到个人的职位申请。
+	    </td>
+    </tr>
+</table>
+<script src="{#$site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	if("{#$email#}"){
+		$(".email").html('{#$email#}<input type="hidden" name="email" id="email" value="{#$email#}">');
+	}else{
+		$(".email").html('<input name="email" id="email" type="text" class="input_text_200" value="{#$email#}" />');
+		$(".change_email").html("");
+	}
+	$(".change_email").click(function(){
+		$(".email").html('<input name="email" id="email" type="text" class="input_text_200" value="{#$email#}" />');
+		$(".change_email").remove();
+
+	});
+	$(".change_email").click(function(){
+		$(".email").html('<input name="email" id="email" type="text" class="input_text_200" value="{#$email#}" />');
+		$(".change_email").remove();
+
+	});
+	//发送邮箱验证
+	$("#emailsend").click(function()
+	{
+		var str =/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]w+)*$/; 
+		if($("#email").val()=='')
+		{
+		alert_dialog("fail:请填写邮箱","","","","");
+		}
+		else if(!str.test($("#email").val()))
+		{
+		alert_dialog("fail:邮箱填写错误","","","","");
+		}
+		else
+		{
+			 $("#emailsenddiv").hide();
+			 var email = $("#email").val();
+			 $("#email").attr("disabled","disabled");
+			 $("#Form1").append("<input type='hidden' name='email' id='email' value='"+email+"'>");
+			 $.post("../../plus/ajax_verify_email.php", {"email": $("#email").val(),"send_key": "{#$send_email_key#}","time":new Date().getTime(),"act":"send_code"},
+	 	function (data,textStatus)
+	 	 {
+			if (data=="success")
+			{	
+				$("#emailsenddiv").hide();
+				$("#emailsendsucceed").show();
+				$("#displayemailsend").show();
+				$("#postverify").show();
+				//$("#email_verifycode").attr("disabled","");
+				function SetRemainTime()
+				 {
+						  if (SysSecond > 0)
+						  {
+						   SysSecond --;
+						   $("#remainTime").html(SysSecond);
+						  } 
+						  else 
+						  {
+						   window.clearInterval(InterValObj);
+							$("#email").attr("disabled","");
+							$("#emailsenddiv").show();
+							$("#emailsendsucceed").hide();
+							$("#displayemailsend").hide();
+						  }
+				 }
+				SysSecond =60;
+				InterValObj = window.setInterval(SetRemainTime, 1000);
+				 
+			}
+			else
+			{
+				$("#emailsenddiv").show();
+				$("#emailsend").html("发送验证邮件");
+				$("#email").attr("disabled","");
+				$("#displayemailsend").hide();
+				$("#emailsendsucceed").hide();
+				if(data.indexOf("邮箱配置出错，请联系网站管理员") > 0 ){
+					alert_dialog("fail:邮箱配置出错，请联系网站管理员","220px","","","");
+				}else{
+					alert_dialog("fail:"+data,"220px","","","");
+				}
+			}
+	 	 }
+		 ,"text"
+		 )				 
+		}
+	});
+	$("#postverify").click(function()
+	{
+		if($("#email_verifycode").val()=='')
+		{
+			alert_dialog("fail:请填写效验码","","","","");
+		}
+		else
+		{
+			$.post("../../plus/ajax_verify_email.php", {"verifycode": $("#email_verifycode").val(),"send_key": "{#$send_email_key#}","time":new Date().getTime(),"act":"verify_code"},
+			function (data,textStatus)
+			 {
+				if (data=="success")
+				{	
+					 window.location.href="?act=authenticate";
+				}
+				else
+				{
+					alert_dialog("fail:验证码填写错误","","","","");
+				}
+			 })		
+		}
+	});
+});
+</script>

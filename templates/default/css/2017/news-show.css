@@ -1,0 +1,156 @@
+
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content .top_box{ float:left; width:100%;}
+#content .top_box .page_title{ float:left; position:relative;}
+#content .top_box .page_title h2{ float:left;}
+#content .top_box .page_title h2 a{ font-size:30px; color:#333;}
+#content .top_box .page_title i.line{ display:inline-block; float:left; background:#cccccc; width:1px; height:20px; margin:10px 10px 0px 10px;}
+#content .top_box .page_title span.district_name{ font-size:14px; color:#188eee; float:left;    margin: 8px 5px 0px 0px;}
+#content .top_box .page_title a.district_select{ float:left; margin: 8px 5px 0px 0px;}
+#content .top_box .page_title a.district_select span{ float:left; font-size:14px; color:#808080; margin: 0px 5px 0px 0px;}
+#content .top_box .page_title a.district_select i{ float:left; display:inline-block; width:12px; height:8px; background:url(../../images/2017/select_down.png); margin: 7px 0px 0px 0px;}
+
+#content .top_box .page_title div.district_list{ position: absolute; float:left; padding:20px; border:1px solid #dcdcdc; background:#fff; top: 28px; left: 265px; display:none; z-index: 1;min-width: 680px; min-height: 150px;}
+#content .top_box .page_title div.district_list div.top{ position:relative; height:30px; border-bottom:1px solid #dcdcdc;}
+#content .top_box .page_title div.district_list div.top p{ position: absolute; height:30px; border-bottom:1px solid #dcdcdc; font-size:14px; color:#333333; cursor:pointer; line-height:15px;}
+#content .top_box .page_title div.district_list div.top p:nth-child(2){ left:70px;}
+#content .top_box .page_title div.district_list div.top p:nth-child(3){ left:110px; display: none;}
+#content .top_box .page_title div.district_list div.top p:hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#content .top_box .page_title div.district_list div.top p.hover{ border-bottom:1px solid #ec6941; color:#ec6941;}
+#content .top_box .page_title div.district_list div.list{ margin:20px 0px 0px 0px; float:left; display: none;}
+#content .top_box .page_title div.district_list div.list a{ float:left; margin:0px 20px 20px 0px; color:#808080; font-size:14px; cursor: pointer;}
+#content .top_box .page_title div.district_list div.list a:hover{ color:#188eee; text-decoration:none;}
+#content .top_box .search_box{ float:right;}
+#content .top_box .search_box .search_icon{ display:inline-block; width:18px; height:18px; background:url(../../images/2017/search.png); margin:10px 0px 0px 0px;}
+#content .top_box .search_box .search{ float:left; border:1px solid #188eee; display:none;}
+#content .top_box .search_box .search .key{ float:left; width:218px; height:20px; line-height:20px; padding:5px 10px 5px 10px; color:#333; font-size:14px;}
+#content .top_box .search_box .search .submit{ float:left; background-color:#188eee; background-image:url(../../images/2017/submit_bt.jpg); background-position:center; width:40px; height:30px; overflow:hidden; cursor:pointer;}
+#content .nav{ float:left; width:100%; font-size:14px; color:#cccccc; margin:30px 0px 30px 0px;}
+#content .nav a{ font-size:14px; color:#808080;}
+#content .nav a:hover{ text-decoration:underline;}
+#content .nav span{ font-size:14px; color:#808080;}
+
+#content .left_box{ float:left; width:980px;}
+#content .left_box .info_box{ padding:20px; width:940px; float:left; border-bottom:1px solid #ebebeb; background:#fff;}
+#content .left_box .info_box .img{ float:left; margin:0px 15px 0px 0px; text-align: center;}
+#content .left_box .info_box .info{ float:right; width:830px;}
+#content .left_box .info_box .info .top{ float:left; width:830px; margin:0px 0px 15px 0px;}
+#content .left_box .info_box .info .top h1{ float:left; width:750px; text-align: center; font-size:30px; color:#333; line-height:35px;}
+#content .left_box .info_box .info .top p{ float:right; width:45px;}
+#content .left_box .info_box .info .top p i{ display:block; width:21px; height:26px; margin:0px 12px 10px 12px; background:url(../../images/2017/man_h.png);}
+#content .left_box .info_box .info .top p span{ display:block; width:100%; text-align:center; font-size:14px; color:#188eee;}
+#content .left_box .info_box .info .top p.overtime i{ background:url(../../images/2017/man.png);}
+#content .left_box .info_box .info .top p.overtime span{ color:#ccc;}
+#content .left_box .info_box .info .bottom{ float:left; width:830px; }
+#content .left_box .info_box .info .bottom .left p{ margin:0px 20px 0px 0px; float:left; font-size:14px; color:#ccc;}
+#content .left_box .info_box .info .bottom .left p i{ display: inline-block; float:left; margin: 3px 5px 0 0;}
+#content .left_box .info_box .info .bottom .left p span{ float:left; color:#ccc; margin:2px 0px 0px 0px;}
+#content .left_box .info_box .info .bottom .left p i.time{ width:14px; height:14px; background:url(../../images/2017/clock_icon.png);}
+#content .left_box .info_box .info .bottom .left p i.click{ width:19px; height:14px; background:url(../../images/2017/eye_icon.png);}
+#content .left_box .info_box .info .bottom .right p{ font-size:14px; color:#188eee;}
+#content .left_box .info_box .info .bottom .right p.overtime{ color:#ccc;}
+#content .left_box .content_box{ padding:45px 100px 50px 100px; background:#fff;}
+#content .left_box .content_box *{ line-height: 36px; margin: 14px 0; font-size: 16px; text-align:left; color:#333;}
+#content .left_box .content_box strong{ font-weight: bolder;}
+#content .left_box .content_box img{ max-width:100%; margin:0 auto; display: table;}
+#content .left_box .content_box a.news_link{ font-size: 16px; color: #188eee;}
+#content .left_box .content_box a.news_link:hover{ text-decoration: underline;}
+#content .left_box .jobs_box { padding:0px 20px 40px 20px; float:left; width:940px; background:#fff;}
+#content .left_box .jobs_box .title{ border-left:5px solid #f3711a; padding:0px 0px 0px 10px; font-size:20px; color:#333; margin:0px 0px 30px 0px;}
+#content .left_box .jobs_box ul{ float:left; width:940px;}
+#content .left_box .jobs_box ul li{ float:left; margin:0px 10px 10px 0px; border-radius:5px; border:1px solid #188eee; padding:5px 15px 5px 15px;}
+#content .left_box .jobs_box ul li p{ color:#188eee;}
+#content .left_box .jobs_box ul li p b{ color:#188eee;}
+#content .left_box .jobs_box ul li p span{ color:#f3711a;}
+#content .left_box .button_box { padding:0px 0px 30px 0px; text-align:center; background:#fff;}
+#content .left_box .button_box a{ display:inline-block; width:160px; height:50px; line-height:50px; text-align: center; font-size:16px; color:#fff; margin:0px 15px 0px 15px; border-radius:5px;}
+#content .left_box .button_box a:hover{ opacity:0.8;}
+#content .left_box .button_box a.apply{ background:#f3711a;}
+#content .left_box .button_box a.favorite{ background:#238a2a;}
+#content .left_box .join_box_nologin{ background:#fff; margin:20px 0 0 0; border:1px solid #188eee; padding:30px 20px 30px 20px;}
+#content .left_box .join_box_nologin p.title{ border-left:5px solid #f3711a; padding:0px 0px 0px 10px; font-size:20px; color:#333; margin:0px 0px 30px 0px;}
+#content .left_box .join_box_nologin p.tips{ text-align:center; font-size:16px; color:#808080;}
+#content .left_box .join_box_nologin p.tips span{ font-size:16px; color:#188eee;}
+#content .left_box .join_box_nologin p.tips a{ font-size:16px; color:#f3711a;}
+#content .left_box .join_box_nologin p.tips a:hover{ text-decoration:underline;}
+#content .left_box .join_box{ background:#fff; margin:20px 0 0 0; border:1px solid #188eee; padding:30px 20px 30px 20px;}
+#content .left_box .join_box p.title{ border-left:5px solid #f3711a; padding:0px 0px 0px 10px; font-size:20px; color:#333; margin:0px 0px 30px 0px;}
+
+
+#content .left_box .join_box div.main{ width:100%; float:left; margin:0 0 20px 0; border-bottom:2px solid #999;}
+#content .left_box .join_box div.main ul li{ width:300px; margin:0px 10px 20px 0px; float:left;}
+#content .left_box .join_box div.main ul li p{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.main ul li:nth-child(4){ width:100%; margin:0px 0px 20px 0px; float:left;}
+#content .left_box .join_box div.main ul li:nth-child(5){ width:100%; margin:0px 0px 20px 0px; float:left;}
+#content .left_box .join_box div.other{ width:100%;}
+#content .left_box .join_box div.other ul{ width:100%; padding:0px 0px 10px 0px; margin:0px 0px 30px 0px; border-bottom:1px solid #ebebeb;}
+#content .left_box .join_box div.other ul li{ width:100%; padding:0px 0px 20px 0px;}
+#content .left_box .join_box div.other ul li p{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.other ul li p a{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.other div.attachment ul{ border:none; margin:0;}
+#content .left_box .join_box div.other div.attachment ul li a{ font-size:16px; color:#188eee;}
+#content .left_box .join_box div.other div.attachment ul li a:hover{ text-decoration:underline;}
+
+#content .left_box .join_box div.left{ width:300px;}
+#content .left_box .join_box div.left ul li{ width:300px; margin:0px 0px 20px 0px;}
+#content .left_box .join_box div.left ul li p{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.right{ width:635px;}
+#content .left_box .join_box div.right ul{ width:635px; padding:0px 0px 10px 0px; margin:0px 0px 30px 0px; border-bottom:1px solid #ebebeb;}
+#content .left_box .join_box div.right ul li{ width:635px; padding:0px 0px 20px 0px;}
+#content .left_box .join_box div.right ul li p{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.right ul li p a{ font-size:16px; color:#808080;}
+#content .left_box .join_box div.right div.attachment ul{ border:none; margin:0;}
+#content .left_box .join_box div.right div.attachment ul li a{ font-size:16px; color:#188eee;}
+#content .left_box .join_box div.right div.attachment ul li a:hover{ text-decoration:underline;}
+
+#content .left_box .tips_box { background:#fff; margin:20px 0 0 0; padding:30px 0px 30px 0px; float:left; width:100%;}
+#content .left_box .tips_box div.left{ width:620px; margin:0px 0px 0px 20px;}
+#content .left_box .tips_box div.left i{ display:inline-block; width:25px; height:25px; float:left; background:url(../../images/2017/face.png);}
+#content .left_box .tips_box div.left p{ float:right; width:580px; font-size:16px; color:#ff0000; line-height:25px;}
+#content .left_box .tips_box div.right div.code_img{ float:left; margin:0px 20px 0px 20px;}
+#content .left_box .tips_box div.right div.code_img img{ padding:5px; border:1px solid #d3d1d1; margin:0px 0px 10px 0px;}
+#content .left_box .tips_box div.right div.code_img p{ font-size:16px; color:#ff0000; text-align:center;}
+#content .left_box .news_box { background:#fff; margin:20px 0 0 0; float:left; width:100%; padding:20px 0px 20px 0px;}
+#content .left_box .news_box h2.title{ border-left:5px solid #f3711a; padding:0px 0px 0px 10px; font-size:20px; color:#333; margin:0px 0px 30px 20px;}
+#content .left_box .news_box ul li{ float:left; width:450px; margin:0px 20px 20px 20px;}
+#content .left_box .news_box ul li a{ float:left; font-size:14px; color:#808080; max-width:360px; height:20px; overflow:hidden;}
+#content .left_box .news_box ul li a:hover{ color:#188eee;}
+#content .left_box .news_box ul li span{ float:right; font-size:14px; color:#cccccc; }
+#content .left_box .bottom_jobs_box{ background:#fff; margin:20px 0 0 0; padding:20px 0px 20px 0px; float: left; width: 100%;}
+#content .left_box .bottom_jobs_box h2.title{ border-left:5px solid #f3711a; padding:0px 0px 0px 10px; font-size:20px; color:#333; margin:0px 0px 30px 20px;}
+#content .left_box .bottom_jobs_box ul{ float:left; width:110%; margin: 0px 0px 0px 20px;}
+#content .left_box .bottom_jobs_box ul li{ float:left; margin:0px 20px 20px 0px; padding:20px; width:255px; height:100px; overflow:hidden; border:1px solid #ccc;}
+#content .left_box .bottom_jobs_box ul li div.top{ float:left; width:100%; height:65px; border-bottom:1px solid #ebebeb;}
+#content .left_box .bottom_jobs_box ul li div.top a.name{ float:left; font-size:16px; color:#808080; display:inline-block; max-width:135px; height:22px; overflow:hidden;}
+#content .left_box .bottom_jobs_box ul li div.top a.name:hover{ color:#188eee;}
+#content .left_box .bottom_jobs_box ul li div.top span.wage{ float:right; font-size:14px; color:#f3711a; display:inline-block; max-width:120px; height:20px; line-height:20px;}
+#content .left_box .bottom_jobs_box ul li div.top p.info{ width:100%; float:left; font-size:14px; color:#cccccc; margin:10px 0px 0px 0px; height:20px; overflow:hidden;}
+#content .left_box .bottom_jobs_box ul li div.bottom{ float:left; height:20px; width:100%; margin:20px 0px 0px 0px;}
+#content .left_box .bottom_jobs_box ul li div.bottom span.company{ float:left; font-size:14px; color:#cccccc; display:inline-block; max-width:175px; height:20px; overflow:hidden;}
+#content .left_box .bottom_jobs_box ul li div.bottom span.date{ float:right; font-size:14px; color:#cccccc;}
+#content .left_box .bottom_jobs_box ul li:hover{ box-shadow: 0px 0px 3px 3px #eae7e7;}
+
+#content .right_box{  float: right; width: 180px;}
+#content .right_box .item_box{ float: left; width:180px; background:#fff; margin:0px 0px 20px 0px;}
+#content .right_box .item_box button{ padding:15px 0px 15px 0px; text-align:center; width:100%; background:#fff; cursor:pointer;}
+#content .right_box .item_box button:hover{ background:#f3711a;}
+#content .right_box .item_box button i{ display:inline-block; float:left; margin: 0px 5px 0 45px;}
+#content .right_box .item_box button.apply i{ width:20px; height:21px; background:url(../../images/2017/apply.png) no-repeat;}
+#content .right_box .item_box button.favorite i{ width:20px; height:19px; background:url(../../images/2017/star_small.png) no-repeat;}
+#content .right_box .item_box a.suggest{ padding:15px 0px 15px 0px; text-align:center; width:100%; background:#fff; display:block; float:left;}
+#content .right_box .item_box a.suggest:hover{ background:#f3711a;}
+#content .right_box .item_box a.suggest i{ display:inline-block; float:left; margin: 0px 5px 0 45px;}
+#content .right_box .item_box a.suggest span{ font-size:16px; color:#808080; float:left;}
+#content .right_box .item_box a.suggest i{ width:20px; height:19px; background:url(../../images/2017/suggest.png) no-repeat;}
+#content .right_box .item_box button.apply:hover i{ background:url(../../images/2017/apply_h.png) no-repeat;}
+#content .right_box .item_box button.favorite:hover i{ background:url(../../images/2017/star_small_h2.png) no-repeat;}
+#content .right_box .item_box a.suggest:hover i{ background:url(../../images/2017/suggest_h.png) no-repeat;}
+#content .right_box .item_box button span{ font-size:16px; color:#808080; float:left;}
+#content .right_box .item_box button:hover span{ color:#fff;}
+#content .right_box .item_box a.suggest:hover span{ color:#fff;}
+#content .right_box .item_box .bdsharebuttonbox{ padding:15px 0px 15px 0px; float:left;}
+#content .right_box .item_box .bdsharebuttonbox a{ margin:0 14px; float:left;}
+
+#content .right_box .service_img{ background: #fa7163; text-align: center; padding: 20px 0px 20px 0px;}
+#content .right_box .service_img img{ background: #fa7163; text-align: center; margin: 0px 0px 10px 0px;}
+#content .right_box .service_img p{ color: #fff; text-align: center; font-size: 14px; padding: 0px 20px 0px 20px; line-height: 20px;}

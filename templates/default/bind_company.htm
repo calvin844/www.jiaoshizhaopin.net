@@ -1,0 +1,98 @@
+{#qishi_pageinfo set="列表名:page,调用:QS_subscribe"#}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/bind_company.css" type="text/css" rel="stylesheet"/>
+        <title>绑定企业_{#$QISHI.site_name#}</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script>
+            $(document).ready(function() {
+                function imgcaptcha(inputID, imgdiv) {
+                    $(inputID).focus(function() {
+                        //设置验证码DIV
+                        $(imgdiv).show();
+                        if ($(imgdiv).html() == '')
+                        {
+                            $(imgdiv).append("<img src=\"{#$QISHI.site_dir#}include/imagecaptcha.php?t={#$random#}\" id=\"getcode\" align=\"absmiddle\"  style=\"cursor:pointer;\" title=\"看不请验证码？点击更换一张\"  border=\"0\"/>");
+                        }
+                        $(imgdiv + " img").click(function()
+                        {
+                            $(imgdiv + " img").attr("src", $(imgdiv + " img").attr("src") + "1");
+                            $(inputID).val("");
+                        });
+                        $(document).unbind().click(function(event)
+                        {
+                            var clickid = $(event.target).attr("id");
+                            if (clickid != "getcode" && clickid != "postcaptcha")
+                            {
+                                $(imgdiv).hide();
+                                $(inputID).parent("div").css("position", "");
+                                $(document).unbind();
+                            }
+                        });
+                    });
+                }
+                imgcaptcha("#postcaptcha", "#imgdiv");
+            })
+        </script>
+        <div id="content">
+            <div class="main_box">
+                <div class="left_box">
+                    <div class="box_title">
+                        <p>职位联系人</p>
+                    </div>
+                    <form action="/bind_company/submit.php" method="post">
+                        <div class="item_box">
+                            <label class="item_name">联系人：</label>
+                            <div class="input_box">
+                                <input type="text" class="text" name="contact" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">email：</label>
+                            <div class="input_box">
+                                <input type="text" class="text" name="email" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">联系电话：</label>
+                            <div class="input_box">
+                                <input type="text" class="text" name="telephone" value="" />
+                            </div>
+                        </div>
+                        <div class="item_box">
+                            <label class="item_name">地址：</label>
+                            <div class="input_box">
+                                <input type="text" class="text" name="address" value="" />
+                            </div>
+                        </div>
+
+                        <div class="item_box img_code">
+                            <label class="item_name">验证码：</label>
+                            <div class="input_box">
+                                <input type="text" placeholder="点击获取验证码"  name="postcaptcha" id="postcaptcha" class="text" value="" />
+                            </div>
+                            <div id="imgdiv"></div>
+                        </div>
+                        <input type="submit" class="submit" value="提交" />
+                    </form>
+                </div>
+                <div class="right_box">
+                    <div class="item_box">
+                        <p>绑定说明</p>
+                        <span>1、填写职位联系人等信息</span>
+                        <span>2、系统会自动更新职位下的联系方式</span>
+                        <span>3、您也可以进入企业中心修改企业资料和具体职位信息</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        {#include file="/2017/footer_page.htm"#}
+    </body>
+</html>

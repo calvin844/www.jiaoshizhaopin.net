@@ -1,0 +1,57 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="gifts/admin_gifts_nav.htm"#}
+  <div class="clear"></div>
+</div>
+ 
+<div class="toptit">生成礼品卡</div>
+<form id="form1" name="form1" method="post" action="?act=generate_save">
+{#$inputtoken#}
+<table width="100%" border="0" cellspacing="6" cellpadding="0"  >
+  <tr>
+    <td width="120" align="right">分类名称:</td>
+    <td>
+	
+	 <select name="t_id"  style="font-size:12px;">           
+  					{#foreach from=$category item=li#}		
+                  <option value="{#$li.t_id#}">{#$li.t_name#} [生成帐号前缀:{#$li.t_pre#}]</option>
+				 {#/foreach#}
+                
+                </select>
+				<span class="admin_note">您要生成哪种类型的礼品卡</span>
+	</td>
+  </tr>
+   <tr>
+    <td width="120" align="right">生成密码前缀:</td>
+    <td>
+	<input name="pwd_pre" type="text" class="input_text_200 date_input"  value=""/>
+	
+	<span class="admin_note">默认密码前缀为空</span>
+	</td>
+  </tr>
+  <tr>
+    <td width="120" align="right">生成数量:</td>
+    <td>
+	<input name="number" type="text" class="input_text_200 date_input"  value="300"/>
+	 
+	</td>
+  </tr>
+  
+   
+   
+  <tr>
+    <td width="120"> </td>
+    <td height="100" valign="top">
+	  <br />
+	  <input type="submit" name="addsave" value="生成" class="admin_submit" />
+
+	    <input name="submit22" type="button" class="admin_submit"    value="返回" onclick="window.location='?act=list'"/></td>
+  </tr>
+</table>
+ </form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//更多操作
+ $(".publicity").hover(
+  function () {
+     $(this).children(".selbox").slideDown('fast');
+  },
+  function () {
+     $(this).children(".selbox").hide();
+  }
+);
+//更多操作-菜单效果
+$(".publicity .selbox li").hover(
+  function () {
+     $(this).css("background-color","#F6F6F6");
+  },
+  function () {
+     $(this).css("background-color","#FFFFFF");
+  }
+);
+{#if $QISHI.operation_train_mode=="1" && $points_rule.course_refresh.value>"0"#}
+		$("#refresh").click(function(){
+			var length=$("#form1 :checkbox[checked]").length;
+			var refresh_point="{#$points_rule.course_refresh.value#}";
+			var total_point=length*refresh_point;
+			alert("刷新课程可提高课程排名，每条课程消耗{#$points_rule.course_refresh.value#}{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}，您选择了"+length+"条课程，总共需要消耗"+total_point+"{#$QISHI.train_points_quantifier#}{#$QISHI.train_points_byname#}，确定刷新吗？")
+		});
+	{#/if#}
+
+});
+
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 课程管理</div>
+<div class="usermain">
+  <div class="leftmenu  train link_bk">
+  	 {#include file="member_train/left.htm"#}
+  </div>
+  <div class="rightmain">
+  
+ 	<div class="bbox1 link_bk">
+		<div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">课程管理</div>
+			</div>
+			<div class="title_text">
+				<div class="but95lan" onclick="javascript:location.href='?act=addcourse'">立即发布</div>
+			</div>
+
+			<div class="navs">
+				<a   class="se">所有课程</a>
+					
+				<div class="clear"></div>
+			</div>
+		
+		</div>
+		<form id="form1" name="form1" method="post" action="?act=course_perform">
+		<!-- 所有课程 -->
+		{#if $smarty.get.jobtype==""#}
+		<div class="manage_list">
+			<div class="mlist_tit">
+				<div class="mlistt1">课程名称</div>
+				<div class="mlistt2">发布期限</div>
+				<div class="mlistt3">刷新时间</div>
+				<div class="mlistt4">申请/浏览</div>
+				<div class="mlistt5">审核状态</div>
+				<div class="mlistt7">更多操作</div>
+			</div>
+			{#if $courses#}
+				{#foreach from=$courses item=li#}
+				<div class="mlist_txt">
+					<div class="mlistc1"><input name="y_id[]" type="checkbox" id="y_id"  value="{#$li.id#}"/>&nbsp;<a href="{#$li.course_url#}" target="_blank">{#$li.course_name#}</a></div>
+					<div class="mlistc2">{#$li.addtime|date_format:"%Y-%m-%d"#} - {#if $li.deadline<$smarty.now#}<span style="color: #FF0000">已经到期</span>{#else#}{#$li.deadline|date_format:"%Y-%m-%d"#}{#/if#}</div>
+					<div class="mlistc3">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+					<div class="mlistc4"><a href="train_recruitment.php?act=apply_course&courseid={#$li.id#}" {#if $li.countcourse>0#}style="color:#FF0000"{#/if#}>{#$li.countcourse#}</a>/{#$li.click#}</div>
+					<div class="mlistc5">
+						{#if $li.audit==1#}
+						<span style="color: #009900">审核通过</span>
+						{#elseif  $li.audit==2#}
+						<span style="color: #FF6600">审核中</span>
+						{#else#}
+						<span style="color: #FF0000">
+						审核未通过
+						</span>
+						{#/if#}
+					</div>
+					<div class="mlistc7">
+						<div class="publicity">
+						    <div class="input_text_50_z" onclick="javascript:location.href='?act=course_perform&delete=1&y_id={#$li.id#}'">删除</div>
+							<ul style="display:none;" class="selbox">
+								{#if $li.status=="2"#}<li><a href="?act=jobs_perform&display1=1&y_id={#$li.id#}">恢复</a></li>{#/if#}
+								<li><a href="?act=editcourse&id={#$li.id#}">修改</a></li>
+								<li><a href="?act=course_perform&refresh=1&y_id={#$li.id#}">刷新</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				{#/foreach#}
+				<div class="mlist_txt last">
+				<div class="mlistc1"><input type="checkbox" id="chk" name="chkAll">&nbsp;全选</div>
+				<input type="submit" name="display1" value="设为开始" class="but100lan" id="display1"/>
+				<input type="submit" name="display2" value="设为暂停" class="but100lan" id="display2"/>
+				<input type="submit" name="delete" value="删除课程" class="but100lan" id="delete"/>
+				</div>
+			<div class="clear"></div>
+			{#if $page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			{#else#}
+			<div class="emptytip">您没有发布课程！</div>
+			{#/if#}
+		</div>
+		{#/if#}
+		<!-- 所有课程 结束 -->
+		</form>
+
+  	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

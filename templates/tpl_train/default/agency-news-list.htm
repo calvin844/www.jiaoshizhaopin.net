@@ -1,0 +1,164 @@
+{#qishi_train_show set="列表名:train,机构ID:GET[id]"#}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$train.trainname#} - 公司动态 - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$train.description#}}，机构新闻">
+<meta name="keywords" content="{#$train.trainname#}，机构新闻">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<SCRIPT TYPE="text/javascript">
+$(document).ready(function(){
+	var train_id="{#$train.id#}";
+	var tsTimeStamp= new Date().getTime();
+	$.get("{#$QISHI.website_dir#}plus/ajax_contact.php", { "id": train_id,"time":tsTimeStamp,"act":"train_contact"},
+		function (data,textStatus)
+		 {			
+			$("#train_contact").html(data);
+		 }
+	);
+	$(".newsmore").click(function(){
+		$(".newsmore").show();
+		$(".newsmore").val('正在加载，请稍后...');
+		var offset=$(".listbox:last-child").attr('id');
+		offset=parseInt(offset.substr(3));
+		var tsTimeStamp= new Date().getTime();
+		$.get("{#$QISHI.website_dir#}plus/ajax_comajaxlist.php", { "trainid": train_id,"time":tsTimeStamp,"act":"show_news_more","offset":offset+5,"rows":"5"},function (data,textStatus)
+			{
+				if (data=='empty!')
+				{
+					$(".newsmore").val('已加载所有数据！');
+					//$(".comment_more").unbind();
+				}
+				else
+				{
+					$(".newsmore").val('查看更多');
+					$(".news ul").append(data);
+				}
+			}
+		);
+	});
+});
+</SCRIPT>
+</head>
+<body>
+{#include file="header.htm"#}
+	<!-- 当前位置 -->
+	<div class="page_location link_bk">
+		当前位置：<a href="{#$QISHI.website_dir#}">首页</a>><a href="{#"QS_train_agency_news"|qishi_url#}">机构动态</a>>{#$train.trainname#}
+	</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="left_area">
+			<div class="com_title">
+				<div class="logo_img"><img src="{#$train.logo#}" width="200" height="70" /></div>
+				<div class="title_txt">
+					<h2>{#$train.trainname#}</h2>
+					<p>{#$train.address#}</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			{#qishi_train_img_list set="列表名:img,企业ID:GET[id]"#}
+			{#if $img#}
+			<div class="carousel">
+				<div class="swipe" id="slider">
+					<div class="swipe-wrap">
+						{#foreach from=$img item=li#}
+						<div>
+							<ul class="car_img">
+								{#section name=sub_li loop=$li.group#}
+								<li {#if $smarty.section.sub_li.index==2#}class="last"{#/if#}><a target="_blank" href="{#$QISHI.site_dir#}data/trainimg/original/{#$li.group[sub_li].img#}"><img width="180" height="119" src="{#$QISHI.site_dir#}data/trainimg/thumb/{#$li.group[sub_li].img#}" alt=""></a></li>
+								{#/section#}
+							</ul>
+						</div>
+						{#/foreach#}
+					</div>
+				</div>
+				<div class="slider-control">
+  					<button class="left" onclick="mySwipe.prev()"></button>
+  					<button class="right" onclick="mySwipe.next()"></button>
+  				</div>
+			</div>
+			{#/if#}
+			<div class="com_info">
+				<div class="com_nav">
+					<ul>
+						<li><a href="{#"QS_train_agencyshow,id:"|cat:$train.id|qishi_url#}">机构介绍</a></li>
+						<li><a href="{#"QS_train_agency_curriculum,id:"|cat:$train.id|qishi_url#}">培训课程</a></li>
+						<li><a href="{#"QS_train_agency_lecturer,id:"|cat:$train.id|qishi_url#}">师资力量</a></li>
+						<li class="active"><a href="{#"QS_train_agency_news,id:"|cat:$train.id|qishi_url#}">新闻动态</a></li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+
+				<div class="com_container">
+					<!-- 企业动态 -->
+					{#qishi_train_news_list set="列表名:news,显示数目:5,标题长度:35,机构ID:GET[id],标题长度:35,摘要长度:100,填补字符:...,排序:order>desc"#}
+					<div class="news">
+						{#if $news#}
+						<ul>
+							{#foreach from=$news item=list#}  
+							<li class="listbox" id="li-0">
+								<div class="new_tit"><a href="{#$list.url#}" target="_blank">{#$list.title#}</a></div>
+								<p>发布时间：{#$list.addtime|date_format:"%Y-%m-%d"#} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>浏览次数：{#$list.click#}</span></p>
+								<p>{#$list.briefly#}<a href="{#$list.url#}" target="_blank">[查看全文]</a></p>
+							</li>
+							{#/foreach#}
+						</ul>
+						<input type="button" value="查看更多" class="but698hui newsmore" />
+						{#else#}
+						<div class="job_tit">
+							该机构目前还没有发布动态
+						</div>
+						{#/if#}
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+		<!-- 右边内容 -->
+		<div class="right_area">
+			
+			<div class="right_box">
+				<div class="title_box">
+					<h5>企业名片</h5>
+				</div>
+				<div class="list">
+					<ul>
+						<li>机构性质：{#$train.nature_cn#}</li>
+						<li>所在地区：{#$train.district_cn#}</li>
+						<li>成立时间：{#$train.founddate|date_format:"%Y-%m-%d"#}</li>
+						{#if $train.website#}
+						<li>机构网站：<a target="_blank" href="{#$train.website#}">{#$train.website#}</a></li>
+						{#/if#}
+					</ul>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="title_box">
+					<h5>联系方式</h5>
+				</div>
+				<div class="list" id="train_contact">
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+<script src="{#$QISHI.site_template#}js/swipe.js"></script>
+<script>
+	window.mySwipe = Swipe(document.getElementById('slider'), {
+		auto:3000,
+		speed:400,
+		continuous: true
+	});
+</script>
+{#include file="footer.htm"#}
+</body>
+</html>

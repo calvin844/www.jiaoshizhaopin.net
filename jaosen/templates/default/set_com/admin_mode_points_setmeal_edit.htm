@@ -1,0 +1,63 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+ <div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+	{#include file="set_com/admin_set_com_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<div class="toptip">
+	<h2>提示：</h2>
+	<p>
+积分套餐只在积分模式下使用
+</p>
+</div>
+<div class="toptit">设置积分套餐</div>
+
+	  <form id="form1" name="form1" method="post" action="?act=set_points_setmeal_edit_save">
+	   {#$inputtoken#}
+	   <input name="id" type="hidden" value="{#$show.id#}" />
+    <table width="90%" border="0" cellspacing="3" cellpadding="3">
+      <tr>
+        <td width="200" align="right">套餐名称：</td>
+        <td><input name="setmeal_name" type="text" class="input_text_200" id="setmeal_name" value="{#$show.setmeal_name#}"/></td>
+      </tr>
+      <tr>
+        <td align="right">价格：</td>
+        <td><input name="expense" type="text" class="input_text_200" id="expense" value="{#$show.expense#}" maxlength="10"/></td>
+      </tr>
+      <tr>
+        <td align="right">积分：</td>
+        <td><input name="points" type="text" class="input_text_200" id="points" value="{#$show.points#}" maxlength="10"/></td>
+      </tr>
+	  <tr>
+        <td align="right">有效天数：</td>
+        <td><input name="days" type="text" class="input_text_200" id="setmeal_order" value="{#$show.days#}" maxlength="10"/> 
+			<span class="admin_note">（0表示不限制）</span>
+	    </td>
+      </tr>
+	  <tr>
+        <td align="right">显示时长：</td>
+        <td><input name="show_time" type="text" class="input_text_200" id="setmeal_order" value="{#$show.show_time#}" maxlength="10"/> 
+			<span class="admin_note">（页面显示的时间）</span>
+	    </td>
+      </tr>
+	  <tr>
+        <td align="right">排序：</td>
+        <td><input name="setmeal_order" type="text" class="input_text_200" id="setmeal_order" value="{#$show.setmeal_order#}" maxlength="10"/> 
+			<span class="admin_note">(序号越大越靠前)</span>
+	    </td>
+      </tr>
+      <tr>
+        <td align="center">&nbsp;</td>
+        <td height="50" align="left"><input type="submit" name="Submit3" value="提交" class="admin_submit"   />
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <input name="submit22" type="button" class="admin_submit"    value="返 回" onclick="Javascript:window.history.go(-1)"/>
+		</td>
+      </tr>
+    </table>
+  
+    </form>
+    </div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

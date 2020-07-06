@@ -1,0 +1,72 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableall">
+    <tr>
+		<td width="120" align="right">简历名称：</td>
+		<td>{#$title#}</td>
+    </tr>
+	<tr class="addresume2">
+		<td align="right">企业名称：</td>
+		<td id="keyword_list">
+			<div class="input_checkbox_add">
+				<span>添加</span>
+			</div>
+		</td>
+	</tr>
+	<tr style="display:none" id="add_hidden">
+		<td align="right"></td>
+		<td><input type="text" class="input_text_200" id="comkeyword" /><input id="add" type="button" value="添加" class="but95cheng" /></td>
+	</tr>
+</table>
+<input type="hidden" name="pid" id="pid" value="{#$resumeid#}">
+<table width="100%" border="0" style="border-top:1px #CCCCCC dotted;background-color: #EEEEEE; line-height: 230%;padding: 15px; margin-top: 10px; "  >
+    <tr>
+	    <td>包含屏蔽关键词的单位将无法查看到您的简历请谨慎操作；<br/>每份简历可以屏蔽 10 个企业关键词，请按需添加。
+	    </td>
+    </tr>
+</table>
+<script src="{#$site_template#}js/jquery.dialog.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var pid = $("#pid").val();
+	$.post("personal_ajax.php?act=get_shield_com_keyword",{pid:pid},function(result){
+		$("#keyword_list").html(result);
+	});
+	$(".input_checkbox_add").live("click",function(){
+		$("#add_hidden").show();
+		$("#comkeyword").val("");
+	});
+	$("#add").live("click",function(){
+		var comkeyword = $("#comkeyword").val();
+		comkeyword = comkeyword.replace(/^\s+|\s+$/g,"");
+		if(comkeyword==""){
+			alert_dialog("fail:请填写企业关键词！","","","","");
+			return false;
+		}
+		$.post("personal_ajax.php?act=save_shield_company",{pid:pid,comkeyword:comkeyword},function(result){
+			if(result=="1"){
+				$.post("personal_ajax.php?act=get_shield_com_keyword",{pid:pid},function(result){
+					$("#keyword_list").html(result);
+				});
+				$("#add_hidden").hide();
+			}else if(result=="-1"){
+				alert_dialog("fail:参数错误！","","","","");
+			}else{
+				alert_dialog("fail:每份简历最多屏蔽 10 个企业关键词！","250px","","","");
+			}
+				
+		});
+	});
+	$(".del").live("click",function(){
+		var keyword_id = $(this).attr("keyword_id");
+		$.post("personal_ajax.php?act=del_shield_company",{pid:pid,keyword_id:keyword_id},function(result){
+			if(result){
+				$.post("personal_ajax.php?act=get_shield_com_keyword",{pid:pid},function(result){
+					$("#keyword_list").html(result);
+				});
+			}else{
+				alert_dialog("fail:参数错误！","","","","");
+			}
+				
+		});
+	});
+});
+</script>

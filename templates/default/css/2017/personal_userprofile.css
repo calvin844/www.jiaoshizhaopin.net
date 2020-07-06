@@ -1,0 +1,135 @@
+
+#content { background:#f5f5f5; padding:40px 0px 40px 0px; min-height: 658px;}
+#content p.top_nav{ float:left; width:100%; margin:0px 0px 30px 0px; font-size:14px; color:#808080;}
+#content p.top_nav a{ font-size:14px; color:#808080;}
+#content p.top_nav a:hover{ color:#188eee;}
+#content .left_box{ padding:30px 20px 40px 20px; width:840px; float:left; background:#fff;}
+#content .left_box div.box_title{ width:100%; height:40px; border-bottom:3px solid #ebebeb; position:relative; margin:0px 0px 10px 0px;}
+#content .left_box div.box_title p{ padding:0px 10px 0px 0px; height:40px; line-height:40px; border-bottom:3px solid #f3711a; font-size:20px; color:#333; display:inline-block;}
+#content .left_box div.box_title span{ padding:0px 10px 0px 0px; height:40px; line-height:40px; font-size:12px; color:#ccc; display:inline-block;}
+#content .left_box div.profile{ margin:0px 0px 60px 0px; float:left; width:100%;}
+#content .left_box div.profile div.box_content ul.left{ width:560px; margin:20px 0px 0px 0px;}
+#content .left_box div.profile div.box_content ul.left li{ float:left; width:280px; margin:0px 0px 20px 0px;}
+#content .left_box div.profile div.box_content ul.left li label{ color:#808080; font-size: 14px;}
+#content .left_box div.profile div.box_content img.right{ margin:25px 0px 0px 0px;}
+#content .left_box div.wechat div.box_content ul{ margin:20px 0px 0px 0px;}
+#content .left_box div.wechat div.box_content ul li{ margin:0px 0px 20px 0px;}
+#content .left_box div.wechat div.box_content ul li label{ font-size:14px; color:#808080;}
+#content .left_box div.wechat div.box_content ul li label.tips{ color:#cccccc;}
+#content .left_box div.wechat div.box_content ul li input.wechat_name{ border-bottom: 1px solid #808080; line-height: 25px; padding: 0px 5px 0px 5px;}
+#content .left_box div.wechat div.box_content ul li input.submit{ padding: 5px 20px 5px 20px; background:#f3711a; color: #fff; font-size: 16px; cursor: pointer;}
+#content .left_box div.subscribe div.box_content ul{ margin:20px 0px 0px 0px;}
+#content .left_box div.subscribe div.box_content ul li{ margin:0px 0px 20px 0px;}
+#content .left_box div.subscribe div.box_content ul li label{ font-size:14px; color:#808080;}
+#content .left_box div.subscribe div.box_content ul li label.tips{ color:#cccccc;}
+#content .left_box div.subscribe div.empty_box{ text-align:center; margin:30px 0px 0px 0px;}
+#content .left_box div.subscribe div.empty_box i{ display:inline-block; width:78px; height:78px; background:url(../../images/2017/big_box2.png);}
+#content .left_box div.subscribe div.empty_box p{ text-align:center; font-size:14px; color:#cccccc; margin:10px 0px 0px 0px;}
+#content .left_box div.subscribe div.empty_box p a{ font-size:14px; color:#188eee; }
+#content .left_box div.subscribe div.empty_box p a:hover{ text-decoration:underline;}
+#content .left_box div.email div.no_pass{ text-align:center; margin:30px 0px 0px 0px;}
+#content .left_box div.email div.no_pass i{ display:inline-block; width:71px; height:53px; background:url(../../images/2017/email.png);}
+#content .left_box div.email div.no_pass p{ text-align:left; font-size:14px; color:#cccccc; margin:10px 0px 0px 230px;}
+#content .left_box div.email div.no_pass p.top{ color:#808080; margin:30px 0px 30px 230px;}
+#content .left_box div.email div.no_pass p.top span{ font-size:14px; color:#ee0000;}
+#content .left_box div.email div.no_pass p.top a{ font-size:14px; color:#188eee;}
+#content .left_box div.email div.no_pass p.top a:hover{ text-decoration:underline;}
+#content .left_box div.email p.pass{ font-size:14px; color:#808080; margin:30px 0px 30px 230px;}
+#content .left_box div.email p.pass span{ font-size:14px; color:#0f8923;}
+#content .left_box div.email p.pass a{ font-size:14px; color:#188eee;}
+#content .left_box div.email p.pass a:hover{ text-decoration:underline;}
+#content .left_box div.binding div.box_content{ text-align:center; margin:40px 0px 0px 0px;}
+#content .left_box div.binding div.box_content div{ display:inline-block; width:140px; margin:0px 20px 0px 20px; text-align:center;}
+#content .left_box div.binding div.box_content div i{ display:inline-block; width:34px; height:34px;}
+#content .left_box div.binding div.box_content div a{ margin:0px 5px 0px 5px; color:#188eee; font-size:14px;}
+#content .left_box div.binding div.box_content div a:hover{ text-decoration:underline;}
+#content .left_box div.binding div.box_content div a.no_bind{ color:#ee0000;}
+#content .left_box div.binding div.box_content div span{ margin:0px 5px 0px 5px; font-size:14px; color:#cccccc;}
+#content .left_box div.binding div.box_content div.qq i{ background:url(../../images/2017/qq_logo.png);}
+#content .left_box div.binding div.box_content div.qq i.bind{ background:url(../../images/2017/qq_logo_h.png);}
+#content .left_box div.binding div.box_content div.wechat i{ background:url(../../images/2017/wechat_logo.png)}
+#content .left_box div.binding div.box_content div.wechat i.bind{ background:url(../../images/2017/wechat_logo_h.png);}
+#content .left_box div.binding div.box_content div.weibo i{ background:url(../../images/2017/weibo_logo.png);}
+#content .left_box div.binding div.box_content div.weibo i.bind{ background:url(../../images/2017/weibo_logo_h.png);}
+#content div.email_windows{ position: fixed; top:0px; left:0px; width:100%; height:100%; display:none;}
+#content div.email_windows div.bg{ position: absolute; top:0px; left:0px; width:100%; height:100%; background:#000; opacity:0.8; z-index:1;}
+#content div.email_windows div.new_email{ position: absolute; top:30%; left:50%; width:510px; height:300px; background:#ebebeb; z-index:2; margin:0px 0px 0px -275px; padding:20px; text-align: center; display:none;}
+#content div.email_windows div.new_email div.box_title{ position:relative;}
+#content div.email_windows div.new_email div.box_title p{ line-height:30px; text-align: center; font-size:20px; color:#188eee; border-bottom:1px solid #ccc; padding:0px 0px 15px 0px;}
+#content div.email_windows div.new_email div.box_title a.close{ position:absolute; top:0px; right:0px; display:inline-block; width:9px; height:9px; background: url(../../images/2017/close.png);}
+#content div.email_windows div.new_email div.box_centent p{ text-align:center; font-size:16px; color:#808080; margin:40px 0px 30px 0px;}
+#content div.email_windows div.new_email div.box_centent a{ display:inline-block; width:160px; height:50px; line-height:50px; color:#fff; font-size:16px; background:#f3711a; border-radius:5px; text-align:center; margin:20px 10px 20px 10px;}
+#content div.email_windows div.new_email div.box_centent a:hover{ opacity:0.6;}
+#content div.email_windows div.new_email div.box_centent span{ color:#808080; display:inline-block;  line-height:20px;}
+#content div.email_windows div.new_email div.box_centent label{ font-size:16px; color:#808080;}
+#content div.email_windows div.new_email div.box_centent input{ height:30px; width:165px; line-height:30px; color:#333; border-bottom:1px solid #ccc; background: none;}
+
+#content div.email_windows div.change_email{ position: absolute; top:30%; left:50%; width:510px; height:300px; background:#ebebeb; z-index:2; margin:0px 0px 0px -275px; padding:20px; display:none;}
+#content div.email_windows div.change_email div.box_title{ position:relative;}
+#content div.email_windows div.change_email div.box_title p{ line-height:30px; text-align: center; font-size:20px; color:#188eee; border-bottom:1px solid #ccc; padding:0px 0px 15px 0px;}
+#content div.email_windows div.change_email div.box_title a.close{ position:absolute; top:0px; right:0px; display:inline-block; width:9px; height:9px; background: url(../../images/2017/close.png);}
+#content div.email_windows div.change_email div.box_centent div{ text-align:center; margin:40px 0px 30px 0px;}
+#content div.email_windows div.change_email div.box_centent div label{ font-size:16px; color:#808080;}
+#content div.email_windows div.change_email div.box_centent div input{ height:30px; width:165px; line-height:30px; color:#333; border-bottom:1px solid #ccc; background: none;}
+#content div.email_windows div.change_email div.box_centent a{ display:inline-block; width:160px; height:50px; line-height:50px; color:#fff; font-size:16px; background:#f3711a; border-radius:5px; text-align:center; margin:0px 180px 30px 180px;}
+#content div.email_windows div.change_email div.box_centent a:hover{ opacity:0.6;}
+#content div.email_windows div.change_email div.box_centent span{ color:#808080; display:inline-block;  line-height:20px;}
+
+
+
+
+
+
+
+
+#content .right_box{ width:280px; float:right;}
+
+#content .right_box .function_box{ width:280px;}
+#content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
+#content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .function_box ul li:hover span{ color:#188eee;}
+#content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px;}
+#content .right_box .function_box ul li.profile i{ width:19px; height:19px; background:url(../../images/2017/profile_icon_h.png);}
+#content .right_box .function_box ul li.profile span{ color:#188eee;}
+#content .right_box .function_box ul li.pm i{ width:19px; height:19px; background:url(../../images/2017/pm_icon.png);}
+#content .right_box .function_box ul li.online_course i{ width:20px; height:20px; background:url(../../images/2017/online_course_icon.png);}
+#content .right_box .function_box ul li.password_edit i{ width:16px; height:18px; background:url(../../images/2017/password_edit_icon.png);}
+#content .right_box .function_box ul li.login_log i{ width:18px; height:19px; background:url(../../images/2017/login_log_icon.png);}
+#content .right_box .function_box ul li.profile:hover i{ width:19px; height:19px; background:url(../../images/2017/profile_icon_h.png);}
+#content .right_box .function_box ul li.pm:hover i{ width:19px; height:19px; background:url(../../images/2017/pm_icon_h.png);}
+#content .right_box .function_box ul li.online_course:hover i{ width:20px; height:20px; background:url(../../images/2017/online_course_icon_h.png);}
+#content .right_box .function_box ul li.password_edit:hover i{ width:16px; height:18px; background:url(../../images/2017/password_edit_icon_h.png);}
+
+#content .right_box .item_box{ float:left; background:#fff; padding:20px; width:240px; margin:10px 0px 0px 0px;}
+#content .right_box .item_box a{ float:left; display:block; width:100%;}
+#content .right_box .item_box a i{ float:left; display:inline-block; margin:0px 30px 0px 0px;}
+#content .right_box .item_box a span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
+#content .right_box .item_box a:hover span{ color:#188eee;}
+#content .right_box .item_box a.my_resume i{  width:16px; height:18px; background:url(../../images/2017/my_resume_icon.png); }
+#content .right_box .item_box a.my_resume:hover i{ background:url(../../images/2017/my_resume_icon_h.png);}
+#content .right_box .item_box a.zhaokao_qq i{  width:19px; height:17px; background:url(../../images/2017/zhaokao_qq_icon.png); }
+#content .right_box .item_box a.zhaokao_qq:hover i{ background:url(../../images/2017/zhaokao_qq_icon_h.png);}
+
+#content .right_box div.attachment_resume{ float:left; width:240px;}
+#content .right_box i.file_icon{ display:inline-block; float:left; width:18px; height:17px; background: url(../../images/2017/file_icon.png) no-repeat; margin:0px 10px 0px 0px;}
+#content .right_box a.file_name{ display:inline-block; float:left; max-width:185px; height:17px; overflow:hidden; line-height:17px; font-size:14px; color:#808080;}
+#content .right_box a.file_name:hover{ text-decoration:underline;}
+#content .right_box a.file_del{ display:inline-block; float: right; width:15px; height:15px; background: url(../../images/2017/close.png) no-repeat; background-size:15px 15px; margin:2px 0px 0px 0px;}
+
+#content .right_box div.default_resume{ float:left; width:240px; position:relative;}
+#content .right_box i.default_icon{ display:inline-block; float:left; width:18px; height:19px; background: url(../../images/2017/attachment_icon.png) no-repeat;}
+#content .right_box b.default_txt{ display:inline-block; float:left; width:200px; height:17px; text-align:center; font-size:14px; color:#333; font-weight:bold;}
+#content .right_box i.default_show{ display: inline-block; width:17px; height:11px; float:right; background:url(../../images/2017/select_down2.png) no-repeat; margin:5px 0px 0px 0px;}
+#content .right_box div.default_resume ul.default_list{ position:absolute; width:240px; left:0px; top:20px; display:none;}
+#content .right_box div.default_resume ul.default_list li{ height:45px; border:1px solid #ebebeb; background:#fff;}
+#content .right_box div.default_resume ul.default_list li:hover{ background:#ebebeb;}
+#content .right_box div.default_resume ul.default_list li p{ text-align:center; line-height:45px; font-size:16px; color:#808080; cursor:pointer;}
+
+#content .right_box .ad_box{ float:left; background:#fff; width:280px; margin:10px 0px 0px 0px;}
+
+
+	
+
+

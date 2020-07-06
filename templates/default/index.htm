@@ -1,0 +1,588 @@
+
+{#qishi_pageinfo set="列表名:page,调用:QS_index"#}    
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/index.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <title>教师招聘网_国内优秀的教师招聘平台_{#$smarty.now|date_format:'%Y'#}年最新教师招聘考试信息</title>
+        <meta name="description" content="教师招聘网是国内大型教育人力资源专业网站!集网络招聘、高校毕业生就业服务、事业单位公共招聘信息发布等多项服务于一身。专注缔造高效，通过教师人才库为各用人单位提供更加精准的教师人才，让学校在最短的时间招到满意的教师！"/>
+        <meta name="keywords" content="教师招聘,教师招聘网,英语教师招聘,美术教师招聘,中学教师招聘,中小学教师招聘,{#$smarty.now|date_format:'%Y'#}年教师招聘,老师招聘,教师招聘网"/>
+        <meta property="wb:webmaster" content="5522e982801163d7" />
+        <meta property="qc:admins" content="24201317576211730120170166654" />
+        <meta name="author" content="教师招聘网" />
+        <meta name="copyright" content="jiaoshizhaopin.net" />
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+        <div id="content">
+            <div class="main_box">
+                <div class="top_box">
+                    <div class="sdistrict_box">
+                        <label>省份快捷入口</label>
+                        <div class="clear"></div>
+                        <ul class="city_list">
+                            {#jiaoshi_districts set="列表名:city,数目:8,热度排序:desc,后台排序:desc,类别:省份"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city item=c#}
+                            <li><a href="{#if !empty($c.parent_pinyin)#}/{#$c.parent_pinyin#}{#/if#}/{#$c.pinyin#}" title="{#$c.categoryname#}教师招聘网" target="_blank">{#$c.categoryname#}</a></li>
+                            {#/foreach#}
+                            <li class="more_bt"><a id="city_more">更多</a></li>
+                            <li class="hide_line"></li>
+                        </ul>
+                        <ul class="city_more">
+                            {#jiaoshi_districts set="列表名:city,数目:300,热度排序:desc,后台排序:desc,类别:省份"#}
+                            <!-- 以下为循环数组category内容  -->
+                            {#foreach from=$city item=c#}
+                            <li><a href="{#if !empty($c.parent_pinyin)#}/{#$c.parent_pinyin#}{#/if#}/{#$c.pinyin#}" title="{#$c.categoryname#}教师招聘网" target="_blank">{#$c.categoryname#}</a></li>
+                            {#/foreach#}
+                            <li class="more_bt"><a id="city_list">关闭</a></li>
+                            <li class="hide_line"></li>
+                        </ul>
+                        <script>
+                            $('a#city_more').click(function() {
+                                $('.city_list').hide();
+                                $('.city_more').show();
+                            })
+                            $('a#city_list').click(function() {
+                                $('.city_list').show();
+                                $('.city_more').hide();
+                            })
+                        </script>
+                    </div>
+                    <div class="search_box">
+                        <div class="search">
+                            <form id="search_jobs_form" action="/jobs/jobs-list.php" method="get">
+                                <input class="keyword" type="text" name="key" placeholder="请输入职位关键字" value="" />
+                                <div class="right">
+                                    <b></b>
+                                    <button class="city_bt">全国&nbsp;&nbsp;+</button>
+                                    <input type="hidden" id="district_id" name="district_id" value="" />
+                                    <input class="submit" type="submit" value="" />
+                                </div>
+                            </form>
+                            <div class="district_list">
+                                <div class="top">
+                                    <p class="hot hover">热门城市</p>
+                                    <p class="district">省份</p>
+                                    <p class="sdistrict">市级</p>
+                                </div>
+                                <div id="show_hot" class="list son">
+                                    {#jiaoshi_districts set="列表名:city,数目:24,热度排序:desc,后台排序:desc,类别:城市"#}
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$city item=c#}
+                                    <a data-name="district" data-val="{#$c.parentid#}.{#$c.id#}">{#$c.categoryname#}</a>
+                                    {#/foreach#}
+                                </div>
+                                <div id="show_district" class="list">
+                                    <a data-name="district" data-val="" title="全国教师招聘">全国</a>
+                                    {#jiaoshi_districts set="列表名:city,后台排序:desc,类别:省份"#}
+                                    <!-- 以下为循环数组category内容  -->
+                                    {#foreach from=$city item=c#}
+                                    <a data-name="district" data-data="{#$c.id#}" data-val="{#$c.parentid#}.{#$c.id#}" title="{#$c.categoryname#}教师招聘">{#$c.categoryname#}</a>
+                                    {#/foreach#}
+                                </div>
+                                <div id="show_sdistrict" class="list son"></div>
+                            </div>
+                            <script>
+                                $('.search_box .district_list #show_hot').show();
+                                $('.search_box .city_bt').click(function() {
+                                    $('.search_box .district_list').show();
+                                    return false;
+                                })
+                                $('div.search_box').mouseleave(function() {
+                                    $('.search_box .district_list').hide();
+                                })
+                                $('.search_box .district_list .top p').click(function() {
+                                    $('.search_box .district_list .list').hide();
+                                    $('.search_box .district_list .top p.sdistrict').hide();
+                                    $('.search_box .district_list .top p').removeClass('hover');
+                                    var c = $(this).attr('class');
+                                    $(this).addClass('hover');
+                                    $('.search_box #show_' + c).show();
+                                })
+                                $('.search_box #show_district a').click(function() {
+                                    var name = $(this).attr('data-name');
+                                    var val = $(this).attr('data-data');
+                                    $.get("/plus/ajax_common.php?act=get_city&id=" + val, function(result) {
+                                        var html = '';
+                                        if (result.indexOf('||') > 0) {
+                                            var arr = result.split("||");
+                                        } else {
+                                            var arr = new Array(result);
+                                        }
+
+                                        for (var i = 0; i < arr.length; i++) {
+                                            var item = arr[i].split("-");
+                                            if (item[3] != 0) {
+                                                html += '<a data-name="district" title="' + item[1] + '中小学教师招聘" data-val="' + item[4] + '.' + item[0] + '" >' + item[1] + '</a>';
+                                            } else {
+                                                html += '<a data-name="district" title="' + item[4] + '中小学教师招聘" data-val="' + item[0] + '.' + item[5] + '" >' + item[1] + '</a>';
+                                            }
+                                        }
+
+                                        $('.search_box #show_sdistrict').html(html);
+                                        $('.search_box .district_list .list').hide();
+                                        $('.search_box .district_list .top p').removeClass('hover');
+                                        $('.search_box .district_list .top p.sdistrict').addClass('hover');
+                                        $('.search_box .district_list .top p.sdistrict').show();
+                                        $('.search_box #show_sdistrict').show();
+                                    });
+
+                                })
+                                $('.search_box .district_list .son').on('click', 'a', function() {
+                                    $('.search_box input#district_id').attr('value', $(this).attr('data-val'));
+                                    $('.search_box .city_bt').html($(this).html() + '&nbsp;&nbsp;+');
+                                    $('.search_box .district_list').hide();
+                                });
+                            </script>
+                        </div>
+                        <ul>
+                            <li><span>热搜职位：</span></li>
+                            <li><a target="_blank" title="幼儿英语教师" href="/jobs/jobs-list.php?jobs_id=59&index_search=1">幼儿英语 </a></li>
+                            <li><a target="_blank" title="幼儿美术教师" href="/jobs/jobs-list.php?jobs_id=62&index_search=1">幼儿美术 </a></li>
+                            <li><a target="_blank" title="小学语文教师" href="/jobs/jobs-list.php?jobs_id=8&index_search=1">小学语文 </a></li>
+                            <li><a target="_blank" title="初中英语教师" href="/jobs/jobs-list.php?jobs_id=234&index_search=1">初中英语 </a></li>
+                            <li><a target="_blank" title="初中数学教师" href="/jobs/jobs-list.php?jobs_id=233&index_search=1">初中数学 </a></li>
+                            <li><a target="_blank" title="高中英语教师" href="/jobs/jobs-list.php?jobs_id=259&index_search=1">高中英语 </a></li>
+                            <li><a target="_blank" title="高中数学教师" href="/jobs/jobs-list.php?jobs_id=258&index_search=1">高中数学 </a></li>
+                            <li><a target="_blank" title="职业教育/培训教师" href="/jobs/jobs-list.php?jobs_id=4&index_search=1">职业教育/培训 </a></li>
+                            <li><a target="_blank" title="钢琴老师教师" href="/jobs/jobs-list.php?jobs_id=212&index_search=1">钢琴老师 </a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="top_img_box" id="home_101">
+                    <div id="solid">
+                        <div class="solid0"></div><div class="solid1"></div><div class="solid2"></div><div class="solid3"></div><div class="solid4"></div>
+                        <ul>
+                            {#qishi_ad set="调用名称:home_101,显示数目:5"#}
+                            {#foreach from=$list item=ad#}
+                            {#if empty($ad.img_url)#}
+                            <li><img id="pc_{#$ad.index#}" width="1200" height="380" src="{#$ad.img_path#}"/></li>
+                            {#else#}
+                            <li><a href="/ad_count/index.php?ad_name=home_101|{#$ad.index#}&img={#$ad.img_path#}&url={#$ad.img_url#}"><img id="pc_{#$ad.index#}" width="1200" height="380" src="{#$ad.img_path#}"/></a></li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <div id="btt"><span></span> <span></span> <span></span><span></span><span></span></div>
+                    </div>
+                    <script src="{#$QISHI.site_template#}js/2017/fordboy.js"></script>
+                    {#if empty($smarty.session.username)#}
+                    <div class="wechat_login">
+                        <div class="box">
+                            <a class="logo" href="/"></a>
+                            <div class="clear"></div>
+                            <img src="{#$code_img#}" height="110" />
+                            <div class="clear"></div>
+                            <p>使用微信扫码关注公众号，即可登录</p>
+                            <div class="clear"></div>
+                            <div class="other_login">
+                                <a href="/user/user_reg.php">注册账号</a><i></i><a href="/user/login.php">账号密码登录</a>
+                            </div>
+                        </div>
+                        <div class="in_news">
+                            <a href="/morejobs">
+                                <i></i>
+                                <span>事业单位招聘</span>
+                            </a>
+                        </div>
+                        <div class="in_company">
+                            <a href="/company">
+                                <i></i>
+                                <span>教育机构招聘</span>
+                            </a>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                                function chlink() {
+                                    $.getJSON("https://m.qingkao.net/ov2/get_component_login_state_data?sales_id=86&access_token=gSJH9WUQOX8ra8CuXtjeU7Qgn3R1I&login_code={#$login_code#}", function(data) {
+                                        if (data.ret_code == 1) {
+                                            window.location.href = "/user/connect_wechat.php?act=login_allback&login_code={#$login_code#}";
+                                        }
+                                    })
+                                }
+                                $(function() {
+                                    setTimeout(function() {
+                                        timeID = setInterval('chlink()', 2000);
+                                    }, 20000);
+
+                                });
+                    </script>
+                    <!--
+                    <div class="login">
+                        <input type="text" class="username" id="username" />
+                        <input type="password" class="password" id="password" />
+                        <div class="remember_me">
+                            <input type="checkbox" class="remember" id="expire" value="7" />
+                            <span>记住账号</span>
+                        </div>
+                        <div class="forget">
+                            <a href="/user/user_getpass.php">忘记密码？</a>
+                        </div>
+                        <input type="button" class="submit" value="登录" />
+                        <a class="reg" href="/user/user_reg.php">注册</a>
+                        <div class="in_news">
+                            <a href="/morejobs">
+                                <i></i>
+                                <span>事业单位招聘</span>
+                            </a>
+                        </div>
+                        <div class="in_company">
+                            <a href="/company">
+                                <i></i>
+                                <span>教育机构招聘</span>
+                            </a>
+                        </div>
+                        <script type="text/javascript">
+                                $(document).ready(function() {
+                                    //验证
+                                    $(".login .submit").click(function() {
+                                        if ($("#username").val() == "") {
+                                            alert("请填写：用户名 / 邮箱");
+                                        } else if ($("#password").val() == "") {
+                                            alert("请填写密码！");
+                                        } else {
+                                            if ($("#expire").is(":checked")) {
+                                                var expire = $("#expire").val();
+                                            } else {
+                                                var expire = "";
+                                            }
+                                            $.post("{#$QISHI.website_dir#}plus/ajax_user.php", {"username": $("#username").val(), "password": $("#password").val(), "expire": expire, "act": "do_login"},
+                                            function(data, textStatus) {
+                                                if (data == "err") {
+                                                    $("#password").attr("value", "");
+                                                    alert("帐号或者密码错误")
+                                                } else if (data.indexOf('冻结') != '-1') {
+                                                    alert(data);
+                                                } else {
+                                                    location.reload();
+                                                }
+                                            })
+                                        }
+                                        return false;
+                                    });
+                                });
+                        </script>
+                    </div>
+                    -->
+                    {#else#}
+                    <div class="login">
+                        <div class="header_name">
+                            <p>Hi，{#$smarty.session.username#}</p>
+                        </div>
+                        <div class="botton">
+                            {#if  $smarty.session.utype == 1#}
+                            <ul>
+                                <li>
+                                    <a href="/user/company/company_index.php">企业中心</a>
+                                </li>
+                                <li>
+                                    <a href="/user/company/company_recruitment.php?act=apply_jobs">简历管理</a>
+                                </li>
+                                <li>
+                                    <a href="/user/company/company_jobs.php?act=jobs">职位管理</a>
+                                </li>
+                                <li>
+                                    <a href="/user/company/company_service.php?act=setmeal_list">VIP服务</a>
+                                </li>
+                            </ul>
+                            {#else#}
+                            <ul>
+                                <li>
+                                    <a href="/user/personal/personal_user.php?act=userprofile">个人资料</a>
+                                </li>
+                                <li>
+                                    <a href="/user/personal/personal_apply.php?act=apply_jobs">职位投递</a>
+                                </li>
+                                <li>
+                                    <a href="/user/personal/personal_resume.php?act=edit_resume">我的简历</a>
+                                </li>
+                                <li>
+                                    <a href="/subscribe">职位订阅</a>
+                                </li>
+                            </ul>
+                            {#/if#}
+                        </div>
+                        <div class="in_news">
+                            <a href="/morejobs">
+                                <i></i>
+                                <span>事业单位招聘</span>
+                            </a>
+                        </div>
+                        <div class="in_company">
+                            <a href="/company">
+                                <i></i>
+                                <span>教育机构招聘</span>
+                            </a>
+                        </div>
+                    </div>
+                    {#/if#}
+                </div>
+                <div class="clear"></div>
+                <div class="type_box">
+                    <ul class="tab">
+                        {#qishi_get_classify set="列表名:category,类型:QS_jobs"#}
+                        {#foreach from=$category item=list#}
+                        {#if $list.parentid == 0#}
+                        <li>
+                            <i></i>
+                            <span>{#$list.categoryname#}</span>
+                            <b></b>
+                            <div class="s_type">
+                                {#foreach from=$list.son item=son#}
+                                <a title="{#$son.categoryname#}" href="/TeachingJobs/?Classify={#$son.url_code#}&listpage=jobs_list">{#$son.categoryname#}</a>
+                                {#/foreach#}
+                            </div>
+                        </li>
+                        {#/if#}
+                        {#/foreach#}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="recommend_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <a class="emergency_bt hover" href="/TeachingJobs/emergency?listpage=jiaoshi_emergency_list">急聘职位</a>
+                            <a class="recommend_bt" href="/TeachingJobs/recommend?listpage=jiaoshi_recommend_list">推荐职位</a>
+                        </div>
+                    </div>
+                    <div id="emergency_bt_box" class="box_list" style="display: block">
+                        <ul>
+                            {#qishi_jobs_list  set="显示数目:8,列表名:jobslist,填补字符:...,职位名长度:13,职位状态:2"#}
+                            {#foreach from=$jobslist item=list#}
+                            {#if $list.jobs_name != ''#}
+                            <li>
+                                <div class="top">
+                                    <a class="name" href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                    <span class="wage">{#$list.wage_cn#}</span>
+                                    <div class="clear"></div>
+                                    <p class="info">{#$list.d_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                </div>
+                                <div class="bottom">
+                                    <span class="company">{#$list.companyname#}</span>
+                                    <span class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <a href="/TeachingJobs/emergency?listpage=jiaoshi_emergency_list" class="more_list">查看更多</a>
+                    </div>
+                    <div id="recommend_bt_box" class="box_list">
+                        <ul>
+                            {#qishi_jobs_list  set="显示数目:8,列表名:jobslist,填补字符:...,职位名长度:13,职位状态:1"#}
+                            {#foreach from=$jobslist item=list#}
+                            {#if $list.jobs_name != ''#}
+                            <li>
+                                <div class="top">
+                                    <a class="name" href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                    <span class="wage">{#$list.wage_cn#}</span>
+                                    <div class="clear"></div>
+                                    <p class="info">{#$list.d_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                </div>
+                                <div class="bottom">
+                                    <span class="company">{#$list.companyname#}</span>
+                                    <span class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <a href="/TeachingJobs/recommend?listpage=jiaoshi_recommend_list" class="more_list">查看更多</a>
+                    </div>
+                    <script>
+                        $('.recommend_box .box_title a').mouseover(function() {
+                            $('.recommend_box .box_title a').removeClass('hover');
+                            var str = $(this).attr('class')
+                            $(this).addClass('hover');
+                            $('.recommend_box .box_list').hide();
+                            $('.recommend_box #' + str + '_box').show();
+                        })
+                    </script>
+                </div>
+                <div class="clear"></div>
+                {#qishi_ad set="调用名称:home_102,列表名:list,显示数目:1000"#}
+                <!--   以下为循环读取 -->
+                {#foreach from=$list item=li#}
+                <div class="ad" id="home_102">
+                    <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=home_102&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="1200" height="100" /></a>
+                </div>
+                {#/foreach#}
+                <div class="clear"></div>
+                <div class="news_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <span>最新事业单位招聘招考信息</span>
+                        </div>
+                    </div>
+                    <ul>
+                        {#qishi_news_list set="列表名:list,显示数目:20,排序:refreshtime>desc,时间格式:m-d,标题长度:30"#}
+                        <!--   以下为循环读取 -->
+                        {#foreach from=$list item=li#}
+                        <li>
+                            <div class="location">
+                                <i></i>
+                                {#if $li.parent_pinyin!='' #}
+                                <a target="_blank" title="{#$li.district_cn#}" href="/{#$li.parent_pinyin#}/{#$li.district_pinyin#}" >{#$li.district_cn#}</a>
+                                {#else#}
+                                <a target="_blank" title="{#$li.district_cn#}" href="/{#$li.district_pinyin#}">{#$li.district_cn#}</a>
+                                {#/if#}
+                            </div>
+                            <div class="title">
+                                <a target="_blank" title="{#$li.title#}" href="{#$li.url#}">{#$li.title#}</a>
+                            </div>
+                            <div class="date">
+                                <span>{#$li.refreshtime#}</span>
+                            </div>
+                        </li>
+                        {#/foreach#}
+                        <!-- 循环结束 -->
+                    </ul>
+                    <a href="/morejobs" class="more_list">查看更多</a>
+                </div>
+                <div class="clear"></div>
+                <div class="company_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <span>名校招聘</span>
+                        </div>
+                    </div>
+                    <ul id="home_103" class="str">
+                        {#qishi_ad set="调用名称:home_103,列表名:list"#}
+                        {#foreach from=$list item=li#}
+                        <li>
+                            <a title="{#$li.text_content#}" target="blank" href="/ad_count/index.php?ad_name=home_103&img=&url={#$li.text_url#}"><span class="name" {#if !empty($li.text_color)#}style="color:{#$li.text_color#}"{#/if#}>{#$li.text_content#}</span><br/><span class="str">{#$li.note#}</span></a>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                    <div class="line"></div>
+                    <ul class="img" id="home_104">
+                        {#qishi_ad set="调用名称:home_104,列表名:list,显示数目:1000"#}
+                        <!--   以下为循环读取 -->
+                        {#foreach from=$list item=li#}
+                        <li>
+                            <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=home_104&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="214" height="95" /></a>
+                        </li>
+                        {#/foreach#}
+                        <!-- 循环结束 -->
+                    </ul>
+                    <a href="/company" class="more_list">查看更多</a>
+                </div>
+                <div class="clear"></div>
+                <div class="job_box">
+                    <div class="left">
+                        <div class="box_title">
+                            <div class="type_tab">
+                                <span>最新职位</span>
+                            </div>
+                        </div>
+                        <ul class="job_list">
+                            {#qishi_jobs_list  set="显示数目:10,列表名:jobslist,填补字符:...,职位名长度:13,排序:rtime>desc"#}
+                            {#foreach from=$jobslist item=list#}
+                            {#if $list.jobs_name != ''#}
+                            <li>
+                                <div class="district">
+                                    <p>{#$list.d_cn#}</p>
+                                </div>
+                                <div class="info">
+                                    <a class="name" href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                    <div class="clear"></div>
+                                    <p><span>{#$list.wage_cn#}</span>&nbsp;&nbsp;&nbsp;&nbsp;{#$list.experience_cn#}/{#$list.education_cn|default:"不限"#}/{#$list.amount#}人</p>
+                                </div>
+                                <div class="company">
+                                    <a href="{#$list.company_url#}" title="{#$list.companyname#}招聘" target="_blank">{#$list.companyname#}</a><!--<i class="vip"></i><i class="auth"></i><i class="setmeal"></i>-->
+                                    <div class="clear"></div>
+                                    <p>{#$list.refreshtime|date_format:"%Y-%m-%d"#}</p>
+                                </div>
+                                <div class="button">
+                                    <a rel="nofollow" class="apply app_jobs" data-id="{#$list.id#}">快速申请</a>
+                                    <div class="clear"></div>
+                                    <a rel="nofollow" class="fav add_favorites" data-id="{#$list.id#}"><i></i>收藏</a>
+                                </div>
+                            </li>
+                            {#/if#}
+                            {#/foreach#}
+                        </ul>
+                        <a href="/jobs/jobs-list.php?listpage=jobs_list" class="more_list">查看更多</a>
+                        <script>
+                            //单个申请职位
+                            $(".app_jobs").unbind().click(function() {
+                                dialog("申请职位", "url:/user/user_apply_jobs.php?id=" + $(this).attr("data-id") + "&act=app", "500px", "auto", "");
+                            });
+                            // 单个收藏职位
+                            $(".add_favorites").unbind().click(function() {
+                                dialog("收藏职位", "url:/user/user_favorites_job.php?id=" + $(this).attr("data-id") + "&act=add", "500px", "auto", "");
+                            });
+                        </script>
+                    </div>
+                    <div class="right">
+                        <div class="item_box">
+                            <div class="item_title">
+                                <h3>即将到期的职位</h3>
+                            </div>
+                            <ul class="job">
+                                {#jiaoshi_jobs set="显示数目:6,排序:deadline asc,单位:job"#}
+                                {#foreach from=$jobs item=job#}
+                                <li>
+                                    <a target="_blank" class="job_name" title="{#$job.jobs_name#}" href="/job/{#$job.id#}.html">{#$job.jobs_name#}</a> 
+                                    <div class="clear"></div>
+                                    <div class="info">
+                                        <span class="left">{#$job.wage_cn#}</span>
+                                        <span class="right">{#$job.education_cn|default:"不限"#}</span>
+                                    </div>                  
+                                </li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <div class="item_box">
+                            <div class="item_title">
+                                <h3>最新老师</h3>
+                            </div>
+                            <ul class="resume">
+                                {#jiaoshi_resumes set="显示数目:6,后缀:老师"#}
+                                {#foreach from=$resumes item=resume#}
+                                <li>
+                                    <a target="_blank" class="name" title="{#$resume.fullname#}" href="/ProfileBank/ShowResume.shtml?id={#$resume.id#}">{#$resume.fullname#}</a> 
+                                    <div class="clear"></div>
+                                    <div class="info">
+                                        <span class="left">{#$resume.district_cn#}&nbsp;/&nbsp;{#$resume.education_cn#}&nbsp;/&nbsp;{#$resume.age#}岁</span>
+                                        <span class="right">{#$resume.addtime#}</span>
+                                    </div>                  
+                                </li>
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="link_box">
+                    <div class="box_title">
+                        <div class="type_tab">
+                            <span>友情链接</span>
+                        </div>
+                    </div>
+                    <ul>
+                        {#qishi_link set="列表名:list,类型:1,调用名称:QS_index"#}
+                        <!--   以下为循环读取 -->
+                        {#foreach from=$list item=list#}
+                        <li>
+                            <a target="_blank" title="{#$list.title#}" href="{#$list.link_url#}">{#$list.title#}</a>
+                        </li>
+                        {#/foreach#}
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        {#include file="/2017/footer.htm"#}
+    </body>
+</html>

@@ -1,0 +1,73 @@
+{#include file="sys/admin_header.htm"#}
+<div class="admin_main_nr_dbox">
+    <div class="pagetit">
+        <div class="ptit"> 在线课程-类型列表</div>
+        <div class="clear"></div>
+    </div>
+
+    <form id="form1" name="form1" method="post" action="?act=type_del">
+        {#$inputtoken#}
+        <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="list" class="link_lan">
+            <tr>
+                <td   width="8%" class="admin_list_tit admin_list_first">
+                    <label id="chkAll"><input type="checkbox" name="" title="全选/反选" id="chk"/>类型编号</label>
+                </td>
+                <td    class="admin_list_tit">类型名称</td> 
+                <td    class="admin_list_tit">类型英文缩写</td> 
+                <td  width="10%" class="admin_list_tit">添加时间</td>  
+                <td width="15%" align="center" class="admin_list_tit">操作</td>
+            </tr>
+            {#foreach from=$clist item=list#}
+            <tr >
+                <td class="admin_list admin_list_first" >
+                    <input name="id[]" type="checkbox" id="id" value="{#$list.id#}" />
+                    {#$list.id#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.name#}
+                </td>
+                <td  class="admin_list">
+                    {#$list.en#}
+                </td>
+                <td class="admin_list">
+                    {#$list.addtime|date_format:'%Y-%m-%d %H:%M:%S'#}
+                </td>
+                <td width="15%" align="center" class="admin_list">
+                    <a href="/jaosen/admin_online_course_type_add.php?act=edit&id={#$list.id#}">修改</a>
+                    &nbsp;&nbsp;
+                    <a href="?act=type_del&id={#$list.id#}">删除</a>
+                </td>
+            </tr>
+            {#/foreach#}
+        </table>
+        {#if !$clist#}
+        <div class="admin_list_no_info">没有任何信息！</div>
+        {#/if#}
+
+        <table width="100%" border="0" cellspacing="10" cellpadding="0" class="admin_list_btm">
+            <tr>
+                <td>
+                    <input type="button" name="" value="添加类型" class="admin_submit"  id="ButAdd" onclick="javascript:window.location.href = '/jaosen/admin_online_course_type_add.php'" />
+                    <input type="submit" name="" value="删除类型" class="admin_submit" />
+                </td>
+                <td width="305" align="right">
+
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        $('#chk').click(function () {
+            if ($(this).attr("checked")) {
+                $('table input').attr('checked', true)
+            } else {
+                $('table input').removeAttr('checked')
+            }
+        })
+    </script>
+    <div class="page link_bk">{#$page#}</div>
+</div>
+<!-- -->
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

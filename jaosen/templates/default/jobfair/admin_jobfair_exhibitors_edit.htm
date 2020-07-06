@@ -1,0 +1,109 @@
+{#include file="sys/admin_header.htm"#}
+<link href="css/date_input.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function()
+{	
+	$("#save").click(function()
+	{
+	  if ($("#jobfairid").val()==""){
+	  alert ("请选择要预定的招聘会");
+	  $("#jobfairid").focus();
+	   return false;
+	   }
+	   			if ($("#companyname").val()==""){
+				  alert ("请填写企业名称");
+				  $("#companyname").focus();
+				   return false;
+				   }
+	   
+	 $("#FormData").submit();
+	});	 
+});
+</script>
+<div class="admin_main_nr_dbox">
+<div class="pagetit">
+	<div class="ptit"> {#$pageheader#}</div>
+  {#include file="jobfair/admin_jobfair_exhibitors_nav.htm"#}
+  <div class="clear"></div>
+</div>
+<form action="?act=exhibitors_edit_save" method="post"   name="FormData" id="FormData" >
+<div class="toptit">修改参会企业</div>
+  {#$inputtoken#}
+    <table width="100%" border="0" cellpadding="3" cellspacing="3"  class="admin_table">
+    
+	   <tr>
+          <td width="150" align="right">企业全称：</td>
+          <td  class="link_lan">
+		  {#if $info.uid>0#}
+      <input name="companyname" id="companyname" type="hidden"  value="{#$info.companyname#}" class="input_text_400" />
+      <a href="{#$info.company_url#}" target="_blank"> {#$info.companyname#}</a>
+			{#else#}
+		  <input name="companyname" id="companyname" type="text"  value="{#$info.companyname#}" class="input_text_400" />
+			{#/if#}
+   		 </td>
+      </tr>
+
+	   <tr>
+          <td align="right">预定方式：</td>
+          <td >
+	        <label>
+	        <input name="etypr" type="radio" value="1" {#if $info.etypr=="1"#}checked="checked"{#/if#}/>
+	        在线预定</label>
+        
+       <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="etypr" value="2" {#if $info.etypr=="2"#}checked="checked"{#/if#}/>
+	        电话预定</label>
+			 <label>&nbsp;&nbsp;&nbsp;
+	        <input type="radio" name="etypr" value="3" {#if $info.etypr=="3"#}checked="checked"{#/if#}/>
+	        其他方式</label>		   </td>
+        </tr>
+		
+		 <tr>
+          <td align="right">预定状态：</td>
+          <td >
+		  
+		  <label>
+	        <input type="radio" name="audit" value="1"  {#if $info.audit=="1"#}checked="checked"{#/if#}/>
+	        成功预定</label>&nbsp;&nbsp;&nbsp;
+	        <label>
+	        <input name="audit" type="radio" value="0"   {#if $info.audit=="0"#}checked="checked"{#/if#}/>
+	        等待确认</label>
+        
+       	   </td>
+        </tr>
+		
+		<tr>
+          <td align="right">预定招聘会：</td>
+          <td >
+	         <select name="jobfairid" id="jobfairid">
+		    <option value="" >请选择招聘会</option>
+			 {#foreach from=$jobfair item=li#}
+	           <option value="{#$li.id#}" {#if $info.jobfairid==$li.id#}selected="selected"{#/if#}>{#$li.title#}</option>
+			   {#/foreach#}
+             
+             
+            </select>	      </td>
+        </tr>
+
+	   
+	   <tr>
+        <td align="right" valign="top" >备注：</td>
+        <td > 
+           <textarea name="note" id="note" style="width:300px; height:50px; font-size:12px; line-height:180%; ">{#$info.note#}</textarea></td>
+      </tr>
+	  <tr>
+        <td align="right" valign="top" > </td>
+        <td height="55" > 
+          
+		   <input type="button"  id="save" value="提交" class="admin_submit"   />
+		  <input name="submit22" type="button" class="admin_submit"    value="返回" onclick="Javascript:window.history.go(-1)"/>	    </td>
+      </tr>
+    </table>
+		
+		 
+		
+		</form>
+</div>
+{#include file="sys/admin_footer.htm"#}
+</body>
+</html>

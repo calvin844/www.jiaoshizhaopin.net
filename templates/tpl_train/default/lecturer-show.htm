@@ -1,0 +1,142 @@
+{#qishi_train_lecturer_show set="列表名:teacher,讲师ID:GET[id]"#}
+{#qishi_train_show set="列表名:train,机构ID:"|cat:$teacher.train_id#}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$teacher.teachername#} - {#$QISHI.site_name#}</title>
+<meta name="description" content="{#$train.description#}},讲师简介">
+<meta name="keywords" content="{#$teacher.teachername#},讲师简介">
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$user_tpl#}css/css.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' ></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+		var teacher_id="{#$teacher.id#}";
+		var tsTimeStamp= new Date().getTime();
+		$.get("{#$QISHI.website_dir#}plus/ajax_contact.php", { "id": teacher_id,"time":tsTimeStamp,"act":"teacher_contact"},
+			function (data,textStatus)
+			 {			
+				$(".teacher_contact").html(data);
+			 }
+		);
+});
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<!-- 当前位置 -->
+<div class="page_location link_bk">
+	当前位置：<a href="{#$QISHI.website_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#"QS_train_agency_lecturer"|qishi_url#}">讲师信息</a>&nbsp;>&nbsp;{#$train.trainname#}
+</div>
+	<!-- 主体内容 -->
+	<div class="container link_bk">
+		<div class="left_area">
+			<div class="com_title">
+				<div class="logo_img"><img src="{#$train.logo#}" width="200" height="66" /></div>
+				<div class="title_txt">
+					<h2>{#$train.trainname#}</h2>
+					<p>{#$train.address#}</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			{#qishi_train_img_list set="列表名:img,分页显示:1,显示数目:8,机构ID:$teacher.train_id"#}
+			{#if $img#}
+			<div class="carousel">
+				<div class="swipe" id="slider">
+					<div class="swipe-wrap">
+						{#foreach from=$img item=li#}
+						<div>
+							<ul class="car_img">
+								{#section name=sub_li loop=$li.group#}
+								<li {#if $smarty.section.sub_li.index==2#}class="last"{#/if#}><a target="_blank" href="{#$QISHI.main_domain#}data/train_img/original/{#$li.group[sub_li].img#}"><img width="180" height="119" src="{#$QISHI.main_domain#}data/train_img/thumb/{#$li.group[sub_li].img#}" alt=""></a></li>
+								{#/section#}
+							</ul>
+						</div>
+						{#/foreach#}
+					</div>
+				</div>
+				<div class="slider-control">
+  					<button class="left" onclick="mySwipe.prev()"></button>
+  					<button class="right" onclick="mySwipe.next()"></button>
+  				</div>
+			</div>
+			{#/if#}
+			<div class="com_info">
+				<div class="com_nav">
+					<ul>
+						<li><a href="{#"QS_train_agencyshow,id:"|cat:$train.id|qishi_url#}">机构介绍</a></li>
+						<li><a href="{#"QS_train_agency_curriculum,id:"|cat:$train.id|qishi_url#}">培训课程</a></li>
+						<li class="active"><a href="{#"QS_train_agency_lecturer,id:"|cat:$train.id|qishi_url#}">师资力量</a></li>
+						<li><a href="{#"QS_train_agency_news,id:"|cat:$train.id|qishi_url#}">新闻动态</a></li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+
+				<div class="com_container">
+					<!-- 讲师详情 -->
+					<div class="teacher_dateil">
+						<div class="teacher_info">
+							<div class="teacher_avater"><a><img src="{#$teacher.photosrc#}" width="120" height="150" /></a></div>
+							<div class="teacher_txt">
+								<h4><a>{#$teacher.teachername#}</a></h4>
+								<p>{#$teacher.education_cn#} ｜ {#$teacher.graduated_school#} ｜ {#$teacher.speciality#}</p>
+								<p>工作单位：{#$teacher.work_unit#}</p>
+								<p>现有职称：{#$teacher.positionaltitles#}</p>
+								<p>所在地区：{#$teacher.district_cn#}</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="teacher_tip">
+							<p>个人简介：{#$teacher.contents|nl2br#}</p>
+							<p>重要成果：{#$teacher.achievements|nl2br#}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 右边内容 -->
+		<div class="right_area">
+			
+			<div class="right_box">
+				<div class="title_box">
+					<h5>机构名片</h5>
+				</div>
+				<div class="list">
+					<ul>
+						<li>机构性质：{#$train.nature_cn#}</li>
+						<li>所在地区：{#$train.district_cn#}</li>
+						<li>成立时间：{#$train.founddate|date_format:"%Y-%m-%d"#}</li>
+						{#if $train.website#}
+						<li>机构网站：<a target="_blank" href="{#$train.website#}">{#$train.website#}</a></li>
+						{#/if#}
+					</ul>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="title_box">
+					<h5>联系方式</h5>
+				</div>
+				<div class="list teacher_contact">
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 主体内容 结束 -->
+	<script src="{#$QISHI.site_template#}js/swipe.js"></script>
+<script>
+	window.mySwipe = Swipe(document.getElementById('slider'), {
+		auto:3000,
+		speed:400,
+		continuous: true
+	});
+</script>
+{#include file="footer.htm"#}
+</body>
+</html>

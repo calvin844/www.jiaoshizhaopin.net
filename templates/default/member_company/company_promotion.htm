@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".set_promotion").click(function(){
+		var catid = $(this).attr("catid");
+		var jobid = $(this).attr("jobid"); 
+		dialog("职位推广","url:company_ajax.php?act=set_promotion&catid="+catid+"&jobid="+jobid,"610px","auto","","");
+	});
+});
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 职位推广</div>
+
+<div class="usermain">
+  <div class="leftmenu  com link_bk">
+  	 {#include file="member_company/left.htm"#}	
+  </div>
+
+<div class="rightmain">
+  
+ <div class="bbox1 link_bk my_account intrgration" style="padding-top:0;">
+		<div class="topnav">
+			<div class="titleH1">
+				<div class="h1-title">职位推广</div>
+			</div>
+
+			<div class="navs">
+				<a href="?act=promotion" {#if $promotionid==""#}class="se"{#/if#}>全部职位</a>
+				<a href="?act=promotion&promotionid=1" {#if $promotionid=="1"#}class="se"{#/if#}>推荐职位</a>
+				<!--<a href="?act=promotion&promotionid=3" {#if $promotionid=="3"#}class="se"{#/if#}>职位置顶</a>-->
+				<a href="?act=promotion&promotionid=2" {#if $promotionid=="2"#}class="se"{#/if#}>紧急招聘</a>
+				<!--<a href="?act=promotion&promotionid=4" {#if $promotionid=="4"#}class="se"{#/if#}>职位变色</a>-->
+					
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- 推荐职位 -->
+		{#if $promotionid=="1"#}
+		<div class="manage_list">
+			<form id="form1" name="form1" method="post" action="?act=promotion_perform">
+			<div class="mlist_tit">
+				<div class="j_spreadt1"><input type="checkbox" id="chk" name="chkAll"> 职位名称</div>
+				<div class="j_spreadt2">开始日期</div>
+				<div class="j_spreadt3">结束日期</div>
+				<div class="j_spreadt4">刷新时间</div>
+				<div class="j_spreadt5">操作</div>
+			</div>
+			{#if $list#}
+			{#foreach from=$list item=li#}
+			<div class="mlist_txt">
+				<div class="j_spreadc1"><input type="checkbox" name="y_id[]" id="y_id" value="{#$li.cp_id#}" /><a href="{#$li.jobs_url#}" target="_blank"> {#$li.jobs_name#}</a></div>
+				<div class="j_spreadc2">{#$li.cp_starttime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc3">{#$li.cp_endtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc4">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="j_spreadc5"><a href="?act=promotion_perform&promotion_del=1&y_id={#$li.cp_id#}">取消</a></div>
+			</div>
+			{#/foreach#}
+			<div class="mlist_txt last">
+				<input type="submit" name="promotion_del" value="取消" class="but100lan mlist_but" id="promotion_del"/>
+			</div>
+			{#else#}
+			<div class="emptytip">没有找到对应的职位信息！</div>
+			{#/if#}
+			</form>
+			{#if $list&&$page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="bottomtip">
+			<div class="tp h2-title">小贴士</div>
+			推荐职位后，网站首页的推荐职位栏目将会出现您的推荐职位，可大大提高您的招聘效率。<br />
+			推荐职位是按您使用套餐，过期后将自动取消。<br />
+			推荐职位推广方式最少15天，最长60天，推广期间每天消耗3点积分。<br />
+		</div>
+		{#/if#}
+		<!-- 推荐职位 结束 -->
+		<!-- 置顶职位 -->
+		{#if $promotionid=="3"#}
+		<div class="manage_list">
+			<form id="form1" name="form1" method="post" action="?act=promotion_perform">
+			<div class="mlist_tit">
+				<div class="j_spreadt1"><input type="checkbox" id="chk" name="chkAll"> 职位名称</div>
+				<div class="j_spreadt2">开始日期</div>
+				<div class="j_spreadt3">结束日期</div>
+				<div class="j_spreadt4">刷新时间</div>
+				<div class="j_spreadt5">操作</div>
+			</div>
+			{#if $list#}
+			{#foreach from=$list item=li#}
+			<div class="mlist_txt">
+				<div class="j_spreadc1"><input type="checkbox" name="y_id[]" id="y_id" value="{#$li.cp_id#}" /><a href="{#$li.jobs_url#}" target="_blank"> {#$li.jobs_name#}</a></div>
+				<div class="j_spreadc2">{#$li.cp_starttime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc3">{#$li.cp_endtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc4">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="j_spreadc5"><a href="?act=promotion_perform&promotion_del=1&y_id={#$li.cp_id#}">取消</a></div>
+			</div>
+			{#/foreach#}
+			<div class="mlist_txt last">
+				<input type="submit" name="promotion_del" value="取消" class="but100lan mlist_but" id="promotion_del"/>
+			</div>
+			{#else#}
+			<div class="emptytip">没有找到对应的职位信息！</div>
+			{#/if#}
+			</form>
+			{#if $list&&$page#}
+			<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+	          <tr>
+	            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+	          </tr>
+	      </table>
+	      {#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="bottomtip">
+			<div class="tp h2-title">小贴士</div>
+			职位置顶后招聘信息将会在职位列表首页置顶显示，可有效提高招聘效率。<br />
+			职位置顶是按天计费，过期后将自动取消。<br />
+			职位置顶推广方式最少7天，最长30天，推广期间每天消耗6点积分。<br />
+		</div>
+		{#/if#}
+		<!-- 置顶职位 结束 -->
+		<!-- 紧急招聘 -->
+		{#if $promotionid=="2"#}
+		<div class="manage_list">
+			<form id="form1" name="form1" method="post" action="?act=promotion_perform">
+			<div class="mlist_tit">
+				<div class="j_spreadt1"><input type="checkbox" id="chk" name="chkAll"> 职位名称</div>
+				<div class="j_spreadt2">开始日期</div>
+				<div class="j_spreadt3">结束日期</div>
+				<div class="j_spreadt4">刷新时间</div>
+				<div class="j_spreadt5">操作</div>
+			</div>
+			{#if $list#}
+			{#foreach from=$list item=li#}
+			<div class="mlist_txt">
+				<div class="j_spreadc1"><input type="checkbox" name="y_id[]" id="y_id" value="{#$li.cp_id#}" /><a href="{#$li.jobs_url#}" target="_blank"> {#$li.jobs_name#}</a></div>
+				<div class="j_spreadc2">{#$li.cp_starttime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc3">{#$li.cp_endtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc4">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="j_spreadc5"><a href="?act=promotion_perform&promotion_del=1&y_id={#$li.cp_id#}">取消</a></div>
+			</div>
+			{#/foreach#}
+			<div class="mlist_txt last">
+				<input type="submit" name="promotion_del" value="取消" class="but100lan mlist_but" id="promotion_del"/>
+			</div>
+			{#else#}
+			<div class="emptytip">没有找到对应的职位信息！</div>
+			{#/if#}
+			</form>
+			{#if $list&&$page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="bottomtip">
+			<div class="tp h2-title">小贴士</div>
+			设置紧急招聘后职位将出现在首页紧急招聘栏目中，并且在职位名称后面跟有急聘字样哦！<br />
+			紧急招聘是按天计费，过期后将自动取消。<br />
+			紧急职位推广方式最少7天，最长60天，推广期间每天消耗3点积分。<br />
+		</div>
+		{#/if#}
+		<!-- 紧急招聘 结束 -->
+		<!-- 职位变色 -->
+		{#if $promotionid=="4"#}
+		<div class="manage_list">
+			<form id="form1" name="form1" method="post" action="?act=promotion_perform">
+			<div class="mlist_tit">
+				<div class="j_spreadt1"><input type="checkbox" id="chk" name="chkAll"> 职位名称</div>
+				<div class="j_spreadt2">开始日期</div>
+				<div class="j_spreadt3">结束日期</div>
+				<div class="j_spreadt4">刷新时间</div>
+				<div class="j_spreadt5">操作</div>
+			</div>
+			{#if $list#}
+			{#foreach from=$list item=li#}
+			<div class="mlist_txt">
+				<div class="j_spreadc1"><input type="checkbox" name="y_id[]" id="y_id" value="{#$li.cp_id#}" /><a href="{#$li.jobs_url#}" target="_blank"> {#$li.jobs_name#}</a></div>
+				<div class="j_spreadc2">{#$li.cp_starttime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc3">{#$li.cp_endtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc4">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="j_spreadc5"><a href="?act=promotion_perform&promotion_del=1&y_id={#$li.cp_id#}">取消</a></div>
+			</div>
+			{#/foreach#}
+			<div class="mlist_txt last">
+				<input type="submit" name="promotion_del" value="取消" class="but100lan mlist_but" id="promotion_del"/>
+			</div>
+			{#else#}
+			<div class="emptytip">没有找到对应的职位信息！</div>
+			{#/if#}
+			</form>
+			{#if $list&&$page#}
+		<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+          <tr>
+            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+          </tr>
+      </table>
+      {#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="bottomtip">
+			<div class="tp h2-title">小贴士</div>
+			设置职位变色后您的职位名称的颜色将变成...中的一种，更能吸引求职者的眼球！<br />
+			您的套餐是 <strong>免费套餐</strong>，推广有效期为15天，过期后将自动取消。<br />
+			您的套餐内职位变色共 100 条，已使用 20 条，剩余 80 条。 <br />
+		</div>
+		{#/if#}
+		<!-- 职位变色 结束 -->
+		<!-- 全部职位 -->
+		{#if $promotionid=="0"#}
+		<div class="manage_list">
+			<div class="mlist_tit">
+				<div class="j_spreadt1">职位名称</div>
+				<div class="j_spreadt2">发布日期</div>
+				<div class="j_spreadt3">截止日期</div>
+				<div class="j_spreadt4">刷新时间</div>
+				<div class="j_spreadt5">操作</div>
+			</div>
+			{#if $list#}
+			{#foreach from=$list item=li#}
+			<div class="mlist_txt salljob">
+				<div class="j_spreadc1"><a href="{#$li.jobs_url#}" target="_blank">{#$li.jobs_name#}</a></div>
+				<div class="j_spreadc2">{#$li.addtime|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc3">{#$li.deadline|date_format:"%Y-%m-%d"#}</div>
+				<div class="j_spreadc4">{#$li.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="j_spreadc5">
+					<div><!--{#if $li.stick=="1"#}<a   style="color:#9B9B9B;" class="vtip" title="该职位已置顶">置顶</a>{#else#}<a   class="set_promotion" catid="3" jobid="{#$li.id#}">置顶</a>{#/if#}&nbsp;&nbsp;-->{#if $li.recommend=="1"#}<a   style="color:#9B9B9B;" class="vtip" title="该职位已推荐">推荐</a>{#else#}<a   class="set_promotion" catid="1" jobid="{#$li.id#}">推荐</a>{#/if#}</div>
+					<div class="spread_link">{#if $li.highlight#}<a   style="color:#9B9B9B;" class="vtip" title="该职位已变色">变色</a>{#else#}<a   class="set_promotion" catid="4" jobid="{#$li.id#}">变色</a>{#/if#}&nbsp;&nbsp;{#if $li.emergency=="1"#}<a   style="color:#9B9B9B;" class="vtip" title="该职位已紧急">紧急</a>{#else#}<a   class="set_promotion" catid="2" jobid="{#$li.id#}">紧急</a>{#/if#}</div>
+				</div>
+				<p>性别要求：{#$li.sex_cn#} ｜ 学历要求：{#$li.education_cn#} ｜ 工作经验：{#$li.experience_cn#} |  工作地区：{#$li.district_cn#}</p>
+			</div>
+			{#/foreach#}
+			<div class="clear"></div>
+			{#else#}
+			<div class="emptytip">没有找到对应的职位信息！</div>
+			{#/if#}
+			{#if $list&&$page#}
+			<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+	          <tr>
+	            <td height="50" align="center"> <div class="page link_bk">{#$page#}</div></td>
+	          </tr>
+	      </table>
+	      {#/if#}
+		</div>
+		{#/if#}
+		<!-- 全部职位 结束 -->
+
+	
+
+
+  	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>

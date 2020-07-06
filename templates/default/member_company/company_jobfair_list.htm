@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{#$title#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.site_dir#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.idTabs.min.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type='text/javascript' ></script>
+<script type="text/javascript"> 
+$(document).ready(function()
+{
+	$(".jobfair_list").hover(
+  function () {
+    $(this).css("background-color","#FFFCE8");
+	 $(this).css("border-color","#FF9900");
+  },
+  function () {
+    $(this).css("background-color","");
+	$(this).css("border-color","#FFE8DA");
+  }
+);
+});
+</script>
+</head>
+<body>
+{#include file="header.htm"#}
+<div class="page_location link_bk">
+
+当前位置：<a href="{#$QISHI.site_dir#}">首页</a>&nbsp;>&nbsp;<a href="{#$userindexurl#}">会员中心</a>&nbsp;>&nbsp;招聘会
+</div>
+<table width="985" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:8px;" >
+  <tr>
+    <td width="173" valign="top" class="link_bk">
+	{#include file="member_company/left.htm"#}
+	</td>
+    <td valign="top">
+	<div class="user_right_box" style=" border-bottom:0px;">
+		<div class="user_right_top_tit_bg">		
+		  <h1>招聘会</h1>
+		</div>
+	  </div>
+	  {#foreach from=$jobfair item=list#}
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="user_right_box jobfair_list"  style="margin-top:6px; line-height:180%; border:1px solid #FFE8DA">
+            <tr> 
+              <td width="130" valign="top" >
+			  <div class="jobfairdates">				
+					<div class="week">{#$list.holddates_week#}</div>
+					<div class="day">{#$list.holddates|date_format:"%d"#}</div>
+					<div class="date">{#$list.holddates|date_format:"%Y年%m月"#}</div>	
+				</div>					
+			  </td>
+              <td  class="link_bk">
+			  <strong><a href="{#$list.url#}" target="_blank">{#$list.title#}</a></strong><br />
+行业主题：{#$list.industry#} <br />
+会场地址：{#$list.address#} <br />
+乘车线路：{#$list.bus#}<br />
+举办日期：{#$list.holddates|date_format:"%Y年%m月%d日"#}<br />
+报名电话：{#$list.phone#}
+			  </td>
+              <td width="150" valign="top"  >
+			  <div style="position:relative; color:#FF0000; padding-top:38px;">
+	{#if $list.predetermined_ok=="1"#}
+	{#if $list.predetermined_web=="1"#}
+	<form action="?act=booth" method="post">
+	<input name="id" type="hidden" value="{#$list.id#}" />
+	<input type="submit" name="s" value="在线预定" class="user_submit"  {#if $list.predetermined_point>
+	 0#} onclick="return confirm('预定展位将消费 {#$list.predetermined_point#} {#$QISHI.points_quantifier#}{#$QISHI.points_byname#}，确定预定吗？')"{#/if#}/></form>	 
+	{#/if#}
+	{#if $list.predetermined_tel=="1"#}
+	<input type="button" name="next" value="电话预定" class="user_submit vtip"  style="margin-top:10px;"  title="请拨打以下电话预定：<br>{#$list.phone#}"  />
+	{#/if#}	
+  <div class="jobfairhold"></div>
+  </div>
+  {#else#}
+   已暂停预定或已过期
+  {#/if#}
+			  </td>
+            </tr>
+      </table>
+		  {#/foreach#}
+		  {#if !$$jobfair#}
+		  <div class="us_list_no_content">没有您要找的信息！</div>
+		  {#/if#}		  
+		  <table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+              <tr>
+                <td height="80" align="center"> <div class="page link_bk">{#$page#}</div></td>
+              </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+{#include file="footer.htm"#}
+</body>
+</html>

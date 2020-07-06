@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_train.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.dialog.js" type='text/javascript' ></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".audit_email").click(function(){
+		dialog("邮箱验证","url:train_ajax.php?act=user_email","500px","auto","","");
+	});
+	$(".audit_mobile").click(function(){
+		dialog("手机验证","url:train_ajax.php?act=user_mobile","500px","auto","","");
+	});
+	$(".edit_mobile").click(function(){
+		dialog("身份验证","url:train_ajax.php?act=old_mobile","500px","auto","","");
+	});
+});
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 认证管理</div>
+
+<div class="usermain">
+  <div class="leftmenu com link_bk">
+   {#include file="member_train/left.htm"#}	
+  </div>
+<div class="rightmain">
+  
+	<div class="bbox1">
+	
+	<div class="authenticate link_bk">
+			
+ 	    	<div class="topnav">
+			  
+			<div class="titleH1">
+				<div class="h1-title">认证管理</div>
+			</div>
+					
+			<div class="navs link_bk">
+				  <a href="?act=authenticate" class="se">安全认证</a>
+				  <a href="train_info.php?act=train_auth">营业执照</a>
+				  <div class="clear"></div>
+			</div>
+	  	</div>
+
+	  	<div class="main">
+	  		<p class="toptipp">温馨提示：认证通过后，您的机构真实度会进一步提升，学员更信赖认证过的培训机构。</p>
+	  		<div class="mail_authenticate">
+	  			<div class="mail_img {#if $user.email_audit=='1'#}certified{#else#}not_certified{#/if#}"></div>
+	  			<div class="mail_content">
+	  				<h4>邮箱认证</h4>
+	  				<p class="warning">互联网账号存在被盗风险，建议您更改邮箱后验证以保证账号安全。</p>
+	  				{#if $user#}
+	  				<p>您的邮箱：{#$user.email#} {#if $user.email_audit=="1"#}<span>已认证</span>{#else#}<span class="no_authenticate">未认证</span>{#/if#}</p>
+	  				{#/if#}
+	  			</div>
+	  			{#if $user.email_audit=="1"#}
+	  			<input type="button" value="修改邮箱" class="but130lan audit_email" />
+	  			{#else#}
+	  			<input type="button" value="立即认证" class="but130lan audit_email" />
+	  			{#/if#}
+	  			
+	  			<div class="clear"></div>
+	  		</div>
+	  		<!-- 邮箱验证弹出框 start-->
+
+	  		<!-- 邮箱验证弹出框 end -->
+	  		{#if $sms.open=="1"#}
+	  		<div class="phone_authenticate">
+	  			<div class="phone_img {#if $user.mobile_audit=='1'#}certified{#else#}not_certified{#/if#}"></div>
+	  			<div class="phone_content">
+	  				<h4>手机认证</h4>
+	  				<p class="warning">互联网账号存在被盗风险，建议您更换手机号码后验证以保证账号安全。</p>
+	  				{#if $user#}
+	  				<p>您的号码：{#$user.mobile#} {#if $user.mobile_audit=="1"#}<span>已认证</span>{#else#}<span class="no_authenticate">未认证</span>{#/if#}</p>
+	  				{#/if#}
+	  			</div>
+	  			{#if $user.mobile_audit=="1"#}
+	  			<input type="button" value="修改手机" class="but130lan edit_mobile" />
+	  			{#else#}
+	  			<input type="button" value="立即认证" class="but130lan audit_mobile" />
+	  			{#/if#}
+	  			<div class="clear"></div>
+	  		</div>
+			{#/if#}
+			  <div class="bottomtip">
+		 	   <div class="tp h2-title">小贴士</div>
+		 	   {#if $sms.open=="1"#}
+			   邮箱/手机通过认证后，可以用邮箱/手机号码直接作为用户名登录。<br />
+				邮箱/手机通过认证后，如果忘记密码，可以用邮箱/手机找回。<br />
+				邮箱/手机通过认证后，当个人申请课程时，您可及时收到邮件/短信提醒。
+				{#else#}
+				邮箱通过认证后，可以用邮箱直接作为用户名登录。<br />
+				邮箱通过认证后，如果忘记密码，可以用邮箱找回。<br />
+				邮箱通过认证后，当个人申请课程时，您可及时收到邮件提醒。
+				{#/if#}
+			 </div>
+			 
+	  		 
+	  	</div>
+	</div>
+	</div>
+  </div>
+	</div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+{#include file="user/footer.htm"#}
+</body>
+</html>

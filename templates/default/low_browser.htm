@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <title>浏览器不兼容</title>
+        <link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+        <meta name="author" content="骑士CMS" />
+        <meta name="copyright" content="74cms.com" />
+        <link href="{#$QISHI.site_template#}css/base_c.css" type="text/css" rel="stylesheet"/>
+        <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+        <link href="{#$QISHI.site_template#}css/low_browser.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <script type="text/javascript" src="{#$QISHI.site_template#}js/jquery.js"></script>
+        <!--<div id="page_header">
+                <div class="main_box">
+                <ul class="nav">
+                        <li>
+                        <a title="首页" href="{#$QISHI.website_dir#}">首页</a>
+                    </li>
+                        <li>
+                        <a title="学校" href="/company">学校</a>
+                    </li>
+                        <li>
+                        <a title="教师" href="/resume">教师</a>
+                    </li>
+                        <li>
+                        <a title="新闻资讯" href="/news">新闻资讯</a>
+                    </li>
+                        <li>
+                        <a title="会员中心" href="/user/login.php">会员中心</a>
+                    </li>
+                </ul>
+                <div class="login_box"></div>
+            </div>
+        </div>-->
+
+
+        <center>
+            <a href="http://tiku.jiaoshizhaopin.net" target="_blank"><img src="{#$QISHI.site_template#}images/ad_tiku_top.jpg"/></a>
+        </center>
+        <div id="header">
+            <div class="main_box">
+                <a title="中国教师招聘网" class="logo" href="/index.php"></a>
+                <ul class="nav">
+                    <li class="<?php echo $url_str == 'index.php'?'cur':'';?>">
+                        <div>
+                            <a title="首页" href="{#$QISHI.main_domain#}">首页</a>
+                        </div>
+                    </li>
+                    <li class="<?php echo $url_str == 'company'?'cur':'';?>">
+                        <div>
+                            <a title="学校" href="/company">学校</a>
+                        </div>
+                    </li>
+                    <li class="<?php echo $url_str == 'ProfileBank'?'cur':'';?>">
+                        <div>
+                            <a title="教师" href="/ProfileBank">教师</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a target="_blank" title="在线题库" href="http://tiku_test.jiaoshizhaopin.net">题库</a>
+                        </div>
+                    </li>
+                    <!--
+            <li>
+            <div>
+                    <a target="_blank" title="社区" href="http://wsq.qq.com/reflow/264428597">社区</a>
+            </div>
+        </li>
+                    -->
+                </ul>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $.get("{#$QISHI.website_dir#}plus/ajax_user_c.php", {"act": "top_loginform", "cur_url": document.URL},
+            function (data, textStatus) {
+                $("#header").html(data);
+            }
+            );
+            $(document).on('mouseover', '.login_box', function () {
+                $(this).find('ul').show();
+            })
+
+            $(document).on('mouseleave', '.login_box', function () {
+                $(this).find('ul').hide();
+            })
+        </script>
+        <!-- 当前位置 -->
+        <!-- 主体内容 -->
+        <div class="clear"></div>
+        <div class="main_box low_browser">
+            <p class="p1">很抱歉，您的浏览器版本太低…</p>
+            <p class="p2">请升级至IE8以上版本或<span>下载以下浏览器</span></p>
+            <ul>
+                <li>
+                    <img src="/templates/default/images/chrome.png" />
+                    <p>chrome</p>
+                    <a target="_blank" href="http://www.google.cn/chrome/browser/desktop/index.html">下载</a>
+                </li>
+                <li>
+                    <img src="/templates/default/images/360.png" />
+                    <p>360浏览器</p>
+                    <a target="_blank" href="http://se.360.cn/">下载</a>
+                </li>
+                <li>
+                    <img src="/templates/default/images/sogou.png" />
+                    <p>搜狗浏览器</p>
+                    <a target="_blank" href="http://ie.sogou.com/">下载</a>
+                </li>
+                <li>
+                    <img src="/templates/default/images/firefox.png" />
+                    <p>FireFox</p>
+                    <a target="_blank" href="http://www.firefox.com.cn/">下载</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <!-- 主体内容 结束 -->
+        {#include file="footer.htm"#}	
+    </body>
+</html>

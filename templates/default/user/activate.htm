@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{#$title#}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/bind.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type='text/javascript' language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.validate.min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+//验证
+$(document).ready(function() {
+ $("#form1").validate({
+ //debug: true,
+// onsubmit:false,
+//onfocusout :true,
+   rules:{
+   pwd:{
+    required: true
+   },
+   member_type:{
+    required: true
+   }
+  },
+    messages: {
+    pwd: {
+    required: "请输入密码"
+   },
+   member_type:{
+    required: "请选择会员类型,选定后不可修改"
+   }
+  },
+  errorPlacement: function(error, element) {
+    if ( element.is(":radio") )
+        error.appendTo( $("#err"));
+    else if ( element.is(":checkbox") )
+        error.appendTo ( element.next());
+    else
+        error.appendTo(element.parent());
+  }
+    });
+});
+</script>
+</head>
+<body class="login_body">
+  <div class="sign_up_box">
+    <div class="container">
+      <div class="sign_lgo"><img src="{#$QISHI.upfiles_dir#}{#$QISHI.web_logo#}" alt="{#$QISHI.site_name#}" /></div>
+      <div class="sign_centent">
+        <!-- 注册表单 -->
+        <div class="sign_left">
+          <div class="bind_top">
+            <h2>只差一步，即可激活您的账号</h2>
+            <p>快速完成账号激活</p>
+            <p>完成账号激活后，即可直接登录哦！</p>
+          </div>
+          <form id="form1" name="form1" method="post" action="?act=activate_save"  >
+          <div class="sign_form">
+            <ul>
+              <li>
+                <div class="w99">用户名：</div>
+                <div class="input_box"><label for="" class="sp_label">{#$activate_username#}</label><input name="act_username" type="hidden" value="{#$activate_username#}" /></div>
+                <div class="clear"></div>
+              </li>
+              <li>
+                <div class="w99">电子邮箱：</div>
+                <div class="input_box"><label for="" class="sp_label">{#$activate_email#}</label><input name="act_email" type="hidden" value="{#$activate_email#}" /></div>
+                <div class="clear"></div>
+              </li>
+              <li>
+                <div class="w99">登录密码：</div>
+                <div class="input_box"><input type="password" name="pwd" id="pwd" class="sign_up_input_pwd" placeholder="请输入登录密码" /></div>
+                <div class="clear"></div>
+              </li>
+              <li>
+                <div class="w99"><span>*</span>会员类型：</div>
+                <div class="input_box">
+                  <input name="member_type" id="member_type" type="hidden" />
+                  <div class="bind_radio select" id="2">个人</div>
+                  <div class="bind_radio" id="1">企业</div>
+                  <div class="bind_radio" id="3">猎头</div>
+                  <div class="bind_radio" id="4">培训</div>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+              </li>
+              <li>
+                <div class="w99">&nbsp;</div>
+                <div class="input_box"><input type="submit" name="Submit" value="立即激活" class="sign_up_but_sign" /></div>
+                <div class="clear"></div>
+              </li>
+            </ul>
+          </div>
+        </form>
+        </div>
+        <!-- 注册表单 结束 -->
+
+        <div class="sign_right">
+          <div class="fast_login">
+            <p class="title">已有{#$QISHI.site_name#}账号？</p>
+            <div><input type="button" value="马上登陆" class="sign_up_but_login" onclick="window.location='{#"QS_login"|qishi_url#}'"/></div>
+            {#if $QISHI.qq_apiopen=="1" || $QISHI.sina_apiopen=="1"  || $QISHI.taobao_apiopen=="1"#}
+            <div class="content_box">
+              <p>使用合作网站账号登录：</p>
+              
+              <ul style="margin-bottom:40px;">
+                {#if $QISHI.qq_apiopen=="1"#}
+                <li><a href="{#$QISHI.main_domain#}user/{#if $QISHI.qq_logintype=='1'#}connect_qq_client.php{#else#}connect_qq_server.php{#/if#}"class="qq">QQ</a></li>
+                {#/if#}
+                {#if $QISHI.sina_apiopen=="1"#}
+                <li><a href="{#$QISHI.main_domain#}user/connect_sina.php" class="weibo">weibo</a></li>
+                {#/if#}
+                {#if $QISHI.taobao_apiopen=="1"#}
+                <li><a href="{#$QISHI.main_domain#}user/connect_taobao.php" class="taobao">taobao</a></li>
+                {#/if#}
+                <div class="clear"></div>
+              </ul>
+                <div class="clear"></div>
+            </div>
+            {#/if#}
+          </div>
+          <div class="other_sign">
+            <p>您是企业用户？<a href="{#$QISHI.main_domain#}user/user_reg.php?type=1">注册<strong>企业会员</strong></a></p>
+            <p>您是个人用户？<a href="{#$QISHI.main_domain#}user/user_reg.php?type=2">注册<strong>个人会员</strong></a></p>
+            <p>您是猎头顾问？<a href="{#$QISHI.main_domain#}user/user_reg.php?type=3">注册<strong>猎头会员</strong></a></p>
+            <p>您是培训机构？<a href="{#$QISHI.main_domain#}user/user_reg.php?type=4">注册<strong>培训会员</strong></a></p>
+          </div>
+        </div>
+        <div class="clear"></div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function() {
+    var bind_obj = $(".input_box .bind_radio").first();
+    $("#member_type").val(bind_obj.attr("id"));
+    $(".input_box .bind_radio").click(function(){
+      $("#member_type").val($(this).attr('id'));
+      $(".input_box .bind_radio").removeClass("select");
+      $(this).addClass("select");
+    });
+    $("input[type='button']").hover(function(){
+      $(this).addClass('hover');
+    },function(){
+      $(this).removeClass('hover');
+    })
+  });
+    
+  </script>
+</body>
+</html>

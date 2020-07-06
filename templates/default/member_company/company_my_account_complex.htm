@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>{#$title#}</title>
+<link rel="shortcut icon" href="{#$QISHI.main_domain#}favicon.ico" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link href="{#$QISHI.site_template#}css/user_common.css" rel="stylesheet" type="text/css" />
+<link href="{#$QISHI.site_template#}css/user_company.css" rel="stylesheet" type="text/css" />
+<script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="{#$QISHI.site_template#}js/jquery.vtip-min.js" type='text/javascript' language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".setmeal_tab").click(function(){
+		$(".list1").hide();
+		$(".setmeal_tab").removeClass("se");
+		$(this).addClass("se");
+		$("."+$(this).attr("tab")).show();
+	});
+	$(".points_tab").click(function(){
+		$(".list2").hide();
+		$(".points_tab").removeClass("se");
+		$(this).addClass("se");
+		$("."+$(this).attr("tab")).show();
+	});
+});
+$(function(){
+	$(".but100_30lan").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	})
+})
+</script>
+</head>
+<body>
+{#include file="user/header.htm"#}
+<div class="page_location link_bk">当前位置：<a href="{#$QISHI.main_domain#}">首页</a> > <a href="{#$userindexurl#}">会员中心</a> > 会员服务</div>
+
+<div class="usermain">
+	<div style="display:inline-block;">
+  <div class="leftmenu  com link_bk">
+  	  {#include file="member_company/left.htm"#}
+  </div>
+  <div class="rightmain">
+  
+	<div class="bbox1 my_account link_bk intrgration">
+  		<div class="title_h1">我的账户</div>
+  		<div class="balance">
+  			<div class="bal_text">您的套餐：<span> {#$setmeal.setmeal_name#} </span>，{#if $setmeal_endtime#}{#if $setmeal_endtime=="无限期"#}无限期{#else#}还有<span> {#$setmeal_endtime#} </span>到期{#/if#}{#else#}已经到期{#/if#}<span class="small"> (开通时间{#$setmeal.starttime|date_format:"%Y-%m-%d"#}，结束时间{#$setmeal.endtime|date_format:"%Y-%m-%d"#})</span></div>
+  			<div class="but100_30lan bal_but" onclick="javascript:location.href='company_service.php?act=setmeal_list'">升级套餐</div>
+  			<div class="bal_text bal_text_s">剩余积分：<span> {#$points#} </span>点</div>
+  			<div class="but100_30lan bal_but bal_but_s" onclick="javascript:location.href='company_service.php?act=order_add'">立即充值</div>
+  		</div>
+  		<!-- 套餐选项卡 -->
+  		<div class="topnav account_navs">
+  			<div class="navs">
+  				<a   class="setmeal_tab se" tab="setmeal_used_list">套餐消费明细</a>
+  				<a   class="setmeal_tab" tab="setmeal_leave_list">套餐余量</a>
+  				<div class="clear"></div>
+  			</div>
+  		</div>
+		<div class="account_list setmeal_used_list list1">
+			<div class="alist_tit">
+				<div class="alistt1 sal">操作类型</div>
+				<div class="alistt2 pal">套餐余量</div>
+				<div class="alistt3 sal">操作时间</div>
+				<div class="alistt4 pal">详情</div>
+			</div>
+			{#if $setmeal_report#}
+			{#foreach from=$setmeal_report item=list#}
+			<div class="alist_txt">
+				<div class="alistc1 sal">{#$list.log_op_type_cn#}</div>
+				<div class="alistc2 pal">{#$list.log_op_leave#}</div>
+				<div class="alistc3 sal">{#$list.log_addtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="alistc4 pal"><a   class="reason vtip" title="{#$list.log_value#}" id="{#$li.id#}"></a></div>
+			</div>
+			{#/foreach#}
+			{#if $page2#}
+				<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+		          <tr>
+		            <td height="50" align="center"> <div class="page link_bk">{#$page2#}</div></td>
+		          </tr>
+		      </table>
+		      {#/if#}
+			{#else#}
+			<div class="emptytip">没有找到对应的信息！</div>
+			{#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="account_model setmeal_leave_list list1" style="display:none;">
+				<div class="slist_tit">
+					<div class="lavet1">套餐内容</div>
+					<div class="lavet2">剩余/总量</div>
+					<div class="lavet3">套餐内容</div>
+					<div class="lavet4">剩余/总量</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">发布招聘职位</div>
+					<div class="lavec2">{#$setmeal.jobs_ordinary#}/{#$setmeal_rule.jobs_ordinary#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1 smo">下载普通人才简历</div>
+					<div class="lavec2 smo">{#$setmeal.download_resume_ordinary#}/{#$setmeal_rule.download_resume_ordinary#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">下载高级人才简历</div>
+					<div class="lavec2">{#$setmeal.download_resume_senior#}/{#$setmeal_rule.download_resume_senior#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1 smo">邀请普通人才面试数</div>
+					<div class="lavec2 smo">{#$setmeal.interview_ordinary#}/{#$setmeal_rule.interview_ordinary#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">邀请高级人才面试数</div>
+					<div class="lavec2">{#$setmeal.interview_senior#}/{#$setmeal_rule.interview_senior#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1 smo">人才库容量</div>
+					<div class="lavec2 smo">{#$setmeal.talent_pool#}/{#$setmeal_rule.talent_pool#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">职位推广-推荐</div>
+					<div class="lavec2">{#$setmeal.recommend_num#}/{#$setmeal_rule.recommend_num#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1 smo">职位推广-置顶</div>
+					<div class="lavec2 smo">{#$setmeal.stick_num#}/{#$setmeal_rule.stick_num#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">职位推广-紧急</div>
+					<div class="lavec2">{#$setmeal.emergency_num#}/{#$setmeal_rule.emergency_num#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1 smo">职位推广-变色</div>
+					<div class="lavec2 smo">{#$setmeal.highlight_num#}/{#$setmeal_rule.highlight_num#}</div>
+				</div>
+				<div class="slist_txt">
+					<div class="lavec1">参加招聘会场次</div>
+					<div class="lavec2">{#$setmeal.jobsfair_num#}/{#$setmeal_rule.jobsfair_num#}</div>
+				</div>
+			
+			
+			<div class="clear"></div>
+		</div>
+		<!-- 套餐选项卡 结束 -->
+		<!-- 积分选项卡 -->
+		<div class="topnav account_navs">
+  			<div class="navs">
+  				<a   class="points_tab se" tab="points_used_list">积分消费明细</a>
+  				<a   class="points_tab" tab="points_rule_list">积分规则</a>
+  				<div class="clear"></div>
+  			</div>
+  		</div>
+  		<div class="account_list points_used_list list2">
+			<div class="alist_tit">
+				<div class="alistt1" style="width:180px;">操作类型</div>
+				<div class="alistt2">积分变更</div>
+				<div class="alistt3">剩余积分</div>
+				<div class="alistt4">操作时间</div>
+				<div class="alistt5" style="width:140px;margin-left:10px;">详情</div>
+			</div>
+  			{#if $report#}
+			{#foreach from=$report item=list#}
+			<div class="alist_txt">
+				<div class="alistc1" style="width:180px;">{#$list.log_op_type_cn#}</div>
+				<div class="alistc2">{#$list.log_op_used#}</div>
+				<div class="alistc3">{#$list.log_op_leave#}</div>
+				<div class="alistc4">{#$list.log_addtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+				<div class="alistc5" style="width:140px;margin-left:10px;"><a   class="reason vtip" title="{#$list.log_value#}" id="{#$li.id#}"></a></div>
+			</div>
+			{#/foreach#}
+			{#if $page1#}
+				<table border="0" align="center" cellpadding="0" cellspacing="0" class="link_bk">
+		          <tr>
+		            <td height="50" align="center"> <div class="page link_bk">{#$page1#}</div></td>
+		          </tr>
+		      </table>
+		      {#/if#}
+			{#else#}
+			<div class="emptytip">没有找到对应的信息！</div>
+			{#/if#}
+			<div class="clear"></div>
+		</div>
+
+		<div class="account_model points_rule_list list2" style="display:none;">
+				<div class="slist_tit">
+					<div class="lavet1">操作类型</div>
+					<div class="lavet2">积分规则</div>
+					<div class="lavet3">操作类型</div>
+					<div class="lavet4">积分规则</div>
+				</div>
+				{#section name=list loop=$points_rule#}
+				<div class="slist_txt">
+					<div class="lavec1 {#if $smarty.section.list.index % 2 > 0#}smo{#/if#}">{#$points_rule[list].title#}</div>
+					<div class="lavec2 {#if $smarty.section.list.index % 2 > 0#}smo{#/if#}"><span class="{#if $points_rule[list].operation=='1'#}add{#else#}minus{#/if#}">{#if $points_rule[list].operation=="1"#}+{#else#}-{#/if#}{#$points_rule[list].value#}</span></div>
+				</div>
+				{#/section#}
+				<div class="clear"></div>
+	</div>
+		<!-- 积分选项卡 结束 -->
+		
+			
+  </div>
+  </div>
+</div>
+  <div class="clear"></div>
+</div>
+{#include file="user/footer.htm"#}
+</body>
+</html>
