@@ -19,87 +19,70 @@ $sql = "select * from " . table('jobs') . " WHERE company_audit = 1 AND audit = 
 $job_list = $db->getall($sql);
 $sql = "select * from " . table('company_profile') . " WHERE audit = 1 ORDER BY addtime desc LIMIT 10";
 $company_list = $db->getall($sql);
-$sql = "select * from " . table('article') . " WHERE audit = 1 ORDER BY addtime desc LIMIT 10";
+$sql = "select * from " . table('article') . " WHERE audit = 1 ORDER BY addtime desc LIMIT 20";
 $article_list = $db->getall($sql);
+$sql = "select * from " . table('jiaoshi_article_jobs') . " ORDER BY id desc LIMIT 20";
+$article_jobs_list = $db->getall($sql);
 $sql = "select * from " . table('category_district') . " ORDER BY id";
 $category_district = $db->getall($sql);
 
-//$xml = "<html><head></head><body>";
-$xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-//$xml .= "<xsl:stylesheetxmlns:xsl=\"http://www w3 org/1999/XSL/Transform\" version=\"1.0\">\n";
+
+
+
+$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 $xml .= "<urlset>\n";
-$xml .= "<home>\n";
-$xml .= "<url>\n";
+$xml .= " <url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
-$xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<wapurl>http://m.jiaoshizhaopin.net/</wapurl>\n";
-$xml .= "<title>教师招聘网</title>\n";
+$xml .= "<changefreq>always</changefreq>\n";
+$xml .= "<priority>1.0</priority>\n";
 $xml .= "</url>\n";
-$xml .= "</home>\n";
-$xml .= "<typeindex>\n";
 $xml .= "<url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/youer</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
-$xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<title>幼儿教师招聘网</title>\n";
+$xml .= "<changefreq>weekly</changefreq>\n";
+$xml .= "<priority>0.8</priority>\n";
 $xml .= "</url>\n";
 $xml .= "<url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/zhongxiaoxue</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
-$xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<title>中小学教师招聘网</title>\n";
+$xml .= "<changefreq>weekly</changefreq>\n";
+$xml .= "<priority>0.8</priority>\n";
 $xml .= "</url>\n";
 $xml .= "<url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/peixunjigou</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
-$xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<title>培训机构教师招聘网</title>\n";
+$xml .= "<changefreq>weekly</changefreq>\n";
+$xml .= "<priority>0.8</priority>\n";
 $xml .= "</url>\n";
-$xml .= "</typeindex>\n";
-$xml .= "<joblist>\n";
 $xml .= "<url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/TeachingJobs</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
-$xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<wapurl>http://m.jiaoshizhaopin.net/job</wapurl>\n";
-$xml .= "<title>" . date("Y") . "教师招聘职位大全</title>\n";
+$xml .= "<changefreq>weekly</changefreq>\n";
+$xml .= "<priority>0.8</priority>\n";
 $xml .= "</url>\n";
-$xml .= "</joblist>\n";
-$xml .= "<jobs>\n";
 foreach ($job_list as $data) {
     $xml .= "<url>\n";
     $xml .= "<loc>http://www.jiaoshizhaopin.net/job/" . $data['id'] . ".html</loc>\n";
     $xml .= "<lastmod>" . date("Y-m-d", $data['refreshtime']) . "</lastmod>\n";
     $xml .= "<changefreq>weekly</changefreq>\n";
-    $xml .= "<wapurl>http://m.jiaoshizhaopin.net/job/detail?job_id=" . $data['id'] . "</wapurl>\n";
-    $xml .= "<title>" . $data['jobs_name'] . "</title>\n";
-    $xml .= "<salary>" . $data['wage_cn'] . "</salary>\n";
-    $xml .= "<city>" . $data['district_cn'] . "</city>\n";
-    $xml .= "<officialname>" . $data['companyname'] . "</officialname>\n";
+    $xml .= "<priority>0.6</priority>\n";
     $xml .= "</url>\n";
 }
-$xml .= "</jobs>\n";
-$xml .= "<companylist>\n";
 $xml .= "<url>\n";
 $xml .= "<loc>http://www.jiaoshizhaopin.net/company</loc>\n";
 $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
 $xml .= "<changefreq>daily</changefreq>\n";
-$xml .= "<title>" . date("Y") . "教师招聘企业大全</title>\n";
+$xml .= "<priority>0.8</priority>\n";
 $xml .= "</url>\n";
-$xml .= "</companylist>\n";
-$xml .= "<company>\n";
 foreach ($company_list as $data) {
     $xml .= "<url>\n";
     $xml .= "<loc>http://www.jiaoshizhaopin.net/school/" . $data['id'] . ".html</loc>\n";
     $xml .= "<lastmod>" . date("Y-m-d", $data['refreshtime']) . "</lastmod>\n";
     $xml .= "<changefreq>weekly</changefreq>\n";
-    $xml .= "<title>" . $data['companyname'] . "</title>\n";
-    $xml .= "<city>" . $data['district_cn'] . "</city>\n";
+    $xml .= "<priority>0.6</priority>\n";
     $xml .= "</url>\n";
 }
-$xml .= "</company>\n";
-$xml .= "<articlelist>\n";
 foreach ($category_district as $data) {
     $xml .= "<url>\n";
     if ($data['parentid'] > 0) {
@@ -108,34 +91,44 @@ foreach ($category_district as $data) {
         $xml .= "<loc>http://www.jiaoshizhaopin.net/" . $p_district['pinyin'] . "/" . $data['pinyin'] . "</loc>\n";
         $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
         $xml .= "<changefreq>daily</changefreq>\n";
-        $xml .= "<title>" . $data['categoryname'] . "教师招聘网</title>\n";
+        $xml .= "<priority>0.8</priority>\n";
     } else {
         $xml .= "<loc>http://www.jiaoshizhaopin.net/" . $data['pinyin'] . "</loc>\n";
         $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
         $xml .= "<changefreq>daily</changefreq>\n";
-        $xml .= "<title>" . $data['categoryname'] . "教师招聘网</title>\n";
+        $xml .= "<priority>0.8</priority>\n";
     }
     $xml .= "</url>\n";
 }
-$xml .= "</articlelist>\n";
-$xml .= "<article>\n";
 foreach ($article_list as $data) {
+    $sql = "select * from " . table('category_district') . " WHERE id = " . $data['district'];
+    $p_district = $db->getone($sql);
+    $pinyin_str = $p_district['pinyin'];
+    if ($data['sdistrict'] > 0) {
+        $sql = "select * from " . table('category_district') . " WHERE id = " . $data['sdistrict'];
+        $district = $db->getone($sql);
+        $pinyin_str .= "/" . $district['pinyin'];
+    }
     $xml .= "<url>\n";
-    $xml .= "<loc>http://www.jiaoshizhaopin.net/morejobs/jobshow_" . $data['id'] . ".html</loc>\n";
+    $xml .= "<loc>http://www.jiaoshizhaopin.net/" . $pinyin_str . "/jobshow_" . $data['id'] . ".html</loc>\n";
     $xml .= "<lastmod>" . date("Y-m-d", $data['refreshtime']) . "</lastmod>\n";
     $xml .= "<changefreq>weekly</changefreq>\n";
-    $xml .= "<title>" . $data['title'] . "</title>\n";
-    $xml .= "<city>" . $data['district_cn'] . "</city>\n";
+    $xml .= "<priority>0.6</priority>\n";
     $xml .= "</url>\n";
 }
-$xml .= "</article>\n";
+foreach ($article_jobs_list as $data) {
+    $xml .= "<url>\n";
+    $xml .= "<loc>http://www.jiaoshizhaopin.net/news_jobs/" . $data['id'] . ".html</loc>\n";
+    $xml .= "<lastmod>" . date("Y-m-d") . "</lastmod>\n";
+    $xml .= "<changefreq>weekly</changefreq>\n";
+    $xml .= "<priority>0.6</priority>\n";
+    $xml .= "</url>\n";
+}
 $xml .= "</urlset>\n";
-//$xml .= "</body></html>";
-//$xml = htmlspecialchars($xml,ENT_COMPAT,'ISO-8859-1');
-//echo $xml;exit;
 $xml = iconv("gb2312", "utf-8//IGNORE", $xml);
-//echo  $xml;exit;
-file_put_contents("/data2/www/www.jiaoshizhaopin.net/data/xml.xml", $xml);
+//echo $xml;
+//exit;
+file_put_contents("/data2/www/www.jiaoshizhaopin.net/data/baidu_xml.xml", $xml);
 
 //$myfile = fopen("/data2/www/test.jiaoshizhaopin.net/data/job-xml.xml", "w") or die("Unable to open file!");
 //fwrite($myfile, $xml);
@@ -164,5 +157,4 @@ function stripInvalidXml($value) {
     }
     return $ret;
 }
-
 ?>

@@ -177,7 +177,7 @@
                                 <div class="clear"></div>
                                 <ul class="job">
                                     {#foreach from=$list.jobs_list item=j#}
-                                    <li><a title="{#$j.job_name#}ÕÐÆ¸" href="{#$j.url#}">{#$j.job_name#}£¨<span>{#$j.amount#}</span>£©</a></li>
+                                    <li><a target="_blank" title="{#$j.job_name#}ÕÐÆ¸" href="/news_jobs/{#$j.id#}.html">{#$j.job_name#}£¨<span>{#$j.amount#}</span>£©</a></li>
                                     {#/foreach#}
                                 </ul>
                                 {#/if#}

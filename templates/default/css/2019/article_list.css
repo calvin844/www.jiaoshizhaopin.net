@@ -171,22 +171,6 @@
 #article_district_list #content p.emptytip{ text-align:center; font-size:20px; color:#cccccc; margin:0px 0px 50px 0px;}
 
 
-
-
-
-#article_district_list #content .news_box .news_b_list{ float:left; width:150%; margin:20px 0px 0px 0px;}
-#article_district_list #content .news_box .news_b_list li{ float:left; margin:0px 30px 0px 0px; width:565px; height:55px; overflow:hidden; border-bottom: 1px solid #ebeaea; padding: 0;}
-
-
-
-#article_district_list #content .news_box .news_b_list li div.left{ float:left; overflow:hidden; max-width: 400px;}
-#article_district_list #content .news_box .news_b_list li div.title{ height:40px; overflow:hidden; margin:10px 0px 0px 0px;}
-#article_district_list #content .news_box .news_b_list li div.title a{ font-size:16px; color:#808080; line-height:40px;}
-#article_district_list #content .news_box .news_b_list li div.date{ float:right; margin: 10px 0px 0px 0px;}
-#article_district_list #content .news_box .news_b_list li div.date span{ font-size:14px; color:#cccccc; line-height:40px;}
-#article_district_list #content .news_box .news_b_list li:hover div.title a{ color:#188eee;}
-#article_district_list #content .news_box .news_b_list li:hover div.date span{ color:#188eee;}
-
 #article_district_list .side_fix_ad_box{ position: fixed; top: 30%; left: 50%; margin: 0 0 0 630px;}
 #article_district_list .bottom_fix_ad_box{ position: fixed; bottom: 20px;left: 50%; margin: 0 0 0 630px; }
 #article_district_list .bottom_fix_ad_box a.close{ position: absolute; top: -18px; right: -18px; display: inline-block; width: 18px; height: 18px; background: url(../../images/2019/close2.png) no-repeat; background-size: 18px;}

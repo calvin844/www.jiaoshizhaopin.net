@@ -310,9 +310,6 @@
                             <span>最新事业单位招聘招考信息</span>
                         </div>
                     </div>
-
-                    {#if $smarty.get.parent_py != "news_b_list"#}
-
                     <ul class="news_list">
                         {#foreach from=$news item=list#}
                         <li>
@@ -336,7 +333,7 @@
                                 {#if !empty($list.jobs_list)#}
                                 <ul class="job">
                                     {#foreach from=$list.jobs_list item=j#}
-                                    <li><a title="{#$j.job_name#}招聘" href="{#$j.url#}">{#$j.job_name#}（<span>{#$j.amount#}</span>）</a></li>
+                                    <li><a target="_blank" title="{#$j.job_name#}招聘" href="/news_jobs/{#$j.id#}.html">{#$j.job_name#}（<span>{#$j.amount#}</span>）</a></li>
                                     {#/foreach#}
                                 </ul>
                                 <div class="clear"></div>
@@ -350,36 +347,10 @@
                         </li>
                         {#/foreach#}
                     </ul>
-                    {#else#}
-                    <ul class="news_b_list">
-                        <script>
-                            $.get('http://news.91jiaoshi.com/news/get_news_list_json/0/50', function(data) {
-                                if (data != "") {
-                                    var list_str = "";
-                                    for (var i = 0; i < data.length; i++) {
-                                        list_str = list_str + '<li>';
-                                        list_str = list_str + '<div class="left">';
-                                        list_str = list_str + '<div class="title">';
-                                        list_str = list_str + '<h2><a class="title" href="/' + data[i].type.pinyin + '/' + data[i].id + '.html" target="_blank" title="' + data[i].title + '">' + data[i].title + '</a></h2>';
-                                        list_str = list_str + '</div>';
-                                        list_str = list_str + '</div>';
-                                        list_str = list_str + '<div class="date">';
-                                        list_str = list_str + '<span>' + data[i].add_time_cn + '</span>';
-                                        list_str = list_str + '</div>';
-                                        list_str = list_str + '</li>';
-                                    }
-                                    $('ul.news_b_list').html(list_str)
-                                }
-                            }, 'json')
-                        </script>
-                    </ul>
-                    {#/if#}
                 </div>
-                {#if $page && $smarty.get.parent_py != "news_b_list"#}
                 <ul class="page_box">
                     {#$page#}
                 </ul>
-                {#/if#}
             </div>
         </div>
         <div class="clear"></div>

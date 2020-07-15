@@ -194,7 +194,7 @@
                         <p class="title">ÕÐÆ¸Ö°Î»</p>
                         <ul>
                             {#foreach from=$show.jobs item=j#}
-                            <li><p title="{#$j.job_name#}ÕÐÆ¸"><b>{#$j.job_name#}</b>£¨<span>{#$j.amount#}</span>£©</p></li>
+                            <li><p title="{#$j.job_name#}ÕÐÆ¸"><a  target="_blank" href="/news_jobs/{#$j.id#}.html"><b>{#$j.job_name#}</b>£¨<span>{#$j.amount#}</span>£©</a></p></li>
                             {#/foreach#}
                         </ul>
                     </div>
