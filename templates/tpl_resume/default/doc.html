@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-size: 12px;
+}
+.STYLE1 {font-size: 36px}
+-->
+body{
+    text-align: center;
+}
+.education_table {
+        width: 700px;
+        border: 1px solid #333;
+        margin: 0 auto;
+        text-align: left;
+}
+
+.education_table .big_title td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        background-color: #E1EEF4;
+}
+
+.education_table .small_title td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        background-color: #F1F7FA;
+        text-align: center;
+        line-height: 15px;
+}
+
+.education_table .small_title td:nth-child(1) {
+        width: 110px;
+}
+
+.education_table .data_list td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        text-align: center;
+}
+
+.work_table {
+        width: 700px;
+        border: 1px solid #333;
+        margin: 0 auto;
+        text-align: left;
+}
+.work_table .big_title td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        background-color: #E1EEF4;
+}
+.work_table .data_list td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        text-align: left;
+}
+
+.training_table {
+        width: 700px;
+        border: 1px solid #333;
+        margin: 0 auto;
+        text-align: left;
+}
+.training_table .big_title td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        background-color: #E1EEF4;
+}
+.training_table .data_list td {
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 0;
+        text-align: left;
+}
+</style></head>
+<body>
+<table width="700" border="0" align="center" cellpadding="20" cellspacing="0">
+  <tr>
+    <td align="center"><span class="STYLE1">{fullname}的个人简历</span></td>
+  </tr>
+</table>
+<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >        
+<tr>
+    <td colspan="4" align="left" bgcolor="#E1EEF4">基本信息</td>
+  </tr>
+  <tr>
+    <td width="110" align="right">真实姓名：</td>
+    <td align="left">{fullname}</td>
+    <td width="100" align="right">性别：</td>
+    <td align="left">{sex_cn}</td>
+  </tr>
+  <tr>
+    <td align="right">年龄：</td>
+    <td align="left">{age}岁</td>
+    <td align="right">婚姻状况：</td>
+    <td align="left">{marriage_cn}</td>
+  </tr>
+   <tr>
+    <td align="right">最高学历：</td>
+    <td align="left">{education_cn}</td>
+    <td align="right">工作经验：</td>
+    <td align="left">{experience_cn}</td>
+  </tr>
+  <tr>
+    <td align="right">现居住地：</td>
+    <td align="left">{residence_cn}</td>
+    <td align="right"></td>
+    <td></td>
+  </tr>
+</table>
+<br />
+<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
+  <tr>
+    <td colspan="2" align="left" bgcolor="#E1EEF4">求职意向</td>
+  </tr>
+  <tr>
+    <td align="right"  >期望岗位性质：</td>
+    <td align="left">{nature_cn}</td>
+  </tr>
+  
+  <tr>
+    <td align="right"  >期望工作地： </td>
+    <td align="left">{district_cn}</td>
+  </tr>
+  <tr>
+    <td align="right"  >期望月薪： </td>
+    <td align="left">{wage_cn}</td>
+  </tr>
+  <tr>
+    <td align="right"  >期望从事的岗位： </td>
+    <td align="left">{intention_jobs}</td>
+  </tr>
+  <tr>
+    <td align="right"  >期望从事的行业： </td>
+    <td align="left">{trade_cn}</td>
+  </tr>
+</table>
+<br />
+<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
+  <tr>
+    <td colspan="2" align="left" bgcolor="#E1EEF4">个人标签及语言能力</td>
+  </tr>
+  <tr>
+    <td width="110" align="right">个人标签： </td>
+    <td>{tagcn}</td>
+  </tr>
+ </table>
+<br />
+<br />
+<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
+  <tr>
+    <td colspan="2" align="left" bgcolor="#E1EEF4">个人简介</td>
+  </tr>
+  <tr>
+    <td width="110" align="right">个人简介： </td>
+    <td>{specialty}</td>
+  </tr>
+</table>
+<br />
+<br />
+{education_html}
+<br />
+<br />
+{work_html}
+<br />
+<br />
+{training_html}
+<br />
+<br />
+<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
+  <tr>
+    <td colspan="4" bgcolor="#E1EEF4">联系方式</td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF">
+        联系人：{fullname}<br />
+	联系电话：{telephone}<br />
+	联系邮箱：{email}
+       </td>
+  </tr>
+</table>
+<div align="center"><br />
+	<a title="{site_name}" href="{main_domain}">{site_name}</a>
+</div>
+</body>
+</html>

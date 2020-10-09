@@ -14,12 +14,12 @@ define('IN_QISHI', true);
 require_once(dirname(__FILE__) . '/../common.inc.php');
 require_once(QISHI_ROOT_PATH . 'include/mysql.class.php');
 $db = new mysql($dbhost, $dbuser, $dbpass, $dbname);
-$funtype = array('1' => 'include/fun_company.php', 4 => 'include/fun_train.php', 3 => 'include/fun_hunter.php');
+$funtype = array(1 => 'include/fun_company.php', 2 => 'include/fun_personal.php', 4 => 'include/fun_train.php', 3 => 'include/fun_hunter.php');
 require_once(QISHI_ROOT_PATH . $funtype[$_SESSION['utype']]);
 require_once(QISHI_ROOT_PATH . "include/payment/alipay.php");
 if (respond()) {
-    $orderurl = array('1' => 'company_service.php?act=order_list', 4 => 'train_service.php?act=order_list', 3 => 'hunter_service.php?act=order_list');
-    $link[0]['text'] = "查看订单";
+    $orderurl = array(1 => 'company_service.php?act=order_list', 2 => 'personal_resume.php?act=edit_resume', 4 => 'train_service.php?act=order_list', 3 => 'hunter_service.php?act=order_list');
+    $link[0]['text'] = $_SESSION['utype'] != 2 ? "查看订单" : "返回简历中心";
     if ($_SESSION['adv_pay']) {
         $link[0]['href'] = get_member_url($_SESSION['utype'], true) . "company_service.php?act=adv_order_list";
     } else {

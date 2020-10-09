@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			td {
+				line-height: 25px;
+				padding: 5px;
+			}
+
+			body {
+				background-color: #4298d3;
+				margin: 0 0 20px 0;
+				text-align: center;
+			}
+
+			.resume_title td {
+				font-size: 30px;
+				font-weight: bolder;
+			}
+
+			.box {
+				width: 1200px;
+				padding: 20px 10px;
+				margin: 10% auto 0%;
+			}
+
+			table {
+				width: 1200px;
+				background: #fff;
+				text-align: left;
+			}
+
+			.img_box {
+				width: 150px;
+			}
+
+			.box_title td {
+				padding: 0px 10px 0px 10px;
+				height: 40px;
+				line-height: 40px;
+				background: #f3711a;
+				font-size: 20px;
+				font-weight: bolder;
+				color: #fff;
+				display: inline-block;
+				margin: 0 0 10px 0;
+			}
+			
+			.base_box{
+				border-bottom: 2px solid #4298d3;
+			}
+			
+			.intention_box{
+				border-bottom: 2px solid #4298d3;
+			}
+
+			.education_table {
+				width: 1200px;
+				border-bottom: 2px solid #4298d3;
+			}
+
+			.education_table .big_title td {
+				padding: 0px 10px 0px 10px;
+				height: 40px;
+				line-height: 40px;
+				background: #f3711a;
+				font-size: 20px;
+				font-weight: bolder;
+				color: #fff;
+				display: inline-block;
+				margin: 0 0 10px 0;
+			}
+
+			.education_table .data_list td {
+				padding: 5px;
+				margin: 0;
+				text-align: left;
+			}
+
+			.work_table {
+				width: 1200px;
+				border-bottom: 5px solid #4298d3;
+			}
+
+			.work_table .big_title td {
+				padding: 0px 10px 0px 10px;
+				height: 40px;
+				line-height: 40px;
+				background: #f3711a;
+				font-size: 20px;
+				font-weight: bolder;
+				color: #fff;
+				display: inline-block;
+				margin: 0 0 10px 0;
+			}
+
+
+			.work_table .data_list td {
+				padding: 5px;
+				margin: 0;
+			}
+
+			.training_table {
+				width: 1200px;
+				border-bottom: 2px solid #4298d3;
+			}
+
+			.training_table .big_title td {
+				padding: 0px 10px 0px 10px;
+				height: 40px;
+				line-height: 40px;
+				background: #f3711a;
+				font-size: 20px;
+				font-weight: bolder;
+				color: #fff;
+				display: inline-block;
+				margin: 0 0 10px 0;
+			}
+
+			.training_table .data_list td {
+				padding: 5px;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body bgcolor="#4298d3">
+		<div class="box">
+			<table class="resume_title" border="0" cellpadding="0" cellspacing="0" background="none">
+				<tbody>
+					<tr>
+						<td align="left">{fullname}的个人简历</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="base_box" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td align="left" class="img_box" rowspan="4"><img src="{photo_img}" width="122"></td>
+						<td align="left">姓名：{fullname}</td>
+						<td align="left">年龄：{age}</td>
+						<td align="left">性别：{sex_cn}</td>
+					</tr>
+					<tr>
+						<td align="left">婚姻状况：{marriage_cn}</td>
+						<td align="left">工作经验：{experience_cn}</td>
+						<td align="left">最高学历：{education_cn}</td>
+					</tr>
+					<tr>
+						<td align="left">居住地：{residence_cn}</td>
+						<td align="left" colspan="2">标签：{tagcn}</td>
+					</tr>
+					<tr>
+						<td align="left" colspan="3">个人简介：{specialty}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td align="left" colspan="3">手机：{telephone}&nbsp;&nbsp;&nbsp;&nbsp;邮箱：{email}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+			<table class="intention_box" cellpadding="0" cellspacing="0">
+				<tr class="box_title">
+					<td align="left">求职意向</td>
+				</tr>
+				<tr>
+					<td align="left">期望岗位性质：{nature_cn}</td>
+				</tr>
+				<tr>
+					<td align="left">期望工作地：{district_cn}</td>
+				</tr>
+				<tr>
+					<td align="left">期望月薪：{wage_cn}</td>
+				</tr>
+				<tr>
+					<td align="left">期望从事的岗位：{intention_jobs}</td>
+				</tr>
+				<tr>
+					<td align="left">期望从事的行业：{trade_cn}</td>
+				</tr>
+			</table>
+			<br/>
+			{education_html}
+			<br/>
+			{work_html}
+			<br/>
+			{training_html}
+		</div>
+		<div align="center">
+			<br />
+			<a title="教师招聘网" href="http://test.91jiaoshi.com/">教师招聘网</a>
+		</div>
+	</body>
+</html>

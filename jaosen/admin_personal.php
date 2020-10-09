@@ -14,6 +14,7 @@ define('IN_QISHI', true);
 require_once(dirname(__FILE__) . '/../data/config.php');
 require_once(dirname(__FILE__) . '/include/admin_common.inc.php');
 require_once(ADMIN_ROOT_PATH . 'include/admin_personal_fun.php');
+require_once(ADMIN_ROOT_PATH . 'include/admin_templates_fun.php');
 $act = !empty($_GET['act']) ? trim($_GET['act']) : 'list';
 if ($act == 'list') {
     get_token();
@@ -125,6 +126,7 @@ if ($act == 'list') {
     $smarty->assign('pageheader', "简历列表");
     $smarty->assign('resumelist', $resumelist);
     $smarty->assign('page', $page->show(3));
+    $smarty->assign('tpl_list', get_user_tpl(2, "tpl_resume"));
     $smarty->assign('total_val', $total_val);
     $smarty->display('personal/admin_personal_resume.htm');
 } elseif ($act == 'perform') {
@@ -149,48 +151,13 @@ if ($act == 'list') {
     if (!empty($_POST['set_talent'])) {
         check_permissions($_SESSION['admin_purview'], "resume_talent");
         $talent = $_POST['talent'];
-        //<-- 2018红包活动 
-        /**
-          if ($talent == 2) {
-          $do_id = is_array($id) ? $id : array($id);
-          $setsqlarr['utype'] = 2;
-          $setsqlarr['coupons_type'] = 1;
-          $setsqlarr['addtime'] = time();
-          foreach ($do_id as $p) {
-          $resume = $db->getone("select uid from " . table('resume') . " where id=" . $p);
-          $setsqlarr['uid'] = intval($resume['uid']);
-          $old = $db->getone("select id from " . table('act_spring2018') . " where uid=" . $setsqlarr['uid']);
-          if (!$old) {
-          $rand = rand(1, 100);
-          if ($rand <= 40) {
-          $setsqlarr['coupons_value'] = 1;
-          } elseif ($rand > 40 && $rand <= 70) {
-          $setsqlarr['coupons_value'] = 2;
-          } elseif ($rand > 70 && $rand <= 90) {
-          $setsqlarr['coupons_value'] = 3;
-          } elseif ($rand > 90 && $rand <= 95) {
-          $setsqlarr['coupons_value'] = 4;
-          } elseif ($rand > 95) {
-          $setsqlarr['coupons_value'] = 5;
-          }
-          inserttable(table('act_spring2018'), $setsqlarr, TRUE);
-          //发送站内信
-          $user = $db->getone("select username from " . table('members') . " where uid=" . $setsqlarr['uid']);
-          $msg['message'] = "高级简历通过审核获赠红包" . $setsqlarr['coupons_value'] . "元";
-          $msg['msgtype'] = $setsqlarr['utype'];
-          $msg['msgtouid'] = $resume['uid'];
-          $msg['msgtoname'] = $user['username'];
-          $msg['dateline'] = time();
-          $msg['replytime'] = time();
-          $msg['new'] = 1;
-          inserttable(table('pms'), $msg);
-          }
-          }
-          }
-         * 
-         */
-        //2018红包活动 -->
         !edit_resume_talent($id, $talent) ? adminmsg("设置失败！", 0) : adminmsg("设置成功！", 2, $link);
+    }
+
+    if (!empty($_POST['set_tpl'])) {
+        $tpl_id = $_POST['tpl_id'];
+        $tpl_days = $_POST['tpl_days'];
+        !set_resume_tpl($id, $tpl_id, $tpl_days) ? adminmsg("设置失败！", 0) : adminmsg("设置成功！", 2, $link);
     }
     if (!empty($_POST['set_photoaudit'])) {
         check_permissions($_SESSION['admin_purview'], "resume_photo_audit");
@@ -566,5 +533,58 @@ if ($act == 'list') {
     }
 //关闭文件流
     fclose($fileHandle);
+} elseif ($act == 'order_list') {
+    get_token();
+    check_permissions($_SESSION['admin_purview'], "ord_show");
+    require_once(QISHI_ROOT_PATH . 'include/page.class.php');
+    require_once(ADMIN_ROOT_PATH . 'include/admin_pay_fun.php');
+    $wheresql = " WHERE state < 3 ";
+    $oederbysql = " order BY o.addtime DESC ";
+    $key = isset($_GET['key']) ? trim($_GET['key']) : "";
+    $key_type = isset($_GET['key_type']) ? intval($_GET['key_type']) : "";
+    if ($key && $key_type > 0) {
+        if ($key_type === 1)
+            $wheresql = " WHERE r.fullname like '%{$key}%'";
+        elseif ($key_type === 2)
+            $wheresql = " WHERE m.username = '{$key}'";
+        elseif ($key_type === 3)
+            $wheresql = " WHERE o.oid like '%" . trim($key) . "%'";
+        $oederbysql = "";
+    }else {
+        ($_GET['state']) !== "" && isset($_GET['state']) ? $wheresqlarr['o.state'] = $_GET['state'] : '';
+        !empty($_GET['typename']) ? $wheresqlarr['o.payment_name'] = trim($_GET['typename']) : '';
+        if (is_array($wheresqlarr)) {
+            $wheresql = wheresql($wheresqlarr);
+        }
+
+        if (!empty($_GET['settr'])) {
+            $settr = strtotime("-" . intval($_GET['settr']) . " day");
+            $wheresql.=empty($wheresql) ? " WHERE " : " AND ";
+            $wheresql.="o.addtime> " . $settr;
+        }
+    }
+    $joinsql = " left JOIN " . table('members') . " as m ON o.uid = m.uid LEFT JOIN " . table('resume') . " as r ON o.uid = r.uid ";
+    $total_sql = "SELECT COUNT(*) AS num FROM " . table('personal_resume_tpl_order') . " as o " . $joinsql . $wheresql;
+    $total_val = get_mem_cache($total_sql, 'get_total');
+    $page = new page(array('total' => $total_val, 'perpage' => $perpage));
+    $currenpage = $page->nowindex;
+    $offset = ($currenpage - 1) * $perpage;
+    $orderlist = get_order_list($offset, $perpage, $joinsql . $wheresql . $oederbysql);
+    $smarty->assign('pageheader', "订单管理");
+    $smarty->assign('payment_list', get_payment(2));
+    $smarty->assign('orderlist', $orderlist);
+    $smarty->assign('page', $page->show(3));
+    $smarty->display('personal/admin_order_list.htm');
+}
+//取消会员充值申请
+elseif ($act == 'order_del') {
+    check_token();
+    check_permissions($_SESSION['admin_purview'], "ord_del");
+    $id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : adminmsg("你没有选择项目！", 1);
+    if (del_order($id)) {
+        adminmsg("取消成功！", 2, $link);
+    } else {
+        adminmsg("取消失败！", 1);
+    }
 }
 ?>

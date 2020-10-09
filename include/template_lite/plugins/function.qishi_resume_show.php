@@ -134,6 +134,12 @@ function tpl_function_qishi_resume_show($params, &$smarty) {
         $val['show'] = 0;
         $apply = $db->getone("select * from " . table('personal_jobs_apply') . " where `resume_id`=" . $val['id'] . " AND company_uid=" . intval($_SESSION['uid']));
         $down = $db->getone("select * from " . table('company_down_resume') . " where `resume_id`=" . $val['id'] . " AND company_uid=" . intval($_SESSION['uid']));
+        if (!empty($apply) || !empty($down)) {
+            $val['fullname_'] = $val['fullname'];
+            $val['fullname'] = $val['fullname'];
+            $val['certificate_list'] = get_this_certificate($val['uid'], $val['id']);
+            $val['show'] = 1;
+        } else {
             if ($val['display_name'] == "2") {
                 $val['fullname'] = "N" . str_pad($val['id'], 7, "0", STR_PAD_LEFT);
                 $val['fullname_'] = $val['fullname'];
@@ -149,6 +155,7 @@ function tpl_function_qishi_resume_show($params, &$smarty) {
                 $cl['path'] = "no_certificate.jpg";
                 $val['certificate_list'][] = $cl;
             }
+        }
 
 
         if (intval($_GET['apply']) == 1) {

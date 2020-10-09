@@ -102,7 +102,7 @@
                                 <ul class="job">
                                     {#foreach from=$li.jobs_list item=j#}
                                     <li>
-                                        <a href="{#$j.url#}">{#$j.job_name#}£®<span>{#$j.amount#}</span>£©</a>
+                                        <a href="{#$j.url#}">{#$j.job_name#}£®<span>{#if $j.amount == 0#}»Ù∏…{#else#}{#$j.amount#}{#/if#}</span>£©</a>
                                     </li>
                                     {#/foreach#}
                                 </ul>

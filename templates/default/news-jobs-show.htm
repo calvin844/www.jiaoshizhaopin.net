@@ -4,9 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
         <link href="{#$QISHI.site_template#}css/common.css" rel="stylesheet" type="text/css" />
         <link href="{#$QISHI.site_template#}css/2017/news-jobs-show.css" type="text/css" rel="stylesheet"/> 
-        <title>{#$news.sdistrict_cn#}{#$news_job.job_name#}招聘_{#$news.sdistrict_cn#}{#$QISHI.site_name#}</title>
-        <meta name="keywords" content="{#$news_job.job_name#}招聘,{#$news.sdistrict_cn#}教师招聘,{#$news.sdistrict_cn#}{#$news_job.category_cn#}招聘,{#$news.sdistrict_cn#}教师招聘网"/>
-        <meta name="description" content="{#$news.title#}，{#$news.sdistrict_cn#}招聘{#$news_job.job_name#}" />
+        <title>{#$news.sdistrict_cn#}{#$news_job.job_name#}招聘_{#$news.sdistrict_cn#}{#$news_job.category_cn#}教师职位推荐_{#$QISHI.site_name#}</title>
+        <meta name="keywords" content="{#$news_job.job_name#}招聘,{#$news_job.category_cn#}教师招聘,{#$news.sdistrict_cn#}{#$news_job.category_cn#}教师职位推荐"/>
+        <meta name="description" content="{#$news.title#}，{#$news.sdistrict_cn#}{#$news_job.job_name#}招聘，{#$news.sdistrict_cn#}{#$news_job.category_cn#}教师职位推荐就上教师招聘网（http://www.jiaoshizhaopin.net/）。" />
         <meta name="author" content="教师招聘网" />
         <meta name="copyright" content="jiaoshizhaopin.net" />
     </head>
@@ -21,7 +21,7 @@
                     <div class="left">
                         <h1 title="{#$news.title#}" class="article_title"><a href="{#$news.url#}">{#$news.title#}</a></h1>
                         <h2 title="{#$news.sdistrict_cn#}{#$news_job.job_name#}招聘">{#$news_job.job_name#}</h2>
-                        <p class="info">{#$news_job.category_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$news.district_cn#}{#if $news.sdistrict_cn#} - {#$news.sdistrict_cn#}{#/if#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$news_job.amount#}人</p>
+                        <p class="info">{#$news_job.category_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$news.district_cn#}{#if $news.sdistrict_cn#} - {#$news.sdistrict_cn#}{#/if#}&nbsp;&nbsp;|&nbsp;&nbsp;{#if $news_job.amount == 0#}若干{#else#}{#$news_job.amount#}{#/if#}人</p>
                         <ul class="other">
                             <li class="time"><i></i><span>{#$news.refreshtime|date_format:"%Y-%m-%d %H:%M"#}</span></li>
                             <li class="view"><i></i><span>{#$news.click#}次</span></li>
@@ -89,61 +89,107 @@
             <div class="main_box">
                 <div class="bottom_box">
                     <div class="left">
-                        <div class="des_box">
-                            <h3 title="{#$news.sdistrict_cn#}{#$news_job.job_name#}招聘" class="item_title">{#$news.title#}</h3>
+                        <div class="article_box">
+                            <h3 title="简章原文" class="item_title">简章原文</h3>
                             <div class="item_content">
-                                {#$news.content#}
-                            </div>
-                            <div class="to_read">
-                                <a title="{#$news.title#}" href="{#$news.url#}">阅读原文&nbsp;>></a>
+                                <a title="{#$news.title#}" href="{#$news.url#}"><span class="left">{#$news.title#}</span><span class="right">></span></a>
+                                <div class="clear"></div>
                             </div>
                         </div>
                         <div class="clear"></div>
                         {#if !empty($other_job)#}
-                        <div class="jobs_box">
-                            <h3 title="{#$news.sdistrict_cn#}招聘职位" class="item_title">他们还需要</h3>
-                            <div class="item_content">
-                                <ul>
-                                    {#foreach from=$other_job item=list#}
-                                    {#if $list.job_name != ''#}
-                                    <li>
-                                        <h2 title="{#$news.sdistrict_cn#}{#$list.job_name#}招聘"><a href="/news_jobs/{#$list.id#}.html" target="_blank">{#$list.job_name#}</a></h2>
-                                        <i></i><span>地区：{#$news.sdistrict_cn#}</span>
-                                        <i></i><span>人数：{#$news_job.amount#}</span>
-                                        <i></i><span>{#$news.endtime|date_format:"%Y-%m-%d"#}</span>
-                                    </li>
-                                    {#/if#}
-                                    {#/foreach#}
-                                </ul>
-                            </div>
-                        </div>
-                        {#/if#}
-                        {#qishi_jobs_list  set="显示数目:3,列表名:jobs,地区大类:$news.district,地区小类:$news.sdistrict,填补字符:...,职位名长度:13"#}
-                        {#if !empty($jobs)#}
-                        <div class="clear"></div>
-                        <div class="bottom_jobs_box">
-                            <h2 class="title">相关职位推荐</h2>
+                        <div class="article_jobs_box">
+                            <h3 title="简章其他职位" class="item_title">其他职位</h3>
                             <ul>
-                                {#foreach from=$jobs item=list#}
-                                {#if $list.jobs_name != ''#}
+                                {#foreach from=$other_job item=list#}
+                                {#if $list.job_name != ''#}
+                                <li>
+                                    <h2 title="{#$news.sdistrict_cn#}{#$list.job_name#}招聘"><a href="/news_jobs/{#$list.id#}.html" target="_blank">{#$list.job_name#}</a></h2>
+                                    <i></i><span>地区：{#$news.sdistrict_cn#}</span>
+                                    <i></i><span>人数：{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}</span>
+                                    <i></i><span>{#$news.endtime|date_format:"%Y-%m-%d"#}</span>
+                                </li>
+                                {#/if#}
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        {#/if#}
+
+                        {#if !empty($district_jobs)#}
+                        <div class="district_jobs_box">
+                            <h2 title="{#$news.district_cn#}{#$news.sdistrict_cn#}教师职位推荐" class="title">{#$news.district_cn#}{#$news.sdistrict_cn#}教师职位推荐</h2>
+                            <ul>
+                                {#foreach from=$district_jobs item=list#}
+                                {#if empty($list.article)#}
                                 <li>
                                     <div class="top">
                                         <a class="name" href="/job/{#$list.id#}.html" title="{#$list.district_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
                                         <span class="wage">{#$list.wage_cn#}</span>
                                         <div class="clear"></div>
-                                        <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                        <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
                                     </div>
                                     <div class="bottom">
                                         <span class="company">{#$list.companyname#}</span>
                                         <span class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</span>
                                     </div>
                                 </li>
+                                {#else#}
+                                <li>
+                                    <div class="top">
+                                        <a class="name" href="/news_jobs/{#$list.id#}.html" title="{#$news.sdistrict_cn#}{#$list.job_name#}招聘" target="_blank">{#$list.job_name#}</a>
+                                        <span class="wage">&nbsp;</span>
+                                        <div class="clear"></div>
+                                        <p class="info">{#$news.district_cn#}/{#$news.sdistrict_cn#} / {#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="company">{#$list.article.title#}</span>
+                                        <span class="date">{#$list.article.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                    </div>
+                                </li>
                                 {#/if#}
                                 {#/foreach#}
                             </ul>
                         </div>
-                        {#/if#}
                         <div class="clear"></div>
+                        {#/if#}
+                        {#if !empty($type_jobs)#}
+                        <div class="type_jobs_box">
+                            <h2 title="{#$news_job.category_cn#}教师职位推荐" class="title">{#$news_job.category_cn#}相关教师职位推荐</h2>
+                            <ul>
+                                {#foreach from=$type_jobs item=list#}
+                                {#if empty($list.article)#}
+                                <li>
+                                    <div class="top">
+                                        <a class="name" href="/job/{#$list.id#}.html" title="{#$list.district_cn#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
+                                        <span class="wage">{#$list.wage_cn#}</span>
+                                        <div class="clear"></div>
+                                        <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="company">{#$list.companyname#}</span>
+                                        <span class="date">{#$list.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                    </div>
+                                </li>
+                                {#else#}
+                                <li>
+                                    <div class="top">
+                                        <a class="name" href="/news_jobs/{#$list.id#}.html" title="{#$news.sdistrict_cn#}{#$list.job_name#}招聘" target="_blank">{#$list.job_name#}</a>
+                                        <span class="wage">&nbsp;</span>
+                                        <div class="clear"></div>
+                                        <p class="info">{#$news.district_cn#}/{#$news.sdistrict_cn#} / {#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
+                                    </div>
+                                    <div class="bottom">
+                                        <span class="company">{#$list.article.title#}</span>
+                                        <span class="date">{#$list.article.refreshtime|date_format:"%Y-%m-%d"#}</span>
+                                    </div>
+                                </li>
+                                {#/if#}
+                                {#/foreach#}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        {#/if#}
                     </div>
                     <div class="right">
                         {#qishi_ad set="调用名称:page_403,列表名:list,显示数目:1"#}
@@ -286,7 +332,7 @@
             })
             //申请职位
             $(".app_article").click(function() {
-                dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_article.php?id={#$news.id#}&act=app&email={#$news.email#}", "500px", "auto", "", "");
+                dialog("申请职位", "url:{#$QISHI.website_dir#}user/user_apply_article.php?id={#$news.id#}&act=app&email={#$news.email#}&job_id={#$news_job.id#}", "500px", "auto", "", "");
             });
         </script>
         {#include file="/2017/footer_page.htm"#}

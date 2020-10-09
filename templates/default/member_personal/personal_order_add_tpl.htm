@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_order_add_tpl.css" type="text/css" rel="stylesheet"/>
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <title>提交订单 - 个人会员中心 - 教师招聘网</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;提交订单</p>
+                <div class="clear"></div>
+                <div class="left_box">
+                    <div class="step_box">
+                        <div class="step1 cur">
+                            <span class="num">1</span>
+                            <span class="text">填写订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step2">
+                            <span class="num">2</span>
+                            <span class="text">确认订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step3">
+                            <span class="num">3</span>
+                            <span class="text">提交订单</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <p class="tpl_info">模版名称：<span>{#$tpl.tpl_name#}</span></p>
+                    <p class="tpl_info">模版价格：<span>{#$tpl.tpl_val#}</span>元</p>
+                    <p class="tpl_info">模版时长：<span>{#$tpl.tpl_days#}</span>天</p>
+                    <div class="clear"></div>
+                    <form id="form1" name="form1" method="post" action="?act=tpl_order_add_save" >
+                        <div class="payment_box">
+                            <p class="payment_title">支付方式</p>
+                            <ul class="payment_list">
+                                {#section name=payment loop=$payment#}
+                                {#if !strstr($payment[payment].typename,"alipayapi-") && $payment[payment].typename!='remittance'#}
+                                <li><input data-class="{#$payment[payment].typename#}" data-hover="{#$payment[payment].typename#}_h" class="{#$payment[payment].typename#} {#if $payment[payment].typename == 'alipay'#}alipay_h{#/if#}" type="button" value="{#$payment[payment].typename#}" /></li>
+                                {#/if#}
+                                {#/section#}
+                                <li><input data-class="online" data-hover="online_h" class="online" type="button" /></li>
+                            </ul>
+                            <div class="clear"></div>
+                            <ul class="online_list">
+                                {#section name=payment loop=$payment#}
+                                {#if strstr($payment[payment].typename,"alipayapi-")#}
+                                <li data-value="{#$payment[payment].typename#}">
+                                    <img src="/include/payment/logo/{#$payment[payment].typename#}.gif" height="39" />
+                                    <i></i>
+                                </li>
+                                {#/if#}
+                                {#/section#}
+                            </ul>
+                            <div class="clear"></div>
+                            <input type="hidden" id="payment_name" name="payment_name" value="alipay"/>
+                            <input type="hidden" name="tpl_id" value="{#$tpl.tpl_id#}"/>
+                            <input class="submit" type="submit" value="提交订单" />
+                            <script>
+                                $('.payment_list li input').click(function() {
+                                    $('ul.online_list').hide();
+                                    $('.payment_list li input').each(function() {
+                                        var c = $(this).attr('data-class');
+                                        $(this).attr('class', c);
+                                    })
+                                    var c = $(this).attr('data-hover');
+                                    $(this).attr('class', c);
+                                    if ($(this).attr('class') != "online_h") {
+                                        $('#payment_name').attr('value', $(this).attr('value'));
+                                    } else {
+                                        $('ul.online_list').show();
+                                        $('ul.online_list li').find('i').hide();
+                                        $('ul.online_list li:first').find('i').show();
+                                        var v = $('ul.online_list li:first').attr('data-value');
+                                        $('#payment_name').attr('value', v);
+                                    }
+                                })
+                                $('.online_list li').click(function() {
+                                    $('ul.online_list li').find('i').hide();
+                                    $(this).find('i').show();
+                                    var v = $(this).attr('data-value');
+                                    $('#payment_name').attr('value', v);
+                                });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

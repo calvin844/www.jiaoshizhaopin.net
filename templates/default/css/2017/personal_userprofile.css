@@ -107,13 +107,13 @@
 #content .right_box .item_box a i{ float:left; display:inline-block; margin:0px 30px 0px 0px;}
 #content .right_box .item_box a span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
 #content .right_box .item_box a:hover span{ color:#188eee;}
-#content .right_box .item_box a.my_resume i{  width:16px; height:18px; background:url(../../images/2017/my_resume_icon.png); }
+#content .right_box .item_box a.my_resume i{  width:16px; height:18px; background:url(../../images/2017/my_resume_icon.png); margin:0px 10px 0px 0px;}
 #content .right_box .item_box a.my_resume:hover i{ background:url(../../images/2017/my_resume_icon_h.png);}
 #content .right_box .item_box a.zhaokao_qq i{  width:19px; height:17px; background:url(../../images/2017/zhaokao_qq_icon.png); }
 #content .right_box .item_box a.zhaokao_qq:hover i{ background:url(../../images/2017/zhaokao_qq_icon_h.png);}
 
 #content .right_box div.attachment_resume{ float:left; width:240px;}
-#content .right_box i.file_icon{ display:inline-block; float:left; width:18px; height:17px; background: url(../../images/2017/file_icon.png) no-repeat; margin:0px 10px 0px 0px;}
+#content .right_box i.file_icon{ display:inline-block; float:left; width:18px; height:17px; background: url(../../images/2017/file_icon.png) no-repeat; background-size:18px 17px; margin:0px 10px 0px 0px;}
 #content .right_box a.file_name{ display:inline-block; float:left; max-width:185px; height:17px; overflow:hidden; line-height:17px; font-size:14px; color:#808080;}
 #content .right_box a.file_name:hover{ text-decoration:underline;}
 #content .right_box a.file_del{ display:inline-block; float: right; width:15px; height:15px; background: url(../../images/2017/close.png) no-repeat; background-size:15px 15px; margin:2px 0px 0px 0px;}

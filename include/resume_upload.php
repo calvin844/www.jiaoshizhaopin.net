@@ -11,6 +11,7 @@
  */
 
 function _asUpResume($dir, $file_var, $max_size = '', $type = '') {
+    global $db;
     if ($_SESSION['uid'] == '') {
         header("Location: " . url_rewrite('QS_login') . "?act=logout");
         exit();
@@ -46,7 +47,9 @@ function _asUpResume($dir, $file_var, $max_size = '', $type = '') {
                 exit("ERR!");
             }
         }
-        $uploadname = "教师招聘网" . "--" . $_SESSION['uid'] . "--" . str_replace(' ', ',', $upfile['name']);
+
+        $info = $db->getone("select * from " . table('resume') . " WHERE uid=" . $_SESSION['uid'] . " LIMIT 1 ");
+        $uploadname = "教师招聘网" . "--" . $info['fullname'] . "(" . $_SESSION['uid'] . ")." . $ext_name;
         if (!move_uploaded_file($upfile['tmp_name'], $dir . $uploadname)) {
             showmsg('上传失败：文件上传出错！', 0);
             exit();

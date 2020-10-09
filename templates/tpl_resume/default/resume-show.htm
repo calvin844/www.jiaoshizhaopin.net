@@ -217,7 +217,7 @@
                     <div class="bt_box">
                         <a id="download" class="download"  ><i></i><span>下载简历</span></a>
                         <a id="add_resume_pool" class="add_resume_pool"  ><i></i><span>加入人才库</span></a>
-                        {#if $show.show == 1#}
+                        {#if $show.show == 1 || $smarty.session.uid == $show.uid#}
                         <a class="print" href="javascript:window.print();"><i></i><span>打印简历</span></a>
                         <a class="dianping" href="{#$QISHI.site_domain#}{#$QISHI.site_dir#}resume/resume-doc.php?resume_id={#$show.id#}&uid={#$show.uid#}&apply={#$show.apply#}"><i></i><span>导出word</span></a>
                         <!--<div class="jl_btn_box2_div2"><a   class="report_button" resume_id="{#$smarty.get.id#}" fullname="{#$show.fullname#}" resume_addtime="{#$show.addtime#}">投诉简历</a></div>-->
@@ -230,7 +230,7 @@
                     {#if !empty($list)#}
                     <div id="page_502">
                         {#foreach from=$list item=li#}
-                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=page_502&img={#$li.img_path#}&url={#$li.img_url#}"><img src="{#$li.img_path#}" width="280" height="280" /></a>
+                        <a title="{#$li.img_explain_#}" target="blank" href="/ad_count/index.php?ad_name=page_502&img={#$li.img_path#}&url={#$li.img_url#}"><img src="http://www.jiaoshizhaopin.net{#$li.img_path#}" width="280" height="280" /></a>
                         {#/foreach#}
                     </div>
                     {#/if#}

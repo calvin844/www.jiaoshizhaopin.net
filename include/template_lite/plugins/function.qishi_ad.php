@@ -72,7 +72,7 @@ function tpl_function_qishi_ad($params, &$smarty) {
         $city_cn = get_mem_cache($sql, "getone");
         $aset['district'] = $city_cn['pinyin'];
     }
-    if (empty($aset['district']) || $aset['district'] == "morejobs"|| $aset['district'] == "news_b_list") {
+    if (empty($aset['district']) || $aset['district'] == "morejobs") {
         $district = $sdistrict = 0;
     } else {
         $sql = "select id,parentid from " . table('category_district') . " where pinyin = '" . $aset['district'] . "' limit 1";

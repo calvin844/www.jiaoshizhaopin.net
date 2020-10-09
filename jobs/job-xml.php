@@ -44,7 +44,7 @@ foreach ($job_list as $data) {
         $job_cn = $job_cn['categoryname'];
     }
     $xml .= "<jobsecondclass>" . $job_cn . "</jobsecondclass>\n";
-    $xml .= "<number>" . $data['amount'] . "»À</number>\n";
+    $xml .= "<number>" . $data['amount'] == 0 ? "»Ù∏…" : $data['amount'] . "»À</number>\n";
     $xml .= "<age>" . $data['age'] . "</age>\n";
     $xml .= "<sex>" . $data['sex_cn'] . "</sex>\n";
     $data['contents'] = htmlspecialchars($data['contents'], ENT_COMPAT, 'ISO-8859-1');

@@ -1,7 +1,7 @@
 {#include file="sys/admin_header.htm"#}
 <script type="text/javascript" src="js/jquery.userinfotip-min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function ()
+    $(document).ready(function()
     {
         $("#ButAudit").QSdialog({
             DialogTitle: "请选择",
@@ -24,34 +24,41 @@
             DialogAddObj: "#OpPhotoresume",
             DialogAddType: "html"
         });
+        $("#ButTpl").QSdialog({
+            DialogTitle: "请选择",
+            DialogContent: "#TplSet",
+            DialogContentType: "id",
+            DialogAddObj: "#OpTpl",
+            DialogAddType: "html"
+        });
         //点击批量删除	
-        $("#ButDel").click(function () {
+        $("#ButDel").click(function() {
             if (confirm('你确定要删除吗？'))
             {
                 $("form[name=form1]").attr("action", $("form[name=form1]").attr("action") + "&delete=true");
                 $("form[name=form1]").submit()
             }
         });
-        $("#Butrefresh").click(function () {
+        $("#Butrefresh").click(function() {
             $("form[name=form1]").attr("action", $("form[name=form1]").attr("action") + "&refresh=ok");
             $("form[name=form1]").submit()
         });
-        $("#ButExport").click(function () {
+        $("#ButExport").click(function() {
             $("form[name=form1]").attr("action", $("form[name=form1]").attr("action") + "&export=true");
             $("form[name=form1]").submit()
         });
         //纵向列表排序
-        $(".listod .txt").each(function (i) {
+        $(".listod .txt").each(function(i) {
             var li = $(this).children(".select");
             var htm = "<a href=\"" + li.attr("href") + "\" class=\"" + li.attr("class") + "\">" + li.text() + "</a>";
             li.detach();
             $(this).prepend(htm);
         });
 
-        $("#fail").click(function () {
+        $("#fail").click(function() {
             $("#reason").show();
         });
-        $("#success").click(function () {
+        $("#success").click(function() {
             $("#reason").hide();
         });
 
@@ -221,7 +228,7 @@
                     &nbsp;
                     <a id="del_attachment_resume_{#$list.uid#}" >删除附件简历</a>
                     <script>
-                        $('#del_attachment_resume_{#$list.uid#}').click(function () {
+                        $('#del_attachment_resume_{#$list.uid#}').click(function() {
                             var msg = "删除后无法不可恢复\n\n确认删除？";
                             if (confirm(msg) == true) {
                                 window.location.href = "?act=del_attachment_resume&uid={#$list.uid#}";
@@ -238,6 +245,7 @@
         <span id="OpAudit"></span>
         <span id="OpTalent"></span>
         <span id="OpPhotoresume"></span>
+        <span id="OpTpl"></span>
     </form>
     {#if !$resumelist#}
     <div class="admin_list_no_info">没有任何信息！</div>
@@ -248,6 +256,7 @@
                 <input type="button" class="admin_submit" id="ButAudit" value="审核简历" />
                 <input type="button" class="admin_submit" id="ButTalent" value="人才等级" />  
                 <input type="button" class="admin_submit" id="ButPhotoresume" value="审核照片" />
+                <input type="button" class="admin_submit" id="ButTpl" value="设置模版" />
                 <input type="button" class="admin_submit" id="Butrefresh" value="刷新"/>
                 <input type="button" class="admin_submit" id="ButDel" value="删除"/>
                 <input type="button" name="ButExport"  id="ButExport" value="导出" class="admin_submit"/>
@@ -279,7 +288,7 @@
                         <div class="clear"></div>
                     </div>
                 </form>
-                <script type="text/javascript">$(document).ready(function () {
+                <script type="text/javascript">$(document).ready(function() {
                         showmenu("#key_type_cn", "#sehmenu", "#key_type");
                     });</script>
             </td>
@@ -378,6 +387,36 @@
                     <input type="submit" name="set_photoaudit" value="确定" class="admin_submit">
                 </span></td>
         </tr>		  
+    </table>
+</div>
+<div id="TplSet" style="display: none" >
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="6" >
+        <tr>
+            <td height="30">&nbsp;</td>
+            <td height="30"><strong  style="color:#0066CC; font-size:14px;">将所选简历模版设置为：</strong></td>
+        </tr>
+        {#foreach from=$tpl_list item=t_list#}
+        <tr>
+            <td width="27" height="25">&nbsp;</td>
+            <td>
+                <label><input name="tpl_id" type="radio" value="{#$t_list.tpl_id#}" {#if $t_list.tpl_id == 2#}checked="checked"{#/if#}  />{#$t_list.tpl_name#} </label>	  
+            </td>
+        </tr>
+        {#/foreach#}	
+        <tr>
+            <td width="27" height="25">&nbsp;</td>
+            <td width="425">
+                <label ><input type="text" name="tpl_days" value="0"  />天</label>
+            </td>
+        </tr>  
+        <tr>
+            <td height="25">&nbsp;</td>
+            <td>
+                <span style="border-top: 1px #A3C7DA solid;">
+                    <input type="submit" name="set_tpl" value="确定" class="admin_submit" />
+                </span>
+            </td>
+        </tr>
     </table>
 </div>
 </body>

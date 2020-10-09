@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_set_tpl.css" type="text/css" rel="stylesheet"/>
+        <script src="{#$QISHI.site_template#}js/jquery.js" type="text/javascript" language="javascript"></script>
+        <title>选择模版 - 个人会员中心 - 教师招聘网</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;选择模版</p>
+                <div class="clear"></div>
+                <div class="left_box">
+                    <form action="/user/personal/personal_resume.php?act=tpl_order_add" method="post">
+                        <ul class="tpl_ul">
+                            {#foreach from=$tpl_list item=list#}
+                            <li>
+                                <div class="input_box">
+                                    <input type="radio" name="tpl_id" value="{#$list.tpl_id#}" {#if $list.tpl_id == 2#}checked{#/if#} >
+                                </div>
+                                <div class="img_box">
+                                    <img src="/templates/tpl_resume/{#$list.tpl_dir#}/thumbnail.jpg" alt="{#$list.info.name#}" width="225" height="136" style="border: #CCCCCC;"/>
+                                </div>
+                                <div class="info_box">
+                                    <ul class="info_ul">
+                                        <li>
+                                            <p>名称：{#$list.tpl_name#}</p>
+                                        </li>
+                                        <li>
+                                            <p>价格：{#$list.tpl_val#}元</p>
+                                        </li>
+                                        <li>
+                                            <p>天数：{#$list.tpl_days#}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="show_img">
+                                    <input data-tpl="{#$list.tpl_dir#}" type="button" value="查看展示" />
+                                </div>
+                            </li>
+                            {#/foreach#}
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="submit_box">
+                            <input type="hidden" name="resume_id" value="{#$resume.id#}" />
+                            <input type="submit" value="提交" />
+                        </div>
+                    </form>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="big_img_box">
+            <img src="/templates/tpl_resume/fengyehanlu/thumbnail.jpg" width="1200" />
+            <p class="close_tip">任意点击关闭</p>
+            <div class="bg"></div>
+        </div>
+        <script>
+            $('.show_img input').click(function() {
+                var dir = $(this).attr('data-tpl');
+                $('.big_img_box img').attr('src', '/templates/tpl_resume/' + dir + '/thumbnail.jpg');
+                $('.big_img_box').show();
+                $('body').css('overflow-y', 'hidden');
+            })
+            $('.big_img_box').click(function() {
+                $('.big_img_box img').attr('src', '');
+                $('.big_img_box').hide();
+                $('body').removeAttr('style');
+            });
+        </script>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>
+
+

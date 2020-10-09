@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <link href="{#$QISHI.site_template#}css/2017/personal_order_pay.css" type="text/css" rel="stylesheet"/>
+        <title>确认订单 - 个人会员中心 - 教师招聘网</title>
+    </head>
+
+    <body>
+        {#include file="/2017/header.htm"#}
+        <div id="content">
+            <div class="main_box">
+                <p class="top_nav"><a href="/">教师招聘网</a>&nbsp;>&nbsp;<a href="/user/personal/personal_user.php?act=userprofile">个人中心</a>&nbsp;>&nbsp;确认订单</p>
+                <div class="clear"></div>
+                <div class="left_box">
+                    <div class="step_box">
+                        <div class="step1">
+                            <span class="num">1</span>
+                            <span class="text">填写订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step2 cur">
+                            <span class="num">2</span>
+                            <span class="text">确认订单</span>
+                            <i></i>
+                        </div>
+                        <div class="step3">
+                            <span class="num">3</span>
+                            <span class="text">提交订单</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="order_box">
+                        <p class="order_title">订单明细</p>
+                        <div class="item_box">
+                            <label>订单号：</label>
+                            <span>{#$oid#}</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>充值金额：</label>
+                            <span>￥<b>{#$amount#}</b>元</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>支付方式：</label>
+                            <span>{#$byname.byname#}</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>手续费：</label>
+                            <span>￥<b>{#$fee#}</b>元</span>
+                        </div>
+                        {#if $byname.byname != '转账/汇款'#}
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>支付方式描述：</label>
+                            <span>{#$byname.notes#}</span>
+                        </div>
+                        <div class="clear"></div>
+                        {#if $payment_form#}{#$payment_form#}{#/if#}
+                        {#else#}
+                        <div class="clear"></div>
+                        <hr/>
+                        <p class="order_title">公司银行汇款</p>
+                        <div class="item_box">
+                            <label>公司名称：</label>
+                            <span>广州千钜网络科技有限公司</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>开户银行：</label>
+                            <span>兴业银行广州东风支行</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box bottom">
+                            <label class="title">公司账号：</label>
+                            <span><b>399-000-1001-000-95862</b></span>
+                        </div>
+                        <hr/>
+                        <p class="order_title">个人汇款</p>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class="item">工商银行</label>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>收款人姓名：</label>
+                            <span>李海荣（法人代表）</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class='title'>收款人卡号：</label>
+                            <span><b>6222 0236 0201 0343 135</b></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box bottom">
+                            <label>开户行：</label>
+                            <span>工商银行广州市黄埔大道分理处</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class="item">招商银行</label>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>收款人姓名：</label>
+                            <span>李海荣（法人代表）</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class='title'>收款人卡号：</label>
+                            <span><b>6225 8820 0107 4381</b></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box bottom">
+                            <label>开户行：</label>
+                            <span>招商银行广州分行营业厅</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class="item">农业银行</label>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>收款人姓名：</label>
+                            <span>李海荣（法人代表）</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class='title'>收款人卡号：</label>
+                            <span><b>6228 4800 8207 6228 012</b></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box bottom">
+                            <label>开户行：</label>
+                            <span>农业银行广州市黄埔大道支行</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class="item">中国银行</label>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label>收款人姓名：</label>
+                            <span>李海荣（法人代表）</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class='title'>收款人卡号：</label>
+                            <span><b>6217 8570 0000 0057 339</b></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="item_box bottom">
+                            <label>开户行：</label>
+                            <span>中国银行广州观园国际支行</span>
+                        </div>
+                        <hr/>
+                        <div class="clear"></div>
+                        <div class="item_box">
+                            <label class="item">支付宝帐号</label>
+                            <span><b>chinathomas@gmail.com 李海荣</b></span>
+                        </div>
+                        <hr/>
+                        <div class="tip_box">
+                            <p class="tip">汇款后需将汇款凭证传真至中国教师招聘网（传真：020-62614383）。</p>
+                            <p>正常情况下，我们在收到上述材料后十分钟之内为单位开通服务。</p>
+                            <p>在试用过程中如果您遇到任何问题无法解决，欢迎您通过以下方式与我们联系：</p>
+                            <p><i></i>登陆网站进行在线反馈；</p>
+                            <p><i></i>发送电子邮件到：6210210@qq.com</p>
+                            <p><i></i>直接拨打电话：020-37277119    传真：020-62614383</p>
+                            <p><i></i>在线QQ 联系：6210210、969078455。</p>
+                        </div>
+                        {#/if#}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {#include file="/2017/footer_list.htm"#}
+    </body>
+</html>

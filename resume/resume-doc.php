@@ -22,12 +22,7 @@ if ($_SESSION['uid'] == '' || $_SESSION['username'] == '') {
     header("Location:" . url_rewrite('QS_login') . "?url={$resume_url}");
     exit();
 }
-if (($_SESSION['utype'] == '2' && $_SESSION['uid'] == $uid) || $_SESSION['utype'] == '1') {
-    $flag = true;
-} else {
-    $flag = false;
-}
-if (!$flag) {
+if (!(($_SESSION['utype'] == '2' && $_SESSION['uid'] == $uid) || $_SESSION['utype'] == '1')) {
     showmsg('您没有权限！只有个人用户和企业用户可以转换简历', 1);
     exit();
 }
@@ -83,180 +78,91 @@ if ($val) {
     }
 
 
-
-    $htm = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title></title>
-<style type="text/css">
-<!--
-body,td,th {
-	font-size: 12px;
-}
-.STYLE1 {font-size: 36px}
--->
-</style></head>
-<body>
-<table width="700" border="0" align="center" cellpadding="20" cellspacing="0">
-  <tr>
-    <td align="center"><span class="STYLE1">' . $val['fullname'] . '的个人简历</span></td>
-  </tr>
-</table>
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >';
-    if ($set_apply == 1) {
-        if ($val['jobs_name'] != "") {
-            $htm .= '<tr>
-	    <td colspan="1">申请职位：' . $val["jobs_name"] . '</td>
-	  </tr>';
-        }
+    $tpl_dir = $_CFG['tpl_personal'];
+    $utpl = $db->getone("SELECT * FROM " . table("personal_resume_tpl") . " WHERE resume_id='" . $val['id'] . "' AND endtime>" . time() . " order by id desc limit 1");
+    if (!empty($utpl)) {
+        $tpl = $db->getone("SELECT * FROM " . table("tpl") . " WHERE tpl_id=" . $utpl['tpl_id'] . " AND tpl_type =2 AND tpl_display=1");
+        $tpl_dir = !empty($tpl['tpl_dir']) ? $tpl['tpl_dir'] : $_CFG['tpl_personal'];
     }
-    $htm .='<tr>
-    <td colspan="4" bgcolor="#E1EEF4">基本信息</td>
-  </tr>
-  <tr>
-    <td width="110" align="right">真实姓名：</td>
-    <td>' . $val['fullname'] . '</td>
-    <td width="100" align="right">性别：</td>
-    <td>' . $val['sex_cn'] . '</td>
-  </tr>
-  <tr>
-    <td align="right">年龄：</td>
-    <td>' . $val['age'] . '岁</td>
-    <td align="right">身高：</td>
-    <td>' . $val['height'] . 'CM&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="right">婚姻状况：</td>
-    <td>' . $val['marriage_cn'] . '</td>
-    <td align="right">籍贯：</td>
-    <td>' . $val['householdaddress_cn'] . '</td>
-  </tr>
-   <tr>
-    <td align="right">最高学历：</td>
-    <td>' . $val['education_cn'] . '</td>
-    <td align="right">工作经验：</td>
-    <td>' . $val['experience_cn'] . '</td>
-  </tr>
-  <tr>
-    <td align="right">现居住地：</td>
-    <td>' . $val['residence_cn'] . '</td>
-    <td align="right"></td>
-    <td></td>
-  </tr>
-</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="2" bgcolor="#E1EEF4">求职意向</td>
-  </tr>
-  <tr>
-    <td align="right"  >期望岗位性质：</td>
-    <td>' . $val['nature_cn'] . '</td>
-  </tr>
-  
-  <tr>
-    <td align="right"  >期望工作地： </td>
-    <td>' . $val['district_cn'] . '&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="right"  >期望月薪： </td>
-    <td>' . $val['wage_cn'] . '&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="right"  >期望从事的岗位： </td>
-    <td>' . $val['intention_jobs'] . '&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="right"  >期望从事的行业： </td>
-    <td>' . $val['trade_cn'] . '&nbsp;</td>
-  </tr>
-</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="2" bgcolor="#E1EEF4">个人标签及语言能力</td>
-  </tr>
-  <tr>
-    <td width="110" align="right">个人标签： </td>
-    <td>' . nl2br($val['tagcn']) . '&nbsp;</td>
-  </tr>
- </table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="2" bgcolor="#E1EEF4">个人简介</td>
-  </tr>
-  <tr>
-    <td width="110" align="right">个人简介： </td>
-    <td>' . nl2br($val['specialty']) . '&nbsp;</td>
-  </tr>
-</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="4" bgcolor="#E1EEF4">教育经历</td>
-  </tr>
-  <tr>
-    <td width="110" align="center" bgcolor="#F1F7FA">起止年月</td>
-    <td align="center" bgcolor="#F1F7FA">学校名称</td>
-    <td align="center" bgcolor="#F1F7FA">专业名称</td>
-    <td align="center" bgcolor="#F1F7FA">获得学历</td>
-  </tr>';
+
+    $htm = file_get_contents(QISHI_ROOT_PATH . 'templates/tpl_resume/' . $tpl_dir . '/doc.html');
+    $val['photo_img'] = empty($val['photo_img']) ? "no_photo.gif" : $val['photo_img'];
+    $htm = str_replace("{fullname}", $val['fullname'], $htm);
+    $htm = str_replace("{photo_img}", "http://www.jiaoshizhaopin.net/data/photo/" . $val['photo_img'], $htm);
+    $htm = str_replace("{sex_cn}", $val['sex_cn'], $htm);
+    $htm = str_replace("{age}", $val['age'], $htm);
+    $htm = str_replace("{marriage_cn}", $val['marriage_cn'], $htm);
+    $htm = str_replace("{education_cn}", $val['education_cn'], $htm);
+    $htm = str_replace("{experience_cn}", $val['experience_cn'], $htm);
+    $htm = str_replace("{residence_cn}", $val['residence_cn'], $htm);
+    $htm = str_replace("{nature_cn}", $val['nature_cn'], $htm);
+    $htm = str_replace("{district_cn}", $val['district_cn'], $htm);
+    $htm = str_replace("{wage_cn}", $val['wage_cn'], $htm);
+    $htm = str_replace("{intention_jobs}", $val['intention_jobs'], $htm);
+    $htm = str_replace("{trade_cn}", $val['trade_cn'], $htm);
+    $htm = str_replace("{tagcn}", nl2br($val['tagcn']), $htm);
+    $htm = str_replace("{specialty}", nl2br($val['specialty']), $htm);
+
+    $education_html = '<table class="education_table" cellpadding="0" cellspacing="0">
+                            <tr class="big_title">
+                                    <td align="left" colspan="4">教育经历</td>
+                            </tr>
+                            <tr class="small_title">
+                                    <td align="left">起止年月</td>
+                                    <td align="left">学校名称</td>
+                                    <td align="left">专业名称</td>
+                                    <td align="left">获得学历</td>
+                            </tr>';
     if ($val['education_list']) {
         foreach ($val['education_list'] as $eli) {
-            $htm.='<tr>
-		<td align="center"  >' . $eli['startyear'] . '.' . $eli['startmonth'] . '至' . $eli['endyear'] . '.' . $eli['endmonth'] . '&nbsp;</td>
-		<td align="center">' . $eli['school'] . '&nbsp;</td>
-		<td align="center">' . $eli['speciality'] . '&nbsp;</td>
-		<td align="center">' . $eli['education_cn'] . '&nbsp;</td>
-	  </tr>';
+            $education_html.='<tr class="data_list">
+                    <td align="left">' . $eli['startyear'] . '.' . $eli['startmonth'] . '至' . $eli['endyear'] . '.' . $eli['endmonth'] . '</td>
+                    <td align="left">' . $eli['school'] . '</td>
+                    <td align="left">' . $eli['speciality'] . '</td>
+                    <td align="left">' . $eli['education_cn'] . '</td>
+              </tr>';
         }
     } else {
-        $htm.='<tr><td colspan="4" bgcolor="#FFFFFF">没有填写教育经历</td></tr>';
+        $education_html.='<tr class="data_list"><td>没有填写教育经历</td></tr>';
     }
-    $htm.='</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="4" bgcolor="#E1EEF4">工作经历</td>
-  </tr>';
+    $education_html.='</table>';
+    $htm = str_replace("{education_html}", $education_html, $htm);
+
+    $work_html = '<table class="work_table" cellpadding="0" cellspacing="0">
+    <tr class="big_title">
+            <td align="left">工作经历</td>
+    </tr>';
     if ($val['work_list']) {
         foreach ($val['work_list'] as $wli) {
-            $htm.='<tr>
-		<td colspan="4" bgcolor="#FFFFFF">
+            $work_html.='<tr class="data_list">
+		<td align="left">
 		起止年月：' . $wli['startyear'] . '.' . $wli['startmonth'] . '至' . $wli['endyear'] . '.' . $wli['endmonth'] . '<br />
 		企业名称：' . $wli['companyname'] . '<br />
 		从事职位：' . $wli['jobs'];
             if ($wli['achievements']) {
-                $htm.='<br />业绩表现：' . $wli['achievements'];
+                $work_html.='<br />业绩表现：' . $wli['achievements'];
             }
             if ($wli['companyprofile']) {
-                $htm.='<br />公司介绍：' . $wli['companyprofile'];
+                $work_html.='<br />公司介绍：' . $wli['companyprofile'];
             }
 
-            $htm.='</td>
+            $work_html.='</td>
 	  </tr>';
         }
     } else {
-        $htm.='<tr><td colspan="4" bgcolor="#FFFFFF">没有填写工作经历</td></tr>';
+        $work_html.='<tr class="data_list"><td>没有填写工作经历</td></tr>';
     }
-    $htm.='</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="4" bgcolor="#E1EEF4">培训经历</td>
-  </tr>';
+    $work_html.='</table>';
+    $htm = str_replace("{work_html}", $work_html, $htm);
+
+    $training_html = '<table class="training_table" cellpadding="0" cellspacing="0">
+			<tr class="big_title">
+				<td align="left">培训经历</td>
+			</tr>';
     if ($val['training_list']) {
         foreach ($val['training_list'] as $tli) {
-            $htm.=' <tr>
-		<td colspan="4" bgcolor="#FFFFFF">
+            $training_html.=' <tr class="data_list">
+		<td align="left">
 		起止日期：' . $tli['startyear'] . '.' . $tli['startmonth'] . '至' . $tli['endyear'] . '.' . $tli['endmonth'] . '<br />
 		培训机构：' . $tli['agency'] . '<br />
 		培训课程：' . $tli['course'] . '<br />
@@ -265,35 +171,15 @@ body,td,th {
 	  </tr>';
         }
     } else {
-        $htm.='<tr><td colspan="4" bgcolor="#FFFFFF">没有填写培训经历</td></tr>';
+        $training_html.='<tr class="data_list"><td>没有填写培训经历</td></tr>';
     }
-    $htm.='</table>
-<br />
-<br />
-<table width="700" border="1" align="center" cellpadding="5" cellspacing="0" bordercolor="#333333" >
-  <tr>
-    <td colspan="4" bgcolor="#E1EEF4">联系方式</td>
-  </tr>
-  <tr>
-    <td colspan="4" bgcolor="#FFFFFF">';
-    if ($show) {
-        $contact = '
-	联系人：' . $val['fullname'] . '<br />
-	联系电话：' . $val['telephone'] . '<br />
-	联系邮箱：' . $val['email'];
-    } else {
-        $resume_url = url_rewrite('QS_resumeshow', array('id' => $val['id']), true, $val['subsite_id']);
-        $contact = "<a href=\"{$resume_url}\" >下载</a>后才能查看联系方式";
-    }
-    $footer = "</td>
-  </tr>
-</table>
-<div align=\"center\"><br />
-	<a title=\"{$_CFG['site_name']}\" href=\"{$_CFG['main_domain']}\">{$_CFG['site_name']}</a>
-</div>
-</body>
-</html>";
-    $htm = $htm . $contact . $footer;
+    $training_html.='</table>';
+    $htm = str_replace("{training_html}", $training_html, $htm);
+
+    $htm = str_replace("{telephone}", $val['telephone'], $htm);
+    $htm = str_replace("{email}", $val['email'], $htm);
+    $htm = str_replace("{site_name}", $_CFG['site_name'], $htm);
+    $htm = str_replace("{main_domain}", $_CFG['main_domain'], $htm);
     header("Cache-Control: no-cache, must-revalidate");
     header("Pragma: no-cache");
     header("Content-Type: application/doc");

@@ -24,7 +24,7 @@ if ($act == 'binding') {
     $resume = get_resume_basic($uid);
     if (!empty($resume['attachment_resume'])) {
         $resume['attachment_resume_name'] = explode("--", $resume['attachment_resume']);
-        $resume['attachment_resume_name'] = $resume['attachment_resume_name'][2];
+        $resume['attachment_resume_name'] = $resume['attachment_resume_name'][1];
     }
     $smarty->assign('total', $db->get_total("SELECT COUNT(*) AS num FROM " . table('pms') . " WHERE (msgfromuid='{$uid}' OR msgtouid='{$uid}') AND `new`='1'"));
     $smarty->assign('send_mobile_key', $_SESSION['send_mobile_key']);

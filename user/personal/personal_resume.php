@@ -13,6 +13,7 @@
 define('IN_QISHI', true);
 require_once(dirname(__FILE__) . '/personal_common.php');
 $smarty->assign('leftmenu', "resume");
+$act = !empty($act) ? $act : "userprofile";
 //简历列表
 if ($act == 'resume_list') {
     $wheresql = " WHERE uid='" . $_SESSION['uid'] . "' ";
@@ -1203,6 +1204,23 @@ elseif ($act == 'del_training') {
     } else {
         exit('删除失败！');
     }
+} elseif ($act == 'set_resume_tpl') {
+    $uid = intval($_SESSION['uid']);
+    $resume = get_resume_basic($uid);
+    $tpl_list = get_resumetpl();
+    $smarty->assign('tpl_list', $tpl_list);
+    $smarty->assign('resume', $resume);
+    $smarty->display('member_personal/personal_set_tpl.htm');
+} elseif ($act == 'resume_tpl_save') {
+    $tpl_data['uid'] = intval($_SESSION['uid']);
+    $tpl_data['tpl_id'] = $_POST['tpl_id'];
+    $tpl_data['resume_id'] = $_POST['resume_id'];
+    $tpl_data['addtime'] = time();
+    $tpl_data['endtime'] = time() + 86400 * 30;
+    $insert_id = inserttable(table("personal_resume_tpl"), $tpl_data, 1);
+    $link[0]['text'] = "返回个人中心";
+    $link[0]['href'] = '?act=edit_resume';
+    showmsg("设置成功", 1, $link);
 } elseif ($act == 'edit_resume') {
     $uid = intval($_SESSION['uid']);
     $resume = get_resume_basic($uid);
@@ -1220,6 +1238,12 @@ elseif ($act == 'del_training') {
     $smarty->assign('count_attention_me', count_personal_attention_me($uid));
     $smarty->assign('count_interview', count_interview($uid));
     $smarty->assign('count_apply', count_personal_jobs_apply($uid));
+    $tpl_log = get_resume_tpl($uid);
+    if (!empty($tpl_log)) {
+        $tpl = get_resumetpl_one($tpl_log['tpl_id']);
+    }
+    $tpl_name = !empty($tpl_log) ? $tpl['tpl_name'] : "默认";
+    $smarty->assign('tpl_name', $tpl_name);
     $resume_basic = get_resume_basic($uid, $pid);
     $residence = explode(".", $resume_basic['residence']);
     $residence_cn = explode("/", $resume_basic['residence_cn']);
@@ -1244,7 +1268,7 @@ elseif ($act == 'del_training') {
         $resume_basic['sdistrict_list'] = $db->getall($sql);
         if (!empty($resume_basic['attachment_resume'])) {
             $resume_basic['attachment_resume_name'] = explode("--", $resume_basic['attachment_resume']);
-            $resume_basic['attachment_resume_name'] = $resume_basic['attachment_resume_name'][2];
+            $resume_basic['attachment_resume_name'] = $resume_basic['attachment_resume_name'][1];
         }
     }
     $smarty->assign('resume_basic', $resume_basic);
@@ -1447,6 +1471,87 @@ elseif ($act == "edit_resume_save") {
     } else {
         exit('0');
     }
+} elseif ($act == 'tpl_order_add') {
+    $uid = intval($_SESSION['uid']);
+    $tpl_log = get_resume_tpl($uid);
+    if ($tpl_log) {
+        $link[0]['text'] = "返回我的简历";
+        $link[0]['href'] = '/user/personal/personal_resume.php?act=edit_resume';
+        showmsg("您的简历模版尚未结束！", 1);
+    }
+    $tpl_id = intval($_POST['tpl_id']) ? intval($_POST['tpl_id']) : showmsg("请选择模版！", 1);
+    $smarty->assign('title', '简历模版 - 个人会员中心 - ' . $_CFG['site_name']);
+    $smarty->assign('tpl', get_resumetpl_one($tpl_id));
+    $smarty->assign('payment', get_payment());
+    $smarty->display('member_personal/personal_order_add_tpl.htm');
+} elseif ($act == 'tpl_order_add_save') {
+    $timestamp = time();
+    $tpl = get_resumetpl_one($_POST['tpl_id']);
+    if ($tpl) {
+        $payment_name = empty($_POST['payment_name']) ? showmsg("请选择付款方式！", 1) : $_POST['payment_name'];
+        $paymenttpye = get_payment_info($payment_name);
+        if (empty($paymenttpye)) {
+            showmsg("支付方式错误！", 0);
+        }
+        $fee = number_format(($tpl['tpl_val'] / 100) * $paymenttpye['fee'], 1, '.', ''); //手续费
+        $order['oid'] = strtoupper(substr($paymenttpye['typename'], 0, 1)) . "rtpl-" . date('Ymd', time()) . date('His', time()) . rand(10, 99); //订单号
+        if (strstr($paymenttpye['payment_name'], 'alipayapi-')) {
+            $paymenttpye['typename'] = "alipayapi";
+            $respond_name = "alipay";
+        } else {
+            $respond_name = $paymenttpye['typename'];
+        }
+        $order['v_url'] = $_CFG['main_domain'] . "include/payment/respond_" . $respond_name . ".php";
+        $order['v_amount'] = $tpl['tpl_val'] + $fee; //金额
+        $order_id = add_order($_SESSION['uid'], $order['oid'], $tpl['tpl_id'], $tpl['tpl_val'], $tpl['tpl_days'], $payment_name, "购买简历模版:" . $tpl['tpl_name'], $timestamp);
+        if ($order_id) {
+            if ($order['v_amount'] == 0) {//0元套餐
+                if (order_paid($order['oid'])) {
+                    $link[0]['text'] = "返回我的简历";
+                    $link[0]['href'] = '/user/personal/personal_resume.php?act=edit_resume';
+                    showmsg("操作成功，系统已为您开通了服务！", 2, $link);
+                }
+            }
+            header("Location:?act=payment&order_id=" . $order_id . ""); //付款页面
+        } else {
+            showmsg("添加订单失败！", 0);
+        }
+    } else {
+        showmsg("添加订单失败！", 0);
+    }
+} elseif ($act == 'payment') {
+    $order_id = intval($_GET['order_id']);
+    $myorder = get_order_one($_SESSION['uid'], $order_id);
+    $payment = get_payment_info($myorder['payment_name']);
+    if (empty($payment)) {
+        showmsg("支付方式错误！", 0);
+    }
+    $fee = number_format(($myorder['amount'] / 100) * $payment['fee'], 1, '.', ''); //手续费
+    $order['oid'] = $myorder['oid']; //订单号
+    $order['v_amount'] = $myorder['amount'] + $fee;
+    if ($myorder['payment_name'] != 'remittance') {//假如是非线下支付，
+        if (strstr($myorder['payment_name'], 'alipayapi-')) {
+            $api_path = "alipayapi/";
+            $payment['typename'] = "alipayapi";
+            $respond_name = "alipay";
+        } else {
+            $respond_name = $payment['typename'];
+        }
+        $order['v_url'] = $_CFG['main_domain'] . "include/payment/respond_" . $respond_name . ".php";
+        require_once(QISHI_ROOT_PATH . "include/payment/" . $api_path . $payment['typename'] . ".php");
+        $payment_form = get_code($order, $payment);
+        if (empty($payment_form)) {
+            showmsg("在线支付参数错误！", 0);
+        }
+    }
+    $smarty->assign('payment', get_payment());
+    $smarty->assign('title', '付款 - 个人会员中心 - ' . $_CFG['site_name']);
+    $smarty->assign('fee', $fee);
+    $smarty->assign('amount', $myorder['amount']);
+    $smarty->assign('oid', $order['oid']);
+    $smarty->assign('byname', $payment);
+    $smarty->assign('payment_form', $payment_form);
+    $smarty->display('member_personal/personal_order_pay.htm');
 }
 unset($smarty);
 ?>

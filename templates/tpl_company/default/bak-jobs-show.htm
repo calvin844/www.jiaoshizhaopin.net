@@ -182,7 +182,7 @@
                                             工资待遇：<span>{#$show.wage_cn#}</span>
                                         </li>
                                         <li>
-                                            <div class="w248">招聘人数：{#$show.amount#}人</div>
+                                            <div class="w248">招聘人数：{#if $show.amount == 0#}若干{#else#}{#$show.amount#}{#/if#}人</div>
                                             <div class="w248">职位类别：{#$show.category_cn#}</div>
                                             <div>性别要求：{#$show.sex_cn#}</div>
                                         </li>

@@ -276,6 +276,90 @@ function get_resumetpl() {
     return $db->getall($sql);
 }
 
+function get_resumetpl_one($id) {
+    global $db;
+    $sql = "select * from " . table('tpl') . " where tpl_id=" . $id;
+    return $db->getone($sql);
+}
+
+//获取单条订单
+function get_order_one($uid, $id) {
+    global $db;
+    $sql = "select * from " . table('personal_resume_tpl_order') . " where id =" . intval($id) . " AND uid = " . intval($uid) . "  LIMIT 1 ";
+    return $db->getone($sql);
+}
+
+//增加订单
+function add_order($uid, $oid, $tpl_id, $amount, $days = 0, $payment_name, $description, $addtime) {
+    global $db;
+    $setsqlarr['uid'] = intval($uid);
+    $setsqlarr['oid'] = $oid;
+    $setsqlarr['tpl_id'] = $tpl_id;
+    $setsqlarr['amount'] = $amount;
+    $setsqlarr['days'] = $days;
+    $setsqlarr['payment_name'] = $payment_name;
+    $setsqlarr['description'] = $description;
+    $setsqlarr['addtime'] = $addtime;
+    write_memberslog($uid, 1, 3001, $_SESSION['username'], "添加简历模版订单，编号{$oid}，金额{$amount}元");
+    return inserttable(table('personal_resume_tpl_order'), $setsqlarr, true);
+}
+
+//付款后开通
+function order_paid($v_oid) {
+    global $db, $_CFG;
+    $timestamp = time();
+    $order = $db->getone("select * from " . table('personal_resume_tpl_order') . " WHERE oid ='{$v_oid}' AND state= '0' LIMIT 1 ");
+    if ($order) {
+        $user = get_user_info($order['uid']);
+        $sql = "UPDATE " . table('personal_resume_tpl_order') . " SET state= '1',paytime='{$timestamp}' WHERE oid='{$v_oid}' LIMIT 1 ";
+        if (!$db->query($sql)) {
+            return false;
+        }
+        if ($order['days'] > 0) {
+            $resume = get_resume_basic($order['uid']);
+            $resumetpl = get_resumetpl_one($order['tpl_id']);
+            set_resume_tpl($order['uid'], $order['tpl_id'], $resume['id'], $order['days']);
+            $notes = date('Y-m-d H:i', time()) . "通过：" . get_payment_info($order['payment_name'], true) . " 成功购买简历模版(" . $resumetpl['tpl_name'] . ") " . $order['amount'] . "元，有效期至" . date("Y-m-d", time() + 86400 * $order['days']) . "，订单:{$v_oid}";
+            write_memberslog($order['uid'], 1, 1109, $user['username'], $notes);
+        }
+        return true;
+    }
+    return true;
+}
+
+function get_payment_info($typename, $name = false) {
+    global $db;
+    $sql = "select * from " . table('payment') . " where typename ='" . $typename . "' AND p_install='2' LIMIT 1";
+    $val = $db->getone($sql);
+    if ($name) {
+        return $val['byname'];
+    } else {
+        return $val;
+    }
+}
+
+function set_resume_tpl($uid, $tpl_id, $resume_id, $days = 0) {
+    $tpl_data['uid'] = intval($uid);
+    $tpl_data['tpl_id'] = $tpl_id;
+    $tpl_data['resume_id'] = $resume_id;
+    $tpl_data['addtime'] = time();
+    $tpl_data['endtime'] = time() + 86400 * $days;
+    $insert_id = inserttable(table("personal_resume_tpl"), $tpl_data, 1);
+}
+
+function get_resume_tpl($uid) {
+    global $db;
+    $sql = "select * from " . table('personal_resume_tpl') . " where uid =" . intval($uid) . " AND endtime>" . time() . " AND tpl_id !=2 ORDER BY id desc  LIMIT 1 ";
+    return $db->getone($sql);
+}
+
+function get_payment() {
+    global $db;
+    $sql = "select * from " . table('payment') . " where p_install='2' ORDER BY listorder desc";
+    $list = $db->getall($sql);
+    return $list;
+}
+
 function get_userprofile($uid) {
     global $db;
     $sql = "select * from " . table('members_info') . " where uid = " . intval($uid) . " LIMIT 1";

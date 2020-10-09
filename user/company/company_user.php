@@ -30,7 +30,12 @@ if ($act == 'binding') {
     $currenpage = $page->nowindex;
     $offset = ($currenpage - 1) * $perpage;
     $sql = "SELECT p.* FROM " . table('pms') . ' AS p' . $joinsql . $wheresql . $orderby;
-    $smarty->assign('pms', get_pms($offset, $perpage, $sql));
+    $pms = get_pms($offset, $perpage, $sql);
+    foreach ($pms as $k => $v) {
+        $v['message'] = str_replace('href="', 'href="/', $v['message']);
+        $pms[$k] = $v;
+    }
+    $smarty->assign('pms', $pms);
     $smarty->assign('total', $db->get_total("SELECT COUNT(*) AS num FROM " . table('pms') . " WHERE (msgfromuid='{$uid}' OR msgtouid='{$uid}') AND `new`='1'"));
     $smarty->assign('title', '短消息 - 会员中心 - ' . $_CFG['site_name']);
     $smarty->assign('page', $page->show(3));

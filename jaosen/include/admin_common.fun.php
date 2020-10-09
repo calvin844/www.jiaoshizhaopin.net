@@ -350,7 +350,7 @@ function getsubdirs($dir) {
             continue;
         $path = $dir . '/' . $f;  //如果只要子目录名, path = $f;
         $subdir = $f;
-        if (is_dir($path)) {
+        if (is_dir($path) && strpos($subdir, ".") === FALSE) {
             $subdirs[] = $subdir;
         }
     }

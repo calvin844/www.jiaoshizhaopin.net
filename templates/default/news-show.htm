@@ -194,7 +194,7 @@
                         <p class="title">招聘职位</p>
                         <ul>
                             {#foreach from=$show.jobs item=j#}
-                            <li><p title="{#$j.job_name#}招聘"><a  target="_blank" href="/news_jobs/{#$j.id#}.html"><b>{#$j.job_name#}</b>（<span>{#$j.amount#}</span>）</a></p></li>
+                            <li><p title="{#$j.job_name#}招聘"><a  target="_blank" href="/news_jobs/{#$j.id#}.html"><b>{#$j.job_name#}</b>（<span>{#if $j.amount == 0#}若干{#else#}{#$j.amount#}{#/if#}</span>）</a></p></li>
                             {#/foreach#}
                         </ul>
                     </div>
@@ -295,7 +295,7 @@
                                     <a class="name" href="/job/{#$list.id#}.html" title="{#if empty($news_district.sdistrict_parent)#}{#$news_district.district_cn#}{#else#}{#$news_district.sdistrict_cn#}{#/if#}{#$list.jobs_name#}招聘" target="_blank">{#$list.jobs_name#}</a>
                                     <span class="wage">{#$list.wage_cn#}</span>
                                     <div class="clear"></div>
-                                    <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#$list.amount#}人</p>
+                                    <p class="info">{#$list.district_cn#} / {#$list.experience_cn#} / {#$list.education_cn|default:"不限"#} / {#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
                                 </div>
                                 <div class="bottom">
                                     <span class="company">{#$list.companyname#}</span>

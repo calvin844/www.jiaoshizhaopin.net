@@ -700,8 +700,14 @@ function get_tpl($type, $id) {
     }
     if (empty($thistpl)) {
         if ($type == 'resume') {
-            $thistpl = "../tpl_resume/{$_CFG['tpl_personal']}/";
-            $smarty->assign('user_tpl', $_CFG['main_domain'] . "templates/tpl_resume/{$_CFG['tpl_personal']}/");
+            $tpl_dir = $_CFG['tpl_personal'];
+            $utpl = $db->getone("SELECT * FROM " . table("personal_resume_tpl") . " WHERE resume_id='{$id}' AND endtime>" . time() . " order by id desc limit 1");
+            if (!empty($utpl)) {
+                $tpl = $db->getone("SELECT * FROM " . table("tpl") . " WHERE tpl_id=" . $utpl['tpl_id'] . " AND tpl_type =2 AND tpl_display=1");
+                $tpl_dir = !empty($tpl['tpl_dir']) ? $tpl['tpl_dir'] : $_CFG['tpl_personal'];
+            }
+            $thistpl = "../tpl_resume/" . $tpl_dir . "/";
+            $smarty->assign('user_tpl', $_CFG['main_domain'] . "templates/tpl_resume/" . $tpl_dir . "/");
             return $thistpl;
         } elseif ($type == 'course' || $type == 'train_profile' || $type == 'trainnewsshow') {
             $thistpl = "../tpl_train/{$_CFG['tpl_train']}/";

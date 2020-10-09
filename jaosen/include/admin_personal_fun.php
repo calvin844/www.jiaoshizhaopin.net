@@ -224,6 +224,37 @@ function edit_resume_talent($id, $talent) {
     return false;
 }
 
+//修改简历模版
+function set_resume_tpl($id, $tpl_id, $tpl_days = 0) {
+    global $db;
+    $tpl_id = intval($tpl_id);
+    if (!is_array($id))
+        $id = array($id);
+    //$sqlin = implode(",", $id);
+    $set_str = $tpl_id == 2 ? "endtime=" . intval(time() - 1) : "tpl_id=" . $tpl_id . " , endtime=endtime+" . ($tpl_days * 86400);
+    foreach ($id as $id) {
+        $sql = "select * from " . table('personal_resume_tpl') . " where resume_id=" . $id . " order by id desc LIMIT 1";
+        $log = $db->getone($sql);
+        if (!empty($log)) {
+            if (!$db->query("update  " . table('personal_resume_tpl') . " SET " . $set_str . "  WHERE resume_id = " . $id)) {
+                return false;
+            }
+        } elseif ($tpl_id != 2 && $tpl_days > 0) {
+            $sql = "select * from " . table('resume') . " where id=" . $id . " LIMIT 1";
+            $resume = $db->getone($sql);
+            $setsqlarr['uid'] = $resume['uid'];
+            $setsqlarr['resume_id'] = $id;
+            $setsqlarr['tpl_id'] = $tpl_id;
+            $setsqlarr['addtime'] = time();
+            $setsqlarr['endtime'] = time() + $tpl_days * 86400;
+            if (!inserttable(table('personal_resume_tpl'), $setsqlarr)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 //从UID获取所有简历
 function get_resume_uid($uid) {
     global $db;
@@ -531,6 +562,47 @@ function attachment_resume_del($uid) {
         }
     }
     return TRUE;
+}
+
+//******************************订单管理**********************************
+//订单列表
+function get_order_list($offset, $perpage, $get_sql = '') {
+    global $db;
+    $row_arr = array();
+    $limit = " LIMIT " . $offset . ',' . $perpage;
+    $result = $db->query("SELECT o.*,m.username,m.email,r.fullname FROM " . table('personal_resume_tpl_order') . " as o " . $get_sql . $limit);
+    while ($row = $db->fetch_array($result)) {
+        $row['payment_name'] = get_payment_info($row['payment_name'], true);
+        $row_arr[] = $row;
+    }
+    return $row_arr;
+}
+
+//获取充值支付方式名称
+function get_payment_info($typename, $name = false) {
+    global $db;
+    $sql = "select * from " . table('payment') . " where typename ='" . $typename . "'";
+    $val = $db->getone($sql);
+    if ($name) {
+        return $val['byname'];
+    } else {
+        return $val;
+    }
+}
+
+//取消订单
+function del_order($id) {
+    global $db;
+    if (!is_array($id))
+        $id = array($id);
+    $sqlin = implode(",", $id);
+    if (preg_match("/^(\d{1,10},)*(\d{1,10})$/", $sqlin)) {
+        if (!$db->query("update  " . table('personal_resume_tpl_order') . " SET state='3'  WHERE id IN (" . $sqlin . ")")) {
+            return false;
+        }
+        return true;
+    }
+    return false;
 }
 
 ?>

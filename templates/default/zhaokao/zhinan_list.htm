@@ -63,7 +63,7 @@
                             {#if $list.jobs_count > 0#}
                             <ul class="jobs">
                                 {#foreach from=$list.jobs_list item=j#}
-                                <li><a title="{#$j.job_name#}" href="{#$j.url#}">{#$j.job_name#}£®<span>{#$j.amount#}</span>£©</a></li>
+                                <li><a title="{#$j.job_name#}" href="{#$j.url#}">{#$j.job_name#}£®<span>{#if $j.amount == 0#}»Ù∏…{#else#}{#$j.amount#}{#/if#}</span>£©</a></li>
                                 {#/foreach#}
                             </ul>
                             <div class="clear"></div>

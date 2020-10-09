@@ -250,7 +250,7 @@ elseif ($act == 't_account') {
             $paymenttpye['typename'] = "alipayapi";
             $respond_name = "alipay";
         } else {
-            $respond_name = $payment['typename'];
+            $respond_name = $paymenttpye['typename'];
         }
     }
     $order['v_url'] = $_CFG['main_domain'] . "include/payment/respond_" . $respond_name . ".php";

@@ -35,28 +35,6 @@ switch ($type_name) {
         $type_cn = "培训机构";
         $tp_name = "2019_jobs_type_list";
         break;
-    case 'chengkao':
-        $article_id_arr = "1, 2, 3,4,5,8";
-        $jobs_id_arr = "";
-        $nature = 62;
-        $type_cn = "成考";
-        $tp_name = "2019_jobs_type_list";
-        break;
-    case 'kaobian':
-        $article_id_arr = "1, 2, 3,4,5,8";
-        $jobs_id_arr = "";
-        $nature = 62;
-        $type_cn = "考编";
-        $tp_name = "2019_jobs_type_list";
-        break;
-    case 'daxuesheng':
-        $article_id_arr = "10";
-        $jobs_id_arr = "";
-        $nature = 63;
-        $experience = 74;
-        $type_cn = "大学生";
-        $tp_name = "2019_daxuesheng_list";
-        break;
     default:
         $article_id_arr = "4";
         $jobs_id_arr = "2";

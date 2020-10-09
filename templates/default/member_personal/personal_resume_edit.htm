@@ -1995,6 +1995,8 @@
                                 <div class="progress_box">
                                     <p style="width: {#$resume_basic.complete_percent#}%"></p>
                                 </div>
+                                <div class="clear"></div>
+                                <span class="left">简历模版：{#$tpl_name#}</span>
                             </div>
                             <ul class="bottom">
                                 <li class="up_resume">
@@ -2003,6 +2005,9 @@
                                     {#else#}
                                     <a onclick="javasirpt:alert('您已是高级简历');"><i></i><span>升级简历</span></a>
                                     {#/if#}
+                                </li>
+                                <li class="set_tpl">
+                                    <a href="/user/personal/personal_resume.php?act=set_resume_tpl"><i></i><span>设置模版</span></a>
                                 </li>
                                 <li class="look_resume">
                                     <a href="/user/personal/personal_apply.php?act=attention_me"><i></i><span>{#$count_attention_me#}</span></a>

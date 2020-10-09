@@ -165,7 +165,7 @@
                                                     </div>
                                                     <div class="clear"></div>
                                                     <div class="txt">
-                                                        <p>学历要求：{#$list.education_cn|default:"不限"#}&nbsp;&nbsp;|&nbsp;&nbsp;工作经验：{#$list.experience_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;工作地点：{#$list.district_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;招聘人数：{#$list.amount#}人&nbsp;&nbsp;|&nbsp;&nbsp;薪资待遇：{#$list.wage_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$list.refreshtime_cn#}发布</p>
+                                                        <p>学历要求：{#$list.education_cn|default:"不限"#}&nbsp;&nbsp;|&nbsp;&nbsp;工作经验：{#$list.experience_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;工作地点：{#$list.district_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;招聘人数：{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人&nbsp;&nbsp;|&nbsp;&nbsp;薪资待遇：{#$list.wage_cn#}&nbsp;&nbsp;|&nbsp;&nbsp;{#$list.refreshtime_cn#}发布</p>
                                                         <div class="briefly">{#$list.briefly#}</div>
                                                     </div>
                                                     </div>

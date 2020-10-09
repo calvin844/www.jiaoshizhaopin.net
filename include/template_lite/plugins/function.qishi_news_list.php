@@ -160,10 +160,10 @@ function tpl_function_qishi_news_list($params, &$smarty) {
                 $te_level = 2;
             }
             $smarty->assign('district', $district);
-        } elseif ($aset['district'] == "morejobs" || $aset['district'] != "internship" || $aset['district'] != "news_b_list") {
+        } elseif ($aset['district'] == "morejobs" || $aset['district'] != "internship") {
             $parent_district['id'] = 0;
             $smarty->assign('district', $parent_district);
-        } elseif ($aset['district'] != "morejobs" && $aset['district'] != "internship" && $aset['district'] != "news_b_list") {
+        } elseif ($aset['district'] != "morejobs" && $aset['district'] != "internship") {
             Header("Location: /404.html");
             exit;
         }
@@ -582,9 +582,6 @@ function tpl_function_qishi_news_list($params, &$smarty) {
 //} 
     $channel = array("url" => '/morejobs', "name" => '¼òÕÂ');
     $smarty->assign('channel', $channel);
-    if ($aset['district'] == "news_b_list") {
-        $list = "";
-    }
     $smarty->assign($aset['listname'], $list);
 }
 

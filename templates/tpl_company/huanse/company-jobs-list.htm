@@ -101,7 +101,7 @@ $(document).ready(function()
 				{#/if#}
 				</div>
 				<div class="amount">
-				工作地点：<a href="{#"QS_jobslist,district:"|cat:$list.district|cat:"-sdistrict:"|cat:$list.sdistrict|qishi_url#}" style="text-decoration:underline">{#$list.district_cn#}</a>&nbsp;&nbsp;|&nbsp;&nbsp;招聘人数：{#$list.amount#}人&nbsp;&nbsp;|&nbsp;&nbsp;点击：{#$list.click#}次&nbsp;&nbsp;|&nbsp;&nbsp;更新日期：{#$list.refreshtime_cn#}
+				工作地点：<a href="{#"QS_jobslist,district:"|cat:$list.district|cat:"-sdistrict:"|cat:$list.sdistrict|qishi_url#}" style="text-decoration:underline">{#$list.district_cn#}</a>&nbsp;&nbsp;|&nbsp;&nbsp;招聘人数：{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人&nbsp;&nbsp;|&nbsp;&nbsp;点击：{#$list.click#}次&nbsp;&nbsp;|&nbsp;&nbsp;更新日期：{#$list.refreshtime_cn#}
 				</div>
 				<div class="txt">{#$list.briefly#}</div>
 			    </div>
@@ -162,7 +162,7 @@ $(document).ready(function()
 					<div class="txt1 link_lan">
 					<strong><a href="{#$list.jobs_url#}" target="_blank">{#$list.jobs_name#}</a></strong><br />
 					<a href="{#$list.company_url#}" target="_blank">{#$list.companyname#}</a><br />
-					薪资待遇：{#$list.wage_cn#}<br />招聘人数：{#$list.amount#}人<br />学历要求：{#$list.education_cn|default:"不限"#}
+					薪资待遇：{#$list.wage_cn#}<br />招聘人数：{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人<br />学历要求：{#$list.education_cn|default:"不限"#}
 					</div>
 					{#/foreach#}
 			</div>

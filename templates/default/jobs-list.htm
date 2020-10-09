@@ -626,7 +626,7 @@
                             <div class="info">
                                 <a href="{#$list.jobs_url#}" title="{#$list.d_cn#}{#$list.jobs_name_#}招聘" target="_blank">{#$list.jobs_name#}</a>
                                 <div class="clear"></div>
-                                <p><span>{#$list.wage_cn#}</span>&nbsp;&nbsp;&nbsp;&nbsp;{#$list.experience_cn#}/{#$list.education_cn|default:"不限"#}/{#$list.amount#}人</p>
+                                <p><span>{#$list.wage_cn#}</span>&nbsp;&nbsp;&nbsp;&nbsp;{#$list.experience_cn#}/{#$list.education_cn|default:"不限"#}/{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人</p>
                             </div>
                             <div class="company">
                                 <b><a href="{#$list.company_url#}" title="{#$list.companyname#}招聘" target="_blank">{#$list.companyname#}</a></b><!--<i class="vip"></i><i class="auth"></i><i class="setmeal"></i>-->

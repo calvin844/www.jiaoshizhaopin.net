@@ -61,6 +61,7 @@ if ($user['status'] == "2") {
 }
 if ($act == "app") {
     $id = isset($_GET['id']) ? $_GET['id'] : exit("id 丢失");
+    $job_id = isset($_GET['job_id']) ? intval($_GET['job_id']) : 0;
     //这里开始发送邮件，先检查简章是否有邮箱，没有邮箱则提示直接打电话咨询或登录相关网站
     $article = app_get_article($id);
     if (empty($article)) {
@@ -85,9 +86,9 @@ if ($act == "app") {
     $article_jobs_list = get_mem_cache($sql, "get_all");
     ?>
     <script type="text/javascript">
-        $(".but80").hover(function () {
+        $(".but80").hover(function() {
             $(this).addClass("but80_hover")
-        }, function () {
+        }, function() {
             $(this).removeClass("but80_hover")
         });
         //计算今天申请数量
@@ -97,7 +98,7 @@ if ($act == "app") {
         $(".ajax_app_tip > span:eq(1)").html(app_today);
         $(".ajax_app_tip > span:eq(2)").html(app_max - app_today);
         //验证
-        $("#ajax_app").click(function () {
+        $("#ajax_app").click(function() {
             /*if (app_max-app_today==0 || app_max-app_today<0 )
              {
              alert("您今天投简历数量已经超出最大限制！");
@@ -127,13 +128,13 @@ if ($act == "app") {
                 pms_notice = 1;
             else
                 pms_notice = 0;
-            $("#app :checkbox[checked][name='jobsid']").each(function (index) {
+            $("#app :checkbox[checked][name='jobsid']").each(function(index) {
                 jidArr[index] = $(this).val();
             });
             //这里发邮件
             //
             $.post("<?php echo $_CFG['website_dir'] ?>user/user_apply_article.php", {"resumeid": $("#app :radio[checked]").val(), "email": $("#email").val(), "article_job": $("#article_job").val(), "note": $("#note").val(), "article_id": <?php echo $_GET['id']; ?>, "time": tsTimeStamp, "act": "app_save"},
-            function (data, textStatus)
+            function(data, textStatus)
             {
                 if (data == "ok")
                 {
@@ -141,7 +142,7 @@ if ($act == "app") {
                     $("#notice").hide();
                     $("#waiting").hide();
                     $("#app_ok").show();
-                    $("#app_ok .closed").click(function () {
+                    $("#app_ok .closed").click(function() {
                     });
                 }
                 else if (data == "repeat")
@@ -184,7 +185,8 @@ if ($act == "app") {
                     <select id="article_job" style="border:1px solid #ccc; padding:0px 5px 0px 0px;" name="article_job">
                         <?php
                         foreach ($article_jobs_list as $jobs) {
-                            echo "<option value = '" . $jobs['id'] . "'>" . $jobs['job_name'] . "</option>";
+                            $select_str = $jobs['id'] == $job_id && $job_id > 0 ? "selected" : "";
+                            echo "<option value = '" . $jobs['id'] . "' " . $select_str . ">" . $jobs['job_name'] . "</option>";
                         }
                         ?>
                     </select>

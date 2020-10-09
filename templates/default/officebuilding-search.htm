@@ -189,7 +189,7 @@
                                         </div>
                                         <div class="clear"></div>							
                                         <div class="txt striking">
-                                            <p class="link_bku">工作地点：<a href="{#"QS_jobslist,district:"|cat:$list.district|cat:"-sdistrict:"|cat:$list.sdistrict|qishi_url#}">{#$list.district_cn#}</a>{#if $list.street_cn#}&nbsp;&nbsp;<a href="{#"QS_street,streetid:"|cat:$list.street|qishi_url#}" >{#$list.street_cn#}</a>{#/if#}{#if $list.officebuilding_cn#}&nbsp;&nbsp;<a href="{#"QS_officebuilding,officebuildingid:"|cat:$list.officebuilding|qishi_url#}" >{#$list.officebuilding_cn#}</a>{#/if#}&nbsp;&nbsp;&nbsp;&nbsp;学历要求：{#$list.education_cn|default:"不限"#}  | 性别要求：{#$list.sex_cn#}  | 招聘人数：{#$list.amount#}人   | 点击：{#$list.click#}次</p>
+                                            <p class="link_bku">工作地点：<a href="{#"QS_jobslist,district:"|cat:$list.district|cat:"-sdistrict:"|cat:$list.sdistrict|qishi_url#}">{#$list.district_cn#}</a>{#if $list.street_cn#}&nbsp;&nbsp;<a href="{#"QS_street,streetid:"|cat:$list.street|qishi_url#}" >{#$list.street_cn#}</a>{#/if#}{#if $list.officebuilding_cn#}&nbsp;&nbsp;<a href="{#"QS_officebuilding,officebuildingid:"|cat:$list.officebuilding|qishi_url#}" >{#$list.officebuilding_cn#}</a>{#/if#}&nbsp;&nbsp;&nbsp;&nbsp;学历要求：{#$list.education_cn|default:"不限"#}  | 性别要求：{#$list.sex_cn#}  | 招聘人数：{#if $list.amount == 0#}若干{#else#}{#$list.amount#}{#/if#}人   | 点击：{#$list.click#}次</p>
                                             <p style="color: #999999" class="striking">{#$list.briefly#}</p>
                                         </div>							
                                         <div class="tag">

@@ -94,7 +94,6 @@ function respond() {
     $transport = "http";
     $alipay = new alipay_notify($partner, $key, $sign_type, $_input_charset, $transport);
     $verify_result = $alipay->return_verify();
-    pay_test_log("返回验证结果为：" . $verify_result . "，订单号：" . $_GET['out_trade_no']);
     if ($verify_result) {//验证成功
         $dingdan = $_GET['out_trade_no'];  //获取订单号
         $total_fee = $_GET['total_fee'];  //获取总价格

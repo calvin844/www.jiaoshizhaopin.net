@@ -243,7 +243,7 @@ div.attachment_box .content_box div.bottom p{ font-size:14px; color:#808080; mar
 #content .right_box .info_box div.top span.left{ font-size:14px; color:#333;}
 #content .right_box .info_box div.top a.right{ color:#188eee;}
 #content .right_box .info_box div.top a.right:hover{ text-decoration:underline;}
-#content .right_box .info_box div.top div.progress_box{ width:100%; background:#ebebeb; border-radius:10px; height:5px; overflow:hidden; margin:12px 0px 0px 0px;}
+#content .right_box .info_box div.top div.progress_box{ width:100%; background:#ebebeb; border-radius:10px; height:5px; overflow:hidden; margin:12px 0px 12px 0px;}
 #content .right_box .info_box div.top div.progress_box p{ width:5%; background:#188eee; border-radius:10px; height:5px;}
 #content .right_box .info_box ul.bottom{ margin:30px 0px 0px 0px;}
 #content .right_box .info_box ul.bottom li{ float:left; text-align:center;}
@@ -253,7 +253,11 @@ div.attachment_box .content_box div.bottom p{ font-size:14px; color:#808080; mar
 #content .right_box .info_box ul.bottom li.up_resume span{ margin:4px 0 0 0;}
 #content .right_box .info_box ul.bottom li.up_resume a:hover i{ background: url(../../images/2017/senior_icon_h.png); background-size:20px 20px;}
 #content .right_box .info_box ul.bottom li.up_resume a:hover span{ color:#188eee;}
-#content .right_box .info_box ul.bottom li.look_resume{ margin:0px 44px 0px 44px;}
+#content .right_box .info_box ul.bottom li.set_tpl i{ width:20px; height:20px; background: url(../../images/2017/tpl_icon.png);}
+#content .right_box .info_box ul.bottom li.set_tpl span{ margin:4px 0 0 0;}
+#content .right_box .info_box ul.bottom li.set_tpl a:hover i{ background: url(../../images/2017/tpl_icon_h.png);}
+#content .right_box .info_box ul.bottom li.set_tpl a:hover span{ color:#188eee;}
+#content .right_box .info_box ul.bottom li.look_resume{ margin:0px 18px 0px 16px;}
 #content .right_box .info_box ul.bottom li.look_resume i{ width:23px; height:24px; background: url(../../images/2017/foot_icon.png);}
 #content .right_box .info_box ul.bottom li.look_resume a:hover i{ background: url(../../images/2017/foot_icon_h.png);}
 #content .right_box .info_box ul.bottom li.look_resume a:hover span{ color:#188eee;}
