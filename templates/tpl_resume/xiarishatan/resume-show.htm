@@ -24,8 +24,8 @@
                     $("#resume_contact").html(data);
                 });
                 //下载简历
-                $("a#download").click(function() {
-                    //$('#content').on('click', "a.download", function () {
+//                $("a#download").click(function() {
+                $('#content').on('click', "a.download", function() {
                     var url = "{#$QISHI.website_dir#}user/user_download_resume.php?id=" + id + "&act=download&t=" + tsTimeStamp + "&job_apply_id=" + job_apply_id;
                     dialog("下载简历", "url:" + url, "500px", "auto", "");
                 });

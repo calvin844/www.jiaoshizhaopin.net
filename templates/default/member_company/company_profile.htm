@@ -2,6 +2,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
+        <meta http-equiv="expires" content="0"/>
         <link href="{#$QISHI.site_template#}css/2017/company_profile.css" type="text/css" rel="stylesheet"/>
         <title>{#$title#}</title>
     </head>
@@ -11,10 +14,10 @@
         {#include file="/2017/header.htm"#}
         <script src="{#$QISHI.site_template#}js/ajaxfileupload.js" type='text/javascript' language="javascript"></script>
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 function menuDown(menuId) {
                     $("#content").off('click', "#" + menuId + " div.text");
-                    $("#content").on('click', "#" + menuId + " div.text", function () {
+                    $("#content").on('click', "#" + menuId + " div.text", function() {
                         $(".select_box").find('ul.list').slideUp("fast");
                         $("#" + menuId).find('ul.list').slideDown('fast');
                         //生成背景
@@ -22,14 +25,14 @@
                         $(".menu_bg_layer").height($(document).height());
                         $(".menu_bg_layer").css({width: $(document).width(), position: "absolute", left: "0", top: "0", "z-index": "0", "background-color": "#ffffff"});
                         $(".menu_bg_layer").css("opacity", "0");
-                        $(".menu_bg_layer").click(function () {
+                        $(".menu_bg_layer").click(function() {
                             $(".menu_bg_layer").remove();
                             $("#" + menuId).find('ul.list').slideUp("fast");
                             $("#" + menuId).parent("div").css("position", "");
                         });
                     });
                     $("#content").off('click', "#" + menuId + " ul.list li");
-                    $("#content").on('click', '#' + menuId + ' ul.list li', function () {
+                    $("#content").on('click', '#' + menuId + ' ul.list li', function() {
                         var data = $(this).attr("data");
                         var text = $(this).find('span').html();
                         var sdistrict = $('#' + menuId).attr('data-sdistrict');
@@ -40,7 +43,7 @@
                         $(".menu_bg_layer").remove();
                         if (sdistrict == 1) {
                             var data_arr = data.split('-');
-                            $.get("?act=get_city&id=" + data_arr[0], function (result) {
+                            $.get("?act=get_city&id=" + data_arr[0], function(result) {
                                 var html = "";
                                 if (result.indexOf('||') > 0) {
                                     var arr = result.split("||");
@@ -58,7 +61,7 @@
                         }
                         if (job == 1) {
                             var data_arr = data.split('-');
-                            $.get("?act=get_job_type&id=" + data_arr[0], function (result) {
+                            $.get("?act=get_job_type&id=" + data_arr[0], function(result) {
                                 var html = "";
                                 if (result.indexOf('||') > 0) {
                                     var arr = result.split("||");
@@ -76,14 +79,14 @@
                         }
                     });
                 }
-                $('#content').ajaxStop(function () {
-                    $('div.select_box').each(function () {
+                $('#content').ajaxStop(function() {
+                    $('div.select_box').each(function() {
                         var did = $(this).attr('id');
                         menuDown(did);
                     })
                 })
 
-                $('div.select_box').each(function () {
+                $('div.select_box').each(function() {
                     var did = $(this).attr('id');
                     menuDown(did);
                 })
@@ -139,13 +142,13 @@
                             <img src="{#if !empty($company_profile.logo)#}/data/logo/{#$company_profile.logo#}{#else#}{#$QISHI.site_template#}images/2017/upload_img_300-110.jpg{#/if#}" width="300" height="110" />
                             <input type="file" name="logo" id="logo" class="logo_upload" />
                             <script>
-                                $('.logo').on('change', '.logo_upload', function () {
+                                $('.logo').on('change', '.logo_upload', function() {
                                     $.ajaxFileUpload({
                                         url: '?act=company_logo_save&ajax=1',
                                         secureuri: false,
                                         fileElementId: 'logo',
                                         dataType: 'string',
-                                        success: function (data, status) {
+                                        success: function(data, status) {
                                             switch (data) {
                                                 case "-1":
                                                     alert("上传图片失败：上传目录不存在!");
@@ -174,8 +177,9 @@
                                                 default:
                                                     break;
                                             }
-                                            $('.logo img').attr('src', data);
-                                            location.reload();
+                                            var timestamp = new Date().getTime();
+                                            $('.logo img').attr('src', data + "?" + timestamp);
+                                            //location.reload();
                                         }
                                     })
                                 })
@@ -263,7 +267,7 @@
                                 $('input[name=district]').parent().find('.text span').html(district_txt[0]);
                                 $('input[name=sdistrict]').val("{#$company_profile.sdistrict#}-" + district_txt[1]);
                                 $('input[name=sdistrict]').parent().find('.text span').html(district_txt[1]);
-                                $.get("?act=get_city&id={#$company_profile.district#}", function (result) {
+                                $.get("?act=get_city&id={#$company_profile.district#}", function(result) {
                                     var html = "";
                                     if (result.indexOf('||') > 0) {
                                         var arr = result.split("||");

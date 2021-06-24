@@ -67,7 +67,7 @@ div.label_select_box .select_box div.bottom a.right{ display:inline-block; width
 #content .right_box .function_box{ width:280px; float:left;}
 #content .right_box .function_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
 #content .right_box .function_box ul li{ float:left; width:280px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
-#content .right_box .function_box ul li a{ display:block; float:left; width:100%; height:100%;}
+#content .right_box .function_box ul li a{ display:block; float:left; width:100%;}
 #content .right_box .function_box ul li span{ float:left; font-size:14px; color:#808080; line-height:20px; display:inline-block;}
 #content .right_box .function_box ul li:hover span{ color:#188eee;}
 #content .right_box .function_box ul li i{ display:inline-block; float:left; margin:0px 30px 0px 0px; width:22px; height:23px;}
@@ -91,7 +91,7 @@ div.label_select_box .select_box div.bottom a.right{ display:inline-block; width
 #content .right_box .quick_box{ width:280px; margin:10px 0px 0px 0px; float:left;}
 #content .right_box .quick_box ul{ float:left; width:280px; padding:20px 0px 0px 0px; background:#fff;}
 #content .right_box .quick_box ul li{ float:left; width:53px; padding:0px 20px 0px 20px; margin:0px 0px 25px 0px;}
-#content .right_box .quick_box ul li a{ display:block; float:left; width:100%; height:100%; text-align:center;}
+#content .right_box .quick_box ul li a{ display:block; float:left; width:100%; text-align:center;}
 #content .right_box .quick_box ul li span{ color:#808080; line-height:20px; display:inline-block;}
 #content .right_box .quick_box ul li:hover span{ color:#188eee;}
 #content .right_box .quick_box ul li i{ display:inline-block; width:50px; height:50px;}
